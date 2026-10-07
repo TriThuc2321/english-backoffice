@@ -26,5 +26,6 @@
   },
   "sortPackageJson": {
     "sortScripts": true
-  }
+  },
+  "endOfLine": "lf"
 }
