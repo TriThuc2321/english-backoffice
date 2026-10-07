@@ -1,0 +1,4 @@
+{
+  "*.{js,jsx,ts,tsx}": ["oxlint --fix", "oxfmt", "bash -c tsc --noEmit"],
+  "*.{css,html,json,md}": ["oxfmt"]
+}

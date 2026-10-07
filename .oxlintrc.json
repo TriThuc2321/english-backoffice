@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript"],
+  "env": {
+    "browser": true
+  },
+  "ignorePatterns": [
+    "node_modules/**",
+    "out/**",
+    ".react-router/**",
+    "build/**"
+  ],
+  "rules": {
+    "no-console": ["error", { "allow": ["warn", "error", "info"] }],
+    "react/react-in-jsx-scope": "off",
+    "typescript/no-explicit-any": "off",
+    "typescript/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "typescript/consistent-type-imports": "error"
+  }
+}

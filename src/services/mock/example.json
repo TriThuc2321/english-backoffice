@@ -1,0 +1,3898 @@
+{
+  "id": "68dbff4e31fb60639f7216cc",
+  "createdAt": "2025-09-30T16:03:26.926+0000",
+  "lastModifiedAt": "2025-09-30T16:09:43.652+0000",
+  "userCourseOnlineTestId": "68afe09768fa2a4031a48c23",
+  "userId": "140848667931",
+  "studentRegistrationKey": "e334d3b4",
+  "status": "IN_PROGRESS",
+  "testResult": {
+    "total": 40,
+    "correct": 1,
+    "wrong": 2,
+    "missed": 37,
+    "score": 0.0
+  },
+  "testTakenTimeInSeconds": 358,
+  "testType": "FULL_TEST",
+  "mode": "ONLINE",
+  "test": {
+    "id": "60dbe0eefbd81c3fcad12d8d",
+    "createdAt": "2025-09-30T16:03:26.926+0000",
+    "lastModifiedAt": "2025-09-30T16:09:43.652+0000",
+    "createdBy": {
+      "name": "Thức Trần",
+      "picture": "https://lh3.googleusercontent.com/a/ACg8ocKFlzkEnG4tURocGWwG-3wDp0OQxS6Bta1_9pbHgTHvX8WCidZX=s96-c"
+    },
+    "lastModifiedBy": {
+      "name": "Thức Trần",
+      "picture": "https://lh3.googleusercontent.com/a/ACg8ocKFlzkEnG4tURocGWwG-3wDp0OQxS6Bta1_9pbHgTHvX8WCidZX=s96-c"
+    },
+    "testID": "CAM9_R3",
+    "name": "CAM9 - Reading Test 3",
+    "coverImage": {
+      "fileType": "PRIVATE",
+      "path": "PRIVATE/MEDIA/d84bff9a-4aa6-4b73-bc86-cccce36da1f6.png",
+      "url": "https://suijm9clouobj.vcdn.cloud/PRIVATE/MEDIA/d84bff9a-4aa6-4b73-bc86-cccce36da1f6.png",
+      "name": "Cover book cambridge ielts practice test_Cambridge IELTS Practice Test 1 copy.png",
+      "uploadedDate": "2021-06-30T03:11:37.039+0000",
+      "size": 227116,
+      "alt": "CAM9 - Reading Test 3"
+    },
+    "skill": "READING",
+    "totalSections": 3,
+    "totalDuration": 60,
+    "reviewTime": 0,
+    "testStatus": "ACTIVE",
+    "testSectionIds": [
+      "605acaf68a6f326944572487",
+      "605acfc68a6f326944572488",
+      "605ad14f8a6f32694457248a"
+    ],
+    "totalQuestion": 40,
+    "totalVocab": 303,
+    "totalPracticeTest": 3,
+    "used": true,
+    "practiceTests": [
+      {
+        "id": "605acaf68a6f326944572487",
+        "value": "Attitudes to language",
+        "publishFor": "FOR_ALL"
+      },
+      {
+        "id": "605acfc68a6f326944572488",
+        "value": "Tidal Power",
+        "publishFor": "FOR_ALL"
+      },
+      {
+        "id": "605ad14f8a6f32694457248a",
+        "value": "Information theory - the big idea",
+        "publishFor": "FOR_ALL"
+      }
+    ],
+    "publishFor": "FOR_ALL",
+    "studyTemplate": "SYLLABUS"
+  },
+  "testSections": [
+    {
+      "id": "605acaf68a6f326944572487",
+      "createdAt": "2025-03-29T04:46:48.013+0000",
+      "lastModifiedAt": "2025-09-04T03:34:57.876+0000",
+      "testSectionId": "CAM9_R3_P1",
+      "name": "Attitudes to language",
+      "coverImage": {
+        "fileType": "PRIVATE",
+        "path": "PUBLIC/MEDIA/762d6aa6-8622-4458-a4c7-b811c6ca025e.png",
+        "url": "https://suijm9clouobj.vcdn.cloud/PUBLIC/MEDIA/762d6aa6-8622-4458-a4c7-b811c6ca025e.png",
+        "name": "dol.vn_CAM9_R3_P1.png",
+        "uploadedDate": "2021-11-18T03:47:35.218+0000",
+        "size": 82948,
+        "alt": "Attitudes to language",
+        "caption": ""
+      },
+      "skill": "READING",
+      "duration": 20,
+      "status": "PUBLISHED",
+      "testType": "PRACTICE_TEST",
+      "vocab": {
+        "vocabs": [
+          {
+            "type": "ADJ",
+            "meaning": "Có thể hiểu được; dễ hiểu",
+            "pronounce": "ˌʌndərˈstændəbl",
+            "example": "Ex: Although I don't approve of his actions, I think they are understandable.",
+            "image": "https://thumbs.dreamstime.com/b/kids-thinking-idea-cute-children-character-posing-question-inspiration-isolated-white-background-vector-illustration-kids-169377495.jpg",
+            "value": "understandable",
+            "group": "Q1"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "lý lẽ, lý luận",
+            "pronounce": "ˈɑːrɡjumənt",
+            "example": "Ex: Having heard both sides of the argument, the court will make a decision.",
+            "image": "https://blog.kialo-edu.com/wp-content/uploads/sites/3/2023/09/argumentcoverscaled.png",
+            "value": "argument",
+            "group": "Q1, 2"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Có hệ thống",
+            "pronounce": "ˌsɪstəˈmætɪk",
+            "example": "Ex: None of the studies were sufficiently systematic to give a reliable result.",
+            "image": "https://markallenassets.blob.core.windows.net/communitycare/2019/09/AdobeStock_284223276-650.jpg",
+            "value": "systematic",
+            "group": "Q1"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "khách quan",
+            "pronounce": "əbˈdʒektɪv",
+            "example": "Ex: I can't really be objective when I'm judging my daughter's work.",
+            "image": "https://www.neptune-project.eu/var/website/storage/images/media/images/pages/fotolia_94772650_s.jpg/2817-1-eng-US/Fotolia_94772650_S.jpg_page.jpg",
+            "value": "objective",
+            "group": "Q1"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Quyền",
+            "pronounce": "raɪt",
+            "example": "Ex: Everyone should have the right to freedom of expression.",
+            "image": "https://whrpc.org/wp-content/uploads/2021/02/Human-Right_bg-1.jpg",
+            "value": "right",
+            "group": "Q1"
+          },
+          {
+            "type": "VERB",
+            "meaning": "xảy ra",
+            "pronounce": "əˈkɜːr",
+            "example": "Ex: Three major events occurred in my life that year.",
+            "image": "https://st3.depositphotos.com/3291867/13046/v/950/depositphotos_130464516-stock-illustration-radioactive-spill-industrial-workplace-accident.jpg",
+            "value": "occur",
+            "group": "Q1"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "cảm xúc",
+            "pronounce": "ɪˈməʊʃn",
+            "example": "Ex: The decision was based on emotion rather than rational thought.",
+            "image": "https://media.self.com/photos/5ec6858e2f8816a44af9f56d/4:3/w_2560%2Cc_limit/GettyImages-1174870662.jpg",
+            "value": "emotion",
+            "group": "Q1"
+          },
+          {
+            "type": "VERB",
+            "meaning": "khác, không giống",
+            "pronounce": "ˈdɪfər",
+            "example": "Ex: French differs from English in this respect.",
+            "image": "https://banx.mx/wp-content/uploads/2021/02/blog.jpg",
+            "value": "differ",
+            "group": "Q1, 13"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Cách sử dụng từ trong một ngôn ngữ",
+            "pronounce": "ˈjuːsɪdʒ",
+            "example": "Ex: Dictionaries show typical patterns of usage.",
+            "image": "https://grammarist.com/wp-content/uploads/Usage-in-English-Grammar-List-of-Examples-2.png",
+            "value": "usage",
+            "group": "Q2"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Nhỏ lẻ, không quan trọng",
+            "pronounce": "ˈmaɪnər",
+            "example": "Ex: There may be some minor changes to the schedule.",
+            "image": "https://thumbs.dreamstime.com/b/woman-s-hand-gesturing-small-amount-13237131.jpg",
+            "value": "minor",
+            "group": "Q2"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "chủ yếu, quan trọng",
+            "pronounce": "ˈmeɪdʒər",
+            "example": "Ex: He played a major role in setting up the system.",
+            "image": "https://convertwithcontent.com/wp-content/uploads/2014/01/the-most-important-part-of-your-business-is-you.jpg",
+            "value": "major",
+            "group": "Q2"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "chính sách",
+            "pronounce": "ˈpɒləsi",
+            "example": "Ex: The company has adopted a firm policy on shoplifting.",
+            "image": "https://sp-ao.shortpixel.ai/client/to_webp,q_lossy,ret_img,w_1536,h_864/https://esper.com/wp-content/uploads/2023/04/What-is-policy-management_-1536x864.png",
+            "value": "policy",
+            "group": "Q2"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "liên quan đến ngôn ngữ",
+            "pronounce": "lɪŋˈɡwɪstɪk",
+            "example": "Ex: I'm particularly interested in the linguistic development of young children.",
+            "image": "https://images.mini-ielts.com/images/2017/7/Linguistics%20logo..jpg",
+            "value": "linguistic",
+            "group": "Q2, 3, 5, 6"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự đánh giá; sự ước định",
+            "pronounce": "əˈsesmənt",
+            "example": "Ex: The city hired them to do a structural assessment of the damage.",
+            "image": "https://olc-wordpress-assets.s3.amazonaws.com/uploads/2019/12/Assessing-Across-Modalities.jpg",
+            "value": "assessment",
+            "group": "Q3"
+          },
+          {
+            "type": "VERB",
+            "meaning": "ảnh hưởng",
+            "pronounce": "əˈfekt",
+            "example": "Ex: Your opinion will not affect my decision.",
+            "image": "https://popsci.com.tr/wp-content/uploads/2020/10/mental-health.jpg?",
+            "value": "affect",
+            "group": "Q3"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Nhân tố",
+            "pronounce": "ˈfæktər",
+            "example": "Ex: The result will depend on a number of different factors.",
+            "image": "https://thumbs.dreamstime.com/b/people-environmental-sustainability-concept-people-environmental-sustainability-concept-132120690.jpg",
+            "value": "factor",
+            "group": "Q3"
+          },
+          {
+            "type": "VERB",
+            "meaning": "đánh giá",
+            "pronounce": "dʒʌdʒ",
+            "example": "Ex: You shouldn't judge her too harshly.",
+            "image": "https://miro.medium.com/max/1060/1*Z6jQgQzTfTg6ztw_R3xXtw.jpeg",
+            "value": "judge",
+            "group": "Q3"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Tình trạng",
+            "pronounce": "ˈsteɪtəs",
+            "example": "Ex: What is the current status of our application for funds?",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Barack_Obama_attends_a_briefing_on_Afghanistan_in_the_Situation_Room_of_the_White_House.jpg",
+            "value": "status",
+            "group": "Q3"
+          },
+          {
+            "type": "VERB",
+            "meaning": "ảnh hưởng",
+            "pronounce": "ˈɪnfluəns",
+            "example": "Ex: His film is heavily influenced by other film-makers.",
+            "image": "https://www.insidehighered.com/sites/default/files/media/cini_influence.jpg",
+            "value": "influence",
+            "group": "Q3"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "đề ra quy tắc, đưa ra cách dùng",
+            "pronounce": "prɪˈskrɪptɪv",
+            "example": "Ex:  For while there are detailed teacher's notes provided, the Student's Books themselves are not at all prescriptive.",
+            "image": "https://accent-technologies.com/wp-content/uploads/2020/06/BlogPage_PrescriptiveAnalytics2_Banner.png",
+            "value": "prescriptive",
+            "group": "Q4"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "cách tiếp cận, phương pháp",
+            "pronounce": "əˈprəʊtʃ",
+            "example": "Ex: The approach they were using no longer seemed to work.",
+            "image": "https://extension.umn.edu/sites/extension.umn.edu/files/SAHC%20website%20banner.png",
+            "value": "approach",
+            "group": "Q4, 6, 7, 10, 11, 12, 13"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Thái độ",
+            "pronounce": "ˈætɪtjuːd",
+            "example": "Ex: If you want to pass your exams you'd better change your attitude!",
+            "image": "https://cdn.psychologytoday.com/sites/default/files/field_blog_entry_images/smiley-1041796_960_720_0.jpg",
+            "value": "attitude",
+            "group": "Q5"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Khuyến khích, tạo động lực",
+            "pronounce": "ˈməʊtɪveɪt",
+            "example": "Ex: What motivates people to carry out such attacks?",
+            "image": "https://www.realestateexpress.com/wp-content/uploads/2019/01/blog-image-motivation.jpg",
+            "value": "motivate",
+            "group": "Q5"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "phổ biến rộng rãi",
+            "pronounce": "ˈwaɪdspred",
+            "example": "Ex: The storm caused widespread damage.",
+            "image": "https://wranglerspace.s3-accelerate.amazonaws.com/2019/09/nye-2019-add-tiny-1024x579.jpg",
+            "value": "widespread",
+            "group": "Q5"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "mối lo ngại, mối quan tâm",
+            "pronounce": "kənˈsɜːn",
+            "example": "Ex: Villagers expressed concern about the level of traffic.",
+            "image": "https://img.freepik.com/free-vector/concern-about-bills-concept-illustration_114360-19351.jpg",
+            "value": "concern",
+            "group": "Q5"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Tồn tại",
+            "pronounce": "ɪɡˈzɪst",
+            "example": "Ex: I don't think ghosts exist.",
+            "image": "https://i.ytimg.com/vi/fSQ1rfxW3hE/maxresdefault.jpg",
+            "value": "exist",
+            "group": "Q5"
+          },
+          {
+            "type": "VERB",
+            "meaning": "duy trì, khăng khăng",
+            "pronounce": "meɪnˈteɪn",
+            "example": "Ex: The men maintained that they were out of the country when the crime was committed.",
+            "image": "https://thumbs.dreamstime.com/b/different-thinking-decision-two-business-man-make-as-insist-their-own-choice-left-right-way-business-concept-41402164.jpg",
+            "value": "maintain",
+            "group": "Q5"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "lần thử, nỗ lực",
+            "pronounce": "əˈtempt",
+            "example": "Ex: Ex: Attempts are being made to resolve the problem of security in schools.",
+            "image": "https://thumbs.dreamstime.com/b/target-success-13853279.jpg",
+            "value": "attempt",
+            "group": "Q6"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Đánh giá",
+            "pronounce": "ɪˈvæljueɪt",
+            "example": "Ex: It's impossible to evaluate these results without knowing more about the research methods employed.",
+            "image": "https://smmadvertising.com/wp-content/uploads/2019/07/AS_112094565-evaluate-marketing-plan-7-10-18-1024x536.jpg",
+            "value": "evaluate",
+            "group": "Q6"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự đa dạng",
+            "pronounce": "daɪˈvɜːsəti",
+            "example": "Ex: There is a need for greater diversity and choice in education.",
+            "image": "https://www.omadasearch.com/wp-content/uploads/2020/02/diversity.jpeg",
+            "value": "diversity",
+            "group": "Q6"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "vô nghĩa",
+            "pronounce": "ˈpɔɪntləs",
+            "example": "Ex: We searched until we knew it would be pointless to continue.",
+            "image": "https://friendlystock.com/wp-content/uploads/2019/10/3-black-businessman-chasing-cash-on-stick-cartoon-clipart.jpg",
+            "value": "pointless",
+            "group": "Q6"
+          },
+          {
+            "type": "VERB",
+            "meaning": "quy định",
+            "pronounce": "prɪˈskraɪb",
+            "example": "Ex: What punishment does the law prescribe for this crime?",
+            "image": "https://www.csp.org.uk/sites/default/files/images/2019-04/digital_framework_news.jpg",
+            "value": "prescribe",
+            "group": "Q6, 7, 11, 12"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Ngăn cản",
+            "pronounce": "hɔːlt",
+            "example": "Ex: We are failing to halt the destruction of the rainforest.",
+            "image": "https://thumbs.dreamstime.com/b/person-gas-mask-calling-halt-wearing-protective-suit-front-confinement-tent-31952566.jpg",
+            "value": "halt",
+            "group": "Q6"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Tóm tắt, tổng kết",
+            "pronounce": "ˈsʌməraɪz",
+            "example": "Ex: The results of the research are summarized at the end of the chapter.",
+            "image": "http://1.bp.blogspot.com/-NSnCtcnzeO0/U6pv0yY9opI/AAAAAAAAAa0/_dtmGQoDxuQ/s1600/Fotolia_57071036_XS.jpg",
+            "value": "summarise",
+            "group": "Q6, 7, 11, 12"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự phát biểu, phát ngôn",
+            "pronounce": "ˈsteɪtmənt",
+            "example": "Ex: He made a rather misleading statement.",
+            "image": "https://www.aconsciousrethink.com/wp-content/uploads/2019/03/explain-things.jpg",
+            "value": "statement",
+            "group": "Q6, 7, 11, 12"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "biến thể",
+            "pronounce": "ˌveəriˈeɪʃn",
+            "example": "Ex: Further analysis revealed significant regional variations in the results.",
+            "image": "https://www.thoughtco.com/thmb/8Og-RJsBU1EDhDEq-FkbmFC2QFc=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/orange_tiger_white_tiger-56a09ae73df78cafdaa32c71.jpg",
+            "value": "variation",
+            "group": "Q6"
+          },
+          {
+            "type": "VERB",
+            "meaning": "xuất hiện",
+            "pronounce": "əˈpɪər",
+            "example": "Ex: Symptoms usually start appearing within two to three days.",
+            "image": "https://cdn4.vectorstock.com/i/1000x1000/56/98/magician-performing-his-trick-rabbit-appearing-vector-21815698.jpg",
+            "value": "appear",
+            "group": "Q7"
+          },
+          {
+            "type": "VERB",
+            "meaning": "ủng hộ",
+            "pronounce": "ˈædvəkət",
+            "example": "Ex: he group does not advocate the use of violence.",
+            "image": "https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/08/583356-5-Steps-to-Becoming-a-Conscious-Advocate-1296x728-Header.png?w=1155&h=1530",
+            "value": "advocate",
+            "group": "Q7, 11, 12"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "vô cùng, cực độ",
+            "pronounce": "ɪkˈstriːm",
+            "example": "Ex: We are working under extreme pressure at the moment.",
+            "image": "https://vcdn1-dulich.vnecdn.net/2013/11/13/asd-JPG-1407-1384314590.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=NHwZPgjqIsoIWcHXnOfgog",
+            "value": "extreme",
+            "group": "Q8"
+          },
+          {
+            "type": "VERB",
+            "meaning": "trình bày sai",
+            "pronounce": "ˌmɪsˌreprɪˈzent",
+            "example": "Ex: He felt that the book misrepresented his opinions.",
+            "image": "https://capicstorage.blob.core.windows.net/shared/myconsultant/webimages/1340-half.jpg",
+            "value": "misrepresent",
+            "group": "Q8"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự chống đối",
+            "pronounce": "ˌɑːpəˈzɪʃn",
+            "example": "Ex: He spent five years in prison for his opposition to the regime.",
+            "image": "https://www.isixsigma.com/wp-content/uploads/2010/02/Opposition-to-Lean-Six-Sigma.jpg",
+            "value": "opposition",
+            "group": "Q8"
+          },
+          {
+            "type": "ADV",
+            "meaning": "vốn có, vốn đã",
+            "pronounce": "ɪnˈhɪərəntli",
+            "example": "Ex: She felt that the system was inherently unfair and unequal.",
+            "image": "https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/000/206/145/datas/original.png",
+            "value": "inherently",
+            "group": "Q9"
+          },
+          {
+            "type": "VERB",
+            "meaning": "áp đặt",
+            "pronounce": "ɪmˈpəʊz",
+            "example": "Ex: The government has imposed a ban on the sale of handguns.",
+            "image": "https://cdn.vietnambiz.vn/2019/9/12/taxes-1568257146317797664579.jpg",
+            "value": "impose",
+            "group": "Q9"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Sự đa dạng",
+            "pronounce": "vəˈraɪəti",
+            "example": "Ex: In order to be healthy, a child needs to eat a variety of food.",
+            "image": "https://bcdairy.ca/wp-content/uploads/2021/08/Variety_Image_747px.jpg",
+            "value": "variety",
+            "group": "Q9"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Biểu thị đặc điểm, mô tả đặc điểm",
+            "pronounce": "ˈkærəktəraɪz",
+            "example": "Ex: How would you characterize the mood of the 1990s?",
+            "image": "https://images.squarespace-cdn.com/content/v1/50711a73e4b03adec664ae12/1544097984571-WLZLB2W6PU3XX5XL9UCR/ke17ZwdGBToddI8pDm48kK5ZgJ934hl5jzByRlMNF617gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0luUmcNM2NMBIHLdYyXL-JytGLG2WEFgtlvYkYLTiA9H1UvjSAzVIP56lK9ffmbPqg/image-asset.jpeg",
+            "value": "characterize",
+            "group": "Q10"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "bản chất",
+            "pronounce": "ˈneɪtʃər",
+            "example": "Ex: His work explores the nature of the mother-child relationship.",
+            "image": "https://www.staffsquared.com/wp-content/uploads/2020/08/rsz_adobestock_143383426.jpg",
+            "value": "nature",
+            "group": "Q10"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Dependence on or trust in someone or something.",
+            "pronounce": "rɪˈlaɪəns",
+            "example": "Ex: The region's reliance on tourism is unwise.",
+            "image": "https://www.michaelpage.co.uk/sites/michaelpage.co.uk/files/600x387-shutterstock_510170158.jpg",
+            "value": "reliance",
+            "group": "Q10"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "nhà ngôn ngữ học",
+            "pronounce": "ˈlɪŋɡwɪst",
+            "example": "Ex: She's an excellent linguist.",
+            "image": "https://alis.alberta.ca/media/697495/linguist.jpg",
+            "value": "linguist",
+            "group": "Q10"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Độc đoán",
+            "pronounce": "əˌθɔːrəˈteriən",
+            "example": "Ex: Many have accused him of an authoritarian style of leadership.",
+            "image": "https://thumbs.dreamstime.com/b/authoritarian-regime-flat-vector-illustration-authoritarian-regime-flat-vector-illustration-political-system-metaphor-form-179264566.jpg",
+            "value": "authoritarian",
+            "group": "Q10"
+          },
+          {
+            "type": "ADV",
+            "meaning": "Ngược lại mà nói",
+            "pronounce": "ˈkɑːnvɜːrsli",
+            "example": "Ex: You can add the fluid to the powder, or, conversely, the powder to the fluid.",
+            "image": "https://c8.alamy.com/comp/2A7FPJ3/think-different-concept-businessman-walking-by-the-wall-in-conversely-of-other-directions-2A7FPJ3.jpg",
+            "value": "conversely",
+            "group": "Q11, 12"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "thói quen",
+            "pronounce": "ˈkʌstəm",
+            "example": "Ex: It’s my custom to go for a walk on Saturday mornings",
+            "image": "https://news.mit.edu/sites/default/files/images/201802/MIT-Habit-Chunking.jpg",
+            "value": "custom",
+            "group": "Q11, 12"
+          },
+          {
+            "type": "VERB",
+            "meaning": "dựa vào",
+            "pronounce": "beɪs ɒn",
+            "example": "Ex: What are you basing this theory on?",
+            "image": "https://moviebabble.com/wp-content/uploads/2018/02/Based-on-a-True-Story.jpg",
+            "value": "base on",
+            "group": "Q11, 12"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Nguyên bản, khởi nguồn",
+            "pronounce": "əˈrɪdʒənl",
+            "example": "Ex: The room still has many of its original features.",
+            "image": "https://c8.alamy.com/comp/PX4AW0/eve-giving-adam-the-forbidden-fruit-PX4AW0.jpg",
+            "value": "original",
+            "group": "Q11, 12"
+          },
+          {
+            "type": "VERB",
+            "meaning": "bác bỏ",
+            "pronounce": "dɪsˈkredɪt",
+            "example": "Ex: These theories are now largely discredited among linguists.",
+            "image": "https://cdn-icons-png.flaticon.com/512/5059/5059440.png",
+            "value": "discredit",
+            "group": "Q13"
+          },
+          {
+            "type": "VERB",
+            "meaning": "đưa ra, bày ra",
+            "pronounce": "prɪˈzent",
+            "example": "Ex: Are you presenting a paper at the conference?",
+            "image": "https://static.vecteezy.com/system/resources/previews/010/990/258/non_2x/illustration-young-woman-showing-hand-gesture-copy-space-to-present-or-introduce-something-presentation-advertisement-introduce-concept-illustration-in-cartoon-style-vector.jpg",
+            "value": "present",
+            "group": "Q13"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Lời tường thuật",
+            "pronounce": "əˈkaʊnt",
+            "example": "Ex: The diaries contained a detailed account of the writer's experiences in China.",
+            "image": "https://www.thecenterforgrowth.com/assets/uploads/images/_1200x630_crop_center-center_82_none/Telling-Your-Partner-That-You-Are-Asexual.jpg?mtime=1593100553",
+            "value": "account",
+            "group": "Q13"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "nhất định, nào đó",
+            "pronounce": "ˈsɜːtn",
+            "example": "Ex: You can choose to only watch certain kinds of movies.",
+            "image": "https://cdn1.vectorstock.com/i/1000x1000/45/10/icon-two-people-at-a-certain-distance-from-each-vector-30574510.jpg",
+            "value": "certain",
+            "group": "Q13"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "lời chửi rủa",
+            "pronounce": "ɪnˈvektɪv",
+            "example": "Ex: The gesture infuriated him and he let out a stream of invective.",
+            "image": "https://i0.wp.com/richardverry.com/wp-content/uploads/2016/10/vituperation-sustained-harshly-abusive-language-invective-vocabulary-pics.jpg?fit=535%2C429&ssl=1",
+            "value": "invective",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "tranh cãi gay gắt",
+            "pronounce": "pəˈlemɪk",
+            "example": "Ex: She has published a fierce anti-war polemic.",
+            "image": "https://www.wineverygame.com/words/images/polemic.jpg",
+            "value": "polemic",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "tranh luận",
+            "pronounce": "dɪˈbeɪt",
+            "example": "Ex: Politicians will be debating the bill later this week.",
+            "image": "https://ichef.bbci.co.uk/news/976/cpsprodpb/4081/production/_114631561_debates_index_promo976.png",
+            "value": "debate",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "trở nên xấu hơn",
+            "pronounce": "dɪˈtɪəriəreɪt",
+            "example": "Ex: They had to cope with deteriorating weather conditions.",
+            "image": "https://upload.wikimedia.org/wikipedia/en/b/b0/Deteriorate-havana-building.JPG",
+            "value": "deteriorate",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "miễn",
+            "pronounce": "ɪɡˈzempt",
+            "example": "Ex: Some students are exempt from certain exams.",
+            "image": "https://www.rupeeiq.com/wp-content/uploads/2020/02/taxexemption2020.jpg",
+            "value": "exempt",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự nói đến, sự nhắc đến",
+            "pronounce": "ˈrefrəns",
+            "example": "Ex: She made no reference to her illness but only to her future plans.",
+            "image": "https://img.freepik.com/premium-vector/book-reference-concept-library-literature-education-concept-design-idea-brainstorming-flat-illustration-vector-template_128772-1200.jpg",
+            "value": "reference",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "ủng hộ, thích dùng hơn",
+            "pronounce": "ˈfeɪvər",
+            "example": "Ex: These are the running shoes favoured by marathon runners.",
+            "image": "https://static01.nyt.com/images/2019/12/08/business/06View-illo/06View-illo-superJumbo.jpg",
+            "value": "favour",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "phản ánh, cho thấy bản chất của",
+            "pronounce": "rɪˈflekt",
+            "example": "Ex: Our newspaper aims to reflect the views of the local community.",
+            "image": "https://static.vecteezy.com/system/resources/previews/008/779/067/non_2x/business-woman-see-reflection-from-mirror-she-get-award-and-victory-from-win-work-herself-successful-concept-vector.jpg",
+            "value": "reflect",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "chạm trán, gặp gỡ",
+            "pronounce": "ɪnˈkaʊntər",
+            "example": "Ex: We encountered a number of difficulties in the first week.",
+            "image": "https://miro.medium.com/max/400/0*5g4tiVZg0kL_QpJk.jpg",
+            "value": "encounter",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "người ủng hộ",
+            "pronounce": "ədˈhɪrənt",
+            "example": "Ex: The anti-globalization movement is attracting new adherents to its principles.",
+            "image": "https://blog.capterra.com/wp-content/uploads/2019/02/HEAD-Brand_Advocacy_Programs-_The_Secret_Weapon_of_the_Burgeoning_Small_Business_Hero_no_text.jpg",
+            "value": "adherent",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Rõ ràng",
+            "pronounce": "əˈpærənt",
+            "example": "Ex: It soon became apparent to everyone that he couldn't sing.",
+            "image": "https://mongabay-images.s3.amazonaws.com/1200/uganda/ug4_4932.jpg",
+            "value": "apparent",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "biện pháp nửa vời",
+            "pronounce": "ˌhæf ˈmeʒərz",
+            "example": "Ex: There are no half measures with this company.",
+            "image": "https://publicans.files.wordpress.com/2016/06/obvious-math.jpg",
+            "value": "half-measures",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Xung đột, tranh cãi",
+            "pronounce": "ˈdɪspjuːt",
+            "example": "Ex: The union is in dispute with management over working hours.",
+            "image": "https://thumbs.dreamstime.com/b/dispute-conflict-company-vector-illustration-flat-employees-man-hid-under-table-cartoon-150689344.jpg",
+            "value": "dispute",
+            "group": "General"
+          },
+          {
+            "type": "ADV",
+            "meaning": "một cách chính xác",
+            "pronounce": "ˈækjərətli",
+            "example": "Ex: The article accurately reflects public opinion.",
+            "image": "https://www.alfadispenser.com/wp-content/uploads/2018/10/Accuracy_repeatability.jpg",
+            "value": "accurately",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Pháp luật",
+            "pronounce": "ˌledʒɪsˈleɪʃn",
+            "example": "Ex: They are calling for tough legislation to tackle this problem.",
+            "image": "https://bus-hunter.com/wp-content/uploads/2020/01/BusHunter-regulations-and-laws-1.png",
+            "value": "legislation",
+            "group": "General"
+          },
+          {
+            "type": "ADV",
+            "meaning": "bằng nhau",
+            "pronounce": "ˈiːkwəli",
+            "example": "Ex: Diet and exercise are equally important.",
+            "image": "https://biblicalpersonhood.files.wordpress.com/2015/07/scales-man-woman-11783392.jpg",
+            "value": "equally",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "có căn cứ",
+            "pronounce": "ˈvælɪd",
+            "example": "Ex: She had valid reasons for not supporting the proposals.",
+            "image": "https://global-exam.com/blog/wp-content/uploads/2019/05/TOEFLValidity1-300x300.png",
+            "value": "valid",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "chú ý, nhận thấy",
+            "pronounce": "nəʊt",
+            "example": "Ex: It should be noted that dissertations submitted late will not be accepted.",
+            "image": "https://assets.readitforward.com/wp-content/uploads/2019/05/readitforward-social.jpg",
+            "value": "note",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "chỉ trích",
+            "pronounce": "ˈkrɪtɪsaɪz",
+            "example": "Ex: The decision was harshly criticised by environmental groups.",
+            "image": "https://2uc5db1v032h5jwcm2gal07i-wpengine.netdna-ssl.com/wp-content/uploads/legacy/sites/default/files/istock-577629518.png",
+            "value": "criticise",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "xã hội",
+            "pronounce": "səˈsaɪəti",
+            "example": "Ex: Every section of society must have access to education.",
+            "image": "https://www.policynote.ca/wp-content/uploads/2020/05/pn_may2020_more-equitable-society_OG.png",
+            "value": "society",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "tấn công, chỉ trích",
+            "pronounce": "əˈtæk",
+            "example": "Ex: He was publicly attacked for his political views.",
+            "image": "https://cleanerstips.files.wordpress.com/2015/04/how-to-respond-to-verbal-attacks-and-criticism.jpg",
+            "value": "attack",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "đề nghị, đề xuất, gợi ý",
+            "pronounce": "prəˈpaʊnd",
+            "example": "Ex: It was Ptolemy who propounded the theory that the earth was at the centre of the universe.",
+            "image": "https://thumbs.dreamstime.com/b/businesswoman-presenting-new-project-to-partners-office-asian-77105296.jpg",
+            "value": "propound",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "mối quan hệ",
+            "pronounce": "rɪˈleɪʃn",
+            "example": "Ex: Little of what he said has any relation to fact.",
+            "image": "https://lavapeducoeur.fr/wp-content/uploads/user_ui/devenir_beneficiaire.png",
+            "value": "relation",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự lệch, sự chệch hướng",
+            "pronounce": "ˌdiːviˈeɪʃn",
+            "example": "Ex: We do not expect any significant deviations from the business plan.",
+            "image": "https://thumbs.dreamstime.com/z/d-unique-deviating-arrow-row-render-59209798.jpg",
+            "value": "deviation",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "tránh",
+            "pronounce": "əˈvɔɪd",
+            "example": "Ex: We must find a way to avoid similar problems in future.",
+            "image": "https://friendlystock.com/wp-content/uploads/2020/05/6-businessman-ducking-for-cover-cartoon-clipart.jpg",
+            "value": "avoid",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "hệ thống hóa",
+            "pronounce": "ˈkɑːdɪfaɪ",
+            "example": "Ex: The authors wish to codify and clarify where privacy and free speech rights begin and end.",
+            "image": "https://miro.medium.com/max/5964/1*TFUJhlaJh6fmN19Jz3K3nQ.jpeg",
+            "value": "codify",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Nguyên tắc",
+            "pronounce": "ˈprɪnsəpl",
+            "example": "Ex: She went on to explain the principles behind what she was doing.",
+            "image": "https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/158514276/original/a6f5e51196093d0d1243aad26c037baddd6e51e1/solve-problems-in-24-hours.png",
+            "value": "principle",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "tình trạng hỗn loạn",
+            "pronounce": "ˈkeɪɒs",
+            "example": "Ex: Heavy snow has caused total chaos on the roads.",
+            "image": "https://previews.123rf.com/images/microone/microone1909/microone190900839/130722932-chaos-in-workplace-sleepy-lazy-unorganized-employees-in-office-bad-organization-control-business-cor.jpg",
+            "value": "chaos",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "chung, phổ biến",
+            "pronounce": "ˈkɒmən",
+            "example": "Ex:They share a common interest in photography.",
+            "image": "https://miro.medium.com/max/1200/1*B-GVnQ8Jq3XBmcCp83eJFg.png",
+            "value": "common",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "ghi chép, ghi nhận",
+            "pronounce": "ˈrekɔːd",
+            "example": "Ex: Unemployment is likely to reach the highest total that has ever been recorded.",
+            "image": "https://sites.google.com/a/sandi.net/giannipe/gianni-s-video-production/record.jpg?attredirects=0",
+            "value": "record",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "lựa chọn khác",
+            "pronounce": "ɔːlˈtɜːnətɪv",
+            "example": "Ex: The car is too expensive so we're trying to find a cheaper alternative.",
+            "image": "http://tienganhmoingay.com/static/Vocabulary/images/word_images/alternative.png",
+            "value": "alternative",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "nguyên lý; giáo lý; chủ nghĩa",
+            "pronounce": "ˈtenɪt",
+            "example": "Ex: It is a tenet of contemporary psychology that an individual's mental health is supported by having good social networks.",
+            "image": "http://www.ibbcv.com/wp-content/uploads/2014/04/Haris-Turner-2-1024x683.jpg",
+            "value": "tenet",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "phân tích",
+            "pronounce": "əˈnæləsɪs",
+            "example": "Ex: Further analysis revealed significant regional variations in the results.",
+            "image": "https://image.freepik.com/free-photo/business-people-analyse-high-performance-solution_1421-1198.jpg",
+            "value": "analysis",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "mù quáng",
+            "pronounce": "blaɪnd",
+            "example": "Ex: blind anger/faith/prejudice\nEx: It was a moment of blind panic.",
+            "image": "https://www.ecoblader.com/wp-content/uploads/2016/06/ecoblader-m%C3%B9-qu%C3%A1ng.jpg",
+            "value": "blind",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "triệt để, cực đoan",
+            "pronounce": "ˈrædɪkl",
+            "example": "Ex: They described themselves as a radical feminists.",
+            "image": "https://thumbs.dreamstime.com/b/happy-women-girls-standing-together-holding-hands-group-female-friends-union-feminists-sisterhood-flat-cartoon-168292191.jpg",
+            "value": "radical",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "thuộc nhóm ưu đẳng, thuộc nhóm tinh hoa",
+            "pronounce": "eɪˈliːtɪst",
+            "example": "Ex: Universities are becoming far less elitist.",
+            "image": "https://thred.org/wp-content/uploads/2020/09/ArticlePost_youre-an-elitist-2100x1200.jpg",
+            "value": "elitist",
+            "group": "General"
+          }
+        ],
+        "vocabUrl": "https://docs.google.com/spreadsheets/d/1UWYTWJSLA_oKBSYrnhufR8oxpOlq5zkU-QzS1s5bD9k/edit#gid=0",
+        "totalWords": 93
+      },
+      "publishFor": "FOR_ALL",
+      "used": true,
+      "totalAnswer": 13,
+      "totalExplanation": 13,
+      "noOfVocab": 93,
+      "totalQuestion": 13,
+      "questionGroups": [
+        {
+          "id": "d2939d69-0c58-11f0-bcc2-0d0189943bbb",
+          "questions": [
+            {
+              "uuid": "d2939d6a-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "YNN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "There are understandable reasons why arguments occur about language.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "Yes" },
+                { "key": 1, "value": "No" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            },
+            {
+              "uuid": "d2939d6b-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "YNN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "People feel more strongly about language education than about small differences in language usage.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "Yes" },
+                { "key": 1, "value": "No" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            },
+            {
+              "uuid": "d2939d6c-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "YNN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "Our assessment of a person’s intelligence is affected by the way he or she uses language.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "Yes" },
+                { "key": 1, "value": "No" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            },
+            {
+              "uuid": "d2939d6d-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "YNN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "Prescriptive grammar books cost a lot of money to buy in the 18th century.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "Yes" },
+                { "key": 1, "value": "No" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            },
+            {
+              "uuid": "d2939d6e-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "YNN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "Prescriptivism still exists today.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "Yes" },
+                { "key": 1, "value": "No" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            },
+            {
+              "uuid": "d2939d6f-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "YNN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "According to descriptivists it is pointless to try to stop language change.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "Yes" },
+                { "key": 1, "value": "No" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            },
+            {
+              "uuid": "d2939d70-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "YNN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "Descriptivism only appeared after the 18th century.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "Yes" },
+                { "key": 1, "value": "No" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            },
+            {
+              "uuid": "d2939d71-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "YNN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "Both descriptivists and prescriptivists have been misrepresented.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "Yes" },
+                { "key": 1, "value": "No" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            }
+          ],
+          "questionType": "YNN_ANSWER",
+          "displayedQuestionType": "Yes/ No/ Not Given",
+          "guideline": {
+            "content": [
+              {
+                "children": [
+                  {
+                    "text": "Do the following statements agree with the information given in the Reading Passage?"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "In following statements below, choose" }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "YES", "bold": true },
+                  {
+                    "text": "                     if the statement agrees with the information"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "NO", "bold": true },
+                  {
+                    "text": "                       if the statement contradicts the information"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "NOT GIVEN ", "bold": true },
+                  {
+                    "text": "       if it is impossible to say what the writer thinks about this"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ]
+          },
+          "compactGuideline": {
+            "content": [
+              {
+                "children": [
+                  { "text": "Choose " },
+                  { "text": "YES/NO/NOT GIVEN", "bold": true }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "enable": true
+          },
+          "totalQuestion": 8
+        },
+        {
+          "id": "d2939d72-0c58-11f0-bcc2-0d0189943bbb",
+          "questions": [
+            {
+              "uuid": "d2939d73-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "NOTE_COMPLETION_WITH_HINT",
+              "marked": ["MISSING", "MISSING", "MISSING", "MISSING"],
+              "correctAnswers": [],
+              "userAnswers": [],
+              "options": [
+                { "key": 0, "value": "descriptivists" },
+                { "key": 1, "value": "language experts" },
+                { "key": 2, "value": "popular speech" },
+                { "key": 3, "value": "formal language" },
+                { "key": 4, "value": "evaluation" },
+                { "key": 5, "value": "rules" },
+                { "key": 6, "value": "modern linguists" },
+                { "key": 7, "value": "prescriptivists" },
+                { "key": 8, "value": "change" }
+              ],
+              "heading": "The language debate",
+              "paragraph": {
+                "id": "mzQiIE2iaRDttLNZnAYtm",
+                "editorValue": "[{\"children\":[{\"text\":\"According to \"},{\"type\":\"blank\",\"isVoid\":true,\"children\":[{\"text\":\"9.....................\"}],\"id\":\"7PwPPLe69YqQOa-gNnmEG\"},{\"text\":\", there is only one correct form of language. Linguists who take this approach to language place great importance on grammatical \"},{\"type\":\"blank\",\"isVoid\":true,\"children\":[{\"text\":\"10.....................\"}],\"id\":\"GT06GUqpah-XRf1dqcIV0\"},{\"text\":\". Conversely, the view of \"},{\"type\":\"blank\",\"isVoid\":true,\"children\":[{\"text\":\"11.....................\"}],\"id\":\"Xi_HobmEUbb7q909rx-8s\"},{\"text\":\", such as Joseph Priestley, is that grammar should be based on \"},{\"type\":\"blank\",\"isVoid\":true,\"children\":[{\"text\":\"12.....................\"}],\"id\":\"NGXZHVdzGwbLQHrFnsURH\"},{\"text\":\"\"}]}]",
+                "blanks": [
+                  { "id": "7PwPPLe69YqQOa-gNnmEG", "key": 0 },
+                  { "id": "GT06GUqpah-XRf1dqcIV0", "key": 1 },
+                  { "id": "Xi_HobmEUbb7q909rx-8s", "key": 2 },
+                  { "id": "NGXZHVdzGwbLQHrFnsURH", "key": 3 }
+                ]
+              }
+            }
+          ],
+          "questionType": "NOTE_COMPLETION_WITH_HINT",
+          "displayedQuestionType": "Summary Completion",
+          "guideline": {
+            "content": [
+              {
+                "children": [
+                  {
+                    "text": "Complete the summary using the list of words, A-I, below. "
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [{ "text": "Write the correct letter, A-I" }],
+                "type": "paragraph"
+              }
+            ]
+          },
+          "compactGuideline": {
+            "content": [
+              {
+                "children": [
+                  {
+                    "text": "Complete the summary using the list of words, A-I, below. "
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "enable": true
+          },
+          "totalQuestion": 4
+        },
+        {
+          "id": "d2939d74-0c58-11f0-bcc2-0d0189943bbb",
+          "questions": [
+            {
+              "uuid": "d2939d75-0c58-11f0-bcc2-0d0189943bbb",
+              "type": "SINGLE_ANSWER",
+              "marked": ["MISSING"],
+              "question": "What is the writer’s purpose in Reading Passage 1?",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                {
+                  "key": 0,
+                  "value": "to argue in favour of a particular approach to writing dictionaries and grammar books"
+                },
+                {
+                  "key": 1,
+                  "value": "to present a historical account of differing views of language"
+                },
+                {
+                  "key": 2,
+                  "value": "to describe the differences between spoken and written language"
+                },
+                {
+                  "key": 3,
+                  "value": "to show how a certain view of language has been discredited"
+                }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1,
+              "isImageIncluded": false
+            }
+          ],
+          "questionType": "SINGLE_ANSWER",
+          "displayedQuestionType": "Multiple Choice",
+          "guideline": {
+            "content": [
+              {
+                "children": [
+                  { "text": "Choose appropriate options " },
+                  { "text": "A, B, C", "bold": true },
+                  { "text": " or " },
+                  { "text": "D.", "bold": true }
+                ],
+                "type": "paragraph"
+              }
+            ]
+          },
+          "compactGuideline": {
+            "content": [
+              {
+                "children": [
+                  { "text": "Choose appropriate options " },
+                  { "text": "A, B, C", "bold": true },
+                  { "text": " or " },
+                  { "text": "D.", "bold": true }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "enable": true
+          },
+          "totalQuestion": 1
+        }
+      ],
+      "testSectionOverview": {
+        "questionTypes": [
+          "NOTE_COMPLETION_WITH_HINT",
+          "SINGLE_ANSWER",
+          "YNN_ANSWER"
+        ],
+        "displayedQuestionTypes": [
+          "Yes/ No/ Not Given",
+          "Summary Completion",
+          "Multiple Choice"
+        ]
+      },
+      "isDraftedVersion": false,
+      "studyTemplate": "SYLLABUS",
+      "annotatedTexts": [],
+      "passage": {
+        "title": "Attitudes to language",
+        "type": "REGULAR",
+        "paragraph": {
+          "content": "It is not easy to be systematic and objective about language study. Popular linguistic debate regularly deteriorates into invective and polemic. Language belongs to everyone, so most people feel they have a right to hold an opinion about it. And when opinions differ, emotions can run high. Arguments can start as easily over minor points of usage as over major policies of linguistic education.  \n\nLanguage, moreover, is a very public behaviour, so it is easy for different usages to be noted and criticised. No part of society or social behaviour is exempt: linguistic factors influence how we judge personality, intelligence, social status, educational standards, job aptitude, and many other areas of identity and social survival. As a result, it is easy to hurt, and to be hurt, when language use is unfeelingly attacked. \n\nIn its most general sense, prescriptivism is the view that one variety of language has an inherently higher value than others, and that this ought to be imposed on the whole of the speech community. The view is propounded especially in relation to grammar and vocabulary, and frequently with reference to pronunciation. The variety which is favoured, in this account, is usually a version of the 'standard' written language, especially as encountered in literature, or in the formal spoken language which most closely reflects this style. Adherents to this variety are said to speak or write 'correctly'; deviations from it are said to be 'incorrect! \n\nAll the main languages have been studied prescriptively, especially in the 18th century approach to the writing of grammars and dictionaries. The aims of these early grammarians were threefold: (a) they wanted to codify the principles of their languages, to show that there was a system beneath the apparent chaos of usage, (b) they wanted a means of settling disputes over usage, and (c) they wanted to point out what they felt to be common errors, in order to 'improve' the language. The authoritarian nature of the approach is best characterised by its reliance on ‘rules' of grammar. Some usages are 'prescribed,' to be learnt and followed accurately; others are 'proscribed,' to be avoided. In this early period, there were no half-measures: usage was either right or wrong, and it was the task of the grammarian not simply to record alternatives, but to pronounce judgement upon them. \n\nThese attitudes are still with us, and they motivate a widespread concern that linguistic standards should be maintained. Nevertheless, there is an alternative point of view that is concerned less with standards than with the facts of linguistic usage. This approach is summarised in the statement that it is the task of the grammarian to describe, not prescribe to record the facts of linguistic diversity, and not to attempt the impossible tasks of evaluating language variation or halting language change. In the second half of the 18th century, we already find advocates of this view, such as Joseph Priestiey, whose Rudiments of English Grammar (1761) insists that 'the custom of speaking is the original and only just standard of any language! Linguistic issues, it is argued, cannot be solved by logic and legislation. And this view has become the tenet of the modern linguistic approach to grammatical analysis. \n\nIn our own time, the opposition between 'descriptivists' and 'prescriptivists' has often become extreme, with both sides painting unreal pictures of the other. Descriptive grammarians have been presented as people who do not care about standards, because of the way they see all forms of usage as equally valid. Prescriptive grammarians have been presented as blind adherents to a historical tradition. The opposition has even been presented in quasi-political terms - of radical liberalism vs elitist conservatism."
+        }
+      },
+      "passageType": "PASSAGE1"
+    },
+    {
+      "id": "605acfc68a6f326944572488",
+      "createdAt": "2021-03-24T05:36:06.654+0000",
+      "lastModifiedAt": "2025-09-04T03:34:44.254+0000",
+      "testSectionId": "CAM9_R3_P2",
+      "name": "Tidal Power",
+      "coverImage": {
+        "fileType": "PRIVATE",
+        "path": "PRIVATE/MEDIA/adc8d9c6-2c3c-4fdd-9695-62a8fb191dad.JPG",
+        "url": "https://suijm9clouobj.vcdn.cloud/PRIVATE/MEDIA/adc8d9c6-2c3c-4fdd-9695-62a8fb191dad.JPG",
+        "name": "CAM9_R3_P2 - Tidal Power (1).JPG",
+        "uploadedDate": "2021-03-24T05:36:04.423+0000",
+        "size": 62638,
+        "alt": "Tidal Power"
+      },
+      "skill": "READING",
+      "duration": 20,
+      "status": "PUBLISHED",
+      "testType": "PRACTICE_TEST",
+      "vocab": {
+        "vocabs": [
+          {
+            "type": "VERB",
+            "meaning": "Lắp đặt",
+            "pronounce": "ɪnˈstɔːl",
+            "example": "Ex: Make sure the equipment is properly installed.",
+            "image": "https://static.cms.yp.ca/ecms/media/1/How-to-install-a-new-washing-machine-1467139044-600x360.jpg",
+            "value": "install",
+            "group": "Q14"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "địa điểm",
+            "pronounce": "saɪt",
+            "example": "Ex: People laid flowers at the site of the accident.",
+            "image": "https://www.designingbuildings.co.uk/w/images/1/1d/Offsiteconstruction.jpg",
+            "value": "site",
+            "group": "Q14, 15, 22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "dự án kinh doanh, việc mạo hiểm",
+            "pronounce": "ˈventʃər",
+            "example": "Ex: She advised us to look abroad for more lucrative business ventures.",
+            "image": "https://cdn.vietnambiz.vn/2020/3/27/photo-1585318728035-15853187280361497319.jpg",
+            "value": "venture",
+            "group": "Q14"
+          },
+          {
+            "type": "VERB",
+            "meaning": "mong đợi",
+            "pronounce": "ɪkˈspekt",
+            "example": "Ex: They never expected to find their dream home.",
+            "image": "https://isinhvien.com/wp-content/uploads/2021/10/cau-truc-expect.jpg",
+            "value": "expect",
+            "group": "Q14"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "tua bin",
+            "pronounce": "ˈtɜːrbaɪn",
+            "example": "Ex: The flow of water drives the turbine, which is connected to an electrical generator to produce electricity.",
+            "image": "https://cdn.britannica.com/75/114975-050-E61977EE/Wind-turbines-Tehachapi-Calif.jpg",
+            "value": "turbine",
+            "group": "Q15"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "dây cáp",
+            "pronounce": "ˈkeɪbl",
+            "example": "Ex: They're digging up the road to lay cables.",
+            "image": "https://b.kisscc0.com/20180705/ote/kisscc0-network-cables-electrical-cable-electrical-wires-computer-cables-5b3e92607d7344.5607390615308273605139.png",
+            "value": "cable",
+            "group": "Q15"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "dưới mặt biển, ngầm dưới biển; chìm",
+            "pronounce": "ˈʌndərsiː",
+            "example": "Ex: Britain and France are connected by an undersea tunnel.",
+            "image": "https://media.istockphoto.com/photos/underwater-scene-tropical-seabed-with-reef-and-sunshine-picture-id1152237432?k=6&m=1152237432&s=612x612&w=0&h=1CFhLKNPwaF40qkRj_FOUD2plPYU6YHPIFOzXo2Zqa4=",
+            "value": "undersea",
+            "group": "Q15"
+          },
+          {
+            "type": "PREPOSITION",
+            "meaning": "thông qua",
+            "pronounce": "ˈvaɪə",
+            "example": "Ex: The news programme came to us via satellite.",
+            "image": "https://www.globaltimes.cn/Portals/0/attachment/2020/2020-11-19/b26582c7-2fe0-4263-879f-db86899d0298.jpeg",
+            "value": "via",
+            "group": "Q15"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "trước",
+            "pronounce": "ˈpriːviəs",
+            "example": "Ex: No previous experience is necessary for this job.",
+            "image": "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/58773.jpg",
+            "value": "previous",
+            "group": "Q16"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "lần thử, nỗ lực",
+            "pronounce": "əˈtempt",
+            "example": "Ex: Ex: Attempts are being made to resolve the problem of security in schools.",
+            "image": "https://thumbs.dreamstime.com/b/target-success-13853279.jpg",
+            "value": "attempt",
+            "group": "Q16"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "khác",
+            "pronounce": "ɔːlˈtɜːrnətɪv",
+            "example": "Ex: The road was closed so we had to find an alternative route.",
+            "image": "https://tienganhmoingay.com/static/Vocabulary/images/word_images/alternative.png",
+            "value": "alternative",
+            "group": "Q16"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Xuất khẩu",
+            "pronounce": "ɪkˈspɔːrt",
+            "example": "Ex: The islands export sugar and fruit.",
+            "image": "https://m.economictimes.com/thumb/msid-75688043,width-1200,height-900,resizemode-4,imgsize-753312/exports-getty.jpg",
+            "value": "export",
+            "group": "Q16, 21"
+          },
+          {
+            "type": "ADV",
+            "meaning": "khởi đầu, nguyên thủy",
+            "pronounce": "əˈrɪdʒənəli",
+            "example": "Ex: The school was originally very small.",
+            "image": "https://c8.alamy.com/comp/PX4AW0/eve-giving-adam-the-forbidden-fruit-PX4AW0.jpg",
+            "value": "originally",
+            "group": "Q16"
+          },
+          {
+            "type": "VERB",
+            "meaning": "từ bỏ, ruồng bỏ",
+            "pronounce": "əˈbændən",
+            "example": "Ex: By 1930 he had abandoned his Marxist principles.",
+            "image": "https://cdn3.mycity4kids.com/images/article-images/web/headersV2/img-20191022-5daeeb328de70.jpg",
+            "value": "abandon",
+            "group": "Q16"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự nói đến, sự nhắc đến",
+            "pronounce": "ˈrefrəns",
+            "example": "Ex: She made no reference to her illness but only to her future plans.",
+            "image": "https://apastyle.apa.org/images/new-reference-examples_tcm11-270270.jpg",
+            "value": "reference",
+            "group": "Q16"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Cho phép",
+            "pronounce": "əˈlaʊ",
+            "example": "Ex: This research must be allowed to continue.",
+            "image": "https://i.insider.com/51f2a8626bb3f7f87b00000c?width=750&format=jpeg&auto=webp",
+            "value": "allow",
+            "group": "Q16"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "chủ yếu, quan trọng",
+            "pronounce": "ˈmeɪdʒər",
+            "example": "Ex: He played a major role in setting up the system.",
+            "image": "https://convertwithcontent.com/wp-content/uploads/2014/01/the-most-important-part-of-your-business-is-you.jpg",
+            "value": "major",
+            "group": "Q16"
+          },
+          {
+            "type": "VERB",
+            "meaning": "áp dụng",
+            "pronounce": "əˈplaɪ",
+            "example": "Ex: New technology is being applied to almost every industrial process.",
+            "image": "https://www.innovators.ie/wp-content/uploads/2014/04/13951333608_092c6013c8_o-966x644.jpg",
+            "value": "apply",
+            "group": "Q17"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự nói đến, sự nhắc đến",
+            "pronounce": "ˈmenʃn",
+            "example": "Ex: He made no mention of her work.",
+            "image": "https://poszytek.eu/wp-content/uploads/2020/07/mentioning.jpg",
+            "value": "mention",
+            "group": "Q17"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "khả năng, sự có thể",
+            "pronounce": "ˌpɒsəˈbɪləti",
+            "example": "Ex: There is a real possibility of war.",
+            "image": "https://2.bp.blogspot.com/-mEiquajJ1OE/V8MxCN2-NcI/AAAAAAAALbw/Xr8spLL8yrYskxEbwzAhKYOkj1B4Ln-MACLcB/s1600/post.jpg",
+            "value": "possibility",
+            "group": "Q17"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "thuộc thuỷ triều, chịu ảnh hưởng của thuỷ triều",
+            "pronounce": "ˈtaɪdl",
+            "example": "Ex: Several villages have been destroyed by a huge tidal wave.",
+            "image": "https://nypost.com/wp-content/uploads/sites/2/2019/09/911-tidal-wave-04.jpeg?quality=80&strip=all&w=1024",
+            "value": "tidal",
+            "group": "Q18, 19, 20, 21, 22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "lời tuyên bố",
+            "pronounce": "kleɪm",
+            "example": "Ex: The company had made false claims about its products.",
+            "image": "https://en.pimg.jp/048/029/785/1/48029785.jpg",
+            "value": "claim",
+            "group": "Q18, 19, 20, 21, 22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "đầu vào",
+            "pronounce": "ˈɪnpʊt",
+            "example": "Ex: The power input will come largely from hydroelectricity.",
+            "image": "https://img.vietnamfinance.vn/webp-jpg/700x0/upload/news/quynhanh/2018/7/5/vnf-dau-vao-nhan-to.webp",
+            "value": "input",
+            "group": "Q18"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "có thể đoán trước được",
+            "pronounce": "prɪˈdɪktəbl",
+            "example": "Ex: The ending of the book was entirely predictable.",
+            "image": "https://bellyupsports.com/wp-content/uploads/2020/01/fortune-teller-crystal-ball-investment-2018-prediction-future-getty.jpg",
+            "value": "predictable",
+            "group": "Q18"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "liên tục",
+            "pronounce": "ˈkɒnstənt",
+            "example": "Ex: There were constant interruptions.",
+            "image": "https://cafefcdn.com/thumb_w/650/Images/Uploaded/Share/fa14885761567dbffdc7fbe50ebc2816/2014/06/26/timesavingtipsbusiness.jpg",
+            "value": "constant",
+            "group": "Q18"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "đáng tin cậy",
+            "pronounce": "rɪˈlaɪəbl",
+            "example": "Ex: Our information comes from a reliable source.",
+            "image": "https://uploads.acsprostaffing.com/2016/11/29153325/blogIsThatCandidateReliable-1024x702.png",
+            "value": "reliable",
+            "group": "Q18"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Triển vọng, khả năng",
+            "pronounce": "ˈprɒspekt",
+            "example": "Ex: There's a reasonable prospect that his debts will be paid.",
+            "image": "https://www.impactbnd.com/hubfs/prospect-fix-matrix.jpg",
+            "value": "prospect",
+            "group": "Q19"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "tự cung cấp, không phụ thuộc, độc lập",
+            "pronounce": "ˌself səˈfɪʃnt",
+            "example": "Ex: The country is totally self-sufficient in food production.",
+            "image": "https://www.offshorelivingletter.com/wp-content/uploads/2020/05/self-sufficient-lifestyle-1280x720.jpg",
+            "value": "self-sufficient",
+            "group": "Q19"
+          },
+          {
+            "type": "ADV",
+            "meaning": "quyết liệt",
+            "pronounce": "ˈdræstɪkli",
+            "example": "Ex: \"We must learn to love our bodies,\" said the actress, shortly before having herself drastically remade by the cosmetic surgeon.",
+            "image": "https://images.hindustantimes.com/rf/image_size_444x250/HT/p2/2017/04/06/Pictures/_d0b8da04-1a7b-11e7-8dd7-d947b0232760.jpg",
+            "value": "drastically",
+            "group": "Q19"
+          },
+          {
+            "type": "VERB",
+            "meaning": "giảm bớt",
+            "pronounce": "kʌt daʊn ɑːn",
+            "example": "Ex: I'm trying to cut down on fatty foods.",
+            "image": "https://www.adityabirlacapital.com/healthinsurance/active-together/wp-content/uploads/2018/08/shutterstock_1283820907-1.jpg",
+            "value": "cut down on",
+            "group": "Q19"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Sự thải",
+            "pronounce": "ɪˈmɪʃn",
+            "example": "Ex: Bioluminescence is the emission of light from living organisms.",
+            "image": "https://www.petfoodprocessing.net/ext/resources/PFP-Images/Articles/120419_Cargill-GHG_Lead.jpg?1575476562",
+            "value": "emission",
+            "group": "Q19"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "than đá",
+            "pronounce": "kəʊl",
+            "example": "Ex: She sat by the coal fire in the kitchen.",
+            "image": "https://images.theconversation.com/files/171327/original/file-20170529-25247-knxz3c.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=900.0&fit=crop",
+            "value": "coal",
+            "group": "Q20"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự đóng cửa",
+            "pronounce": "ˈkləʊʒər",
+            "example": "Ex: The village school has been saved from closure.",
+            "image": "https://i1.sndcdn.com/artworks-wsiMoauUXskzHJyy-omPKeQ-t500x500.jpg",
+            "value": "closure",
+            "group": "Q20"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Tồn tại",
+            "pronounce": "ɪɡˈzɪst",
+            "example": "Ex: I don't think ghosts exist.",
+            "image": "https://sc04.alicdn.com/kf/ULB8p19UM9nEXKJk43Ubq6zLppXaU.jpg",
+            "value": "exist",
+            "group": "Q20"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "thuộc hạt nhân",
+            "pronounce": "ˈnuːkliər",
+            "example": "Ex: China and India only produce a very small percentage of their electricity from nuclear facilities.",
+            "image": "https://www.wano.org.uk/wp-content/uploads/2020/05/nuclear-energy-ecological-sustainable.jpg",
+            "value": "nuclear",
+            "group": "Q20"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "phương tiện",
+            "pronounce": "miːnz",
+            "example": "Ex: They had no means of communication",
+            "image": "https://previews.123rf.com/images/stockshoppe/stockshoppe1208/stockshoppe120800116/14892458-means-of-transport.jpg",
+            "value": "means",
+            "group": "Q21"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Thu nhập",
+            "pronounce": "ˈɪnkʌm",
+            "example": "Ex: Tourism is a major source of income for the area.",
+            "image": "https://digiskills.pk/GridImageTemplate.aspx?ref=ogblog&Id=MQ==",
+            "value": "income",
+            "group": "Q21"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "luồng (gió, không khí); dòng (nước, điện)",
+            "pronounce": "ˈkɜːrənt",
+            "example": "Ex: Switch off the electric current before changing the bulb.",
+            "image": "https://www.thoughtco.com/thmb/Dg3k4D3hJ8cSzTnObPki8MTrs-Y=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-144635668-1d9932afb0cd44a2ad33b1f0329d6ec6.jpg",
+            "value": "current",
+            "group": "Q22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "vùng phụ cận, vùng lân cận",
+            "pronounce": "vəˈsɪnəti",
+            "example": "Ex: There are several hotels in the immediate vicinity of the station.",
+            "image": "https://thumbs.dreamstime.com/b/sold-house-suburbs-2606100.jpg",
+            "value": "vicinity",
+            "group": "Q22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "đường bờ biển",
+            "pronounce": "ˈkəʊstlaɪn",
+            "example": "Ex: Within a few years, the coastline was transformed in a 700 billion-lire tourist paradise.",
+            "image": "http://cdn.cnn.com/cnnnext/dam/assets/180626120721-05-spectacular-coastlines---malabar-coast.jpg",
+            "value": "coastline",
+            "group": "Q22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự chống cự, sự kháng lại",
+            "pronounce": "rɪˈzɪstəns",
+            "example": "Ex: Resistance to change has nearly destroyed the industry.",
+            "image": "https://thumbs.dreamstime.com/b/vector-woman-trying-to-resist-not-eat-junk-sweet-food-offered-many-people-young-180588436.jpg",
+            "value": "resistance",
+            "group": "Q22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "nhiên liệu",
+            "pronounce": "ˈfjuːəl",
+            "example": "Ex: Wood, coal, oil, petrol, and gas are all different kinds of fuel.",
+            "image": "https://www.chevinfleet.com/wp-content/uploads/2019/02/Fuel-pump.jpg",
+            "value": "fuel",
+            "group": "Q22"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "vùng nội địa",
+            "pronounce": "ˈɪnlænd",
+            "example": "Ex: Business is booming in both inland and coastal resorts.",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Inland%2C_NE.jpg/1200px-Inland%2C_NE.jpg",
+            "value": "inland",
+            "group": "Q22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "đặc tính",
+            "pronounce": "ˈfiːtʃər",
+            "example": "Ex: Teamwork is a key feature of the training programme.",
+            "image": "https://sbly-web-prod-shareably.netdna-ssl.com/wp-content/uploads/2018/11/29134132/15-Strange-Beauties-F.png",
+            "value": "feature",
+            "group": "Q22"
+          },
+          {
+            "type": "VERB",
+            "meaning": "bù đắp",
+            "pronounce": "ˈkɒmpenseɪt",
+            "example": "Ex: The company is planting trees to compensate for the greenhouse gas generated by airplane flights.",
+            "image": "https://ffpct.com/wp-content/uploads/2018/09/retaining-and-compensating-best-employees.jpg",
+            "value": "compensate",
+            "group": "Q22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự thiếu",
+            "pronounce": "ˈʃɔːtɪdʒ",
+            "example": "Ex: There's a shortage of food and shelter in the refugee camps.",
+            "image": "https://images.theconversation.com/files/393896/original/file-20210407-21-163ahck.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop",
+            "value": "shortage",
+            "group": "Q22"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự chiết, sự tách",
+            "pronounce": "ɪkˈstrækʃn",
+            "example": "Ex: The extraction of minerals has damaged the countryside.",
+            "image": "https://st3.depositphotos.com/12522434/33941/i/1600/depositphotos_339415236-stock-photo-natural-drug-research-natural-organic.jpg",
+            "value": "extraction",
+            "group": "Q23"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự duy trì, sự bảo dưỡng",
+            "pronounce": "ˈmeɪntənəns",
+            "example": "Ex: The school pays for heating and the maintenance of the buildings.",
+            "image": "https://www.mattina.ca/wp-content/uploads/2020/04/preventative-mechanical-maintenance-solutions-f.jpg",
+            "value": "maintenance",
+            "group": "Q23"
+          },
+          {
+            "type": "VERB",
+            "meaning": "nâng lên",
+            "pronounce": "lɪft",
+            "example": "Ex: The box was so heavy I could barely lift it.",
+            "image": "https://celebsnow.co.za/wp-content/uploads/2020/07/Lifting-Weights.jpg",
+            "value": "lift",
+            "group": "Q23"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Sinh vật",
+            "pronounce": "ˈkriːtʃər",
+            "example": "Ex: Dogs are more social creatures than cats.",
+            "image": "https://i.pinimg.com/originals/eb/6f/0d/eb6f0d6bb18a74efc8e0a8cdf5eb8f72.jpg",
+            "value": "creature",
+            "group": "Q24"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "rủi ro",
+            "pronounce": "rɪsk",
+            "example": "Ex: The health risks are very low.",
+            "image": "https://www.ispartnersllc.com/wp-content/uploads/third-party-risk-management.jpg",
+            "value": "risk",
+            "group": "Q24"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "vừa phải, tương đối",
+            "pronounce": "ˈrelətɪvli",
+            "example": "Ex: I found the test relatively easy.",
+            "image": "https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vbWVkaWEucmJsLm1zL2ltYWdlP3U9JTJGZmlsZXMlMkYyMDE1JTJGMDklMkYxNCUyRjYzNTc3Nzk3MjIyODI3ODI2OC0xODE2MzQ2OTg0X3BlcnNwZWN0aXZlLmpwZyZobz1odHRwJTNBJTJGJTJGY2RuMS50aGVvZHlzc2V5b25saW5lLmNvbSZzPTE3NSZoPWJmODAxOWE1NThiYjBkY2YyZTQxZmZhOGE0OWY2YmNjZjI0YjE1NzlhODhlN2ZiZGZlOTRiN2QyMGVjZmI4YWEmc2l6ZT05ODB4JmM9NTgwNDQ5MDYiLCJleHBpcmVzX2F0IjoxNjMwMTUzMDU3fQ.Mo5uwwrdCs7b5s_NcqwvhkxXGU12RsYy8V9elDbaUv4/img.jpg?width=1200&height=628",
+            "value": "relatively",
+            "group": "Q24"
+          },
+          {
+            "type": "ADV",
+            "meaning": "tương đối",
+            "pronounce": "kəmˈpærətɪvli",
+            "example": "Ex: The unit is comparatively easy to install and cheap to operate.",
+            "image": "https://www.8sa.net/wp-content/uploads/2018/12/indir-1-3.png",
+            "value": "comparatively",
+            "group": "Q24"
+          },
+          {
+            "type": "VERB",
+            "meaning": "nhận được",
+            "pronounce": "rɪˈsiːv",
+            "example": "Ex: We received a warm welcome from our hosts.",
+            "image": "http://static.tapchitaichinh.vn/800x450/images/upload/buituananh/05072019/meo-ship-hang-an-toan-cho-cac-shop-online.jpg",
+            "value": "receive",
+            "group": "Q25, 26"
+          },
+          {
+            "type": "ADV",
+            "meaning": "nhanh chóng; ngay lập tức",
+            "pronounce": "ˈprɑːmptli",
+            "example": "Ex: He deals with all the correspondence promptly and efficiently.",
+            "image": "https://www.glassdoor.com/employers/app/uploads/sites/2/2018/08/Clock-3.jpg",
+            "value": "promptly",
+            "group": "Q25, 26"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "áp lực",
+            "pronounce": "ˈpreʃər",
+            "example": "Ex: The nurse applied pressure to his arm to stop the bleeding.",
+            "image": "https://www.incimages.com/uploaded_files/image/1024x576/getty_478622125_62282.jpg",
+            "value": "pressure",
+            "group": "Q25, 26"
+          },
+          {
+            "type": "VERB",
+            "meaning": "phản hồi",
+            "pronounce": "rɪˈspɒnd",
+            "example": "Ex: She never responded to my letter.",
+            "image": "https://fistfuloftalent.com/wp-content/uploads/2018/07/FOT-Candidate-Response.png",
+            "value": "respond",
+            "group": "Q25, 26"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "thuộc mảng kỹ thuật",
+            "pronounce": "ˈteknɪkl",
+            "example": "Ex: We offer free technical support for those buying our software.",
+            "image": "https://www.clker.com/cliparts/9/c/7/8/1516191295397163113competency-technical-clipart.hi.png",
+            "value": "technical",
+            "group": "Q25, 26"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Mức độ",
+            "pronounce": "ɪkˈstent",
+            "example": "Ex: To a certain extent, we are all responsible for this tragic situation.",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/2008_Sichuan_earthquake_extent.svg/1205px-2008_Sichuan_earthquake_extent.svg.png",
+            "value": "extent",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "tác động",
+            "pronounce": "ˈɪmpækt",
+            "example": "Ex: Her speech made a profound impact on everyone.",
+            "image": "https://www.juliehyde.com.au/wp-content/uploads/2016/02/Impact.jpg",
+            "value": "impact",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Đáng lưu ý, quan trọng",
+            "pronounce": "sɪɡˈnɪfɪkənt",
+            "example": "Ex: There are no significant differences between the two groups of students.",
+            "image": "https://qn.coinonpro.com/wp-content/uploads/2019/03/20190305_5c7e62743af4f.jpg",
+            "value": "significant",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Vận hành",
+            "pronounce": "ˈɒpəreɪt",
+            "example": "Ex: Solar panels can only operate in sunlight.",
+            "image": "https://i0.wp.com/ncqt.net/wp-content/uploads/2013/12/a.jpg",
+            "value": "operate",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Xác định, nhận dạng",
+            "pronounce": "aɪˈdentɪfaɪ",
+            "example": "Ex: They are trying to identify what is wrong with the present system.",
+            "image": "https://www.karooya.com/blog/wp-content/uploads/2016/09/identify-duplicate-keywords.jpg",
+            "value": "identify",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Có thể duy trì lâu dài; Thân thiện với môi trường",
+            "pronounce": "səˈsteɪnəbl",
+            "example": "Ex: This type of farming is simply not sustainable any more.",
+            "image": "https://scx2.b-cdn.net/gfx/news/hires/2018/sustainable.jpg",
+            "value": "sustainable",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "hiện đại, nâng cao",
+            "pronounce": "ədˈvɑːnst",
+            "example": "Ex: Sweden has a reputation for advanced and stylish design.",
+            "image": "https://www.gtalent.jp/blog/wp-content/uploads/2020/07/ai-engineer02_w1000h670.jpg",
+            "value": "advanced",
+            "group": "General"
+          },
+          {
+            "type": "ADV",
+            "meaning": "cùng, cùng nhau",
+            "pronounce": "ˈdʒɔɪntli",
+            "example": "Ex: The event was organized jointly by students and staff.",
+            "image": "https://langleynotarypublic.ca/wp-content/uploads/2015/03/Co-Ownership_JT-TiC.jpg",
+            "value": "jointly",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "tài trợ",
+            "pronounce": "fʌnd",
+            "example": "Ex: Who is funding this research?",
+            "image": "https://images.ctfassets.net/qlyedcbd6576/6ckiIU8oofydtVBm4iykEv/ae0846530c20818e0e43b8335b953486/small_business_funding_1.jpeg?w=800&q=50&fm=webp",
+            "value": "fund",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "cục; sở; ty; ban; khoa",
+            "pronounce": "dɪˈpɑːtmənt",
+            "example": "Ex: He is a lecturer in the department of psychology at Trinity College, Dublin.",
+            "image": "https://www.insidehighered.com/sites/default/server_files/styles/large/public/media/dysfunctional%20department.jpg?itok=7CslrwHu",
+            "value": "department",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "nhiệm vụ, bổn phận, trách nhiệm",
+            "pronounce": "tʃɑːrdʒ",
+            "example": "Ex: He asked to speak to the person in charge.",
+            "image": "https://www.matrixgroup.net/membership-matters/wp-content/uploads/manatcomputerdeskwithfivehads.jpg",
+            "value": "charge",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "giải quyết",
+            "pronounce": "diːl wɪð",
+            "example": "Ex: Not all complaints are so easily dealt with.",
+            "image": "https://tienganhmoingay.com/static/Vocabulary/images/word_images/deal_with.jpg",
+            "value": "deal with",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự rung động, sự chuyển động",
+            "pronounce": "vaɪˈbreɪʃn",
+            "example": "Ex: We could feel the vibrations from the trucks passing outside.",
+            "image": "https://static.scientificamerican.com/blogs/cache/file/D69B9621-F22F-4EB8-900C67DE93ED5596_source.jpg?w=590&h=800&087D150B-5230-4599-80C021C49E894B1F",
+            "value": "vibration",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "(môi trường) không thân thiện, khắc nghiệt",
+            "pronounce": "ˈhɑːstl",
+            "example": "Ex: I was concerned because everyone I asked said that it was a really hostile environment to grow produce.",
+            "image": "https://previews.123rf.com/images/varunalight/varunalight1808/varunalight180800044/108774835-plant-growing-in-desert-drought-concept.jpg",
+            "value": "hostile",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "mang tính thương mại",
+            "pronounce": "kəˈmɜːʃl",
+            "example": "Ex: She is developing the commercial side of the organization.",
+            "image": "https://media-assets-05.thedrum.com/cache/images/thedrum-prod/s3-news-tmp-145694-rudd_tv-ads-study-photo--default--840.jpg",
+            "value": "commercial",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "thuộc về biển",
+            "pronounce": "məˈriːn",
+            "example": "Ex: The oil slick seriously threatens marine life around the islands.",
+            "image": "https://www.aljazeera.com/wp-content/uploads/2019/06/5f77ac61d2ab4d6a86e1aa0b110179c8_18.jpeg?fit=1000%2C562",
+            "value": "marine",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Máy phát",
+            "pronounce": "ˈdʒenəreɪtər",
+            "example": "Ex: Tourism is Australia's greatest generator of employment.",
+            "image": "https://empire-s3-production.bobvila.com/articles/wp-content/uploads/2021/02/The-Best-Home-Generator-Option.jpg",
+            "value": "generator",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "nhẹ",
+            "pronounce": "slaɪt",
+            "example": "Ex: There's been a slight delay, but we'll be landing in just a few minutes.",
+            "image": "https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555389964/shape/mentalfloss/istock_000020431781_small.jpg?itok=hf6hvQyr",
+            "value": "slight",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "đường kính",
+            "pronounce": "daɪˈæmɪtər",
+            "example": "Ex: The diameter of the tree trunk was more than a metre.",
+            "image": "https://www.wikihow.com/images_en/thumb/3/3d/Calculate-the-Diameter-of-a-Circle-Step-2-Version-6.jpg/v4-460px-Calculate-the-Diameter-of-a-Circle-Step-2-Version-6.jpg.webp",
+            "value": "diameter",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "cần, yêu cầu",
+            "pronounce": "rɪˈkwaɪər",
+            "example": "Ex: These pets require a lot of care and attention.",
+            "image": "https://cdn4.vectorstock.com/i/1000x1000/49/63/pet-care-supplies-animal-vector-27934963.jpg",
+            "value": "require",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự phản đối, sự chống đối",
+            "pronounce": "feɪd",
+            "example": "Ex: I have no objection to staying here.",
+            "image": "https://d2qn8jbm9065yh.cloudfront.net/wp-content/uploads/2020/06/rant.jpg",
+            "value": "objection",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "cắm vào, dựng lên, đặt",
+            "pronounce": "maʊnt",
+            "example": "Ex: Cameras are mounted around the city.",
+            "image": "https://www.rei.com/dam/whiting_051618_0152_shutter_speed_with_tripod2.jpg",
+            "value": "mount",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "nguồn cung cấp",
+            "pronounce": "səˈplaɪ",
+            "example": "Ex: Advances in agriculture increased the food supply.",
+            "image": "https://www.nttdata.com/vn/en/-/media/nttdataapac/ndvn/services/supply-chain-management-solutions/supply-chain-management-solutions_header_2732x1536.jpg",
+            "value": "supply",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "mạng lưới điện",
+            "pronounce": "ɡrɪd",
+            "example": "Ex: Power can be fed from wind generators into the electricity grid system.",
+            "image": "https://securitytoday.com/-/media/SEC/Security-Products/Images/2019/05/electricgrid.jpg",
+            "value": "grid",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "cảnh báo",
+            "pronounce": "wɔːn",
+            "example": "Ex: Security experts warned about the problems months ago.",
+            "image": "https://toiyeutienganh.edu.vn/wp-content/uploads/2021/02/cau-truc-warn-3.jpg",
+            "value": "warn",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "tổn hại",
+            "pronounce": "ˈdæmɪdʒ",
+            "example": "Ex: The fire has caused severe damage to the building.",
+            "image": "https://storage.googleapis.com/afs-prod/media/e89814da41e64bef931fe624ea889f57/2048.jpeg",
+            "value": "damage",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "tránh",
+            "pronounce": "əˈvɔɪd",
+            "example": "Ex: We must find a way to avoid similar problems in future.",
+            "image": "https://friendlystock.com/wp-content/uploads/2020/05/6-businessman-ducking-for-cover-cartoon-clipart.jpg",
+            "value": "avoid",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "mối lo ngại, mối quan tâm",
+            "pronounce": "kənˈsɜːn",
+            "example": "Ex: Villagers expressed concern about the level of traffic.",
+            "image": "http://tienganhmoingay.com/static/Vocabulary/images/word_images/concern.jpg",
+            "value": "concern",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "nhấn chìm",
+            "pronounce": "səbˈmɜːrdʒ",
+            "example": "Ex: The fields had been submerged by floodwater.",
+            "image": "https://www.sentinelassam.com/wp-content/uploads/2018/08/Titabor.jpg",
+            "value": "submerge",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Mảnh vỡ",
+            "pronounce": "ˈdebriː",
+            "example": "Ex: Emergency teams are still clearing the debris from the plane crash.",
+            "image": "https://i.hurimg.com/i/hdn/75/0x0/5bc04b770f254326b8ecab51.jpg",
+            "value": "debris",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Mạnh mẽ",
+            "pronounce": "rəʊˈbʌst",
+            "example": "Ex: She was almost 90, but still very robust.",
+            "image": "https://cyberflexing.com/wp-content/uploads/2017/02/modern-physique.jpg",
+            "value": "robust",
+            "group": "General"
+          }
+        ],
+        "vocabUrl": "https://docs.google.com/spreadsheets/d/1YctAXsSB4SYf-oKHkuQFAhEgEzNDW3ms-Oo28U7WDJk/edit#gid=0",
+        "totalWords": 89
+      },
+      "publishFor": "FOR_ALL",
+      "used": true,
+      "totalAnswer": 13,
+      "totalExplanation": 13,
+      "noOfVocab": 89,
+      "totalQuestion": 13,
+      "questionGroups": [
+        {
+          "id": "8f79b78a-c268-11ee-ba98-c36004cacbc8",
+          "questions": [
+            {
+              "uuid": "8f79b78b-c268-11ee-ba98-c36004cacbc8",
+              "type": "MATCHING_PARAGRAPH",
+              "marked": ["MISSING", "MISSING", "MISSING", "MISSING"],
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "the location of the first test site" },
+                {
+                  "key": 1,
+                  "value": "a way of bringing the power produced on one site back into Britain"
+                },
+                {
+                  "key": 2,
+                  "value": "a reference to a previous attempt by Britain to find an alternative source of energy"
+                },
+                {
+                  "key": 3,
+                  "value": "mention of the possibility of applying technology from another industry"
+                }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 4,
+              "paragraphKeys": [0, 1, 2, 3, 4, 5]
+            }
+          ],
+          "questionType": "MATCHING_PARAGRAPH",
+          "displayedQuestionType": "Matching Paragraph Information",
+          "guideline": {
+            "content": [
+              {
+                "children": [
+                  { "text": "Reading Passage has six paragraphs, " },
+                  { "text": "A-F. ", "bold": true }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "text": "Which paragraph contains the following information? "
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "Write the correct letter, " },
+                  { "text": "A-F", "bold": true }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "NB You may use any letter more than once" }
+                ],
+                "type": "paragraph"
+              }
+            ]
+          },
+          "compactGuideline": {
+            "content": [
+              {
+                "children": [
+                  {
+                    "text": "Which paragraph contains the following information?"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "NB You may use any letter more than once" }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "enable": true
+          },
+          "totalQuestion": 4
+        },
+        {
+          "id": "8f79b78c-c268-11ee-ba98-c36004cacbc8",
+          "questions": [
+            {
+              "uuid": "8f79b78d-c268-11ee-ba98-c36004cacbc8",
+              "type": "MULTIPLE_ANSWER",
+              "marked": ["CORRECT", "WRONG", "WRONG", "MISSING", "MISSING"],
+              "question": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"Which FIVE of the following claims about tidal power are made by the writer?\"}]}]",
+              "userAnswers": [0, 1, 2, null, null],
+              "notes": [
+                {
+                  "key": 0,
+                  "value": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"It is a more reliable source of energy than wind power.\"}]}]"
+                },
+                {
+                  "key": 1,
+                  "value": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"It would replace all other forms of energy in Britain.\"}]}]"
+                },
+                {
+                  "key": 2,
+                  "value": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"Its introduction has come as a result of public pressure.\"}]}]"
+                },
+                {
+                  "key": 4,
+                  "value": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"It could contribute to the closure of many existing power stations in Britain.\"}]}]"
+                },
+                {
+                  "key": 3,
+                  "value": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"It would cut down on air pollution.\"}]}]"
+                },
+                {
+                  "key": 5,
+                  "value": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"It could be a means of increasing national income.\"}]}]"
+                },
+                {
+                  "key": 6,
+                  "value": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"It could face a lot of resistance from other fuel industries.\"}]}]"
+                },
+                {
+                  "key": 9,
+                  "value": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"It is best produced in the vicinity of coastlines with particular features.\"}]}]"
+                }
+              ],
+              "options": [
+                {
+                  "key": 0,
+                  "value": "It is a more reliable source of energy than wind power."
+                },
+                {
+                  "key": 1,
+                  "value": "It would replace all other forms of energy in Britain."
+                },
+                {
+                  "key": 2,
+                  "value": "Its introduction has come as a result of public pressure."
+                },
+                { "key": 3, "value": "It would cut down on air pollution." },
+                {
+                  "key": 4,
+                  "value": "It could contribute to the closure of many existing power stations in Britain."
+                },
+                {
+                  "key": 5,
+                  "value": "It could be a means of increasing national income."
+                },
+                {
+                  "key": 6,
+                  "value": "It could face a lot of resistance from other fuel industries."
+                },
+                {
+                  "key": 7,
+                  "value": "It could be sold more cheaply than any other type of fuel."
+                },
+                {
+                  "key": 8,
+                  "value": "It could compensate for the shortage of inland sites for energy production."
+                },
+                {
+                  "key": 9,
+                  "value": "It is best produced in the vicinity of coastlines with particular features."
+                }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 5
+            }
+          ],
+          "questionType": "MULTIPLE_ANSWER",
+          "displayedQuestionType": "List Selection",
+          "guideline": {
+            "content": [
+              {
+                "children": [{ "text": "Choose FIVE letters, A-J" }],
+                "type": "paragraph"
+              }
+            ]
+          },
+          "compactGuideline": {
+            "content": [
+              {
+                "children": [{ "text": "Choose FIVE letters, A-J" }],
+                "type": "paragraph"
+              }
+            ],
+            "enable": true
+          },
+          "totalQuestion": 5
+        },
+        {
+          "id": "8f79de9e-c268-11ee-ba98-c36004cacbc8",
+          "questions": [
+            {
+              "uuid": "WaDzTUladUyG2KQr-3T1N",
+              "type": "DIAGRAM_LABEL_COMPLETION",
+              "marked": ["MISSING", "MISSING", "MISSING", "MISSING"],
+              "correctAnswers": [],
+              "userAnswers": [
+                { "blankId": "GOQJ83FF9tyv8z15ixoiu", "userAnswer": "" },
+                { "blankId": "WIX1fvoehCM4fwf9F4XTn", "userAnswer": "" },
+                { "blankId": "0kh-fqFAUIoLme8JWPoBe", "userAnswer": "" },
+                { "blankId": "Dioranbcc0amn_rpHweIX", "userAnswer": "" }
+              ],
+              "nodeImage": {
+                "image": {
+                  "fileType": "PRIVATE",
+                  "path": "PUBLIC/MEDIA/1413b86f-72e7-4626-a85e-5ec4076d7006.png",
+                  "url": "https://suijm9clouobj.vcdn.cloud/PUBLIC/MEDIA/1413b86f-72e7-4626-a85e-5ec4076d7006.png",
+                  "name": "CAM9_R3_P2 - Tidal Power_NoOpt.png",
+                  "uploadedDate": "2021-11-01T04:02:12.730+0000",
+                  "size": 80598,
+                  "alt": "CAM9_R3_P2 - Tidal Power",
+                  "caption": ""
+                },
+                "width": 375,
+                "align": "ALIGN_LEFT",
+                "spots": [
+                  {
+                    "text": "1",
+                    "id": "GOQJ83FF9tyv8z15ixoiu",
+                    "x": -116,
+                    "y": -72
+                  },
+                  {
+                    "text": "2",
+                    "id": "WIX1fvoehCM4fwf9F4XTn",
+                    "x": 33,
+                    "y": -84
+                  },
+                  {
+                    "text": "3",
+                    "id": "0kh-fqFAUIoLme8JWPoBe",
+                    "x": 152,
+                    "y": -60
+                  },
+                  {
+                    "text": "4",
+                    "id": "Dioranbcc0amn_rpHweIX",
+                    "x": 66,
+                    "y": -85
+                  }
+                ]
+              },
+              "nodeBlanks": [
+                {
+                  "blanks": [
+                    {
+                      "blankId": "GOQJ83FF9tyv8z15ixoiu",
+                      "blankIndex": 0,
+                      "range": [0, 1]
+                    },
+                    {
+                      "blankId": "WIX1fvoehCM4fwf9F4XTn",
+                      "blankIndex": 1,
+                      "range": [2, 1]
+                    },
+                    {
+                      "blankId": "0kh-fqFAUIoLme8JWPoBe",
+                      "blankIndex": 2,
+                      "range": [4, 1]
+                    },
+                    {
+                      "blankId": "Dioranbcc0amn_rpHweIX",
+                      "blankIndex": 3,
+                      "range": [4, 3]
+                    }
+                  ],
+                  "editorValue": "[{\"children\":[{\"text\":\"Whole tower can be raised for \"},{\"type\":\"editable-blank-void\",\"children\":[{\"blankId\":\"GOQJ83FF9tyv8z15ixoiu\",\"text\":\"\"}]},{\"text\":\" and the extraction of seaweed from the blades.\"}]},{\"children\":[{\"text\":\"\"}]},{\"children\":[{\"text\":\"Sea life not in danger due to the fact that blades are comparatively \"},{\"type\":\"editable-blank-void\",\"children\":[{\"blankId\":\"WIX1fvoehCM4fwf9F4XTn\",\"text\":\"\"}]},{\"text\":\".\"}]},{\"children\":[{\"text\":\"\"}]},{\"children\":[{\"text\":\"Air bubbles result from the \"},{\"type\":\"editable-blank-void\",\"children\":[{\"blankId\":\"0kh-fqFAUIoLme8JWPoBe\",\"text\":\"\"}]},{\"text\":\"behind blades. This is known as \"},{\"type\":\"editable-blank-void\",\"children\":[{\"blankId\":\"Dioranbcc0amn_rpHweIX\",\"text\":\"\"}]},{\"text\":\"\"}]}]"
+                }
+              ]
+            }
+          ],
+          "questionType": "DIAGRAM_LABEL_COMPLETION",
+          "displayedQuestionType": "Diagram Completion",
+          "guideline": {
+            "content": [
+              {
+                "children": [{ "text": "Label the diagram below. " }],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "Choose " },
+                  { "text": "NO MORE THAN TWO WORDS", "bold": true },
+                  { "text": " from the passage for each answer." }
+                ],
+                "type": "paragraph"
+              }
+            ]
+          },
+          "compactGuideline": {
+            "content": [
+              {
+                "children": [
+                  { "text": "Choose " },
+                  { "text": "NO MORE THAN TWO WORDS", "bold": true },
+                  { "text": " from the passage for each answer." }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "enable": true
+          },
+          "totalQuestion": 4
+        }
+      ],
+      "testSectionOverview": {
+        "questionTypes": [
+          "DIAGRAM_LABEL_COMPLETION",
+          "MATCHING_PARAGRAPH",
+          "MULTIPLE_ANSWER"
+        ],
+        "displayedQuestionTypes": [
+          "Diagram Completion",
+          "Matching Paragraph Information",
+          "List Selection"
+        ]
+      },
+      "isDraftedVersion": false,
+      "studyTemplate": "SYLLABUS",
+      "annotatedTexts": [],
+      "passage": {
+        "title": "Tidal Power",
+        "subtitle": "Undersea turbines which produce electricity from the tides are set to become an important source of renewable energy for Britain. It is still too early to predict the extent of the impact they may have, but all the signs are that they will play a significant role in the future",
+        "type": "ANNOTATE",
+        "paragraphs": [
+          {
+            "content": "Operating on the same principle as wind turbines, the power in sea turbines comes from tidal currents which turn blades similar to ships’ propellers, but, unlike wind, the tides are predictable and the power input is constant. The technology raises the prospect of Britain becoming self-sufficient in renewable energy and drastically reducing its carbon dioxide emissions. If tide, wind and wave power are all developed, Britain would be able to close gas, coal and nuclear power plants and export renewable power to other parts of Europe. Unlike wind power, which Britain originally developed and then abandoned for 20 years allowing the Dutch to make it a major industry, undersea turbines could become a big export earner to island nations such as Japan and New Zealand."
+          },
+          {
+            "content": "Tidal sites have already been identified that will produce one sixth or more of the UK’s power - and at prices competitive with modern gas turbines and undercutting those of the already ailing nuclear industry. One site alone, the Pentland Firth, between Orkney and mainland Scotland, could produce 10% of the country’s electricity with banks of turbines under the sea, and another at Alderney in the Channel Islands three times the 1,200 megawatts of Britain’s largest and newest nuclear plant, Sizewell B, in Suffolk. Other sites identified include the Bristol Channel and the west coast of Scotland, particularly the channel between Campbeltown and Northern Ireland."
+          },
+          {
+            "content": "Work on designs for the new turbine blades and sites are well advanced at the University of Southampton’s sustainable energy research group. The first station is expected to be installed off Lynmouth in Devon shortly to test the technology in a venture jointly funded by the department of Trade and Industry and the European Union. AbuBakr Bahaj, in charge of the Southampton research, said: The prospects for energy from tidal currents are far better than from wind because the flows of water are predictable and constant. The technology for dealing with the hostile saline environment under the sea has been developed in the North Sea oil industry and much is already known about turbine blade design, because of wind power and ship propellers. There are a few technical difficulties, but I believe in the next five to ten years we will be installing commercial marine turbine farms.’ Southampton has been awarded £215,000 over three years to develop the turbines and is working with Marine Current Turbines, a subsidiary of IT power, on the Lynmouth project. EU research has now identified 106 potential sites for tidal power, 80% round the coasts of Britain. The best sites are between islands or around heavily indented coasts where there are strong tidal currents."
+          },
+          {
+            "content": "A marine turbine blade needs to be only one third of the size of a wind generator to produce three times as much power. The blades will be about 20 metres in diameter, so around 30 metres of water is required. Unlike wind power, there are unlikely to be environmental objections. Fish and other creatures are thought unlikely to be at risk from the relatively slow-turning blades. Each turbine will be mounted on a tower which will connect to the national power supply grid via underwater cables. The towers will stick out of the water and be lit, to warn shipping, and also be designed to be lifted out of the water for maintenance and to clean seaweed from the blades."
+          },
+          {
+            "content": "Dr Bahaj has done most work on the Alderney site, where there are powerful currents. The single undersea turbine farm would produce far more power than needed for the Channel Islands and most would be fed into the French Grid and be re-imported into Britain via the cable under the Channel."
+          },
+          {
+            "content": "One technical difficulty is cavitation, where low pressure behind a turning blade causes air bubbles. These can cause vibration and damage the blades of the turbines. Dr Bahaj said: ‘We have to test a number of blade types to avoid this happening or at least make sure it does not damage the turbines or reduce performance. Another slight concern is submerged debris floating into the blades. So far we do not know how much of a problem it might be. We will have to make the turbines robust because the sea is a hostile environment, but all the signs that we can do it are good.’"
+          }
+        ],
+        "markedBy": "ALPHABET",
+        "totalParagraphs": 6
+      },
+      "passageType": "PASSAGE2"
+    },
+    {
+      "id": "605ad14f8a6f32694457248a",
+      "createdAt": "2021-03-24T05:42:39.784+0000",
+      "lastModifiedAt": "2025-09-04T03:34:26.266+0000",
+      "testSectionId": "CAM9_R3_P3",
+      "name": "Information theory - the big idea",
+      "coverImage": {
+        "fileType": "PRIVATE",
+        "path": "PRIVATE/MEDIA/7ab6c12e-8b54-4719-91e2-fc187aa711fc.jpg",
+        "url": "https://suijm9clouobj.vcdn.cloud/PRIVATE/MEDIA/7ab6c12e-8b54-4719-91e2-fc187aa711fc.jpg",
+        "name": "CAM9_R3_P3 - Information theory - the big idea.jpg",
+        "uploadedDate": "2021-03-24T05:42:37.920+0000",
+        "size": 83406,
+        "alt": "Information theory - the big idea"
+      },
+      "skill": "READING",
+      "duration": 20,
+      "status": "PUBLISHED",
+      "testType": "PRACTICE_TEST",
+      "vocab": {
+        "vocabs": [
+          {
+            "type": "VERB",
+            "meaning": "ảnh hưởng",
+            "pronounce": "əˈfekt",
+            "example": "Ex: Your opinion will not affect my decision.",
+            "image": "https://popsci.com.tr/wp-content/uploads/2020/10/mental-health.jpg?",
+            "value": "affect",
+            "group": "Q27"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự truyền tín hiệu",
+            "pronounce": "trænzˈmɪʃn",
+            "example": "Ex: We apologize for the interruption to our transmissions this afternoon.",
+            "image": "https://cdn2.vectorstock.com/i/1000x1000/99/26/satellite-transmit-signal-vector-599926.jpg",
+            "value": "transmission",
+            "group": "Q27"
+          },
+          {
+            "type": "VERB",
+            "meaning": "vẫn, giữ như cũ",
+            "pronounce": "rɪˈmeɪn",
+            "example": "Ex: Train fares are likely to remain unchanged.",
+            "image": "https://tienganhmoingay.com/static/Vocabulary/images/word_images/remain.jpeg",
+            "value": "remain",
+            "group": "Q27"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "giải thích",
+            "pronounce": "ˌekspləˈneɪʃn",
+            "example": "Ex: The most likely explanation is that his plane was delayed.",
+            "image": "https://learnenglish.britishcouncil.org/sites/podcasts/files/RS8088_GettyImages-643999205-hig.jpg",
+            "value": "explanation",
+            "group": "Q27"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Nhân tố",
+            "pronounce": "ˈfæktər",
+            "example": "Ex: The result will depend on a number of different factors.",
+            "image": "https://thumbs.dreamstime.com/b/people-environmental-sustainability-concept-people-environmental-sustainability-concept-132120690.jpg",
+            "value": "factor",
+            "group": "Q27"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Tốc độ",
+            "pronounce": "reɪt",
+            "example": "Ex: Most people walk at an average rate of five kilometres an hour.",
+            "image": "https://static01.nyt.com/images/2014/01/10/health/10well_askwell/10well_askwell-tmagArticle.jpg",
+            "value": "rate",
+            "group": "Q27, 39, 40"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Giới hạn",
+            "pronounce": "ˈlɪmɪt",
+            "example": "Ex: There is a limit to the amount of pain we can bear.",
+            "image": "https://media.istockphoto.com/vectors/falling-arrow-pushes-businessman-to-cliff-vector-id1198950518?k=6&m=1198950518&s=612x612&w=0&h=jdBgTxHea-5H8HNfZHqE0GlC3BK-IXMyzsyjqGIuNmQ=",
+            "value": "limit",
+            "group": "Q27, 40"
+          },
+          {
+            "type": "VERB",
+            "meaning": "bỏ qua; lược bỏ",
+            "pronounce": "əˈmɪt",
+            "example": "Ex: Please don’t omit any details, no matter how minor they may seem.",
+            "image": "https://thumbs.dreamstime.com/b/business-manager-omit-wrong-person-over-white-background-39841450.jpg",
+            "value": "omit",
+            "group": "Q28"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "nền tảng",
+            "pronounce": "faʊnˈdeɪʃn",
+            "example": "Ex: Respect and friendship provide a solid foundation for marriage.",
+            "image": "https://miro.medium.com/max/1024/1*930gHClGYkhlc5UizydfEg.jpeg",
+            "value": "foundation",
+            "group": "Q28"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Hiệu quả",
+            "pronounce": "ɪˈfɪʃnt",
+            "example": "Ex: We offer a fast, friendly and efficient service.",
+            "image": "https://www.integrify.com/site/assets/files/2521/being-more-efficient.png",
+            "value": "efficient",
+            "group": "Q28"
+          },
+          {
+            "type": "VERB",
+            "meaning": "lưu trữ, cất giữ",
+            "pronounce": "stɔːr",
+            "example": "Ex: We are conducting research into how information is stored in the brain.",
+            "image": "https://ghmaterialhandling.com/images/stories/Pallet_Racking.jpg",
+            "value": "store",
+            "group": "Q28"
+          },
+          {
+            "type": "VERB",
+            "meaning": "lột bỏ",
+            "pronounce": "strɪp",
+            "example": "Ex: We had to strip out all the old wiring and start again.",
+            "image": "https://www.sandandstonelandscapes.com.au/wp-content/uploads/2018/05/how-to-lay-turf.jpg",
+            "value": "strip",
+            "group": "Q28"
+          },
+          {
+            "type": "VERB",
+            "meaning": "đóng góp",
+            "pronounce": "kənˈtrɪbjuːt",
+            "example": "Ex: We contributed £5 000 to the earthquake fund.",
+            "image": "https://startupgreatergood.org/wp-content/uploads/contribute-icon.jpg",
+            "value": "contribute",
+            "group": "Q28"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "dư thừa",
+            "pronounce": "rɪˈdʌndənt",
+            "example": "Ex: There's a lot of redundant information that you could cut out here.",
+            "image": "https://esphr.co.uk/images/thumb/1200/0/20160817031457redundancy.png",
+            "value": "redundant",
+            "group": "Q28"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "không cần thiết",
+            "pronounce": "ʌnˈnesəsəri",
+            "example": "Ex: Don't take any unnecessary risks.",
+            "image": "https://thumbs.dreamstime.com/b/overfilled-wardrobe-dissapointed-woman-looking-her-pile-clothes-falling-out-eps-vector-illustration-87830327.jpg",
+            "value": "unnecessary",
+            "group": "Q28"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự nói đến, sự nhắc đến",
+            "pronounce": "ˈrefrəns",
+            "example": "Ex: She made no reference to her illness but only to her future plans.",
+            "image": "https://apastyle.apa.org/images/new-reference-examples_tcm11-270270.jpg",
+            "value": "reference",
+            "group": "Q29, 32, 39"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Giả thuyết; học thuyết",
+            "pronounce": "ˈθɪəri",
+            "example": "Ex: He has a theory that the hole was caused by a meteorite.",
+            "image": "https://cdn.corporatefinanceinstitute.com/assets/Game-Theory.jpeg",
+            "value": "theory",
+            "group": "Q29, 31"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Có thể, có khả năng",
+            "pronounce": "ˈkeɪpəbl",
+            "example": "Ex: You are capable of better work than this.",
+            "image": "https://st2.depositphotos.com/1001599/6624/v/950/depositphotos_66246263-stock-illustration-the-man-capable-of-multitasking.jpg",
+            "value": "capable",
+            "group": "Q30"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Thái độ",
+            "pronounce": "ˈætɪtjuːd",
+            "example": "Ex: If you want to pass your exams you'd better change your attitude!",
+            "image": "https://cdn.psychologytoday.com/sites/default/files/field_blog_entry_images/smiley-1041796_960_720_0.jpg",
+            "value": "attitude",
+            "group": "Q29"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "tiếng tăm, danh tiếng, tên tuổi",
+            "pronounce": "feɪm",
+            "example": "Ex: She went to Hollywood in search of fame and fortune.",
+            "image": "https://nazmiyalantiquerugs.com/wp-content/uploads/2018/02/red-carpet-nazmiyal.jpg",
+            "value": "fame",
+            "group": "Q29"
+          },
+          {
+            "type": "VERB",
+            "meaning": "tránh, xa lánh, lảng xa",
+            "pronounce": "ʃʌn",
+            "example": "Ex: They were both shunned by their families when they remarried.",
+            "image": "https://media.istockphoto.com/vectors/businessman-running-away-from-someone-asking-for-help-cartoon-vector-vector-id1182674055?k=6&m=1182674055&s=612x612&w=0&h=KxqqtFneU1avJnErjs5rP2_WKelZMaLWEeCYgadEJjs=",
+            "value": "shun",
+            "group": "Q29"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự tán dương",
+            "pronounce": "əˈkleɪm",
+            "example": "Ex: His discoveries earned him wide acclaim.",
+            "image": "https://images.squarespace-cdn.com/content/v1/5e561647ffbcab426ea121e5/1583475326205-D07SP71QVC89R5PKOJCV/ke17ZwdGBToddI8pDm48kJK4Mm1kch8SFO9ZNkN1NT97gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmN9YSRtfoTLg6dUq-6F17A0FFZK5fArcnK1IqGweyunyWChwIwkIJ_P7MaZif-uMs/Acclaim+Awards+%22and+the+winner+is+...%22?format=1500w",
+            "value": "acclaim",
+            "group": "Q29"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Diễn giải, hiểu",
+            "pronounce": "ɪnˈtɜːprət",
+            "example": "Ex: The data can be interpreted in many different ways.",
+            "image": "https://www.wikihow.com/images/thumb/8/8a/Interpret-a-Dream-Involving-the-Color-Black-Step-12-Version-2.jpg/aid443245-v4-1200px-Interpret-a-Dream-Involving-the-Color-Black-Step-12-Version-2.jpg",
+            "value": "interpret",
+            "group": "Q30"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Dò tìm, phát hiện",
+            "pronounce": "dɪˈtekt",
+            "example": "Ex: The tests are designed to detect the disease early.",
+            "image": "https://images.theconversation.com/files/284418/original/file-20190717-173334-1b9vdud.jpg?ixlib=rb-1.1.0&rect=0%2C0%2C6490%2C3957&q=45&auto=format&w=496&fit=clip",
+            "value": "detect",
+            "group": "Q30"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Đảm bảo",
+            "pronounce": "ɪnˈʃʊər",
+            "example": "Ex: We are working to ensure the safety of people in the city.",
+            "image": "https://images.theconversation.com/files/327852/original/file-20200414-117562-o74o6q.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=754&fit=clip",
+            "value": "ensure",
+            "group": "Q30"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Lời tường thuật",
+            "pronounce": "əˈkaʊnt",
+            "example": "Ex: The diaries contained a detailed account of the writer's experiences in China.",
+            "image": "https://www.thecenterforgrowth.com/assets/uploads/images/_1200x630_crop_center-center_82_none/Telling-Your-Partner-That-You-Are-Asexual.jpg?mtime=1593100553",
+            "value": "account",
+            "group": "Q31"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Sự việc",
+            "pronounce": "ˈɪnsɪdənt",
+            "example": "Ex: He came to regret the whole incident.",
+            "image": "https://i1.wp.com/lifars.com/wp-content/uploads/2020/01/A-Lesson-for-CIOs-IT-Incident-Management.jpg?fit=1600%2C1200&ssl=1",
+            "value": "incident",
+            "group": "Q31"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Trình bày, minh hoạ",
+            "pronounce": "ˈdemənstreɪt",
+            "example": "Ex: New research convincingly demonstrates that age-related memory loss is not inevitable.",
+            "image": "https://www.biospace.com/getasset/c622814c-b2a9-4e7d-b0fe-45cc151e4047/",
+            "value": "demonstrate",
+            "group": "Q31"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "ứng dụng",
+            "pronounce": "ˌæplɪˈkeɪʃn",
+            "example": "Ex: The design has many applications.",
+            "image": "https://www.networkdepot.com/wp-content/uploads/2016/05/Business-Applications-on-cloud-Image1.jpg",
+            "value": "application",
+            "group": "Q31"
+          },
+          {
+            "type": "VERB",
+            "meaning": "liên quan, bao hàm",
+            "pronounce": "ɪnˈvɒlv",
+            "example": "Ex: The test will involve answering questions about a photograph.",
+            "image": "https://www.studytienganh.vn/upload/2021/04/96264.png",
+            "value": "involve",
+            "group": "Q31"
+          },
+          {
+            "type": "ADV",
+            "meaning": "lúc đầu",
+            "pronounce": "ɪˈnɪʃəli",
+            "example": "Ex: Initially, the system worked well.",
+            "image": "https://oimageb2.ydstatic.com/image?id=1509263318091631902&product=PICDICT",
+            "value": "initially",
+            "group": "Q32"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Dự định",
+            "pronounce": "ɪnˈtend",
+            "example": "Ex: The train we had intended to catch had already left.",
+            "image": "https://media.istockphoto.com/vectors/the-dream-of-university-students-nearing-graduation-planning-future-vector-id1186357197?k=6&m=1186357197&s=612x612&w=0&h=TDl6ARO2zhrcyPda6TX8WIPsx9Co5Z-3I6QqeO4f4wc=",
+            "value": "intend",
+            "group": "Q32"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Đạt được, giành được",
+            "pronounce": "əˈtʃiːv",
+            "example": "Ex: He had finally achieved success.",
+            "image": "https://www.success.com/wp-content/uploads/2015/01/The-Power-of-Accountability-10-Steps-to-Achieve-Any-Goal-1024x682.jpg",
+            "value": "achieve",
+            "group": "Q32"
+          },
+          {
+            "type": "VERB",
+            "meaning": "bắt đầu",
+            "pronounce": "set aʊt",
+            "example": "Ex: They succeeded in what they set out to do.",
+            "image": "https://media.istockphoto.com/photos/theyve-got-so-many-ideas-on-the-table-picture-id1008207318?k=6&m=1008207318&s=612x612&w=0&h=kFPtldPEWT8cXYkO7xop7OMrzaHTwg1aagw1Yzge67k=",
+            "value": "set out",
+            "group": "Q32"
+          },
+          {
+            "type": "ADV",
+            "meaning": "rõ ràng",
+            "pronounce": "əˈpærəntli",
+            "example": "Ex: I thought she had retired, but apparently she hasn't.",
+            "image": "https://mongabay-images.s3.amazonaws.com/1200/uganda/ug4_4932.jpg",
+            "value": "apparently",
+            "group": "Q32"
+          },
+          {
+            "type": "VERB",
+            "meaning": "xác định",
+            "pronounce": "pɪn daʊn",
+            "example": "Ex: The cause of the disease is difficult to pin down precisely.",
+            "image": "https://blog-assets.freshworks.com/freshdesk/wp-content/uploads/2018/08/Customer-Struggles.png",
+            "value": "pin down",
+            "group": "Q32"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "mục đích, mục tiêu",
+            "pronounce": "eɪm",
+            "example": "Ex: Our main aim is to provide affordable childcare.",
+            "image": "https://cdn2.vectorstock.com/i/1000x1000/69/96/businessman-aiming-target-business-concept-vector-14416996.jpg",
+            "value": "aim",
+            "group": "Q32"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Chính xác",
+            "pronounce": "prɪˈsaɪs",
+            "example": "Ex: Can you give a more precise definition of the word?",
+            "image": "https://www.quickanddirtytips.com/sites/default/files/images/5165/precise_and_accurate.jpg",
+            "value": "precise",
+            "group": "Q32"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "khái niệm, ý tưởng",
+            "pronounce": "ˈkɒnsept",
+            "example": "Ex: Students must be able to apply classroom concepts to practical situations.",
+            "image": "https://i2.wp.com/marketingai.admicro.vn/wp-content/uploads/2018/05/y-nghia-cua-concept-la-gi.jpg?resize=620%2C572&ssl=1",
+            "value": "concept",
+            "group": "Q32, 38"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "máy thăm dò",
+            "pronounce": "prəʊb",
+            "example": "Ex: It was the first space probe to provide detailed images of the two largest planets and their major moons.",
+            "image": "https://images-na.ssl-images-amazon.com/images/I/61t%2BcgcQ5ZL._AC_SL1106_.jpg",
+            "value": "probe",
+            "group": "Q33, 34, 36"
+          },
+          {
+            "type": "VERB",
+            "meaning": "truyền",
+            "pronounce": "trænzˈmɪt",
+            "example": "Ex: The disease cannot be transmitted through coughing or sneezing.",
+            "image": "https://cdn5.vectorstock.com/i/1000x1000/29/79/listen-and-transmit-flat-icon-vector-15222979.jpg",
+            "value": "transmit",
+            "group": "Q33, 34, 37, 38, 40"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Ngoạn mục",
+            "pronounce": "spekˈtækjələr",
+            "example": "Ex: It was a spectacular achievement on their part.",
+            "image": "https://cf.bstatic.com/images/hotel/max1024x768/211/211452954.jpg",
+            "value": "spectacular",
+            "group": "Q33, 34"
+          },
+          {
+            "type": "VERB",
+            "meaning": "bay cao",
+            "pronounce": "sɔːr",
+            "example": "Ex: The rocket soared up into the air.",
+            "image": "https://media.timeout.com/images/105653190/image.jpg",
+            "value": "soar",
+            "group": "Q33, 34"
+          },
+          {
+            "type": "VERB",
+            "meaning": "phóng (tên lửa, vệ tinh,...)",
+            "pronounce": "lɔːntʃ",
+            "example": "Ex: The satellite was successfully launched into orbit earlier this month.",
+            "image": "https://content.fortune.com/wp-content/uploads/2020/05/SpaceX-NASA-Launch-04.jpg",
+            "value": "launch",
+            "group": "Q33, 34"
+          },
+          {
+            "type": "VERB",
+            "meaning": "sợ, lo ngại, e ngại",
+            "pronounce": "fɪər",
+            "example": "Ex: It was feared that unemployment could rise.",
+            "image": "https://static01.nyt.com/images/2017/10/31/well/family/well-fear-bed/well-fear-bed-videoSixteenByNineJumbo1600.jpg",
+            "value": "fear",
+            "group": "Q35"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Thiết bị cảm biến",
+            "pronounce": "ˈsensər",
+            "example": "Ex: The security device has a heat sensor which detects the presence of people and animals.",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/2/27/Light_sensor.png",
+            "value": "sensor",
+            "group": "Q35"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "mạch điện",
+            "pronounce": "ˈsɜːrkɪt",
+            "example": "Ex: A defect was found in the electrical circuit.",
+            "image": "https://www.ourpcb.com/wp-content/uploads/2019/04/PCB-Board-Blank2.jpg",
+            "value": "circuit",
+            "group": "Q35"
+          },
+          {
+            "type": "ADV",
+            "meaning": "trên bờ vực (một điều gì đó sắp xảy ra)",
+            "pronounce": "ɑːn ðə brɪŋk əv",
+            "example": "Ex: Scientists are on the brink of making a major new discovery.",
+            "image": "https://c8.alamy.com/comp/E1JEP5/businessman-on-the-edge-of-a-cliff-or-brink-of-a-crevasse-looking-E1JEP5.jpg",
+            "value": "on the brink of",
+            "group": "Q35"
+          },
+          {
+            "type": "VERB",
+            "meaning": "thay thế",
+            "pronounce": "rɪˈpleɪs",
+            "example": "Ex: The new design will eventually replace all existing models.",
+            "image": "https://soliloquywp.com/wp-content/uploads/2017/08/replace-media-files-images-wordpress.jpg",
+            "value": "replace",
+            "group": "Q36"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Giải pháp",
+            "pronounce": "səˈluːʃn",
+            "example": "Ex: Attempts to find a solution have failed.",
+            "image": "https://images.martechadvisor.com/images/uploads/content_images/in_todays_experience_economy_your_customer_data_solution_is_critical_5e68e03e20e19.jpg",
+            "value": "solution",
+            "group": "Q36"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "đồ dự phòng",
+            "pronounce": "sper",
+            "example": "Ex: If you forget the key, Mrs Jones over the road has a spare.",
+            "image": "https://static.horiba.com/fileadmin/_processed_/e/c/csm_Spare-parts_support_321f9dae6e.jpg",
+            "value": "spare",
+            "group": "Q36"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "độ sâu",
+            "pronounce": "depθ",
+            "example": "Ex: What's the depth of the water here?",
+            "image": "https://www.deeperblue.com/wp-content/uploads/2018/10/georgina-DaanVerhoeven02985.jpg",
+            "value": "depth",
+            "group": "Q37"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "phương tiện",
+            "pronounce": "miːnz",
+            "example": "Ex: They had no means of communication",
+            "image": "https://previews.123rf.com/images/stockshoppe/stockshoppe1208/stockshoppe120800116/14892458-means-of-transport.jpg",
+            "value": "means",
+            "group": "Q37"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Thuộc về, của",
+            "pronounce": "bɪˈlɔːŋ",
+            "example": "Ex: The islands belong to Spain.",
+            "image": "https://chiasemeohay.com/wp-content/uploads/2016/04/chim-doi-gianh-moi2.jpg",
+            "value": "belong",
+            "group": "Q37"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "lần thử, nỗ lực",
+            "pronounce": "əˈtempt",
+            "example": "Ex: Ex: Attempts are being made to resolve the problem of security in schools.",
+            "image": "https://thumbs.dreamstime.com/b/target-success-13853279.jpg",
+            "value": "attempt",
+            "group": "Q38"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Căn bản, cốt lõi",
+            "pronounce": "ˌfʌndəˈmentl",
+            "example": "Ex: You have a fundamental right to privacy.",
+            "image": "https://bitcoinist.com/wp-content/uploads/2018/11/shutterstock_1006764151.jpg",
+            "value": "fundamental",
+            "group": "Q38"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Định nghĩa",
+            "pronounce": "dɪˈfaɪn",
+            "example": "Ex: The term ‘mental illness’ is difficult to define.",
+            "image": "https://miro.medium.com/max/4166/1*N9Sc0O5EAWp6wIap7pFhFg.jpeg",
+            "value": "define",
+            "group": "Q38"
+          },
+          {
+            "type": "VERB",
+            "meaning": "bắt đầu",
+            "pronounce": "set əˈbaʊt",
+            "example": "Ex: We need to set about finding a solution.",
+            "image": "https://www.cumanagement.com/sites/default/files/2018-10/roll-up-sleeves.jpg",
+            "value": "set about",
+            "group": "Q38"
+          },
+          {
+            "type": "ADV",
+            "meaning": "nếu không thì",
+            "pronounce": "ˈʌðərwaɪz",
+            "example": "Ex: My parents lent me the money. Otherwise, I couldn't have afforded the trip.",
+            "image": "https://ledybest.ru/wp-content/uploads/2019/10/myshlenie.jpg",
+            "value": "otherwise",
+            "group": "Q38"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Mơ hồ",
+            "pronounce": "veɪɡ",
+            "example": "Ex: She rolled her eyes at the vague response.",
+            "image": "https://lirp-cdn.multiscreensite.com/13598195/dms3rep/multi/opt/BLOG+No.+10-640w.png",
+            "value": "vague",
+            "group": "Q38"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Xác định, nhận dạng",
+            "pronounce": "aɪˈdentɪfaɪ",
+            "example": "Ex: They are trying to identify what is wrong with the present system.",
+            "image": "https://www.karooya.com/blog/wp-content/uploads/2016/09/identify-duplicate-keywords.jpg",
+            "value": "identify",
+            "group": "Q38"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "cân xứng với, cân đối với, tuỳ theo",
+            "pronounce": "ˈrelətɪv",
+            "example": "Ex: We need to assess the relative importance of each of these factors.",
+            "image": "https://www.migasolutions.com/wp-content/uploads/2019/06/Apples-to-Apples-Comparison-620x370.jpg",
+            "value": "relative",
+            "group": "Q39"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Quyết định",
+            "pronounce": "dɪˈtɜːmɪn",
+            "example": "Ex: Upbringing plays an important part in determining a person's character.",
+            "image": "https://media.bizj.us/view/img/3645411/165125803*1200xx1892-1066-0-145.jpg",
+            "value": "determine",
+            "group": "Q39"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "khả năng",
+            "pronounce": "kəˈpæsəti",
+            "example": "Ex: She has an enormous capacity for hard work.",
+            "image": "https://float-production-blog.storage.googleapis.com/2020/07/Float_capacity_planning.png",
+            "value": "capacity",
+            "group": "Q39"
+          },
+          {
+            "type": "VERB",
+            "meaning": "truyền tải",
+            "pronounce": "kənˈveɪ",
+            "example": "Ex:  Colours like red convey a sense of energy and strength.",
+            "image": "https://davidotey.com/wp-content/uploads/2019/01/presentation-skills-technical-speakers.jpg",
+            "value": "convey",
+            "group": "Q40"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "chủ yếu, quan trọng",
+            "pronounce": "ˈmeɪdʒər",
+            "example": "Ex: He played a major role in setting up the system.",
+            "image": "https://convertwithcontent.com/wp-content/uploads/2014/01/the-most-important-part-of-your-business-is-you.jpg",
+            "value": "major",
+            "group": "Q40"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Dự đoán",
+            "pronounce": "ænˈtɪsɪpeɪt",
+            "example": "Ex: We anticipate that sales will rise next year.",
+            "image": "https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://coursera-course-photos.s3.amazonaws.com/0a/5226a0a4b511e5b65225729526771e/vignette-3-ANTICIPATING-YOUR-NEXT-BATTLE.png?auto=format%2Ccompress&dpr=1",
+            "value": "anticipate",
+            "group": "Q40"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Bước đột phá",
+            "pronounce": "ˈbreɪkθruː",
+            "example": "Ex: Scientists are hoping for a breakthrough in the search for a cure for cancer.",
+            "image": "https://us.123rf.com/450wm/rudall30/rudall301612/rudall30161200020/68231447-silhouette-illustration-of-a-businessman-breaking-the-wall-business-breakthrough-success-challenge-c.jpg?ver=6",
+            "value": "breakthrough",
+            "group": "Q40"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "cuối cùng",
+            "pronounce": "ˈʌltɪmət",
+            "example": "Ex: We will accept ultimate responsibility for whatever happens.",
+            "image": "https://thumbs.dreamstime.com/b/creusez-la-terre-%C3%A0-la-recherche-des-tr%C3%A9sors-cach%C3%A9s-86948655.jpg",
+            "value": "ultimate",
+            "group": "Q40"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Khám phá",
+            "pronounce": "dɪˈskʌvər",
+            "example": "Ex: She recently discovered two fungi that were new to science.",
+            "image": "https://thumbs.dreamstime.com/b/pirate-discover-island-illustration-184196282.jpg",
+            "value": "discover",
+            "group": "Q40"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Được gọi là",
+            "pronounce": "ˌsəʊ ˈkɔːld",
+            "example": "Ex: How have these so-called improvements helped the local community?",
+            "image": "https://www.acted.org/wp-content/uploads/2018/04/microphone-announcement-at-balijana-in-goalpara-district-december-2017-...-870x653.jpg",
+            "value": "so-called",
+            "group": "Q40"
+          },
+          {
+            "type": "VERB",
+            "meaning": "nằm ở",
+            "pronounce": "laɪ",
+            "example": "Ex: The answer seems to lie elsewhere.",
+            "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr98B-bIfxj-Q-5z_JeB1YqJEGZ1oDmgiOXA&usqp=CAU",
+            "value": "lie",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự tiếp xúc",
+            "pronounce": "ɪkˈspəʊʒər",
+            "example": "Ex: You should always limit your exposure to the sun.",
+            "image": "https://www.telegraph.co.uk/content/dam/news/2018/03/08/sunshine_trans_NvBQzQNjv4BqqVzuuqpFlyLIwiB6NTmJwfSVWeZ_vEN7c6bHu2jJnT8.png?imwidth=450",
+            "value": "exposure",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "cố gắng xoay xở, thành công trong việc làm gì đó khó",
+            "pronounce": "ˈmænɪdʒ",
+            "example": "Ex: We managed to get to the airport in time.",
+            "image": "https://englishhelponline.files.wordpress.com/2010/05/istock_000009381744small.jpg?w=640",
+            "value": "manage",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "gây kinh ngạc",
+            "pronounce": "əˈstɒnɪʃɪŋ",
+            "example": "Ex: I find it absolutely astonishing that you didn't like it.",
+            "image": "https://thumbs.dreamstime.com/b/emotional-stupefied-mixed-race-women-stand-closely-to-each-other-stare-bugged-eyes-dressed-casual-clothes-open-mouthes-200079728.jpg",
+            "value": "astonishing",
+            "group": "General"
+          },
+          {
+            "type": "ADV",
+            "meaning": "tự mình",
+            "pronounce": "ˌsɪŋɡl ˈhændɪdli",
+            "example": "Ex: She brought up three children single-handedly.",
+            "image": "https://i0.wp.com/getmombalanced.com/wp-content/uploads/2017/10/balance-as-a-single-mom.jpg?fit=2000%2C1547&ssl=1",
+            "value": "single-handedly",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "thật",
+            "pronounce": "ˈdʒenjuɪn",
+            "example": "Ex: She always showed genuine concern for others.",
+            "image": "https://hpf-happify-marty-prod-user-uploads.happify.com/cms_uploads/en_US/img/happifiers/4-compliments-anyone-would-love-to-receive-1_106340d.jpg",
+            "value": "genuine",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Tối quan trọng",
+            "pronounce": "ˈkruːʃl",
+            "example": "Ex: Parents play a crucial role in preparing their child for school.",
+            "image": "https://media.istockphoto.com/vectors/men-workers-with-masks-against-2019-ncov-virus-vector-design-vector-id1219066600?k=6&m=1219066600&s=612x612&w=0&h=nsD2Z8DYHJihdy-tz6xJmdATizYiVyi7cSh1yGdZ7g8=",
+            "value": "crucial",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "chiến tích",
+            "pronounce": "fiːt",
+            "example": "Ex: They have pulled off an extraordinary feat in completing the voyage.",
+            "image": "https://gripped.com/wp-content/uploads/2017/07/image4-1200x675.jpg",
+            "value": "feat",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "mơ hồ, nhập nhằng",
+            "pronounce": "æmˈbɪɡjuəs",
+            "example": "Ex: Her account was deliberately ambiguous.",
+            "image": "https://miro.medium.com/max/1000/1*33SMfVq-y8A_WmQ9hZmN3w.jpeg",
+            "value": "ambiguous",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "thuộc về gen, di truyền",
+            "pronounce": "dʒəˈnetɪk",
+            "example": "Ex: This is a form of genetic modification.",
+            "image": "https://images.ctfassets.net/cnu0m8re1exe/5wBX9DWUcLpTKCBGHTbvU5/0edae29442775434b0d3c76162c08998/shutterstock_1669326868.jpg?w=650&h=433&fit=fill",
+            "value": "genetic",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "quan trọng nhất",
+            "pronounce": "ˈsentrəl",
+            "example": "Ex: Prevention also plays a central role in traditional medicine.",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Central_Europe_%28Brockhaus%29.svg/1200px-Central_Europe_%28Brockhaus%29.svg.png",
+            "value": "central",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Cho phép",
+            "pronounce": "ɪˈneɪbl",
+            "example": "Ex: This new programme will enable older people to study at college.",
+            "image": "https://www.aescampus.lk/wp-content/uploads/2019/09/Dip-in-Multimedia-Technology-1200x600.jpg",
+            "value": "enable",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "giá lạnh, băng giá, rét mướt",
+            "pronounce": "ˈfriːzɪŋ",
+            "example": "Ex: It's freezing in here!",
+            "image": "https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/182197_2200-732x549.jpg",
+            "value": "freezing",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Nhiệt độ",
+            "pronounce": "ˈtemprətʃər",
+            "example": "Ex: The climate is generally mild, and freezing temperatures are almost unknown.",
+            "image": "https://i.pinimg.com/originals/0b/7b/47/0b7b4753f0a4cc2c5d4b7a28b024831e.jpg",
+            "value": "temperature",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Chuyên gia",
+            "pronounce": "ˈekspɜːt",
+            "example": "Ex: According to our panel of leading industry experts, a downturn is inevitable.",
+            "image": "https://www.careerexperts.co.uk/wp-content/uploads/2013/12/Career-advice-delivered-by-industry-experts-1.jpg",
+            "value": "expert",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "chỉ dẫn",
+            "pronounce": "ɪnˈstrʌkt",
+            "example": "Ex: You will be instructed where to go as soon as the plane is ready.",
+            "image": "https://bplawassets.learningaccelerator.org/images/PoP_DL_1.jpg",
+            "value": "instruct",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Quỹ đạo",
+            "pronounce": "ˈɔːbɪt",
+            "example": "Ex: A new satellite has been put into orbit around the earth.",
+            "image": "https://www.thegreatcoursesdaily.com/wp-content/uploads/2020/05/Understanding-the-Misconceptions-of-Science_Orbital-Motion-The-Orbit-of-a-Planet-Moves-a-Little-After-Every-Loop_QBS_Featured.jpg",
+            "value": "orbit",
+            "group": "General"
+          },
+          {
+            "type": "ADV",
+            "meaning": "đáng kinh ngạc, đến không ngờ",
+            "pronounce": "ɪnˈkredəbli",
+            "example": "Ex: It was all incredibly difficult.",
+            "image": "https://image.freepik.com/foto-gratis/asombro-mujer-emocionada-mirando-lado-mujer-joven-feliz-sorprendida-que-mira-lado-emocion_1258-5189.jpg",
+            "value": "incredibly",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "mờ, không rõ",
+            "pronounce": "feɪnt",
+            "example": "Ex: We saw the faint outline of the mountain through the mist.",
+            "image": "https://image.shutterstock.com/image-photo/scenery-morning-views-on-doi-260nw-1874983126.jpg",
+            "value": "faint",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "chiến thắng",
+            "pronounce": "ˈtraɪʌmf",
+            "example": "Ex: It was a personal triumph over her old rival.",
+            "image": "https://thumbs.dreamstime.com/b/triumphant-businessman-greeting-new-day-standing-outdoors-his-fist-raised-against-fiery-sunrise-sunburst-102885553.jpg",
+            "value": "triumph",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "nhấn mạnh",
+            "pronounce": "ˈhaɪlaɪt",
+            "example": "Ex: This study highlights the fact that couples are keen to assist others.",
+            "image": "https://darrylburling.com/wp-content/uploads/2016/11/2016-11-04-what-is-the-best-way-to-highlight-my-bible-1.jpeg",
+            "value": "highlight",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Kĩ thuật",
+            "pronounce": "tekˈniːk",
+            "example": "Ex: Researchers used advanced techniques to analyse the brain scans.",
+            "image": "https://blog.optimalworkshop.com/wp-content/uploads/2020/03/Is-closed-card-sorting-an-outdated-technique-for-IA.png",
+            "value": "technique",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Đồ dùng, đồ vật",
+            "pronounce": "ˈɡædʒɪt",
+            "example": "Ex: We live in a world filled with high-tech gadgets.",
+            "image": "https://cdn.vox-cdn.com/thumbor/HOBzegwV2CJRJDWJyh71nYq8gEE=/0x0:2625x1907/1200x800/filters:focal(1103x744:1523x1164)/cdn.vox-cdn.com/uploads/chorus_image/image/52187575/jbareham_160418_0931_0086_FINAL_NO_BUFFER_5MB_02.0.0.jpeg",
+            "value": "gadget",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "toàn bộ",
+            "pronounce": "ɪnˈtaɪər",
+            "example": "Ex: You two are her favourite people in the entire world.",
+            "image": "https://handsonuniverse.org/usa/wp-content/uploads/sites/3/2013/10/eclipseAustralia2012.jpg",
+            "value": "entire",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "lấy được, dụ dỗ",
+            "pronounce": "ɪnˈveɪɡl",
+            "example": "Ex: Her son tried to inveigle her into giving him the money for a car.",
+            "image": "https://mammothmemory.net/images/user/base/English/vocab/remember-inveigle-frames-in-english-vocabulary.4443a76.jpg",
+            "value": "inveigle",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "vệ tinh nhân tạo",
+            "pronounce": "ˈsætəlaɪt",
+            "example": "Ex: The World Cup was transmitted around the world by satellite.",
+            "image": "https://www.clipartkey.com/mpngs/m/25-252859_clip-art-satellite-clip-art-satellites-clipart.png",
+            "value": "satellite",
+            "group": "General"
+          },
+          {
+            "type": "ADV",
+            "meaning": "1 cách nhanh chóng",
+            "pronounce": "ˈræpɪdli",
+            "example": "Ex: Crime figures are rising rapidly.",
+            "image": "https://vietship.net/wp-content/uploads/2020/12/giao-hang-nhanh-chong-1.jpg",
+            "value": "rapidly",
+            "group": "General"
+          },
+          {
+            "type": "ADV",
+            "meaning": "một cách chính xác",
+            "pronounce": "ˈækjərətli",
+            "example": "Ex: The article accurately reflects public opinion.",
+            "image": "https://www.alfadispenser.com/wp-content/uploads/2018/10/Accuracy_repeatability.jpg",
+            "value": "accurately",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "thực tế, không viễn vông",
+            "pronounce": "ˌdaʊn tu ˈɜːrθ",
+            "example": "Ex: Fran's a very friendly, down-to-earth person.",
+            "image": "https://media.istockphoto.com/vectors/data-analysis-vector-id1004724020?k=6&m=1004724020&s=612x612&w=0&h=1JdO_IEFneTxaobay4o6bM9nGD1JE0F7-nr1qav2U6I=",
+            "value": "down-to-earth",
+            "group": "General"
+          },
+          {
+            "type": "ADV",
+            "meaning": "khởi đầu, nguyên thủy",
+            "pronounce": "əˈrɪdʒənəli",
+            "example": "Ex: The school was originally very small.",
+            "image": "https://c8.alamy.com/comp/PX4AW0/eve-giving-adam-the-forbidden-fruit-PX4AW0.jpg",
+            "value": "originally",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Danh giá",
+            "pronounce": "preˈstɪdʒəs",
+            "example": "Ex: My parents wanted me to go to a more prestigious university.",
+            "image": "https://nsckenticotest.blob.core.windows.net/cms/nsc.org/media/site-media/blog/featured/award700x450.jpg?ext=.jpg",
+            "value": "prestigious",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "viện",
+            "pronounce": "ˈɪnstɪtjuːt",
+            "example": "Ex: The report was compiled by Germany's five leading economic research institutes",
+            "image": "https://sheltertwc.weebly.com/uploads/8/9/0/3/8903043/1556475.jpg?446",
+            "value": "institute",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "bắt lấy, lưu giữ lại",
+            "pronounce": "ˈkæptʃər",
+            "example": "Ex: The attack was captured on film by security cameras.",
+            "image": "https://akm-img-a-in.tosshub.com/businesstoday/images/story/201705/camera-701696-660_050317040437.jpg",
+            "value": "capture",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "quá trình",
+            "pronounce": "ˈprəʊses",
+            "example": "Ex: It's a normal part of the learning process.",
+            "image": "http://tienganhmoingay.com/static/Vocabulary/images/word_images/process.png",
+            "value": "process",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "cam kết, đảm bảo",
+            "pronounce": "ˌɡærənˈtiː",
+            "example": "Ex: Basic human rights, including freedom of speech, are now guaranteed.",
+            "image": "https://psb-planningcanada.ca/wp-content/uploads/2019/01/recipricol_53801155-stock-photo-making-agreement.jpg",
+            "value": "guarantee",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "Ngẫu nghiên",
+            "pronounce": "ˈrændəm",
+            "example": "Ex: He grabbed a random pair of jeans and an old red shirt.",
+            "image": "https://cerberus-laboratories.com/images/blog/random_numbers.jpg",
+            "value": "random",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự can thiệp, sự xen vào, sự gây trở ngại",
+            "pronounce": "ˌɪntərˈfɪrəns",
+            "example": "Ex: She seems to regard any advice or help from me as interference.",
+            "image": "https://image.freepik.com/free-vector/hildren-interfere-with-work-difficulties-with-remote-work_106796-570.jpg",
+            "value": "interference",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "còn nguyên vẹn, không bị ảnh hưởng",
+            "pronounce": "ɪnˈtækt",
+            "example": "Ex: Most of the house remains intact even after two hundred years.",
+            "image": "https://thumbs.dreamstime.com/b/many-intact-eggs-one-broken-egg-shell-visible-egg-yolk-vitellus-many-intact-eggs-one-broken-egg-shell-visible-155220785.jpg",
+            "value": "intact",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "nói chung chung",
+            "pronounce": "ˈdʒenrəlaɪz",
+            "example": "Ex: It would be foolish to generalise from a single example.",
+            "image": "https://i.pinimg.com/474x/f1/33/be/f133bedffb37b8cbad880f16ce9d9842.jpg",
+            "value": "generalise",
+            "group": "General"
+          },
+          {
+            "type": "PREPOSITION",
+            "meaning": "thông qua",
+            "pronounce": "ˈvaɪə",
+            "example": "Ex: The news programme came to us via satellite.",
+            "image": "https://www.globaltimes.cn/Portals/0/attachment/2020/2020-11-19/b26582c7-2fe0-4263-879f-db86899d0298.jpeg",
+            "value": "via",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "giải quyết",
+            "pronounce": "kəʊp wɪð",
+            "example": "Ex: It must be really hard to cope with three young children and a job.",
+            "image": "https://www.paddingtonnow.co.uk/wp-content/uploads/2019/03/over-stressed-at-work-6-practical-steps-to-help-manage-stress-in-the-workplace-136420001847303901-170731162022.jpg",
+            "value": "cope with",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "sự phá hoại",
+            "pronounce": "ˈrævɪdʒɪz",
+            "example": "Ex: Her looks had not survived the ravages of time.",
+            "image": "https://thumbs.dreamstime.com/b/ruins-city-tornado-disaster-landscape-d-illustration-concept-85196644.jpg",
+            "value": "ravages",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "nghĩ ra, sáng chế",
+            "pronounce": "dɪˈvaɪz",
+            "example": "Ex: A new system has been devised to control traffic in the city.",
+            "image": "https://www.fundingsavvy.com/blog/wp-content/uploads/2018/03/1968598.jpg",
+            "value": "devise",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "Phương pháp",
+            "pronounce": "ˈmeθəd",
+            "example": "Ex: Which method is the most effective?",
+            "image": "https://www.elearnafrica.com/uploads/course_logo/584a8e271992c.jpg",
+            "value": "method",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Chứng minh",
+            "pronounce": "pruːv",
+            "example": "Ex: She was determined to prove everyone wrong.",
+            "image": "https://1721181113.rsc.cdn77.org/data/images/full/25956/is-science-proof-that-god-does-not-exist.jpg?w=600?w=430",
+            "value": "prove",
+            "group": "General"
+          },
+          {
+            "type": "ADV",
+            "meaning": "gây ấn tượng sâu sắc, gây ngạc nhiên, làm choáng váng",
+            "pronounce": "ˈstʌnɪŋli",
+            "example": "Ex: The countryside around here is stunningly beautiful.",
+            "image": "https://wallpaperaccess.com/full/126633.jpg",
+            "value": "stunningly",
+            "group": "General"
+          },
+          {
+            "type": "ADJ",
+            "meaning": "chủ chốt",
+            "pronounce": "kiː",
+            "example": "Ex: He was a key figure in the campaign.",
+            "image": "https://www.clipartkey.com/mpngs/m/20-204760_leader-clipart-educational-leadership-clipart-helping-leader-png.png",
+            "value": "key",
+            "group": "General"
+          },
+          {
+            "type": "NOUN",
+            "meaning": "cuộc cách mạng",
+            "pronounce": "ˌrevəˈluːʃn",
+            "example": "Ex: A revolution in information technology is taking place.",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/4/47/Bataille_Jemmapes.jpg",
+            "value": "revolution",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "Tính, tính toán",
+            "pronounce": "ˈkælkjuleɪt",
+            "example": "Ex: We haven’t really calculated the cost of the vacation yet.",
+            "image": "https://www.justicepays.com/blogmin/wp-content/uploads/2018/11/how-do-you-calculate-lost-wages-if-youre-self-employed.jpg",
+            "value": "calculate",
+            "group": "General"
+          },
+          {
+            "type": "VERB",
+            "meaning": "nhồi, nhét, tống vào",
+            "pronounce": "kræm",
+            "example": "Ex: He crammed eight people into his car.",
+            "image": "https://ak.picdn.net/shutterstock/videos/23173552/thumb/1.jpg",
+            "value": "cram",
+            "group": "General"
+          }
+        ],
+        "vocabUrl": "https://docs.google.com/spreadsheets/d/12pd7jxeAaiGK8vZPljlZK8wZ81c-MAIBkehScv3er6g/edit#gid=0",
+        "totalWords": 121
+      },
+      "publishFor": "FOR_ALL",
+      "used": true,
+      "totalAnswer": 14,
+      "totalExplanation": 14,
+      "noOfVocab": 121,
+      "totalQuestion": 14,
+      "questionGroups": [
+        {
+          "id": "96076bc9-c268-11ee-ba98-c36004cacbc8",
+          "questions": [
+            {
+              "uuid": "96076bca-c268-11ee-ba98-c36004cacbc8",
+              "type": "MATCHING_PARAGRAPH",
+              "marked": [
+                "MISSING",
+                "MISSING",
+                "MISSING",
+                "MISSING",
+                "MISSING",
+                "MISSING"
+              ],
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                {
+                  "key": 0,
+                  "value": "an explanation of the factors affecting the transmission of information"
+                },
+                {
+                  "key": 1,
+                  "value": "an example of how unnecessary information can be omitted"
+                },
+                {
+                  "key": 2,
+                  "value": "a reference to Shannon’s attitude to fame"
+                },
+                {
+                  "key": 3,
+                  "value": "details of a machine capable of interpreting incomplete information"
+                },
+                {
+                  "key": 4,
+                  "value": "a detailed account of an incident involving information theory"
+                },
+                {
+                  "key": 5,
+                  "value": "a reference to what Shannon initially intended to achieve in his research"
+                }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 6,
+              "paragraphKeys": [0, 1, 2, 3, 4, 5]
+            }
+          ],
+          "questionType": "MATCHING_PARAGRAPH",
+          "displayedQuestionType": "Matching Paragraph Information",
+          "guideline": {
+            "content": [
+              {
+                "children": [
+                  { "text": "Reading Passage has six paragraphs, " },
+                  { "text": "A-F. ", "bold": true }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "text": "Which paragraph contains the following information? "
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "Write the correct letter, " },
+                  { "text": "A-F", "bold": true }
+                ],
+                "type": "paragraph"
+              }
+            ]
+          },
+          "compactGuideline": {
+            "content": [
+              {
+                "children": [
+                  {
+                    "text": "Which paragraph contains the following information?"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "enable": true
+          },
+          "totalQuestion": 6
+        },
+        {
+          "id": "96076bcb-c268-11ee-ba98-c36004cacbc8",
+          "questions": [
+            {
+              "uuid": "96076bcc-c268-11ee-ba98-c36004cacbc8",
+              "type": "NOTE_COMPLETION_NO_HINT",
+              "marked": ["MISSING", "MISSING", "MISSING", "MISSING", "MISSING"],
+              "correctAnswers": [],
+              "userAnswers": [],
+              "heading": "The Voyager 1 Space Probe",
+              "paragraph": {
+                "id": "SomvcZyJFEOzdjNnonN3N",
+                "editorValue": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"• The probe transmitted pictures of both \"},{\"type\":\"blank\",\"isVoid\":true,\"children\":[{\"text\":\"7.....................\"}],\"id\":\"Xl_uoJwbzwrhuzVxbAjSu\"},{\"text\":\", then left the \"},{\"type\":\"blank\",\"isVoid\":true,\"children\":[{\"text\":\"8....................\"}],\"id\":\"OqUOJX32tMKJr-AvbKRgf\"},{\"text\":\". \"}]},{\"type\":\"paragraph\",\"children\":[{\"text\":\"• The freezing temperatures were found to have a negative effect on parts of the space probe. \"}]},{\"type\":\"paragraph\",\"children\":[{\"text\":\"• Scientists feared that both the \"},{\"type\":\"blank\",\"isVoid\":true,\"children\":[{\"text\":\"9.....................\"}],\"id\":\"EDMTniiYeTR39JbcAOUke\"},{\"text\":\" were about to stop working. \"}]},{\"type\":\"paragraph\",\"children\":[{\"text\":\"• The only hope was to tell the probe to replace them with \"},{\"type\":\"blank\",\"isVoid\":true,\"children\":[{\"text\":\"10.....................\"}],\"id\":\"HQOrtnpknmHwecpVd1Q4o\"},{\"text\":\" - but distance made communication with the probe difficult. \"}]},{\"type\":\"paragraph\",\"children\":[{\"text\":\"• A \"},{\"type\":\"blank\",\"isVoid\":true,\"children\":[{\"text\":\"11.....................\"}],\"id\":\"FjMYsgT96UiZ8zVmSqiKJ\"},{\"text\":\" was used to transmit the message at the speed of light. • The message was picked up by the probe and the switchover took place. \"}]}]",
+                "blanks": [
+                  { "id": "Xl_uoJwbzwrhuzVxbAjSu", "key": 0 },
+                  { "id": "OqUOJX32tMKJr-AvbKRgf", "key": 1 },
+                  { "id": "EDMTniiYeTR39JbcAOUke", "key": 2 },
+                  { "id": "HQOrtnpknmHwecpVd1Q4o", "key": 3 },
+                  { "id": "FjMYsgT96UiZ8zVmSqiKJ", "key": 4 }
+                ]
+              }
+            }
+          ],
+          "questionType": "NOTE_COMPLETION_NO_HINT",
+          "displayedQuestionType": "Summary Completion",
+          "guideline": {
+            "content": [
+              {
+                "children": [{ "text": "Complete the notes below. " }],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "Choose " },
+                  { "text": "NO MORE THAN THREE WORDS", "bold": true },
+                  { "text": " from the passage for each answer." }
+                ],
+                "type": "paragraph"
+              }
+            ]
+          },
+          "compactGuideline": {
+            "content": [
+              {
+                "children": [
+                  { "text": "Choose " },
+                  { "text": "NO MORE THAN THREE WORDS", "bold": true },
+                  { "text": " from the passage for each answer." }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "enable": true
+          },
+          "totalQuestion": 5
+        },
+        {
+          "id": "96076bcd-c268-11ee-ba98-c36004cacbc8",
+          "questions": [
+            {
+              "uuid": "96076bce-c268-11ee-ba98-c36004cacbc8",
+              "type": "TFN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "The concept of describing something as true or false was the starting point for Shannon in his attempts to send messages over distances.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "True" },
+                { "key": 1, "value": "False" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            },
+            {
+              "uuid": "96076bcf-c268-11ee-ba98-c36004cacbc8",
+              "type": "TFN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "The amount of information that can be sent in a given time period is determined with reference to the signal strength and noise level.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "True" },
+                { "key": 1, "value": "False" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            },
+            {
+              "uuid": "96076bd0-c268-11ee-ba98-c36004cacbc8",
+              "type": "TFN_ANSWER",
+              "marked": ["MISSING"],
+              "question": "Products have now been developed which can convey more information than Shannon had anticipated as possible.",
+              "userAnswers": [],
+              "notes": [],
+              "options": [
+                { "key": 0, "value": "True" },
+                { "key": 1, "value": "False" },
+                { "key": 2, "value": "Not given" }
+              ],
+              "correctOptions": [],
+              "maxSelectedOptions": 1
+            }
+          ],
+          "questionType": "TFN_ANSWER",
+          "displayedQuestionType": "True/ False/ Not Given",
+          "guideline": {
+            "content": [
+              {
+                "children": [
+                  {
+                    "text": "Do the following statements agree with the information given in the Reading Passage?"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "In following statements below, choose" }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "TRUE", "bold": true },
+                  {
+                    "text": "                    if the statement agrees with the information"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "FALSE", "bold": true },
+                  {
+                    "text": "                  if the statement contradicts the information"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  { "text": "NOT GIVEN ", "bold": true },
+                  {
+                    "text": "        if it is impossible to say what the writer thinks about this"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ]
+          },
+          "compactGuideline": {
+            "content": [
+              {
+                "children": [
+                  { "text": "Choose " },
+                  { "text": "TRUE/FALSE/NOT GIVEN", "bold": true }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "enable": true
+          },
+          "totalQuestion": 3
+        }
+      ],
+      "testSectionOverview": {
+        "questionTypes": [
+          "MATCHING_PARAGRAPH",
+          "TFN_ANSWER",
+          "NOTE_COMPLETION_NO_HINT"
+        ],
+        "displayedQuestionTypes": [
+          "Summary Completion",
+          "True/ False/ Not Given",
+          "Matching Paragraph Information"
+        ]
+      },
+      "isDraftedVersion": false,
+      "studyTemplate": "SYLLABUS",
+      "annotatedTexts": [],
+      "passage": {
+        "title": "Information theory - the big idea",
+        "subtitle": "Information theory lies at the heart of everything - from DVD players and the genetic code of DNA to the physics of the universe at its most fundamental. It has been central to the development of the science of communication, which enables data to be sent electronically and has therefore had a major impact on our lives ",
+        "type": "ANNOTATE",
+        "paragraphs": [
+          {
+            "content": "In April 2002 an event took place which demonstrated one of the many applications of information theory. The space probe, Voyager I, launched in 1977, had sent back spectacular images of Jupiter and Saturn and then soared out of the Solar System on a one-way mission to the stars. After 25 years of exposure to the freezing temperatures of deep space, the probe was beginning to show its age. Sensors and circuits were on the brink of failing and NASA experts realised that they had to do something or lose contact with their probe forever. The solution was to get a message to Voyager I to instruct it to use spares to change the failing parts. With the probe 12 billion kilometres from Earth, this was not an easy task. By means of a radio dish belonging to NASA’s Deep Space Network, the message was sent out into the depths of space. Even travelling at the speed of light, it took over 11 hours to reach its target, far beyond the orbit of Pluto. Yet, incredibly, the little probe managed to hear the faint call from its home planet, and successfully made the switchover. "
+          },
+          {
+            "content": "It was the longest-distance repair job in history, and a triumph for the NASA engineers. But it also highlighted the astonishing power of the techniques developed by American communications engineer Claude Shannon, who had died just a year earlier. Born in 1916 in Petoskey, Michigan, Shannon showed an early talent for maths and for building gadgets, and made breakthroughs in the foundations of computer technology when still a student. While at Bell Laboratories, Shannon developed information theory, but shunned the resulting acclaim. In the 1940s, he single-handedly created an entire science of communication which has since inveigled its way into a host of applications, from DVDs to satellite communications to bar codes - any area, in short, where data has to be conveyed rapidly yet accurately."
+          },
+          {
+            "content": "This all seems light years away from the down-to-earth uses Shannon originally had for his work, which began when he was a 22-year-old graduate engineering student at the prestigious Massachusetts Institute of Technology in 1939. He set out with an apparently simple aim: to pin down the precise meaning of the concept of ‘information’. The most basic form of information, Shannon argued, is whether something is true or false - which can be captured in the binary unit, or ‘bit’, of the form 1 or 0. Having identified this fundamental unit, Shannon set about defining otherwise vague ideas about information and how to transmit it from place to place. In the process he discovered something surprising: it is always possible to guarantee information will get through random interference - ‘noise’ - intact."
+          },
+          {
+            "content": "Noise usually means unwanted sounds which interfere with genuine information. Information theory generalises this idea via theorems that capture the effects of noise with mathematical precision. In particular, Shannon showed that noise sets a limit on the rate at which information can pass along communication channels while remaining error-free. This rate depends on the relative strengths of the signal and noise travelling down the communication channel, and on its capacity (its ‘bandwidth’). The resulting limit, given in units of bits per second, is the absolute maximum rate of error-free communication given signal strength and noise level. The trick, Shannon showed, is to find ways of packaging up - ‘coding’ - information to cope with the ravages of noise, while staying within the information-carrying capacity - ‘bandwidth’ - of the communication system being used."
+          },
+          {
+            "content": "Over the years scientists have devised many such coding methods, and they have proved crucial in many technological feats. The Voyager spacecraft transmitted data using codes which added one extra bit for every single bit of information; the result was an error rate of just one bit in 10,000 - and stunningly clear pictures of the planets. Other codes have become part of everyday life - such as the Universal Product Code, or bar code, which uses a simple error-detecting system that ensures supermarket check-out lasers can read the price even on, say, a crumpled bag of crisps. As recently as 1993, engineers made a major breakthrough by discovering so-called turbo codes - which come very close to Shannon’s ultimate limit for the maximum rate that data can be transmitted reliably, and now play a key role in the mobile videophone revolution."
+          },
+          {
+            "content": "Shannon also laid the foundations of more efficient ways of storing information, by stripping out superfluous (‘redundant’) bits from data which contributed little real information. As mobile phone text messages like ‘I CN C U’ show, it is often possible to leave out a lot of data without losing much meaning. As with error correction, however, there’s a limit beyond which messages become too ambiguous. Shannon showed how to calculate this limit, opening the way to the design of compression methods that cram maximum information into the minimum space."
+          }
+        ],
+        "markedBy": "ALPHABET",
+        "totalParagraphs": 6
+      },
+      "passageType": "PASSAGE3"
+    }
+  ],
+  "testId": "60dbe0eefbd81c3fcad12d8d",
+  "isViewExplanationAllowed": true,
+  "courseOnlineTestId": "68afe09768fa2a4031a48c07"
+}

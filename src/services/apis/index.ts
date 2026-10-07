@@ -1,0 +1,13 @@
+export { default as userApi } from './user';
+export { default as authApi } from './auth';
+export { default as testApi } from './test';
+export { default as testSectionApi } from './testSection';
+export { default as questionGroupApi } from './questionGroup';
+export { default as passageApi } from './passage';
+export { default as roleApi } from './role';
+export { default as permissionApi } from './permission';
+export { default as teacherApi } from './teacher';
+export { default as studentApi } from './student';
+export { default as campusApi } from './campus';
+export { default as programApi } from './program';
+export { default as levelApi } from './level';
