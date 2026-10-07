@@ -9,13 +9,13 @@ export enum PermissionAction {
 export enum SubjectName {
   All = 'all',
   Dashboard = 'dashboard',
-  Students = 'students',
-  Teachers = 'teachers',
-  Tests = 'tests',
-  Passages = 'passages',
-  Questions = 'questions',
-  Users = 'users',
-  Roles = 'roles',
+  Students = 'student',
+  Teachers = 'teacher',
+  Tests = 'test',
+  Passages = 'passage',
+  Questions = 'question',
+  Users = 'user',
+  Roles = 'role',
   Campuses = 'campus',
   Programs = 'program',
   Levels = 'level',
@@ -56,8 +56,3 @@ export type GetDecodedTokenProps = {
   token?: string;
   jwtSecret?: string;
 };
-
-export interface ICookieStore {
-  name: string;
-  value: string;
-}

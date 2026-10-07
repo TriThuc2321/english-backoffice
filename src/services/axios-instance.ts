@@ -2,16 +2,22 @@ import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 import axios from 'axios';
 
-import type { ICookieStore } from '@/types/auth';
-
 import ENV from '@/configs/env.config';
-import { convertObjectToCookies } from '@/utils/common';
+import { AUTH_CLIENT, LOGIN_PATH } from '@/constants/auth';
+import { getQueryClient } from '@/providers/reactQuery.provider';
+import {
+  clearAccessToken,
+  getAccessToken,
+  setAccessToken,
+} from '@/services/auth-token';
 
-const REFRESH_TOKEN_ENDPOINT = '/auth/refresh-token';
+const REFRESH_TOKEN_ENDPOINT = '/auth/refresh';
 
 type RetryableRequestConfig = InternalAxiosRequestConfig & {
   _retry?: boolean;
 };
+
+type RefreshResponse = { access_token: string };
 
 const axiosInstance = axios.create({
   baseURL: `${ENV.API_URL}/api`,
@@ -21,19 +27,39 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-let refreshTokenRequest: Promise<unknown> | null = null;
+let refreshTokenRequest: Promise<string> | null = null;
 
 const refreshAccessToken = () => {
-  if (!refreshTokenRequest) {
-    refreshTokenRequest = axiosInstance
-      .post(REFRESH_TOKEN_ENDPOINT, {})
-      .finally(() => {
-        refreshTokenRequest = null;
-      });
-  }
+  refreshTokenRequest ??= axiosInstance
+    .post<unknown, RefreshResponse>(REFRESH_TOKEN_ENDPOINT, {
+      client: AUTH_CLIENT,
+    })
+    .then(({ access_token }) => {
+      setAccessToken(access_token);
+      return access_token;
+    })
+    .finally(() => {
+      refreshTokenRequest = null;
+    });
 
   return refreshTokenRequest;
 };
+
+const endSession = () => {
+  clearAccessToken();
+  getQueryClient().clear();
+  if (window.location.pathname !== LOGIN_PATH) {
+    window.location.assign(LOGIN_PATH);
+  }
+};
+
+axiosInstance.interceptors.request.use((config) => {
+  const token = getAccessToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 axiosInstance.interceptors.response.use(
   (response) => response.data,
@@ -54,16 +80,13 @@ axiosInstance.interceptors.response.use(
 
     try {
       await refreshAccessToken();
-
-      return axiosInstance(originalRequest);
     } catch (refreshError) {
+      endSession();
       return Promise.reject(refreshError);
     }
+
+    return axiosInstance(originalRequest);
   },
 );
-
-export const setHeaderCookies = (cookieStore: ICookieStore[]) => {
-  axiosInstance.defaults.headers.Cookie = convertObjectToCookies(cookieStore);
-};
 
 export default axiosInstance;

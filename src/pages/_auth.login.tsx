@@ -1,12 +1,19 @@
-import { Button } from '@heroui/react';
+import {
+  Alert,
+  AlertContent,
+  AlertDescription,
+  AlertIndicator,
+  Button,
+} from '@heroui/react';
 import { useTranslation } from 'react-i18next';
 import { FaGoogle } from 'react-icons/fa';
-import { type MetaFunction } from 'react-router';
+import { type MetaFunction, useSearchParams } from 'react-router';
 
 import { LogoIcon } from '@/assets/icons';
 import SwitchLocale from '@/components/layouts/switchLocale';
 import ThemeSwitch from '@/components/layouts/switchTheme';
 import ENV from '@/configs/env.config';
+import { AUTH_CLIENT, isLoginError } from '@/constants/auth';
 import { pageMeta } from '@/utils/metadata';
 
 export const meta: MetaFunction = () =>
@@ -17,9 +24,11 @@ export const meta: MetaFunction = () =>
 
 export default function LoginPage() {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const error = searchParams.get('error');
 
   const handleGoogleLogin = () => {
-    window.location.href = `${ENV.API_URL}/api/auth/google`;
+    window.location.href = `${ENV.API_URL}/api/auth/google?client=${AUTH_CLIENT}`;
   };
 
   return (
@@ -41,6 +50,15 @@ export default function LoginPage() {
           {t('auth.welcomeSubtitle')}
         </p>
       </div>
+
+      {isLoginError(error) && (
+        <Alert status="danger" className="mb-6 w-full">
+          <AlertIndicator />
+          <AlertContent>
+            <AlertDescription>{t(`auth.errors.${error}`)}</AlertDescription>
+          </AlertContent>
+        </Alert>
+      )}
 
       <Button size="lg" onClick={handleGoogleLogin} className="w-full">
         <FaGoogle className="h-5 w-5 text-white" />

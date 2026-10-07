@@ -1,19 +1,17 @@
-import { toast } from '@heroui/react';
 import { useMutation } from '@tanstack/react-query';
 
+import { LOGIN_PATH } from '@/constants/auth';
+import { getQueryClient } from '@/providers';
 import { authApi } from '@/services/apis';
+import { clearAccessToken } from '@/services/auth-token';
 
 const useLogout = () =>
   useMutation({
     mutationFn: authApi.logout,
-    onSuccess: () => {
-      window.location.reload();
-    },
-    onError: (err) => {
-      toast.danger('Logout failed', {
-        description: err.message,
-        timeout: 3000,
-      });
+    onSettled: () => {
+      clearAccessToken();
+      getQueryClient().clear();
+      window.location.assign(LOGIN_PATH);
     },
   });
 

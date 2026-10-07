@@ -8,7 +8,9 @@
     "node_modules/**",
     "out/**",
     ".react-router/**",
-    "build/**"
+    "build/**",
+    ".claude",
+    ".agents"
   ],
   "rules": {
     "no-console": ["error", { "allow": ["warn", "error", "info"] }],
