@@ -1,5 +1,3 @@
-export const ACCESS_TOKEN_KEY = 'access_token';
-
 /** Persisted sidebar expanded/collapsed (full labels vs icons). */
 export const SHOW_FULL_MENU_KEY = 'show_full_menu';
 

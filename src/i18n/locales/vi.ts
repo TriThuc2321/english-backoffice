@@ -71,6 +71,11 @@ const vi = {
       'Quản lý lớp học tiếng Anh dễ dàng với nền tảng quản trị toàn diện của chúng tôi',
     continueWithGoogle: 'Tiếp tục với Google',
     loginFooter: 'Đăng nhập để truy cập bảng điều khiển quản trị My English',
+    errors: {
+      cms_access_denied:
+        'Tài khoản của bạn không có quyền truy cập trang quản trị.',
+      google_login_failed: 'Đăng nhập Google thất bại. Vui lòng thử lại.',
+    },
   },
   theme: {
     light: 'Sáng',

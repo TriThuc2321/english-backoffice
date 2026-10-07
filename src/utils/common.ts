@@ -1,9 +1,4 @@
-import type { ICookieStore } from '@/types/auth';
 import type { IGetDisplayRange } from '@/types/common';
-
-export const convertObjectToCookies = (obj: ICookieStore[]) => {
-  return obj.map((item) => `${item.name}=${item.value}`).join('; ');
-};
 
 export const getImageSize = (
   url: string,

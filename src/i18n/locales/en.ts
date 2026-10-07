@@ -71,6 +71,10 @@ const en = {
       'Streamline your English classes with our comprehensive management platform',
     continueWithGoogle: 'Continue with Google',
     loginFooter: 'Sign in to access My English management dashboard and tools',
+    errors: {
+      cms_access_denied: 'Your account does not have access to the dashboard.',
+      google_login_failed: 'Google sign-in failed. Please try again.',
+    },
   },
   theme: {
     light: 'Light',
