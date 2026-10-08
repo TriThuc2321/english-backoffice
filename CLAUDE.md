@@ -17,13 +17,13 @@ Package manager is **pnpm** (see `pnpm-lock.yaml`).
 
 This is a **client-only SPA** (`ssr: false` in `react-router.config.ts`) for the MyEnglish back-office, built on React Router v7 in framework mode with Vite.
 
-### Routing — file-based via `flatRoutes`
+### Routing — config-based in `src/routes.ts`
 
-`src/routes.ts` delegates to `@react-router/fs-routes`'s `flatRoutes({ rootDirectory: 'pages' })`, so **every route lives in `src/pages/` and uses flat-route filename conventions**:
+Routes are declared explicitly in `src/routes.ts` with `layout` / `index` / `route` / `prefix` from `@react-router/dev/routes`. Route modules live in feature folders under `src/pages/`:
 
-- `_auth.*` and `_main.*` are pathless layout segments (`_auth.tsx`, `_main.tsx` are the layouts; `_auth.login.tsx` renders inside `_auth`).
-- `$id` is a dynamic param; `_index` is the index route under a parent.
-- A resource module typically has 5 files: list (`_main.foo._index.tsx`), wrapper (`_main.foo.tsx`), create (`_main.foo.create.tsx`), and detail/edit nested under `_main.foo.$id.*`.
+- `auth/layout.tsx` and `main/layout.tsx` are the pathless layouts (each has a `clientLoader` auth redirect); `auth/login.tsx` and `main/home.tsx` render inside them.
+- A resource folder (`src/pages/<resource>/`) holds `list.tsx`, `create.tsx`, `detail.tsx` and `edit.tsx`, registered with `...prefix('<resource>', [...])` inside the `main` layout. Nested resources go in subfolders (e.g. `programs/levels/`).
+- Adding a page means creating the file **and** registering it in `src/routes.ts`. Use a `layout()` only when a parent needs its own UI or loader. For URL nesting alone, use `prefix()`.
 
 Whenever route files change, regenerate types with `pnpm typegen` (or just `pnpm typecheck`).
 
