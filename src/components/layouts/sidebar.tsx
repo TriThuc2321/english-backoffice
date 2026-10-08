@@ -44,19 +44,20 @@ function persistShowFullMenu(value: boolean): void {
 function menuItemStateClassName(isActive: boolean) {
   return isActive
     ? 'bg-accent/10 text-accent hover:bg-accent/15'
-    : 'text-muted hover:text-foreground';
+    : 'text-foreground';
 }
 
 function menuItemClassName(isActive: boolean, showFullMenu = true) {
   return buttonVariants({
     className: cn(
-      'font-medium',
+      'text-sm font-medium',
       showFullMenu ? 'justify-start gap-3' : 'mx-auto',
       menuItemStateClassName(isActive),
     ),
     fullWidth: showFullMenu,
     isIconOnly: !showFullMenu,
     variant: 'ghost',
+    size: 'lg',
   });
 }
 
