@@ -1,8 +1,10 @@
-import { Status } from '@/types/common';
+import { PassageStatus } from '@/types/passage';
 
-export const statusColorMap: Record<Status, 'success' | 'warning' | 'default'> =
-  {
-    [Status.PUBLISHED]: 'success',
-    [Status.DRAFT]: 'warning',
-    [Status.DELETED]: 'default',
-  };
+export const statusColorMap: Record<
+  PassageStatus,
+  'success' | 'warning' | 'default'
+> = {
+  [PassageStatus.PUBLISHED]: 'success',
+  [PassageStatus.DRAFT]: 'warning',
+  [PassageStatus.DELETED]: 'default',
+};

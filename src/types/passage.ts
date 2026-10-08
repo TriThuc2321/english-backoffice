@@ -1,15 +1,26 @@
-import type { Audit, MarkedBy, Params, Response, Status } from './common';
+import type { Audit, MarkedBy, Params, Response } from './common';
+
+export enum PassageStatus {
+  PUBLISHED = 'PUBLISHED',
+  DRAFT = 'DRAFT',
+  DELETED = 'DELETED',
+}
+
+export type EditablePassageStatus =
+  | PassageStatus.PUBLISHED
+  | PassageStatus.DRAFT;
 
 export type Passage = { id: string } & Partial<{
   title: string;
   subtitle: string;
   markedBy: MarkedBy;
-  status: Status;
+  status: PassageStatus;
   auditMetadata?: Audit;
   paragraphs: Paragraph[];
 }>;
 
-export type GetPassageParams = Params & Partial<{ status: Status }>;
+export type GetPassageParams = Params &
+  Partial<{ status: EditablePassageStatus; markedBy: MarkedBy }>;
 
 export type GetPassagesResponse = Response<Passage[]>;
 
@@ -17,12 +28,12 @@ export type CreatePassagePayload = Partial<{
   title: string;
   subtitle: string;
   markedBy: MarkedBy;
-  status: Status;
   paragraphs: Partial<Paragraph>[];
 }>;
 
 export type EditPassagePayload = CreatePassagePayload & {
   id: string;
+  status?: EditablePassageStatus;
 };
 
 export type Paragraph = Partial<{

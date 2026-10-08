@@ -9,6 +9,7 @@ import AuditItem from '@/components/shared/AuditItem';
 import DetailField, { InfoCard } from '@/components/shared/DetailField';
 import GenderChip from '@/components/shared/GenderChip';
 import Loader from '@/components/shared/Loader';
+import { getStatusLabel, statusColorMap } from '@/components/shared/status';
 import { Can } from '@/configs/casl/can.config';
 import { useGetUserById } from '@/hooks/apis/users';
 import { PermissionAction, SubjectName } from '@/types/auth';
@@ -95,15 +96,15 @@ const ViewUser = ({ id }: ViewUserProps) => {
                   <Chip.Label>{user.role.name}</Chip.Label>
                 </Chip>
               )}
-              <Chip
-                color={user.isActive ? 'success' : 'default'}
-                size="sm"
-                variant="soft"
-              >
-                <Chip.Label>
-                  {user.isActive ? t('common.active') : t('common.inactive')}
-                </Chip.Label>
-              </Chip>
+              {user.status && (
+                <Chip
+                  color={statusColorMap[user.status]}
+                  size="sm"
+                  variant="soft"
+                >
+                  <Chip.Label>{getStatusLabel(t, user.status)}</Chip.Label>
+                </Chip>
+              )}
               <Chip
                 color={user.emailVerified ? 'success' : 'default'}
                 size="sm"

@@ -6,7 +6,7 @@ import type { CreateEditRoleFormData } from '@/schemas/role';
 import { useGetPermissions } from '@/hooks/apis/permissions';
 import { useEditRole, useGetRoleById } from '@/hooks/apis/roles';
 import useCreateEditRoleForm from '@/hooks/forms/useCreateEditRole';
-import { RoleStatus } from '@/types/role';
+import { Status } from '@/types/common';
 
 import RoleForm from './RoleForm';
 import RoleSkeleton from './Skeleton';
@@ -26,7 +26,7 @@ const EditRole = ({ id }: EditRoleProps) => {
     defaultValues: {
       name: '',
       code: '',
-      status: RoleStatus.ACTIVE,
+      status: Status.ACTIVE,
       canAccessCms: false,
       permissionIds: [],
     },
@@ -48,7 +48,8 @@ const EditRole = ({ id }: EditRoleProps) => {
     form.reset({
       name: roleData.name,
       code: roleData.code,
-      status: roleData.status,
+      status:
+        roleData.status === Status.INACTIVE ? Status.INACTIVE : Status.ACTIVE,
       canAccessCms: roleData.canAccessCms,
       permissionIds: mappedIds,
     });
@@ -73,6 +74,7 @@ const EditRole = ({ id }: EditRoleProps) => {
       onSubmit={onSubmit}
       isSubmitting={isEditing}
       onCancel={() => navigate('/roles')}
+      isEditing
     />
   );
 };

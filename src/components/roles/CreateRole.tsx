@@ -5,7 +5,6 @@ import type { CreateRolePayload } from '@/types/role';
 
 import { useCreateRole } from '@/hooks/apis/roles';
 import useCreateEditRoleForm from '@/hooks/forms/useCreateEditRole';
-import { RoleStatus } from '@/types/role';
 
 import RoleForm from './RoleForm';
 
@@ -17,7 +16,6 @@ const CreateRole = () => {
     defaultValues: {
       name: '',
       code: '',
-      status: RoleStatus.ACTIVE,
       canAccessCms: false,
       permissionIds: [],
     },

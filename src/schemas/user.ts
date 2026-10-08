@@ -1,6 +1,8 @@
 import * as yup from 'yup';
 
-import { Gender } from '@/types/common';
+import type { EditableStatus } from '@/types/common';
+
+import { Gender, Status } from '@/types/common';
 
 import { VALIDATION_MESSAGE } from './message';
 
@@ -32,6 +34,10 @@ export const createEditUserSchema = yup.object().shape({
   address: yup
     .string()
     .transform((v) => v || undefined)
+    .optional(),
+  status: yup
+    .mixed<EditableStatus>()
+    .oneOf([Status.ACTIVE, Status.INACTIVE])
     .optional(),
 });
 

@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router';
 
 import AuditItem from '@/components/shared/AuditItem';
 import DetailField, { InfoCard } from '@/components/shared/DetailField';
+import { getStatusLabel, statusColorMap } from '@/components/shared/status';
 import TanstackTable from '@/components/shared/table/TanstackTable';
 import { Can } from '@/configs/casl/can.config';
 import { useGetPermissions } from '@/hooks/apis/permissions';
@@ -31,7 +32,6 @@ import {
   groupPermission,
   sortActions,
 } from './PermissionSelector';
-import { getRoleStatusLabel, roleStatusColorMap } from './roleStatus';
 
 type ViewRoleProps = {
   id: string;
@@ -103,12 +103,8 @@ const ViewRole = ({ id }: ViewRoleProps) => {
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Chip
-              color={roleStatusColorMap[role.status]}
-              size="sm"
-              variant="soft"
-            >
-              <Chip.Label>{getRoleStatusLabel(t, role.status)}</Chip.Label>
+            <Chip color={statusColorMap[role.status]} size="sm" variant="soft">
+              <Chip.Label>{getStatusLabel(t, role.status)}</Chip.Label>
             </Chip>
             <Chip
               color={role.canAccessCms ? 'success' : 'default'}

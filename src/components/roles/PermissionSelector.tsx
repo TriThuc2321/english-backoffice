@@ -10,7 +10,10 @@ import { memo, useCallback, useMemo, useRef } from 'react';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import type { CreateEditRoleFormData } from '@/schemas/role';
+import type {
+  CreateEditRoleFormData,
+  CreateEditRoleFormInput,
+} from '@/schemas/role';
 import type { Permission } from '@/types/permission';
 
 import TanstackTable from '@/components/shared/table/TanstackTable';
@@ -20,7 +23,7 @@ import { PermissionAction } from '@/types/auth';
 export const ALL_RESOURCE_PERMISSIONS_KEY = 'all';
 
 type PermissionSelectorProps = {
-  control: Control<CreateEditRoleFormData>;
+  control: Control<CreateEditRoleFormInput, unknown, CreateEditRoleFormData>;
 };
 
 export type GroupedPermissions = Record<string, Permission[]>;

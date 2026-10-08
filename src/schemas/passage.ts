@@ -1,6 +1,11 @@
 import * as yup from 'yup';
 
-import { MarkedBy, Status } from '@/types/common';
+import type { EditablePassageStatus } from '@/types/passage';
+
+import { MarkedBy } from '@/types/common';
+import { PassageStatus } from '@/types/passage';
+
+import type { InferFormInput } from './types';
 
 import { VALIDATION_MESSAGE } from './message';
 
@@ -13,9 +18,9 @@ export const createEditPassageSchema = yup.object().shape({
     .default(MarkedBy.NONE)
     .required(VALIDATION_MESSAGE.REQUIRED),
   status: yup
-    .string()
-    .oneOf(Object.values(Status))
-    .required(VALIDATION_MESSAGE.REQUIRED),
+    .mixed<EditablePassageStatus>()
+    .oneOf([PassageStatus.PUBLISHED, PassageStatus.DRAFT])
+    .optional(),
   paragraphs: yup
     .array()
     .of(
@@ -26,6 +31,9 @@ export const createEditPassageSchema = yup.object().shape({
     .defined(),
 });
 
+export type CreateEditPassageFormInput = InferFormInput<
+  typeof createEditPassageSchema
+>;
 export type CreateEditPassageFormData = yup.InferType<
   typeof createEditPassageSchema
 >;

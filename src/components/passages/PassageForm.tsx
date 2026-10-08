@@ -12,16 +12,25 @@ import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { LuPlus, LuTrash2 } from 'react-icons/lu';
 
-import type { CreateEditPassageFormData } from '@/schemas/passage';
+import type {
+  CreateEditPassageFormData,
+  CreateEditPassageFormInput,
+} from '@/schemas/passage';
+import type { EditablePassageStatus } from '@/types/passage';
 
 import Section from '@/components/shared/Section';
-import { MarkedBy, Status } from '@/types/common';
+import { MarkedBy } from '@/types/common';
+import { PassageStatus } from '@/types/passage';
 
 type PassageFormProps = {
-  form: UseFormReturn<CreateEditPassageFormData>;
+  form: UseFormReturn<
+    CreateEditPassageFormInput,
+    unknown,
+    CreateEditPassageFormData
+  >;
   onSubmit: (data: CreateEditPassageFormData) => void;
   isSubmitting?: boolean;
-  onStatusChange?: (status: Status) => Promise<unknown>;
+  onStatusChange?: (status: EditablePassageStatus) => Promise<unknown>;
   isStatusSubmitting?: boolean;
   onCancel?: () => void;
 };
@@ -196,15 +205,17 @@ const PassageForm = ({
             control={control}
             render={({ field }) => {
               const nextStatus =
-                field.value === Status.PUBLISHED
-                  ? Status.DRAFT
-                  : Status.PUBLISHED;
+                field.value === PassageStatus.PUBLISHED
+                  ? PassageStatus.DRAFT
+                  : PassageStatus.PUBLISHED;
 
               return (
                 <Button
                   type="button"
                   variant={
-                    field.value === Status.PUBLISHED ? 'danger-soft' : 'outline'
+                    field.value === PassageStatus.PUBLISHED
+                      ? 'danger-soft'
+                      : 'outline'
                   }
                   isPending={isStatusSubmitting}
                   isDisabled={isSubmitting}
@@ -217,7 +228,7 @@ const PassageForm = ({
                     }
                   }}
                 >
-                  {field.value === Status.PUBLISHED
+                  {field.value === PassageStatus.PUBLISHED
                     ? t('passages.form.unpublish')
                     : t('passages.form.publish')}
                 </Button>
