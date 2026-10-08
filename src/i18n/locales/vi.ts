@@ -298,6 +298,7 @@ const vi = {
       code: 'Mã',
       status: 'Trạng thái',
       cmsAccess: 'Truy cập CMS',
+      systemRole: 'Vai trò hệ thống',
     },
     form: {
       name: 'Tên',
@@ -306,6 +307,10 @@ const vi = {
       canAccessCms: 'Có thể truy cập CMS',
       permissions: 'Quyền hạn',
       fullPermissions: 'Toàn bộ quyền hạn',
+      subject: 'Đối tượng',
+      all: 'Tất cả',
+      selectAllFor: 'Chọn tất cả {{name}}',
+      permissionFor: '{{action}} {{subject}}',
     },
   },
   campuses: {

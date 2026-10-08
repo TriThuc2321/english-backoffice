@@ -297,6 +297,7 @@ const en = {
       code: 'Code',
       status: 'Status',
       cmsAccess: 'CMS Access',
+      systemRole: 'System role',
     },
     form: {
       name: 'Name',
@@ -305,6 +306,10 @@ const en = {
       canAccessCms: 'Can access CMS',
       permissions: 'Permissions',
       fullPermissions: 'Full permissions',
+      subject: 'Subject',
+      all: 'All',
+      selectAllFor: 'Select all {{name}}',
+      permissionFor: '{{action}} {{subject}}',
     },
   },
   campuses: {

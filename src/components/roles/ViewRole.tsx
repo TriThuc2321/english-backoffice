@@ -1,19 +1,30 @@
-import { Accordion, Button, Chip, Spinner } from '@heroui/react';
+import { Button, Chip, Spinner } from '@heroui/react';
+import {
+  createColumnHelper,
+  getCoreRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LuPencil } from 'react-icons/lu';
+import { LuCheck, LuPencil, LuX } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
-
-import type { Permission } from '@/types/permission';
 
 import MyButton from '@/components/shared/Button';
 import DetailField, { InfoCard } from '@/components/shared/DetailField';
+import TanstackTable from '@/components/shared/table/TanstackTable';
 import { useGetPermissions } from '@/hooks/apis/permissions';
 import { useGetRoleById } from '@/hooks/apis/roles';
 import { PermissionAction, SubjectName } from '@/types/auth';
 import { RoleStatus } from '@/types/role';
 
+import type { GroupedPermissions, PermissionRow } from './PermissionSelector';
+
 import Loader from '../shared/Loader';
+import {
+  ALL_RESOURCE_PERMISSIONS_KEY,
+  groupPermission,
+  sortActions,
+} from './PermissionSelector';
 
 type ViewRoleProps = {
   id: string;
@@ -25,18 +36,6 @@ const statusColorMap: Record<RoleStatus, 'success' | 'danger' | 'default'> = {
   [RoleStatus.DELETED]: 'default',
 };
 
-type GroupedPermissions = Record<string, Permission[]>;
-
-const groupPermission = (permissions?: Permission[]): GroupedPermissions => {
-  if (!permissions) return {};
-  return permissions.reduce((acc, permission) => {
-    const { subject } = permission;
-    if (!acc[subject]) acc[subject] = [];
-    acc[subject].push(permission);
-    return acc;
-  }, {} as GroupedPermissions);
-};
-
 const ViewRole = ({ id }: ViewRoleProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -44,9 +43,11 @@ const ViewRole = ({ id }: ViewRoleProps) => {
   const { data: role, isLoading } = useGetRoleById(id);
   const { data: allPermissions } = useGetPermissions();
 
-  const permissionGroups = useMemo(() => {
+  const { groups: permissionGroups, fullPermissionId } = useMemo(() => {
     const groups = groupPermission(allPermissions);
-    return groups;
+    const managePermission = groups[ALL_RESOURCE_PERMISSIONS_KEY];
+    delete groups[ALL_RESOURCE_PERMISSIONS_KEY];
+    return { groups, fullPermissionId: managePermission?.[0]?.id };
   }, [allPermissions]);
 
   const rolePermissionIds = useMemo(() => {
@@ -100,49 +101,11 @@ const ViewRole = ({ id }: ViewRoleProps) => {
             <Spinner />
           </div>
         ) : (
-          <Accordion allowsMultipleExpanded className="w-full">
-            {Object.entries(permissionGroups).map(([subject, perms]) => {
-              const selectedCount = perms.filter((p) =>
-                rolePermissionIds.has(p.id),
-              ).length;
-              if (selectedCount === 0) return null;
-              return (
-                <Accordion.Item key={subject} id={subject}>
-                  <Accordion.Heading>
-                    <Accordion.Trigger className="flex w-full items-center gap-2 py-2.5">
-                      <span className="text-default-800 min-w-0 flex-1 text-start text-sm font-medium capitalize">
-                        {subject.replaceAll('_', ' ')}
-                      </span>
-                      <Chip size="sm" variant="soft">
-                        <Chip.Label>
-                          {selectedCount}/{perms.length}
-                        </Chip.Label>
-                      </Chip>
-                      <Accordion.Indicator />
-                    </Accordion.Trigger>
-                  </Accordion.Heading>
-                  <Accordion.Panel>
-                    <Accordion.Body className="flex flex-wrap gap-1.5 pb-3 pl-2">
-                      {perms
-                        .filter((p) => rolePermissionIds.has(p.id))
-                        .map((p) => (
-                          <Chip
-                            key={p.id}
-                            size="sm"
-                            variant="soft"
-                            color="success"
-                          >
-                            <Chip.Label className="capitalize">
-                              {p.action}
-                            </Chip.Label>
-                          </Chip>
-                        ))}
-                    </Accordion.Body>
-                  </Accordion.Panel>
-                </Accordion.Item>
-              );
-            })}
-          </Accordion>
+          <RolePermissionsTable
+            permissionGroups={permissionGroups}
+            rolePermissionIds={rolePermissionIds}
+            fullPermissionId={fullPermissionId}
+          />
         )}
       </InfoCard>
 
@@ -154,12 +117,136 @@ const ViewRole = ({ id }: ViewRoleProps) => {
           I={PermissionAction.Update}
           a={SubjectName.Roles}
           variant="primary"
+          isDisabled={role?.systemRole}
           onPress={() => navigate(`/roles/${id}/edit`)}
         >
           <LuPencil className="size-4" />
           {t('common.edit')}
         </MyButton>
       </div>
+    </div>
+  );
+};
+
+type RolePermissionsTableProps = {
+  permissionGroups: GroupedPermissions;
+  rolePermissionIds: Set<number>;
+  fullPermissionId?: number;
+};
+
+const columnHelper = createColumnHelper<PermissionRow>();
+
+const RolePermissionsTable = ({
+  permissionGroups,
+  rolePermissionIds,
+  fullPermissionId,
+}: RolePermissionsTableProps) => {
+  const { t } = useTranslation();
+  const hasFullPermission =
+    fullPermissionId != null && rolePermissionIds.has(fullPermissionId);
+
+  const rows = useMemo<PermissionRow[]>(
+    () =>
+      Object.entries(permissionGroups)
+        .filter(
+          ([, permissions]) =>
+            hasFullPermission ||
+            permissions.some((p) => rolePermissionIds.has(p.id)),
+        )
+        .map(([subject, permissions]) => ({
+          subject,
+          permissions,
+          byAction: Object.fromEntries(permissions.map((p) => [p.action, p])),
+        })),
+    [permissionGroups, rolePermissionIds, hasFullPermission],
+  );
+
+  const actions = useMemo(() => sortActions(rows), [rows]);
+
+  // `manage` on a subject (or the global full permission) implies every action
+  const isGranted = (row: PermissionRow, id: number) => {
+    const manageId = row.byAction[PermissionAction.Manage]?.id;
+    return (
+      hasFullPermission ||
+      rolePermissionIds.has(id) ||
+      (manageId != null && rolePermissionIds.has(manageId))
+    );
+  };
+
+  const columns = [
+    columnHelper.display({
+      id: 'subject',
+      header: () => t('roles.form.subject'),
+      cell: ({ row }) => (
+        <span className="text-sm font-medium capitalize">
+          {row.original.subject.replaceAll('_', ' ')}
+        </span>
+      ),
+    }),
+    ...actions.map((action) =>
+      columnHelper.display({
+        id: `action-${action}`,
+        header: () => <span className="capitalize">{action}</span>,
+        cell: ({ row }) => {
+          const permission = row.original.byAction[action];
+          if (!permission) return <span className="text-muted">—</span>;
+
+          return isGranted(row.original, permission.id) ? (
+            <LuCheck
+              aria-label={`${action} granted`}
+              className="text-success size-4"
+            />
+          ) : (
+            <LuX
+              aria-label={`${action} not granted`}
+              className="text-muted size-4"
+            />
+          );
+        },
+      }),
+    ),
+    columnHelper.display({
+      id: 'count',
+      header: '',
+      cell: ({ row }) => {
+        const permissions = row.original.permissions.filter(
+          (p) => p.action !== PermissionAction.Manage,
+        );
+        const grantedCount = permissions.filter((p) =>
+          isGranted(row.original, p.id),
+        ).length;
+
+        return (
+          <Chip size="sm" variant="soft">
+            <Chip.Label>
+              {grantedCount}/{permissions.length}
+            </Chip.Label>
+          </Chip>
+        );
+      },
+    }),
+  ];
+
+  const table = useReactTable({
+    data: rows,
+    columns,
+    getRowId: (row) => row.subject,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  return (
+    <div className="flex w-full min-w-0 flex-col gap-2">
+      {hasFullPermission && (
+        <Chip size="sm" variant="soft" color="success" className="self-start">
+          <Chip.Label>{t('roles.form.fullPermissions')}</Chip.Label>
+        </Chip>
+      )}
+
+      <TanstackTable
+        table={table}
+        ariaLabel={t('roles.form.permissions')}
+        maxHeight="none"
+      />
     </div>
   );
 };
