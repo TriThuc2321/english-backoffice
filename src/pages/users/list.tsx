@@ -27,7 +27,7 @@ export default function UsersPage() {
   const { data, isLoading } = useGetUsers({
     page,
     take,
-    keyword: debouncedSearch || undefined,
+    search: debouncedSearch || undefined,
   });
 
   const users = data?.data ?? [];

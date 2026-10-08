@@ -37,7 +37,7 @@ export type Metadata = Partial<{
 export type Params = Partial<{
   page: number;
   take: number;
-  keyword: string;
+  search: string;
   sort: string;
   direction: SortDirection;
 }>;

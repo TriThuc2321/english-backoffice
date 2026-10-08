@@ -35,7 +35,7 @@ export default function RolesPage() {
   const { data, isLoading } = useGetRoles({
     page,
     take,
-    keyword: debouncedSearch || undefined,
+    search: debouncedSearch || undefined,
   });
 
   const roles = data?.data ?? [];

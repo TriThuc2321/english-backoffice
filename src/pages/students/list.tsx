@@ -28,7 +28,7 @@ export default function StudentsPage() {
   const { data, isLoading } = useGetStudents({
     page,
     take,
-    keyword: debouncedSearch || undefined,
+    search: debouncedSearch || undefined,
   });
 
   const students = data?.data ?? [];

@@ -31,7 +31,7 @@ export default function PassagesPage() {
   const { data, isLoading } = useGetPassages({
     page,
     take,
-    keyword: debouncedSearch || undefined,
+    search: debouncedSearch || undefined,
   });
 
   const passages = data?.data ?? [];

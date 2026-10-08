@@ -28,7 +28,7 @@ export default function TeachersPage() {
   const { data, isLoading } = useGetTeachers({
     page,
     take,
-    keyword: debouncedSearch || undefined,
+    search: debouncedSearch || undefined,
   });
 
   const teachers = data?.data ?? [];

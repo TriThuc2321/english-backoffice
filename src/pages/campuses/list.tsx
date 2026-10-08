@@ -28,7 +28,7 @@ export default function CampusesPage() {
   const { data, isLoading } = useGetCampuses({
     page,
     take,
-    keyword: debouncedSearch || undefined,
+    search: debouncedSearch || undefined,
   });
 
   const campuses = data?.data ?? [];

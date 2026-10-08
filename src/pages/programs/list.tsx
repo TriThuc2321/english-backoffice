@@ -28,7 +28,7 @@ export default function ProgramsPage() {
   const { data, isLoading } = useGetPrograms({
     page,
     take,
-    keyword: debouncedSearch || undefined,
+    search: debouncedSearch || undefined,
   });
 
   const programs = data?.data ?? [];

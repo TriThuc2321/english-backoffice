@@ -28,7 +28,7 @@ export default function TestsPage() {
   const { data, isLoading } = useGetTests({
     page,
     take,
-    keyword: debouncedSearch || undefined,
+    search: debouncedSearch || undefined,
   });
 
   const tests = data?.data ?? [];

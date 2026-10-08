@@ -40,7 +40,7 @@ export type Test = {
 
 export type GetTestsParams = Params &
   Partial<{
-    keyword: string;
+    search: string;
     skill: IELTSSkill;
     type: TestType;
   }>;
