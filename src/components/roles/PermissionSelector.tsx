@@ -109,12 +109,44 @@ const PermissionSelectorContent = ({
     onChange(newSelected);
   };
 
+  const subjectActions = useMemo(
+    () =>
+      rows.map((row) => ({
+        manageId: row.byAction[PermissionAction.Manage]?.id,
+        actionIds: row.permissions
+          .filter((p) => p.action !== PermissionAction.Manage)
+          .map((p) => p.id),
+      })),
+    [rows],
+  );
+
+  const expand = (ids: number[]) => {
+    const result = new Set(ids);
+    subjectActions.forEach(({ manageId, actionIds }) => {
+      if (manageId == null || !result.has(manageId)) return;
+      result.delete(manageId);
+      actionIds.forEach((id) => result.add(id));
+    });
+    return result;
+  };
+
+  const compress = (ids: Set<number>) => {
+    const result = new Set(ids);
+    subjectActions.forEach(({ manageId, actionIds }) => {
+      if (manageId == null || actionIds.length === 0) return;
+      if (!actionIds.every((id) => result.has(id))) return;
+      actionIds.forEach((id) => result.delete(id));
+      result.add(manageId);
+    });
+    return [...result];
+  };
+
+  const effective = useMemo(() => expand(selected), [selected, subjectActions]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const toggleIds = (ids: number[], isSelected: boolean) => {
-    updateSelected(
-      isSelected
-        ? Array.from(new Set([...selected, ...ids]))
-        : selected.filter((id) => !ids.includes(id)),
-    );
+    const next = expand(selected);
+    ids.forEach((id) => (isSelected ? next.add(id) : next.delete(id)));
+    updateSelected(compress(next));
   };
 
   const handleSelectAll = (isSelected: boolean, id: number) => {
@@ -130,7 +162,7 @@ const PermissionSelectorContent = ({
     setDisableAll(isFullPermission);
   }, [value, fullPermissionId]);
 
-  const isChecked = (id: number) => selected.includes(id);
+  const isChecked = (id: number) => effective.has(id);
 
   const columns = [
     columnHelper.display({
@@ -147,15 +179,17 @@ const PermissionSelectorContent = ({
       header: () => t('roles.form.all'),
       cell: ({ row }) => {
         const { subject, permissions } = row.original;
-        const ids = permissions.map((p) => p.id);
+        const ids = permissions
+          .filter((p) => p.action !== PermissionAction.Manage)
+          .map((p) => p.id);
         const checkedCount = ids.filter(isChecked).length;
 
         return (
           <PermissionCheckbox
             ariaLabel={`Select all ${subject.replaceAll('_', ' ')}`}
-            isSelected={checkedCount === ids.length}
+            isSelected={ids.length > 0 && checkedCount === ids.length}
             isIndeterminate={checkedCount > 0 && checkedCount < ids.length}
-            isDisabled={isDisableAll}
+            isDisabled={isDisableAll || ids.length === 0}
             onChange={(isSelected) => toggleIds(ids, isSelected)}
           />
         );
@@ -274,7 +308,6 @@ const PermissionCheckbox = ({
   isDisabled,
   onChange,
 }: PermissionCheckboxProps) => (
-  // `slot={null}` opts out of the Table's selection CheckboxContext
   <Checkbox
     slot={null}
     aria-label={ariaLabel}
