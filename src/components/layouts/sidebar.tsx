@@ -78,6 +78,7 @@ export default function Sidebar({
     setShowFullMenu(readShowFullMenuFromStorage(initialShowFullMenu));
   }, [initialShowFullMenu]);
 
+  const { t } = useTranslation();
   const { mutate: logout } = useLogout();
 
   const handleShowFullMenuToggle = (open: boolean) => {
@@ -149,7 +150,8 @@ export default function Sidebar({
         <div className="mt-auto">
           <Separator className="my-2" />
           <Button
-            aria-label={showFullMenu ? undefined : 'Logout'}
+            size="lg"
+            aria-label={showFullMenu ? undefined : t('nav.logout')}
             className={cn('text-muted hover:text-foreground font-medium', {
               'justify-start gap-3': showFullMenu,
               'mx-auto flex': !showFullMenu,
@@ -160,7 +162,7 @@ export default function Sidebar({
             onPress={() => logout()}
           >
             <IoIosLogOut className="shrink-0 text-lg" />
-            {showFullMenu && 'Logout'}
+            {showFullMenu && t('nav.logout')}
           </Button>
         </div>
       </div>
