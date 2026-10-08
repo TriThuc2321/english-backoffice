@@ -309,6 +309,8 @@ const vi = {
       fullPermissions: 'Toàn bộ quyền hạn',
       subject: 'Đối tượng',
       all: 'Tất cả',
+      selectAllFor: 'Chọn tất cả {{name}}',
+      permissionFor: '{{action}} {{subject}}',
     },
   },
   campuses: {

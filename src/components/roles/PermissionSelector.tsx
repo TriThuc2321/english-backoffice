@@ -179,8 +179,17 @@ const PermissionSelectorContent = ({
     [expand, compress, onChange],
   );
 
+  // Granular selection stashed while "Full permissions" is on, restored when it is turned off
+  const beforeFullRef = useRef<number[] | null>(null);
+
   const handleSelectAll = (isSelected: boolean, id: number) => {
-    onChange(isSelected ? [id] : []);
+    if (isSelected) {
+      beforeFullRef.current = selected.filter((s) => s !== id);
+      onChange([id]);
+      return;
+    }
+    onChange(beforeFullRef.current ?? selected.filter((s) => s !== id));
+    beforeFullRef.current = null;
   };
 
   const countChecked = (ids: number[]) =>
@@ -206,7 +215,9 @@ const PermissionSelectorContent = ({
 
         return (
           <PermissionCheckbox
-            ariaLabel={`Select all ${subject.replaceAll('_', ' ')}`}
+            ariaLabel={t('roles.form.selectAllFor', {
+              name: subject.replaceAll('_', ' '),
+            })}
             ids={ids}
             isSelected={ids.length > 0 && checkedCount === ids.length}
             isIndeterminate={checkedCount > 0 && checkedCount < ids.length}
@@ -226,7 +237,7 @@ const PermissionSelectorContent = ({
           return (
             <span className="flex items-center gap-2">
               <PermissionCheckbox
-                ariaLabel={`Select all ${action}`}
+                ariaLabel={t('roles.form.selectAllFor', { name: action })}
                 ids={ids}
                 isSelected={ids.length > 0 && checkedCount === ids.length}
                 isIndeterminate={checkedCount > 0 && checkedCount < ids.length}
@@ -243,7 +254,10 @@ const PermissionSelectorContent = ({
 
           return (
             <PermissionCheckbox
-              ariaLabel={`${action} ${row.original.subject.replaceAll('_', ' ')}`}
+              ariaLabel={t('roles.form.permissionFor', {
+                action,
+                subject: row.original.subject.replaceAll('_', ' '),
+              })}
               ids={subjectActions.get(row.original.subject)!.singleIds[action]}
               isSelected={effective.has(permission.id)}
               isDisabled={isDisableAll}

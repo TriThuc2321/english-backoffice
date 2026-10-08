@@ -308,6 +308,8 @@ const en = {
       fullPermissions: 'Full permissions',
       subject: 'Subject',
       all: 'All',
+      selectAllFor: 'Select all {{name}}',
+      permissionFor: '{{action}} {{subject}}',
     },
   },
   campuses: {
