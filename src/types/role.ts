@@ -17,6 +17,7 @@ export interface Role {
   code: string;
   canAccessCms: boolean;
   status: RoleStatus;
+  systemRole: boolean;
   permissions: RolePermission[];
   auditMetadata?: Audit;
 }

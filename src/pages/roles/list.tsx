@@ -1,4 +1,11 @@
-import { Card, Input, Label, TextField } from '@heroui/react';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Input,
+  Label,
+  TextField,
+} from '@heroui/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuPlus } from 'react-icons/lu';
@@ -37,7 +44,7 @@ export default function RolesPage() {
   return (
     <div className="flex flex-col gap-6">
       <Card>
-        <Card.Header className="flex-col justify-between gap-3 md:flex-row md:items-end">
+        <CardHeader className="flex-col justify-between gap-3 md:flex-row md:items-end">
           <TextField
             value={search}
             onChange={setSearch}
@@ -60,9 +67,9 @@ export default function RolesPage() {
             <LuPlus className="size-4" />
             {t('roles.createButton')}
           </MyButton>
-        </Card.Header>
+        </CardHeader>
 
-        <Card.Content className="p-0">
+        <CardContent className="p-0">
           <RolesTable
             data={roles}
             isLoading={isLoading}
@@ -70,7 +77,7 @@ export default function RolesPage() {
             take={take}
             total={total}
           />
-        </Card.Content>
+        </CardContent>
       </Card>
     </div>
   );

@@ -33,6 +33,10 @@ const EditRole = ({ id }: EditRoleProps) => {
   });
 
   useEffect(() => {
+    if (roleData?.systemRole) navigate(`/roles/${id}`, { replace: true });
+  }, [roleData, id, navigate]);
+
+  useEffect(() => {
     if (!roleData || !allPermissions) return;
     const mappedIds = allPermissions
       .filter((p) =>

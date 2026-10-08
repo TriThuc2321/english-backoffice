@@ -49,6 +49,7 @@ function RoleActionsCell({
   t,
 }: RoleActionsCellProps) {
   const ability = useCan();
+  const isSystemRole = row.original.systemRole;
 
   const handleDelete = () => {
     deleteRole([row.original.id]);
@@ -74,6 +75,7 @@ function RoleActionsCell({
           isIconOnly
           size="sm"
           variant="outline"
+          isDisabled={isSystemRole}
           onPress={() => navigate(`/roles/${row.original.id}/edit`)}
         >
           <LuPencil className="size-4" />
@@ -89,7 +91,7 @@ function RoleActionsCell({
             isIconOnly
             size="sm"
             variant="outline"
-            isDisabled={isDeleting}
+            isDisabled={isDeleting || isSystemRole}
           >
             <LuTrash2 className="text-danger size-4" />
           </MyButton>
@@ -122,6 +124,7 @@ function RoleActionsCell({
                 <Dropdown.Item
                   id="edit"
                   textValue={t('common.edit')}
+                  isDisabled={isSystemRole}
                   onPress={() => navigate(`/roles/${row.original.id}/edit`)}
                 >
                   <span className="flex items-center gap-2">
@@ -135,7 +138,7 @@ function RoleActionsCell({
                   id="delete"
                   textValue={t('common.delete')}
                   className="text-danger"
-                  isDisabled={isDeleting}
+                  isDisabled={isDeleting || isSystemRole}
                 >
                   <ConfirmWrapper
                     title={t('roles.deleteTitle')}
@@ -204,6 +207,19 @@ export default function RolesTable({
       }),
       columnHelper.accessor('canAccessCms', {
         header: t('roles.table.cmsAccess'),
+        enableSorting: false,
+        cell: (info) => (
+          <Chip
+            color={info.getValue() ? 'success' : 'default'}
+            size="sm"
+            variant="soft"
+          >
+            {info.getValue() ? t('common.yes') : t('common.no')}
+          </Chip>
+        ),
+      }),
+      columnHelper.accessor('systemRole', {
+        header: t('roles.table.systemRole'),
         enableSorting: false,
         cell: (info) => (
           <Chip

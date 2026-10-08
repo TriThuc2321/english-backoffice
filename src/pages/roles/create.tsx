@@ -1,4 +1,4 @@
-import { Breadcrumbs, Card } from '@heroui/react';
+import { Breadcrumbs, Card, CardContent } from '@heroui/react';
 import { useTranslation } from 'react-i18next';
 import { Link, type MetaFunction } from 'react-router';
 
@@ -23,9 +23,9 @@ export default function CreateRolePage() {
       </Breadcrumbs>
 
       <Card className="mx-auto w-full max-w-3xl">
-        <Card.Content>
+        <CardContent>
           <CreateRole />
-        </Card.Content>
+        </CardContent>
       </Card>
     </div>
   );
