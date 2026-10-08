@@ -233,6 +233,7 @@ const en = {
     createButton: 'Create User',
     deleteTitle: 'Delete user',
     deleteConfirm: 'Are you sure you want to delete "{{name}}"?',
+    system: 'System',
     toast: {
       createSuccess: 'User created successfully',
       createError: 'Failed to create user',
@@ -251,6 +252,7 @@ const en = {
       phone: 'Phone',
       dateOfBirth: 'Date of Birth',
       gender: 'Gender',
+      systemUser: 'System user',
     },
     form: {
       email: 'Email',

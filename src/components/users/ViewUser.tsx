@@ -115,6 +115,11 @@ const ViewUser = ({ id }: ViewUserProps) => {
                     : t('common.unverified')}
                 </Chip.Label>
               </Chip>
+              {user.systemUser && (
+                <Chip color="accent" size="sm" variant="soft">
+                  <Chip.Label>{t('cmsUsers.system')}</Chip.Label>
+                </Chip>
+              )}
             </div>
           </div>
         </div>

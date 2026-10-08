@@ -45,6 +45,7 @@ function UserActionsCell({
   t,
 }: UserActionsCellProps) {
   const ability = useCan();
+  const isSystemUser = row.original.systemUser;
 
   const handleDelete = () => {
     deleteUser([row.original.id]);
@@ -75,6 +76,7 @@ function UserActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          isDisabled={isDeleting || isSystemUser}
           title={t('cmsUsers.deleteTitle')}
           description={t('cmsUsers.deleteConfirm', {
             name: row.original.email,
@@ -87,7 +89,7 @@ function UserActionsCell({
             isIconOnly
             size="sm"
             variant="outline"
-            isDisabled={isDeleting}
+            isDisabled={isDeleting || isSystemUser}
           >
             <LuTrash2 className="text-danger size-4" />
           </MyButton>
@@ -131,9 +133,10 @@ function UserActionsCell({
                   id="delete"
                   textValue={t('common.delete')}
                   className="text-danger"
-                  isDisabled={isDeleting}
+                  isDisabled={isDeleting || isSystemUser}
                 >
                   <ConfirmWrapper
+                    isDisabled={isDeleting || isSystemUser}
                     title={t('cmsUsers.deleteTitle')}
                     description={t('cmsUsers.deleteConfirm', {
                       name: row.original.email,
@@ -234,6 +237,19 @@ export default function UsersTable({
       columnHelper.accessor('emailVerified', {
         enableSorting: false,
         header: t('cmsUsers.table.emailVerified'),
+        cell: (info) => (
+          <Chip
+            color={info.getValue() ? 'success' : 'default'}
+            size="sm"
+            variant="soft"
+          >
+            {info.getValue() ? t('common.yes') : t('common.no')}
+          </Chip>
+        ),
+      }),
+      columnHelper.accessor('systemUser', {
+        enableSorting: false,
+        header: t('cmsUsers.table.systemUser'),
         cell: (info) => (
           <Chip
             color={info.getValue() ? 'success' : 'default'}

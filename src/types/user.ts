@@ -13,6 +13,7 @@ export type User = { id: string } & Partial<{
   lastName: string;
   emailVerified: boolean;
   isActive: boolean;
+  systemUser: boolean;
   address: string;
   dateOfBirth: string;
   gender: Gender;

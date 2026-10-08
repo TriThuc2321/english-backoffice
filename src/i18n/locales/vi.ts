@@ -234,6 +234,7 @@ const vi = {
     createButton: 'Tạo người dùng',
     deleteTitle: 'Xóa người dùng',
     deleteConfirm: 'Bạn có chắc chắn muốn xóa "{{name}}" không?',
+    system: 'Hệ thống',
     toast: {
       createSuccess: 'Tạo người dùng thành công',
       createError: 'Tạo người dùng thất bại',
@@ -252,6 +253,7 @@ const vi = {
       phone: 'Điện thoại',
       dateOfBirth: 'Ngày sinh',
       gender: 'Giới tính',
+      systemUser: 'Người dùng hệ thống',
     },
     form: {
       email: 'Email',
