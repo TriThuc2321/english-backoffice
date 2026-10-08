@@ -67,6 +67,7 @@ function LevelCard({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          isDisabled={isDeleting}
           title={t('levels.deleteTitle')}
           description={t('levels.deleteConfirm', { name: level.code })}
           onConfirm={() => deleteLevel([level.id])}
@@ -115,6 +116,7 @@ function LevelCard({
                   isDisabled={isDeleting}
                 >
                   <ConfirmWrapper
+                    isDisabled={isDeleting}
                     title={t('levels.deleteTitle')}
                     description={t('levels.deleteConfirm', {
                       name: level.code,

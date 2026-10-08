@@ -29,6 +29,8 @@ const en = {
     unverified: 'Unverified',
     audit: 'Audit',
     basicInfo: 'Basic Information',
+    copy: 'Copy',
+    copied: 'Copied to clipboard',
   },
   nav: {
     dashboard: 'Dashboard',
@@ -277,6 +279,12 @@ const en = {
     createTitle: 'Create Role',
     editTitle: 'Edit Role',
     detailTitle: 'Role Detail',
+    system: 'System',
+    permissionSummary:
+      '{{resources}} resources · {{granted}} permissions granted',
+    status: {
+      deleted: 'Deleted',
+    },
     pageDescription: 'Configure roles and permissions for system users.',
     createDescription: 'Define a new role with custom permissions.',
     editDescription: 'Update role details and permission settings.',
@@ -310,6 +318,8 @@ const en = {
       all: 'All',
       selectAllFor: 'Select all {{name}}',
       permissionFor: '{{action}} {{subject}}',
+      granted: 'Granted',
+      full: 'Full',
     },
   },
   campuses: {

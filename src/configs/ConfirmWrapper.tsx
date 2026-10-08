@@ -25,6 +25,7 @@ type ConfirmWrapperProps = {
   cancelVariant?: ButtonVariants['variant'];
   confirmText?: string;
   cancelText?: string;
+  isDisabled?: boolean;
 };
 export default function ConfirmWrapper({
   children,
@@ -37,9 +38,12 @@ export default function ConfirmWrapper({
   cancelVariant = 'tertiary',
   confirmText = 'Confirm',
   cancelText = 'Cancel',
+  isDisabled,
 }: ConfirmWrapperProps) {
   const [isOpen, setIsOpen] = useState(false);
   const placementProp = placement ? toPopoverPlacement(placement) : 'bottom';
+
+  if (isDisabled) return children;
 
   return (
     <Popover isOpen={isOpen} onOpenChange={setIsOpen}>

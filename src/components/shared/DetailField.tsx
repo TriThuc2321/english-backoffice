@@ -15,44 +15,58 @@ const DetailField = ({
 }: DetailFieldProps) => (
   <div
     className={cn(
-      'flex flex-col gap-1.5',
-      span === 'full' && 'sm:col-span-2',
+      'flex min-w-0 flex-col gap-1',
+      span === 'full' && 'sm:col-span-full',
       className,
     )}
   >
-    <span className="text-sm font-semibold">{label}</span>
-    <div className="text-default-800 text-sm">{children}</div>
+    <span className="text-muted text-xs font-medium">{label}</span>
+    <div className="text-foreground text-sm font-medium">{children}</div>
   </div>
 );
 
 type InfoCardProps = {
   title?: string;
+  description?: React.ReactNode;
+  actions?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
-  columns?: 1 | 2;
+  columns?: 1 | 2 | 4;
 };
 
 export const InfoCard = ({
   title,
+  description,
+  actions,
   children,
   className,
   columns = 2,
 }: InfoCardProps) => (
-  <div className={cn('relative mt-2 rounded-xl border p-5', className)}>
-    {title && (
-      <p className="bg-surface absolute -top-3 left-4 px-2 text-base font-semibold">
-        {title}
-      </p>
+  <section
+    className={cn(
+      'flex flex-col gap-4 border-t pt-5 first:border-t-0 first:pt-0',
+      className,
+    )}
+  >
+    {(title || actions) && (
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-0.5">
+          {title && <h3 className="text-sm font-semibold">{title}</h3>}
+          {description && <p className="text-muted text-xs">{description}</p>}
+        </div>
+        {actions}
+      </div>
     )}
     <div
       className={cn(
         'grid gap-x-6 gap-y-4',
-        columns === 2 ? 'grid-cols-2' : 'grid-cols-1',
+        columns === 1 ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2',
+        columns === 4 && 'lg:grid-cols-4',
       )}
     >
       {children}
     </div>
-  </div>
+  </section>
 );
 
 export default DetailField;

@@ -71,6 +71,7 @@ function TeacherActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          isDisabled={isDeleting}
           title={t('teachers.deleteTitle')}
           description={t('teachers.deleteConfirm', { name: row.original.code })}
           onConfirm={handleDelete}
@@ -130,6 +131,7 @@ function TeacherActionsCell({
                   isDisabled={isDeleting}
                 >
                   <ConfirmWrapper
+                    isDisabled={isDeleting}
                     title={t('teachers.deleteTitle')}
                     description={t('teachers.deleteConfirm', {
                       name: row.original.code,
