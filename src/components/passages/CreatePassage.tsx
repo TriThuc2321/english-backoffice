@@ -26,8 +26,8 @@ const CreatePassage = () => {
 
   const onSubmit = async (payload: CreateEditPassageFormData) => {
     try {
-      await createPassage(payload as CreatePassagePayload);
-      navigate('/passages');
+      const passage = await createPassage(payload as CreatePassagePayload);
+      navigate(passage?.id ? `/passages/${passage.id}` : '/passages');
     } catch (error) {
       console.error(error);
     }

@@ -21,7 +21,7 @@ export default function ViewPassagePage() {
         <Breadcrumbs.Item>{t('passages.detailTitle')}</Breadcrumbs.Item>
       </Breadcrumbs>
 
-      <Card>
+      <Card className="mx-auto w-full max-w-3xl">
         <Card.Content>{id && <ViewPassage id={id} />}</Card.Content>
       </Card>
     </div>

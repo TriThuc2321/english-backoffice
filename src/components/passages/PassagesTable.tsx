@@ -25,6 +25,7 @@ import { PermissionAction, SubjectName } from '@/types/auth';
 import { toSortDescriptor, toSortingState } from '@/utils/table';
 
 import { statusColorMap } from './constants';
+import MarkedByChip from './MarkedByChip';
 
 const columnHelper = createColumnHelper<Passage>();
 
@@ -183,6 +184,11 @@ export default function PassagesTable({
       columnHelper.accessor('markedBy', {
         enableSorting: false,
         header: t('passages.table.markedBy'),
+        cell: (info) => {
+          const value = info.getValue();
+          if (!value) return '-';
+          return <MarkedByChip markedBy={value} />;
+        },
       }),
       columnHelper.accessor('status', {
         enableSorting: false,

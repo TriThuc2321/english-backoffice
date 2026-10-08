@@ -48,7 +48,7 @@ const EditPassage = ({ id }: EditPassageProps) => {
   const onSubmit = async (payload: CreateEditPassageFormData) => {
     try {
       await editPassage({ id, ...payload });
-      navigate('/passages');
+      navigate(`/passages/${id}`);
     } catch (error) {
       console.error(error);
     }
