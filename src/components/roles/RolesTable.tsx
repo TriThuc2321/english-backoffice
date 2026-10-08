@@ -22,14 +22,9 @@ import { useCan } from '@/configs/casl/can.config';
 import ConfirmWrapper from '@/configs/ConfirmWrapper';
 import { useDeleteRole } from '@/hooks/apis/roles';
 import { PermissionAction, SubjectName } from '@/types/auth';
-import { RoleStatus } from '@/types/role';
 import { toSortDescriptor, toSortingState } from '@/utils/table';
 
-const statusColorMap: Record<RoleStatus, 'success' | 'danger' | 'default'> = {
-  [RoleStatus.ACTIVE]: 'success',
-  [RoleStatus.INACTIVE]: 'danger',
-  [RoleStatus.DELETED]: 'default',
-};
+import { getRoleStatusLabel, roleStatusColorMap } from './roleStatus';
 
 const columnHelper = createColumnHelper<Role>();
 
@@ -81,6 +76,7 @@ function RoleActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          isDisabled={isDeleting || isSystemRole}
           title={t('roles.deleteTitle')}
           description={t('roles.deleteConfirm', { name: row.original.name })}
           onConfirm={handleDelete}
@@ -141,6 +137,7 @@ function RoleActionsCell({
                   isDisabled={isDeleting || isSystemRole}
                 >
                   <ConfirmWrapper
+                    isDisabled={isDeleting || isSystemRole}
                     title={t('roles.deleteTitle')}
                     description={t('roles.deleteConfirm', {
                       name: row.original.name,
@@ -197,11 +194,11 @@ export default function RolesTable({
         enableSorting: false,
         cell: (info) => (
           <Chip
-            color={statusColorMap[info.getValue()]}
+            color={roleStatusColorMap[info.getValue()]}
             size="sm"
             variant="soft"
           >
-            <Chip.Label>{info.getValue()}</Chip.Label>
+            <Chip.Label>{getRoleStatusLabel(t, info.getValue())}</Chip.Label>
           </Chip>
         ),
       }),

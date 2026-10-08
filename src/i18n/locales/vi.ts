@@ -29,6 +29,8 @@ const vi = {
     unverified: 'Chưa xác thực',
     audit: 'Thông tin chỉnh sửa',
     basicInfo: 'Thông tin cơ bản',
+    copy: 'Sao chép',
+    copied: 'Đã sao chép',
   },
   nav: {
     dashboard: 'Tổng quan',
@@ -278,6 +280,11 @@ const vi = {
     createTitle: 'Tạo vai trò',
     editTitle: 'Chỉnh sửa vai trò',
     detailTitle: 'Chi tiết vai trò',
+    system: 'Hệ thống',
+    permissionSummary: '{{resources}} tài nguyên · {{granted}} quyền đã cấp',
+    status: {
+      deleted: 'Đã xoá',
+    },
     pageDescription: 'Cấu hình vai trò và quyền hạn cho người dùng hệ thống.',
     createDescription: 'Định nghĩa vai trò mới với các quyền tùy chỉnh.',
     editDescription: 'Cập nhật thông tin vai trò và cài đặt quyền hạn.',
@@ -311,6 +318,8 @@ const vi = {
       all: 'Tất cả',
       selectAllFor: 'Chọn tất cả {{name}}',
       permissionFor: '{{action}} {{subject}}',
+      granted: 'Đã cấp',
+      full: 'Đầy đủ',
     },
   },
   campuses: {

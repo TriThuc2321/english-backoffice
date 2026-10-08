@@ -1,21 +1,27 @@
-import { Button, Chip, Spinner } from '@heroui/react';
+import { Button, Chip, Spinner, toast } from '@heroui/react';
 import {
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LuCheck, LuPencil, LuX } from 'react-icons/lu';
+import {
+  LuArrowLeft,
+  LuCheck,
+  LuCopy,
+  LuMinus,
+  LuPencil,
+} from 'react-icons/lu';
 import { useNavigate } from 'react-router';
 
-import MyButton from '@/components/shared/Button';
+import AuditItem from '@/components/shared/AuditItem';
 import DetailField, { InfoCard } from '@/components/shared/DetailField';
 import TanstackTable from '@/components/shared/table/TanstackTable';
+import { Can } from '@/configs/casl/can.config';
 import { useGetPermissions } from '@/hooks/apis/permissions';
 import { useGetRoleById } from '@/hooks/apis/roles';
 import { PermissionAction, SubjectName } from '@/types/auth';
-import { RoleStatus } from '@/types/role';
 
 import type { GroupedPermissions, PermissionRow } from './PermissionSelector';
 
@@ -25,15 +31,10 @@ import {
   groupPermission,
   sortActions,
 } from './PermissionSelector';
+import { getRoleStatusLabel, roleStatusColorMap } from './roleStatus';
 
 type ViewRoleProps = {
   id: string;
-};
-
-const statusColorMap: Record<RoleStatus, 'success' | 'danger' | 'default'> = {
-  [RoleStatus.ACTIVE]: 'success',
-  [RoleStatus.INACTIVE]: 'danger',
-  [RoleStatus.DELETED]: 'default',
 };
 
 const ViewRole = ({ id }: ViewRoleProps) => {
@@ -70,60 +71,111 @@ const ViewRole = ({ id }: ViewRoleProps) => {
 
   if (!role) return null;
 
-  return (
-    <div className="flex flex-col gap-4">
-      <InfoCard title={t('common.basicInfo')}>
-        <DetailField label={t('roles.form.name')}>{role.name}</DetailField>
-        <DetailField label={t('roles.form.code')}>
-          <span className="text-sm">{role.code}</span>
-        </DetailField>
-        <DetailField label={t('roles.form.status')}>
-          <Chip color={statusColorMap[role.status]} size="sm" variant="soft">
-            <Chip.Label>{role.status}</Chip.Label>
-          </Chip>
-        </DetailField>
-        <DetailField label={t('roles.form.canAccessCms')}>
-          <Chip
-            color={role.canAccessCms ? 'success' : 'default'}
-            size="sm"
-            variant="soft"
-          >
-            <Chip.Label>
-              {role.canAccessCms ? t('common.yes') : t('common.no')}
-            </Chip.Label>
-          </Chip>
-        </DetailField>
-      </InfoCard>
+  const copyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(role.code);
+      toast.success(t('common.copied'));
+    } catch {
+      // Clipboard can be blocked (insecure context / permissions)
+    }
+  };
 
-      <InfoCard title={t('roles.form.permissions')} columns={1}>
-        {!allPermissions ? (
+  const audit = role.auditMetadata;
+
+  return (
+    <div className="flex flex-col gap-6">
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex min-w-0 flex-col gap-2">
+          <div className="flex min-w-0 flex-col gap-0.5">
+            <h2 className="truncate text-xl font-semibold">{role.name}</h2>
+            <div className="text-muted flex items-center gap-1">
+              <span className="truncate font-mono text-sm">{role.code}</span>
+              <Button
+                isIconOnly
+                size="sm"
+                variant="ghost"
+                aria-label={t('common.copy')}
+                className="size-6 min-w-6"
+                onPress={copyCode}
+              >
+                <LuCopy className="size-3.5" />
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <Chip
+              color={roleStatusColorMap[role.status]}
+              size="sm"
+              variant="soft"
+            >
+              <Chip.Label>{getRoleStatusLabel(t, role.status)}</Chip.Label>
+            </Chip>
+            <Chip
+              color={role.canAccessCms ? 'success' : 'default'}
+              size="sm"
+              variant="soft"
+            >
+              <Chip.Label>
+                {t('roles.table.cmsAccess')}:{' '}
+                {role.canAccessCms ? t('common.yes') : t('common.no')}
+              </Chip.Label>
+            </Chip>
+            {role.systemRole && (
+              <Chip color="accent" size="sm" variant="soft">
+                <Chip.Label>{t('roles.system')}</Chip.Label>
+              </Chip>
+            )}
+          </div>
+        </div>
+
+        <div className="flex shrink-0 gap-2">
+          <Button variant="outline" onPress={() => navigate('/roles')}>
+            <LuArrowLeft className="size-4" />
+            {t('common.back')}
+          </Button>
+          <Can I={PermissionAction.Update} a={SubjectName.Roles}>
+            <Button
+              variant="primary"
+              isDisabled={role.systemRole}
+              onPress={() => navigate(`/roles/${id}/edit`)}
+            >
+              <LuPencil className="size-4" />
+              {t('common.edit')}
+            </Button>
+          </Can>
+        </div>
+      </header>
+
+      {!allPermissions ? (
+        <InfoCard title={t('roles.form.permissions')} columns={1}>
           <div className="flex justify-center py-6">
             <Spinner />
           </div>
-        ) : (
-          <RolePermissionsTable
-            permissionGroups={permissionGroups}
-            rolePermissionIds={rolePermissionIds}
-            fullPermissionId={fullPermissionId}
-          />
-        )}
-      </InfoCard>
+        </InfoCard>
+      ) : (
+        <RolePermissionsTable
+          permissionGroups={permissionGroups}
+          rolePermissionIds={rolePermissionIds}
+          fullPermissionId={fullPermissionId}
+        />
+      )}
 
-      <div className="flex justify-end gap-2 pt-1">
-        <Button variant="outline" onPress={() => navigate('/roles')}>
-          {t('common.back')}
-        </Button>
-        <MyButton
-          I={PermissionAction.Update}
-          a={SubjectName.Roles}
-          variant="primary"
-          isDisabled={role?.systemRole}
-          onPress={() => navigate(`/roles/${id}/edit`)}
-        >
-          <LuPencil className="size-4" />
-          {t('common.edit')}
-        </MyButton>
-      </div>
+      <InfoCard title={t('common.audit')}>
+        <DetailField label={t('common.createdBy')}>
+          {audit?.createdBy || audit?.createdAt ? (
+            <AuditItem user={audit.createdBy} dateTime={audit.createdAt} />
+          ) : (
+            '-'
+          )}
+        </DetailField>
+        <DetailField label={t('common.updatedBy')}>
+          {audit?.updatedBy || audit?.updatedAt ? (
+            <AuditItem user={audit.updatedBy} dateTime={audit.updatedAt} />
+          ) : (
+            '-'
+          )}
+        </DetailField>
+      </InfoCard>
     </div>
   );
 };
@@ -134,7 +186,12 @@ type RolePermissionsTableProps = {
   fullPermissionId?: number;
 };
 
-const columnHelper = createColumnHelper<PermissionRow>();
+type RolePermissionRow = PermissionRow & {
+  granted: number;
+  total: number;
+};
+
+const columnHelper = createColumnHelper<RolePermissionRow>();
 
 const RolePermissionsTable = ({
   permissionGroups,
@@ -145,7 +202,22 @@ const RolePermissionsTable = ({
   const hasFullPermission =
     fullPermissionId != null && rolePermissionIds.has(fullPermissionId);
 
-  const rows = useMemo<PermissionRow[]>(
+  // `manage` on a subject (or the global full permission) implies every action
+  const isGranted = useCallback(
+    (row: PermissionRow, id: number) => {
+      const manageId = row.byAction[PermissionAction.Manage]?.id;
+      return (
+        hasFullPermission ||
+        rolePermissionIds.has(id) ||
+        (manageId != null && rolePermissionIds.has(manageId))
+      );
+    },
+    [hasFullPermission, rolePermissionIds],
+  );
+
+  // Memoized so the table gets stable `data`/`columns`; rebuilding them on
+  // every render makes the React Aria table loop forever on a POP navigation
+  const rows = useMemo<RolePermissionRow[]>(
     () =>
       Object.entries(permissionGroups)
         .filter(
@@ -153,79 +225,94 @@ const RolePermissionsTable = ({
             hasFullPermission ||
             permissions.some((p) => rolePermissionIds.has(p.id)),
         )
-        .map(([subject, permissions]) => ({
-          subject,
-          permissions,
-          byAction: Object.fromEntries(permissions.map((p) => [p.action, p])),
-        })),
-    [permissionGroups, rolePermissionIds, hasFullPermission],
+        .map(([subject, permissions]) => {
+          const row: PermissionRow = {
+            subject,
+            permissions,
+            byAction: Object.fromEntries(permissions.map((p) => [p.action, p])),
+          };
+          const actionable = permissions.filter(
+            (p) => p.action !== PermissionAction.Manage,
+          );
+          return {
+            ...row,
+            total: actionable.length,
+            granted: actionable.filter((p) => isGranted(row, p.id)).length,
+          };
+        }),
+    [permissionGroups, rolePermissionIds, hasFullPermission, isGranted],
   );
 
+  const totalGranted = rows.reduce((sum, row) => sum + row.granted, 0);
   const actions = useMemo(() => sortActions(rows), [rows]);
 
-  // `manage` on a subject (or the global full permission) implies every action
-  const isGranted = (row: PermissionRow, id: number) => {
-    const manageId = row.byAction[PermissionAction.Manage]?.id;
-    return (
-      hasFullPermission ||
-      rolePermissionIds.has(id) ||
-      (manageId != null && rolePermissionIds.has(manageId))
-    );
-  };
-
-  const columns = [
-    columnHelper.display({
-      id: 'subject',
-      header: () => t('roles.form.subject'),
-      cell: ({ row }) => (
-        <span className="text-sm font-medium capitalize">
-          {row.original.subject.replaceAll('_', ' ')}
-        </span>
-      ),
-    }),
-    ...actions.map((action) =>
+  const columns = useMemo(
+    () => [
       columnHelper.display({
-        id: `action-${action}`,
-        header: () => <span className="capitalize">{action}</span>,
-        cell: ({ row }) => {
-          const permission = row.original.byAction[action];
-          if (!permission) return <span className="text-muted">—</span>;
+        id: 'subject',
+        header: () => t('roles.form.subject'),
+        cell: ({ row }) => (
+          <span className="text-sm font-medium capitalize">
+            {row.original.subject.replaceAll('_', ' ')}
+          </span>
+        ),
+      }),
+      ...actions.map((action) =>
+        columnHelper.display({
+          id: `action-${action}`,
+          header: () => (
+            <span className="w-full text-center capitalize">{action}</span>
+          ),
+          cell: ({ row }) => {
+            const permission = row.original.byAction[action];
 
-          return isGranted(row.original, permission.id) ? (
-            <LuCheck
-              aria-label={`${action} granted`}
-              className="text-success size-4"
-            />
-          ) : (
-            <LuX
-              aria-label={`${action} not granted`}
-              className="text-muted size-4"
-            />
+            return (
+              <div className="flex min-w-20 justify-center">
+                {!permission ? (
+                  <span className="text-muted/40">—</span>
+                ) : isGranted(row.original, permission.id) ? (
+                  <LuCheck
+                    aria-label={`${action} granted`}
+                    className="text-success size-4"
+                  />
+                ) : (
+                  <LuMinus
+                    aria-label={`${action} not granted`}
+                    className="text-muted/40 size-4"
+                  />
+                )}
+              </div>
+            );
+          },
+        }),
+      ),
+      columnHelper.display({
+        id: 'count',
+        header: () => (
+          <span className="w-full text-right">{t('roles.form.granted')}</span>
+        ),
+        cell: ({ row }) => {
+          const { granted, total } = row.original;
+          const isFull = granted === total;
+
+          return (
+            <div className="flex justify-end">
+              <Chip
+                size="sm"
+                variant="soft"
+                color={isFull ? 'success' : 'default'}
+              >
+                <Chip.Label>
+                  {isFull ? t('roles.form.full') : `${granted}/${total}`}
+                </Chip.Label>
+              </Chip>
+            </div>
           );
         },
       }),
-    ),
-    columnHelper.display({
-      id: 'count',
-      header: '',
-      cell: ({ row }) => {
-        const permissions = row.original.permissions.filter(
-          (p) => p.action !== PermissionAction.Manage,
-        );
-        const grantedCount = permissions.filter((p) =>
-          isGranted(row.original, p.id),
-        ).length;
-
-        return (
-          <Chip size="sm" variant="soft">
-            <Chip.Label>
-              {grantedCount}/{permissions.length}
-            </Chip.Label>
-          </Chip>
-        );
-      },
-    }),
-  ];
+    ],
+    [actions, isGranted, t],
+  );
 
   const table = useReactTable({
     data: rows,
@@ -235,19 +322,29 @@ const RolePermissionsTable = ({
   });
 
   return (
-    <div className="flex w-full min-w-0 flex-col gap-2">
-      {hasFullPermission && (
-        <Chip size="sm" variant="soft" color="success" className="self-start">
-          <Chip.Label>{t('roles.form.fullPermissions')}</Chip.Label>
-        </Chip>
-      )}
-
-      <TanstackTable
-        table={table}
-        ariaLabel={t('roles.form.permissions')}
-        maxHeight="none"
-      />
-    </div>
+    <InfoCard
+      title={t('roles.form.permissions')}
+      description={t('roles.permissionSummary', {
+        resources: rows.length,
+        granted: totalGranted,
+      })}
+      actions={
+        hasFullPermission && (
+          <Chip size="sm" variant="soft" color="success">
+            <Chip.Label>{t('roles.form.fullPermissions')}</Chip.Label>
+          </Chip>
+        )
+      }
+      columns={1}
+    >
+      <div className="min-w-0">
+        <TanstackTable
+          table={table}
+          ariaLabel={t('roles.form.permissions')}
+          maxHeight="none"
+        />
+      </div>
+    </InfoCard>
   );
 };
 

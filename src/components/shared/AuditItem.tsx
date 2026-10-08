@@ -12,21 +12,29 @@ type AuditItemProps = Partial<{
 }>;
 
 export default function AuditItem({ user, dateTime }: AuditItemProps) {
-  const { firstName, lastName, avatar } = user ?? {};
+  const { firstName, lastName, email, avatar } = user ?? {};
   const fullName = [firstName, lastName].filter(Boolean).join(' ');
+  const displayName = fullName || email || '';
+  const initials = (
+    (firstName?.charAt(0) ?? '') + (lastName?.charAt(0) ?? '') ||
+    displayName.charAt(0)
+  ).toUpperCase();
 
   return (
     <div className="flex min-w-max items-center gap-3">
-      <RenderIf condition={!!avatar && !!fullName}>
-        <Avatar className="rounded-2xl" size="sm" variant="soft" color="accent">
-          <Avatar.Image alt={fullName} src={avatar} />
-          <Avatar.Fallback className="rounded-2xl">
-            {fullName?.charAt(0) ?? ''}
-          </Avatar.Fallback>
+      <RenderIf condition={!!user}>
+        <Avatar
+          className="shrink-0 rounded-2xl"
+          size="sm"
+          variant="soft"
+          color="accent"
+        >
+          <Avatar.Image alt={displayName} src={avatar} />
+          <Avatar.Fallback className="rounded-2xl">{initials}</Avatar.Fallback>
         </Avatar>
       </RenderIf>
       <div className="flex flex-col">
-        <p className="text-left text-sm">{fullName}</p>
+        <p className="text-left text-sm">{displayName}</p>
         <p className="text-left text-xs">
           {formatDateTime(dateTime, 'MM/DD/YYYY HH:mm')}
         </p>
