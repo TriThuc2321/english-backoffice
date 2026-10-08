@@ -1,17 +1,24 @@
 import type { SubjectType } from '@casl/ability';
 import type { IconType } from 'react-icons/lib';
 
-import { Button, cn } from '@heroui/react';
+import {
+  Button,
+  Disclosure,
+  Separator,
+  Tooltip,
+  buttonVariants,
+  cn,
+} from '@heroui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IoIosLogOut } from 'react-icons/io';
-import { LuChevronDown, LuChevronLeft } from 'react-icons/lu';
+import { LuChevronLeft } from 'react-icons/lu';
 import { Link, useLocation } from 'react-router';
 
 import logoHorizontalUrl from '@/assets/icons/logo-horizontal.svg?url';
 import logoUrl from '@/assets/icons/logo.svg?url';
 import RenderIf from '@/components/shared/RenderIf';
-import { Can } from '@/configs/casl/can.config';
+import { Can, useCan } from '@/configs/casl/can.config';
 import { MENU_GROUPS, type IMenuGroup } from '@/configs/menu';
 import {
   SHOW_FULL_MENU_KEY,
@@ -32,6 +39,25 @@ function persistShowFullMenu(value: boolean): void {
   } catch {
     // ignore
   }
+}
+
+function menuItemStateClassName(isActive: boolean) {
+  return isActive
+    ? 'bg-accent/10 text-accent hover:bg-accent/15'
+    : 'text-muted hover:text-foreground';
+}
+
+function menuItemClassName(isActive: boolean, showFullMenu = true) {
+  return buttonVariants({
+    className: cn(
+      'font-medium',
+      showFullMenu ? 'justify-start gap-3' : 'mx-auto',
+      menuItemStateClassName(isActive),
+    ),
+    fullWidth: showFullMenu,
+    isIconOnly: !showFullMenu,
+    variant: 'ghost',
+  });
 }
 
 interface ISideBarProps {
@@ -62,7 +88,7 @@ export default function Sidebar({
     <>
       <div
         className={cn(
-          'bg-surface md:transition-width border-border absolute z-40 flex h-full flex-col rounded-r-3xl border-r p-2 transition-transform duration-300 max-md:-translate-x-60 lg:relative',
+          'bg-surface md:transition-width absolute z-40 flex h-full flex-col rounded-r-3xl p-2 transition-transform duration-300 max-md:-translate-x-60 lg:relative',
           {
             'max-md:translate-x-0': isOpen,
             'w-19': !showFullMenu,
@@ -86,9 +112,12 @@ export default function Sidebar({
         <Link className="block" to="/">
           <img
             alt="Logo horizontal"
-            className={cn('mx-auto mt-6 block h-auto w-45 object-contain', {
-              hidden: !showFullMenu,
-            })}
+            className={cn(
+              'mx-auto mt-6 block h-auto w-45 object-contain dark:brightness-150',
+              {
+                hidden: !showFullMenu,
+              },
+            )}
             draggable={false}
             height={32}
             src={logoHorizontalUrl}
@@ -105,7 +134,7 @@ export default function Sidebar({
           />
         </Link>
 
-        <div className="mt-2 flex h-full flex-col gap-2 overflow-y-auto py-4">
+        <div className="mt-2 flex h-full flex-col gap-1 overflow-y-auto py-4">
           {MENU_GROUPS.map((group, groupIndex) => (
             <MenuGroup
               key={groupIndex}
@@ -116,17 +145,21 @@ export default function Sidebar({
           ))}
         </div>
 
-        <div className="mt-auto flex justify-center pt-4">
+        <div className="mt-auto">
+          <Separator className="my-2" />
           <Button
-            className={cn('flex w-full items-center justify-start gap-6 py-6', {
-              'justify-center': !showFullMenu,
+            aria-label={showFullMenu ? undefined : 'Logout'}
+            className={cn('text-muted hover:text-foreground font-medium', {
+              'justify-start gap-3': showFullMenu,
+              'mx-auto flex': !showFullMenu,
             })}
+            fullWidth={showFullMenu}
             isIconOnly={!showFullMenu}
-            variant="outline"
+            variant="ghost"
             onPress={() => logout()}
           >
-            <IoIosLogOut className="text-xl" />
-            {showFullMenu && <p className="text-sm">Logout</p>}
+            <IoIosLogOut className="shrink-0 text-lg" />
+            {showFullMenu && 'Logout'}
           </Button>
         </div>
       </div>
@@ -154,24 +187,24 @@ const MenuGroup = ({
   showFullMenu: boolean;
 }) => {
   const { t } = useTranslation();
+  const ability = useCan();
+
+  const hasVisibleItem = group.items.some((menu) =>
+    ability.can(PermissionAction.Read, menu.object as SubjectType),
+  );
+
+  if (!hasVisibleItem) return null;
 
   return (
     <div className="flex flex-col gap-1">
-      {group.label && (
-        <div
-          className={cn('flex items-center gap-2 px-2 pt-2', {
-            'justify-center': !showFullMenu,
-          })}
-        >
-          {showFullMenu ? (
-            <p className="text-content3-foreground text-[10px] font-semibold uppercase">
-              {t(group.label)}
-            </p>
-          ) : (
-            <div className="border-border w-full border-t" />
-          )}
-        </div>
-      )}
+      {group.label &&
+        (showFullMenu ? (
+          <p className="text-muted px-3 pt-3 pb-1 text-[11px] font-semibold tracking-wider uppercase">
+            {t(group.label)}
+          </p>
+        ) : (
+          <Separator className="mx-auto my-2 w-6" />
+        ))}
       {group.items.map((menu) => (
         <Can
           I={PermissionAction.Read}
@@ -232,47 +265,31 @@ const MenuItem = ({
     }
   }, [isSubMenuActive]);
 
-  const label = `sidebar.${title}`;
-
-  const baseButtonClassName = cn(
-    'flex w-full items-center justify-start gap-4 py-6 font-medium',
-    {
-      'justify-center': !showFullMenu,
-    },
-  );
+  const label = t(`sidebar.${title}`);
 
   if (hasSubMenus && showFullMenu) {
     return (
-      <div className="flex flex-col gap-1">
-        <Button
-          className={baseButtonClassName}
-          isIconOnly={!showFullMenu}
-          type="button"
-          variant={isActive || isSubMenuActive ? 'danger-soft' : 'ghost'}
-          onPress={() => {
-            setIsSubMenuOpen(!isSubMenuOpen);
-          }}
-        >
-          <Icon className="text-xl" />
-          {showFullMenu && (
-            <>
-              <p className="flex-1 text-left text-sm">{t(label)}</p>
-              <LuChevronDown
-                className={cn('text-lg transition-transform duration-200', {
-                  'rotate-180': isSubMenuOpen,
-                })}
-              />
-            </>
-          )}
-        </Button>
-
-        <div
-          className={cn('overflow-hidden transition-all duration-200', {
-            'max-h-0 opacity-0': !isSubMenuOpen,
-            'max-h-125 opacity-100': isSubMenuOpen,
-          })}
-        >
-          <div className="ml-4 flex flex-col gap-1 border-l-2 border-gray-200 pl-4 dark:border-gray-700">
+      <Disclosure
+        isExpanded={isSubMenuOpen}
+        onExpandedChange={setIsSubMenuOpen}
+      >
+        <Disclosure.Heading>
+          <Button
+            className={cn(
+              'justify-start gap-3 font-medium',
+              menuItemStateClassName(isSubMenuActive),
+            )}
+            fullWidth
+            slot="trigger"
+            variant="ghost"
+          >
+            <Icon className="shrink-0 text-lg" />
+            <span className="flex-1 truncate text-left">{label}</span>
+            <Disclosure.Indicator />
+          </Button>
+        </Disclosure.Heading>
+        <Disclosure.Content>
+          <Disclosure.Body className="border-border ml-5 flex flex-col gap-0.5 border-l py-1 pl-2">
             {subMenus!.map((subMenu) => (
               <SubMenuItem
                 key={subMenu.id}
@@ -281,33 +298,31 @@ const MenuItem = ({
                 handleOpen={handleOpen}
               />
             ))}
-          </div>
-        </div>
-      </div>
+          </Disclosure.Body>
+        </Disclosure.Content>
+      </Disclosure>
     );
   }
 
-  const navTarget = linkTo ?? '/';
+  const link = (
+    <Link
+      aria-label={showFullMenu ? undefined : label}
+      className={menuItemClassName(isActive || isSubMenuActive, showFullMenu)}
+      to={linkTo ?? '/'}
+      onClick={() => handleOpen(false)}
+    >
+      <Icon className="shrink-0 text-lg" />
+      {showFullMenu && <span className="flex-1 truncate">{label}</span>}
+    </Link>
+  );
+
+  if (showFullMenu) return link;
 
   return (
-    <div className="flex flex-col gap-1">
-      <Button
-        className="w-full py-6"
-        variant={isActive || isSubMenuActive ? 'danger-soft' : 'ghost'}
-        isIconOnly={!showFullMenu}
-        onClick={() => handleOpen(false)}
-      >
-        <Link
-          className="flex w-full items-center justify-center gap-4 py-6 font-medium"
-          to={navTarget}
-        >
-          <Icon className="text-xl" />
-          {showFullMenu && (
-            <p className="flex-1 text-left text-sm">{t(label)}</p>
-          )}
-        </Link>
-      </Button>
-    </div>
+    <Tooltip delay={0}>
+      <Tooltip.Trigger className="flex">{link}</Tooltip.Trigger>
+      <Tooltip.Content placement="right">{label}</Tooltip.Content>
+    </Tooltip>
   );
 };
 
@@ -330,22 +345,21 @@ const SubMenuItem = ({
   const isActive = route === currentSegment;
 
   return (
-    <Button
-      className={cn('w-full py-5', {
-        'text-primary font-bold': isActive,
-        'text-content2-foreground hover:text-primary/85': !isActive,
+    <Link
+      className={buttonVariants({
+        className: cn(
+          'justify-start gap-3 font-medium',
+          menuItemStateClassName(isActive),
+        ),
+        fullWidth: true,
+        size: 'sm',
+        variant: 'ghost',
       })}
-      size="sm"
-      variant={isActive ? 'danger-soft' : 'ghost'}
+      to={route}
       onClick={() => handleOpen(false)}
     >
-      <Link
-        className="flex w-full items-center justify-start gap-4 font-medium"
-        to={route}
-      >
-        <Icon className="text-base" />
-        <p className="text-[13px]">{t(`sidebar.${title}`)}</p>
-      </Link>
-    </Button>
+      <Icon className="shrink-0 text-base" />
+      <span className="truncate">{t(`sidebar.${title}`)}</span>
+    </Link>
   );
 };

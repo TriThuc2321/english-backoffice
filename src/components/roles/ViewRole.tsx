@@ -129,12 +129,17 @@ const ViewRole = ({ id }: ViewRoleProps) => {
         </div>
 
         <div className="flex shrink-0 gap-2">
-          <Button variant="outline" onPress={() => navigate('/roles')}>
+          <Button
+            size="sm"
+            variant="outline"
+            onPress={() => navigate('/roles')}
+          >
             <LuArrowLeft className="size-4" />
             {t('common.back')}
           </Button>
           <Can I={PermissionAction.Update} a={SubjectName.Roles}>
             <Button
+              size="sm"
               variant="primary"
               isDisabled={role.systemRole}
               onPress={() => navigate(`/roles/${id}/edit`)}
