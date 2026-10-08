@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useRef } from 'react';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -89,8 +89,9 @@ const PermissionSelectorContent = ({
   fullPermissionId,
 }: PermissionSelectorContentProps) => {
   const { t } = useTranslation();
-  const [selected, setSelected] = useState<number[]>(value || []);
-  const [isDisableAll, setDisableAll] = useState<boolean>(false);
+  const selected = useMemo(() => value ?? [], [value]);
+  const isDisableAll =
+    fullPermissionId != null && selected.includes(fullPermissionId);
 
   const rows = useMemo<PermissionRow[]>(
     () =>
@@ -104,65 +105,86 @@ const PermissionSelectorContent = ({
 
   const actions = useMemo(() => sortActions(rows), [rows]);
 
-  const updateSelected = (newSelected: number[]) => {
-    setSelected(newSelected);
-    onChange(newSelected);
-  };
-
+  // Precomputed, referentially stable id lists so memoized checkboxes can skip re-renders
   const subjectActions = useMemo(
     () =>
-      rows.map((row) => ({
-        manageId: row.byAction[PermissionAction.Manage]?.id,
-        actionIds: row.permissions
-          .filter((p) => p.action !== PermissionAction.Manage)
-          .map((p) => p.id),
-      })),
+      new Map(
+        rows.map((row) => [
+          row.subject,
+          {
+            manageId: row.byAction[PermissionAction.Manage]?.id,
+            actionIds: row.permissions
+              .filter((p) => p.action !== PermissionAction.Manage)
+              .map((p) => p.id),
+            singleIds: Object.fromEntries(
+              row.permissions.map((p) => [p.action, [p.id]]),
+            ) as Record<string, number[]>,
+          },
+        ]),
+      ),
     [rows],
   );
 
-  const expand = (ids: number[]) => {
-    const result = new Set(ids);
-    subjectActions.forEach(({ manageId, actionIds }) => {
-      if (manageId == null || !result.has(manageId)) return;
-      result.delete(manageId);
-      actionIds.forEach((id) => result.add(id));
-    });
-    return result;
-  };
+  const actionColumnIds = useMemo(
+    () =>
+      Object.fromEntries(
+        actions.map((action) => [
+          action,
+          rows
+            .map((r) => r.byAction[action]?.id)
+            .filter((id): id is number => id != null),
+        ]),
+      ) as Record<string, number[]>,
+    [actions, rows],
+  );
 
-  const compress = (ids: Set<number>) => {
-    const result = new Set(ids);
-    subjectActions.forEach(({ manageId, actionIds }) => {
-      if (manageId == null || actionIds.length === 0) return;
-      if (!actionIds.every((id) => result.has(id))) return;
-      actionIds.forEach((id) => result.delete(id));
-      result.add(manageId);
-    });
-    return [...result];
-  };
+  const expand = useCallback(
+    (ids: number[]) => {
+      const result = new Set(ids);
+      subjectActions.forEach(({ manageId, actionIds }) => {
+        if (manageId == null || !result.has(manageId)) return;
+        result.delete(manageId);
+        actionIds.forEach((id) => result.add(id));
+      });
+      return result;
+    },
+    [subjectActions],
+  );
 
-  const effective = useMemo(() => expand(selected), [selected, subjectActions]); // eslint-disable-line react-hooks/exhaustive-deps
+  const compress = useCallback(
+    (ids: Set<number>) => {
+      const result = new Set(ids);
+      subjectActions.forEach(({ manageId, actionIds }) => {
+        if (manageId == null || actionIds.length === 0) return;
+        if (!actionIds.every((id) => result.has(id))) return;
+        actionIds.forEach((id) => result.delete(id));
+        result.add(manageId);
+      });
+      return [...result];
+    },
+    [subjectActions],
+  );
 
-  const toggleIds = (ids: number[], isSelected: boolean) => {
-    const next = expand(selected);
-    ids.forEach((id) => (isSelected ? next.add(id) : next.delete(id)));
-    updateSelected(compress(next));
-  };
+  const effective = useMemo(() => expand(selected), [expand, selected]);
+
+  const selectedRef = useRef(selected);
+  selectedRef.current = selected;
+
+  const toggleIds = useCallback(
+    (ids: number[], isSelected: boolean) => {
+      const next = expand(selectedRef.current);
+      ids.forEach((id) => (isSelected ? next.add(id) : next.delete(id)));
+      onChange(compress(next));
+    },
+    [expand, compress, onChange],
+  );
 
   const handleSelectAll = (isSelected: boolean, id: number) => {
-    updateSelected(isSelected ? [id] : []);
-    setDisableAll(isSelected);
+    onChange(isSelected ? [id] : []);
   };
 
-  useEffect(() => {
-    setSelected(value || []);
-    const isFullPermission = fullPermissionId
-      ? (value?.includes(fullPermissionId) ?? false)
-      : false;
-    setDisableAll(isFullPermission);
-  }, [value, fullPermissionId]);
-
-  const isChecked = (id: number) => effective.has(id);
+  const countChecked = (ids: number[]) =>
+    ids.reduce((count, id) => count + (effective.has(id) ? 1 : 0), 0);
 
   const columns = [
     columnHelper.display({
@@ -178,19 +200,18 @@ const PermissionSelectorContent = ({
       id: 'all',
       header: () => t('roles.form.all'),
       cell: ({ row }) => {
-        const { subject, permissions } = row.original;
-        const ids = permissions
-          .filter((p) => p.action !== PermissionAction.Manage)
-          .map((p) => p.id);
-        const checkedCount = ids.filter(isChecked).length;
+        const { subject } = row.original;
+        const ids = subjectActions.get(subject)!.actionIds;
+        const checkedCount = countChecked(ids);
 
         return (
           <PermissionCheckbox
             ariaLabel={`Select all ${subject.replaceAll('_', ' ')}`}
+            ids={ids}
             isSelected={ids.length > 0 && checkedCount === ids.length}
             isIndeterminate={checkedCount > 0 && checkedCount < ids.length}
             isDisabled={isDisableAll || ids.length === 0}
-            onChange={(isSelected) => toggleIds(ids, isSelected)}
+            onToggle={toggleIds}
           />
         );
       },
@@ -199,19 +220,18 @@ const PermissionSelectorContent = ({
       columnHelper.display({
         id: `action-${action}`,
         header: () => {
-          const ids = rows
-            .map((r) => r.byAction[action]?.id)
-            .filter((id): id is number => id != null);
-          const checkedCount = ids.filter(isChecked).length;
+          const ids = actionColumnIds[action];
+          const checkedCount = countChecked(ids);
 
           return (
             <span className="flex items-center gap-2">
               <PermissionCheckbox
                 ariaLabel={`Select all ${action}`}
+                ids={ids}
                 isSelected={ids.length > 0 && checkedCount === ids.length}
                 isIndeterminate={checkedCount > 0 && checkedCount < ids.length}
                 isDisabled={isDisableAll || ids.length === 0}
-                onChange={(isSelected) => toggleIds(ids, isSelected)}
+                onToggle={toggleIds}
               />
               <span className="capitalize">{action}</span>
             </span>
@@ -224,9 +244,10 @@ const PermissionSelectorContent = ({
           return (
             <PermissionCheckbox
               ariaLabel={`${action} ${row.original.subject.replaceAll('_', ' ')}`}
-              isSelected={isChecked(permission.id)}
+              ids={subjectActions.get(row.original.subject)!.singleIds[action]}
+              isSelected={effective.has(permission.id)}
               isDisabled={isDisableAll}
-              onChange={(isSelected) => toggleIds([permission.id], isSelected)}
+              onToggle={toggleIds}
             />
           );
         },
@@ -236,15 +257,12 @@ const PermissionSelectorContent = ({
       id: 'count',
       header: '',
       cell: ({ row }) => {
-        const permissions = row.original.permissions.filter(
-          (p) => p.action !== PermissionAction.Manage,
-        );
-        const checkedCount = permissions.filter((p) => isChecked(p.id)).length;
+        const ids = subjectActions.get(row.original.subject)!.actionIds;
 
         return (
           <Chip size="sm" variant="soft">
             <Chip.Label>
-              {checkedCount}/{permissions.length}
+              {countChecked(ids)}/{ids.length}
             </Chip.Label>
           </Chip>
         );
@@ -295,33 +313,36 @@ const PermissionSelectorContent = ({
 
 type PermissionCheckboxProps = {
   ariaLabel: string;
+  ids: number[];
   isSelected: boolean;
   isIndeterminate?: boolean;
   isDisabled?: boolean;
-  onChange: (isSelected: boolean) => void;
+  onToggle: (ids: number[], isSelected: boolean) => void;
 };
 
-const PermissionCheckbox = ({
-  ariaLabel,
-  isSelected,
-  isIndeterminate,
-  isDisabled,
-  onChange,
-}: PermissionCheckboxProps) => (
-  <Checkbox
-    slot={null}
-    aria-label={ariaLabel}
-    isSelected={isSelected}
-    isIndeterminate={isIndeterminate}
-    isDisabled={isDisabled}
-    onChange={onChange}
-  >
-    <Checkbox.Control>
-      <Checkbox.Indicator />
-    </Checkbox.Control>
-  </Checkbox>
+const PermissionCheckbox = memo(
+  ({
+    ariaLabel,
+    ids,
+    isSelected,
+    isIndeterminate,
+    isDisabled,
+    onToggle,
+  }: PermissionCheckboxProps) => (
+    <Checkbox
+      slot={null}
+      aria-label={ariaLabel}
+      isSelected={isSelected}
+      isIndeterminate={isIndeterminate}
+      isDisabled={isDisabled}
+      onChange={(checked) => onToggle(ids, checked)}
+    >
+      <Checkbox.Control>
+        <Checkbox.Indicator />
+      </Checkbox.Control>
+    </Checkbox>
+  ),
 );
-
 const ACTION_ORDER: string[] = [
   PermissionAction.Create,
   PermissionAction.Read,
