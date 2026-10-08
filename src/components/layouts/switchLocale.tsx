@@ -20,15 +20,13 @@ export default function SwitchLocale() {
 
   return (
     <Dropdown>
-      <Dropdown.Trigger>
-        <Button variant="tertiary" isIconOnly className="rounded-full">
-          {locale === LOCALE.VI ? (
-            <FlagVNIcon className={iconClasses} />
-          ) : (
-            <FlagUSIcon className={iconClasses} />
-          )}
-        </Button>
-      </Dropdown.Trigger>
+      <Button variant="tertiary" isIconOnly className="rounded-full">
+        {locale === LOCALE.VI ? (
+          <FlagVNIcon className={iconClasses} />
+        ) : (
+          <FlagUSIcon className={iconClasses} />
+        )}
+      </Button>
 
       <Dropdown.Popover placement="left">
         <Dropdown.Menu aria-label="Switch locale">

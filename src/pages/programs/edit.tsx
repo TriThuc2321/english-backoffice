@@ -1,6 +1,6 @@
 import { Breadcrumbs, Card } from '@heroui/react';
 import { useTranslation } from 'react-i18next';
-import { Link, useParams, type MetaFunction } from 'react-router';
+import { useParams, type MetaFunction } from 'react-router';
 
 import { EditProgram } from '@/components/programs';
 import { pageMeta } from '@/utils/metadata';
@@ -15,9 +15,7 @@ export default function EditProgramPage() {
   return (
     <div className="flex flex-col gap-6">
       <Breadcrumbs>
-        <Breadcrumbs.Item
-          render={(props: any) => <Link to="/programs" {...props} />}
-        >
+        <Breadcrumbs.Item href="/programs">
           {t('sidebar.programs')}
         </Breadcrumbs.Item>
         <Breadcrumbs.Item>{t('programs.editTitle')}</Breadcrumbs.Item>

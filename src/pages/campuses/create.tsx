@@ -1,6 +1,7 @@
+import type { MetaFunction } from 'react-router';
+
 import { Breadcrumbs, Card } from '@heroui/react';
 import { useTranslation } from 'react-i18next';
-import { Link, type MetaFunction } from 'react-router';
 
 import { CreateCampus } from '@/components/campuses';
 import { pageMeta } from '@/utils/metadata';
@@ -14,9 +15,7 @@ export default function CreateCampusPage() {
   return (
     <div className="flex flex-col gap-6">
       <Breadcrumbs>
-        <Breadcrumbs.Item
-          render={(props: any) => <Link to="/campuses" {...props} />}
-        >
+        <Breadcrumbs.Item href="/campuses">
           {t('sidebar.campuses')}
         </Breadcrumbs.Item>
         <Breadcrumbs.Item>{t('campuses.createTitle')}</Breadcrumbs.Item>

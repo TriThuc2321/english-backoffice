@@ -89,11 +89,9 @@ function CampusActionsCell({
       {/* Mobile */}
       <div className="md:hidden">
         <Dropdown>
-          <Dropdown.Trigger>
-            <Button isIconOnly size="sm" variant="tertiary">
-              <LuEllipsisVertical className="size-4" />
-            </Button>
-          </Dropdown.Trigger>
+          <Button isIconOnly size="sm" variant="tertiary">
+            <LuEllipsisVertical className="size-4" />
+          </Button>
           <Dropdown.Popover placement="left">
             <Dropdown.Menu aria-label={t('common.actions')}>
               {ability.can(PermissionAction.Read, SubjectName.Campuses) && (

@@ -1,4 +1,4 @@
-import { Toast } from '@heroui/react';
+import { RouterProvider, Toast } from '@heroui/react';
 import { StrictMode } from 'react';
 import {
   Links,
@@ -6,6 +6,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useHref,
+  useNavigate,
   type LinksFunction,
 } from 'react-router';
 
@@ -46,16 +48,20 @@ export function HydrateFallback() {
 }
 
 export default function Root() {
+  const navigate = useNavigate();
+
   return (
     <StrictMode>
-      <ThemeProvider>
-        <LocaleProvider>
-          <ReactQueryProvider>
-            <Outlet />
-            <Toast.Provider placement="top end" />
-          </ReactQueryProvider>
-        </LocaleProvider>
-      </ThemeProvider>
+      <RouterProvider navigate={navigate} useHref={useHref}>
+        <ThemeProvider>
+          <LocaleProvider>
+            <ReactQueryProvider>
+              <Outlet />
+              <Toast.Provider placement="top end" />
+            </ReactQueryProvider>
+          </LocaleProvider>
+        </ThemeProvider>
+      </RouterProvider>
     </StrictMode>
   );
 }

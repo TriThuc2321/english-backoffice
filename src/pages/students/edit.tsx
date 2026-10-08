@@ -1,6 +1,6 @@
 import { Breadcrumbs, Card } from '@heroui/react';
 import { useTranslation } from 'react-i18next';
-import { Link, useParams, type MetaFunction } from 'react-router';
+import { useParams, type MetaFunction } from 'react-router';
 
 import { EditStudent } from '@/components/students';
 import { pageMeta } from '@/utils/metadata';
@@ -15,9 +15,7 @@ export default function EditStudentPage() {
   return (
     <div className="flex flex-col gap-6">
       <Breadcrumbs>
-        <Breadcrumbs.Item
-          render={(props: any) => <Link to="/students" {...props} />}
-        >
+        <Breadcrumbs.Item href="/students">
           {t('sidebar.students')}
         </Breadcrumbs.Item>
         <Breadcrumbs.Item>{t('students.editTitle')}</Breadcrumbs.Item>

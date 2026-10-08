@@ -1,6 +1,6 @@
 import { Breadcrumbs, Card } from '@heroui/react';
 import { useTranslation } from 'react-i18next';
-import { Link, useParams, type MetaFunction } from 'react-router';
+import { useParams, type MetaFunction } from 'react-router';
 
 import { CreateLevel } from '@/components/levels';
 import { pageMeta } from '@/utils/metadata';
@@ -15,14 +15,10 @@ export default function CreateLevelPage() {
   return (
     <div className="flex flex-col gap-6">
       <Breadcrumbs>
-        <Breadcrumbs.Item
-          render={(props: any) => <Link to="/programs" {...props} />}
-        >
+        <Breadcrumbs.Item href="/programs">
           {t('sidebar.programs')}
         </Breadcrumbs.Item>
-        <Breadcrumbs.Item
-          render={(props: any) => <Link to={`/programs/${id}`} {...props} />}
-        >
+        <Breadcrumbs.Item href={`/programs/${id}`}>
           {t('programs.detailTitle')}
         </Breadcrumbs.Item>
         <Breadcrumbs.Item>{t('levels.createTitle')}</Breadcrumbs.Item>
