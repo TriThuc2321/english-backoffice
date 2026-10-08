@@ -152,10 +152,13 @@ export default function Sidebar({
           <Button
             size="lg"
             aria-label={showFullMenu ? undefined : t('nav.logout')}
-            className={cn('text-muted hover:text-foreground font-medium', {
-              'justify-start gap-3': showFullMenu,
-              'mx-auto flex': !showFullMenu,
-            })}
+            className={cn(
+              'text-muted hover:text-foreground text-sm font-medium',
+              {
+                'justify-start gap-3': showFullMenu,
+                'mx-auto flex': !showFullMenu,
+              },
+            )}
             fullWidth={showFullMenu}
             isIconOnly={!showFullMenu}
             variant="ghost"
