@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router';
 import type { Role } from '@/types/role';
 
 import AuditItem from '@/components/shared/AuditItem';
+import BooleanIcon from '@/components/shared/BooleanIcon';
 import MyButton from '@/components/shared/Button';
 import FooterTable from '@/components/shared/table/FooterTable';
 import TanstackTable from '@/components/shared/table/TanstackTable';
@@ -203,28 +204,12 @@ export default function RolesTable({
       columnHelper.accessor('canAccessCms', {
         header: t('roles.table.cmsAccess'),
         enableSorting: false,
-        cell: (info) => (
-          <Chip
-            color={info.getValue() ? 'success' : 'default'}
-            size="sm"
-            variant="soft"
-          >
-            {info.getValue() ? t('common.yes') : t('common.no')}
-          </Chip>
-        ),
+        cell: (info) => <BooleanIcon value={info.getValue()} />,
       }),
       columnHelper.accessor('systemRole', {
         header: t('roles.table.systemRole'),
         enableSorting: false,
-        cell: (info) => (
-          <Chip
-            color={info.getValue() ? 'success' : 'default'}
-            size="sm"
-            variant="soft"
-          >
-            {info.getValue() ? t('common.yes') : t('common.no')}
-          </Chip>
-        ),
+        cell: (info) => <BooleanIcon value={info.getValue()} />,
       }),
       columnHelper.accessor('auditMetadata', {
         id: 'createdBy',

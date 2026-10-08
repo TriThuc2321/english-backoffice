@@ -1,6 +1,6 @@
 import type { SortingState } from '@tanstack/react-table';
 
-import { Avatar, Button, Chip, Dropdown } from '@heroui/react';
+import { Avatar, Button, Dropdown } from '@heroui/react';
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router';
 
 import type { User } from '@/types/user';
 
+import BooleanIcon from '@/components/shared/BooleanIcon';
 import MyButton from '@/components/shared/Button';
 import FooterTable from '@/components/shared/table/FooterTable';
 import TanstackTable from '@/components/shared/table/TanstackTable';
@@ -237,28 +238,12 @@ export default function UsersTable({
       columnHelper.accessor('emailVerified', {
         enableSorting: false,
         header: t('cmsUsers.table.emailVerified'),
-        cell: (info) => (
-          <Chip
-            color={info.getValue() ? 'success' : 'default'}
-            size="sm"
-            variant="soft"
-          >
-            {info.getValue() ? t('common.yes') : t('common.no')}
-          </Chip>
-        ),
+        cell: (info) => <BooleanIcon value={info.getValue()} />,
       }),
       columnHelper.accessor('systemUser', {
         enableSorting: false,
         header: t('cmsUsers.table.systemUser'),
-        cell: (info) => (
-          <Chip
-            color={info.getValue() ? 'success' : 'default'}
-            size="sm"
-            variant="soft"
-          >
-            {info.getValue() ? t('common.yes') : t('common.no')}
-          </Chip>
-        ),
+        cell: (info) => <BooleanIcon value={info.getValue()} />,
       }),
       columnHelper.accessor('auditMetadata', {
         enableSorting: false,
