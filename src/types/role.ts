@@ -1,10 +1,4 @@
-import type { Audit, Params, Response } from './common';
-
-export enum RoleStatus {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE',
-  DELETED = 'DELETED',
-}
+import type { Audit, EditableStatus, Params, Response, Status } from './common';
 
 export interface RolePermission {
   action: string;
@@ -16,7 +10,7 @@ export interface Role {
   name: string;
   code: string;
   canAccessCms: boolean;
-  status: RoleStatus;
+  status: Status;
   systemRole: boolean;
   permissions: RolePermission[];
   auditMetadata?: Audit;
@@ -25,17 +19,18 @@ export interface Role {
 export interface CreateRolePayload {
   name: string;
   code: string;
-  status: RoleStatus;
   canAccessCms: boolean;
   permissionIds?: number[];
 }
 
 export interface EditRolePayload extends Partial<CreateRolePayload> {
   id: string;
+  status?: EditableStatus;
 }
 
 export interface GetRolesParams extends Params {
-  status?: RoleStatus;
+  status?: EditableStatus;
+  canAccessCms?: boolean;
 }
 
 export type GetRolesResponse = Response<Role[]>;

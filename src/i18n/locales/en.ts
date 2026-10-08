@@ -21,6 +21,7 @@ const en = {
     status: 'Status',
     active: 'Active',
     inactive: 'Inactive',
+    deleted: 'Deleted',
     createdAt: 'Created at',
     updatedAt: 'Updated at',
     createdBy: 'Created by',
@@ -284,9 +285,6 @@ const en = {
     system: 'System',
     permissionSummary:
       '{{resources}} resources · {{granted}} permissions granted',
-    status: {
-      deleted: 'Deleted',
-    },
     pageDescription: 'Configure roles and permissions for system users.',
     createDescription: 'Define a new role with custom permissions.',
     editDescription: 'Update role details and permission settings.',

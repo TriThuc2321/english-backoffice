@@ -1,4 +1,12 @@
-import type { Audit, Gender, Params, Provider, Response } from './common';
+import type {
+  Audit,
+  EditableStatus,
+  Gender,
+  Params,
+  Provider,
+  Response,
+  Status,
+} from './common';
 import type { Role } from './role';
 
 export type User = { id: string } & Partial<{
@@ -12,7 +20,7 @@ export type User = { id: string } & Partial<{
   firstName: string;
   lastName: string;
   emailVerified: boolean;
-  isActive: boolean;
+  status: Status;
   systemUser: boolean;
   address: string;
   dateOfBirth: string;
@@ -21,7 +29,8 @@ export type User = { id: string } & Partial<{
 }>;
 
 export type GetUsersParams = Params & {
-  roleIds?: number[];
+  roleId?: number;
+  status?: EditableStatus;
 };
 
 export type GetUsersResponse = Response<User[]>;
@@ -32,11 +41,11 @@ export type CreateUserPayload = Partial<{
   firstName: string;
   lastName: string;
   roleId: number;
-  isActive: boolean;
 }>;
 
 export type EditUserPayload = CreateUserPayload & {
   id: string;
+  status?: EditableStatus;
 };
 
 export type EditMePayload = Partial<{

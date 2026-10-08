@@ -1,7 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
-import type { CreateEditRoleFormData } from '@/schemas/role';
+import type {
+  CreateEditRoleFormData,
+  CreateEditRoleFormInput,
+} from '@/schemas/role';
 
 import { createEditRoleSchema } from '@/schemas/role';
 
@@ -10,7 +13,7 @@ interface UseCreateEditRoleFormOptions {
 }
 
 const useCreateEditRoleForm = (prop: UseCreateEditRoleFormOptions = {}) =>
-  useForm<CreateEditRoleFormData>({
+  useForm<CreateEditRoleFormInput, unknown, CreateEditRoleFormData>({
     resolver: yupResolver(createEditRoleSchema),
     defaultValues: prop.defaultValues,
   });

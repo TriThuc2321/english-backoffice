@@ -18,8 +18,10 @@ import { Controller, type UseFormReturn, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import type { CreateEditUserFormData } from '@/schemas/user';
+import type { EditableStatus } from '@/types/common';
 
 import Section from '@/components/shared/Section';
+import { getEditableStatusItems } from '@/components/shared/status';
 import { useGetRoles } from '@/hooks/apis/roles';
 import { Gender } from '@/types/common';
 
@@ -54,6 +56,8 @@ const UserForm = ({
     { label: t('cmsUsers.form.genderFemale'), value: Gender.FEMALE },
     { label: t('cmsUsers.form.genderOther'), value: Gender.OTHER },
   ];
+
+  const statusItems = getEditableStatusItems(t);
 
   const {
     control,
@@ -284,7 +288,6 @@ const UserForm = ({
           render={({ field }) => (
             <Select
               fullWidth
-              className="sm:col-span-2"
               selectedKey={field.value != null ? String(field.value) : null}
               onSelectionChange={(key) => {
                 if (key == null) return;
@@ -315,6 +318,44 @@ const UserForm = ({
             </Select>
           )}
         />
+        {isEditing && (
+          <Controller
+            name="status"
+            control={control}
+            render={({ field }) => (
+              <Select
+                fullWidth
+                selectedKey={field.value ?? null}
+                onSelectionChange={(key) => {
+                  if (key == null) return;
+                  field.onChange(key as EditableStatus);
+                }}
+                isInvalid={!!errors.status}
+              >
+                <Label>{t('common.status')}</Label>
+                <Select.Trigger>
+                  <Select.Value />
+                  <Select.Indicator />
+                </Select.Trigger>
+                <Select.Popover>
+                  <ListBox>
+                    {statusItems.map((item) => (
+                      <ListBox.Item
+                        key={item.value}
+                        id={item.value}
+                        textValue={item.label}
+                      >
+                        {item.label}
+                        <ListBox.ItemIndicator />
+                      </ListBox.Item>
+                    ))}
+                  </ListBox>
+                </Select.Popover>
+                <FieldError>{errors.status?.message}</FieldError>
+              </Select>
+            )}
+          />
+        )}
       </Section>
 
       <div className="flex justify-end gap-2 pt-2">

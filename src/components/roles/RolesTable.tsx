@@ -17,6 +17,7 @@ import type { Role } from '@/types/role';
 import AuditItem from '@/components/shared/AuditItem';
 import BooleanIcon from '@/components/shared/BooleanIcon';
 import MyButton from '@/components/shared/Button';
+import { getStatusLabel, statusColorMap } from '@/components/shared/status';
 import FooterTable from '@/components/shared/table/FooterTable';
 import TanstackTable from '@/components/shared/table/TanstackTable';
 import { useCan } from '@/configs/casl/can.config';
@@ -24,8 +25,6 @@ import ConfirmWrapper from '@/configs/ConfirmWrapper';
 import { useDeleteRole } from '@/hooks/apis/roles';
 import { PermissionAction, SubjectName } from '@/types/auth';
 import { toSortDescriptor, toSortingState } from '@/utils/table';
-
-import { getRoleStatusLabel, roleStatusColorMap } from './roleStatus';
 
 const columnHelper = createColumnHelper<Role>();
 
@@ -193,11 +192,11 @@ export default function RolesTable({
         enableSorting: false,
         cell: (info) => (
           <Chip
-            color={roleStatusColorMap[info.getValue()]}
+            color={statusColorMap[info.getValue()]}
             size="sm"
             variant="soft"
           >
-            <Chip.Label>{getRoleStatusLabel(t, info.getValue())}</Chip.Label>
+            <Chip.Label>{getStatusLabel(t, info.getValue())}</Chip.Label>
           </Chip>
         ),
       }),

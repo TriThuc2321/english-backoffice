@@ -5,7 +5,8 @@ import type { CreateEditPassageFormData } from '@/schemas/passage';
 
 import { useEditPassage, useGetPassageById } from '@/hooks/apis/passages';
 import useCreateEditPassageForm from '@/hooks/forms/useCreateEditPassage';
-import { MarkedBy, Status } from '@/types/common';
+import { MarkedBy } from '@/types/common';
+import { PassageStatus } from '@/types/passage';
 
 import PassageForm from './PassageForm';
 import PassageSkeleton from './Skeleton';
@@ -26,7 +27,7 @@ const EditPassage = ({ id }: EditPassageProps) => {
     defaultValues: {
       title: '',
       subtitle: '',
-      status: Status.DRAFT,
+      status: PassageStatus.DRAFT,
       markedBy: MarkedBy.NONE,
       paragraphs: [],
     },
@@ -38,7 +39,10 @@ const EditPassage = ({ id }: EditPassageProps) => {
       title: passageData.title ?? '',
       subtitle: passageData.subtitle ?? '',
       markedBy: passageData.markedBy,
-      status: passageData.status,
+      status:
+        passageData.status === PassageStatus.PUBLISHED
+          ? PassageStatus.PUBLISHED
+          : PassageStatus.DRAFT,
       paragraphs:
         passageData.paragraphs?.map((p) => ({ content: p.content ?? '' })) ??
         [],

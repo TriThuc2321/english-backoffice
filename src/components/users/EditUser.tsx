@@ -5,6 +5,7 @@ import type { CreateEditUserFormData } from '@/schemas/user';
 
 import { useEditUser, useGetUserById } from '@/hooks/apis/users';
 import useCreateEditUserForm from '@/hooks/forms/useCreateEditUser';
+import { Status } from '@/types/common';
 
 import UserSkeleton from './Skeleton';
 import UserForm from './UserForm';
@@ -42,6 +43,8 @@ const EditUser = ({ id }: EditUserProps) => {
       dateOfBirth: userData.dateOfBirth ?? '',
       gender: userData.gender,
       address: userData.address ?? '',
+      status:
+        userData.status === Status.INACTIVE ? Status.INACTIVE : Status.ACTIVE,
     });
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 

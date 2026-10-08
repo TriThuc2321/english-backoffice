@@ -21,6 +21,7 @@ const vi = {
     status: 'Trạng thái',
     active: 'Hoạt động',
     inactive: 'Không hoạt động',
+    deleted: 'Đã xoá',
     createdAt: 'Ngày tạo',
     updatedAt: 'Ngày cập nhật',
     createdBy: 'Tạo bởi',
@@ -284,9 +285,6 @@ const vi = {
     detailTitle: 'Chi tiết vai trò',
     system: 'Hệ thống',
     permissionSummary: '{{resources}} tài nguyên · {{granted}} quyền đã cấp',
-    status: {
-      deleted: 'Đã xoá',
-    },
     pageDescription: 'Cấu hình vai trò và quyền hạn cho người dùng hệ thống.',
     createDescription: 'Định nghĩa vai trò mới với các quyền tùy chỉnh.',
     editDescription: 'Cập nhật thông tin vai trò và cài đặt quyền hạn.',

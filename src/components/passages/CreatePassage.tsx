@@ -5,7 +5,7 @@ import type { CreatePassagePayload } from '@/types/passage';
 
 import { useCreatePassage } from '@/hooks/apis/passages';
 import useCreateEditPassageForm from '@/hooks/forms/useCreateEditPassage';
-import { MarkedBy, Status } from '@/types/common';
+import { MarkedBy } from '@/types/common';
 
 import PassageForm from './PassageForm';
 
@@ -19,7 +19,6 @@ const CreatePassage = () => {
       title: '',
       subtitle: '',
       markedBy: MarkedBy.NONE,
-      status: Status.DRAFT,
       paragraphs: [],
     },
   });

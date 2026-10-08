@@ -11,18 +11,23 @@ import {
 import { Controller, type UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import type { CreateEditRoleFormData } from '@/schemas/role';
+import type {
+  CreateEditRoleFormData,
+  CreateEditRoleFormInput,
+} from '@/schemas/role';
+import type { EditableStatus } from '@/types/common';
 
 import Section from '@/components/shared/Section';
-import { RoleStatus } from '@/types/role';
+import { getEditableStatusItems } from '@/components/shared/status';
 
 import PermissionSelector from './PermissionSelector';
 
 type RoleFormProps = {
-  form: UseFormReturn<CreateEditRoleFormData>;
+  form: UseFormReturn<CreateEditRoleFormInput, unknown, CreateEditRoleFormData>;
   onSubmit: (data: CreateEditRoleFormData) => void;
   isSubmitting?: boolean;
   onCancel?: () => void;
+  isEditing?: boolean;
 };
 
 const RoleForm = ({
@@ -30,13 +35,11 @@ const RoleForm = ({
   onSubmit,
   isSubmitting,
   onCancel,
+  isEditing,
 }: RoleFormProps) => {
   const { t } = useTranslation();
 
-  const statusItems = [
-    { label: t('common.active'), value: RoleStatus.ACTIVE },
-    { label: t('common.inactive'), value: RoleStatus.INACTIVE },
-  ];
+  const statusItems = getEditableStatusItems(t);
 
   const {
     control,
@@ -83,42 +86,44 @@ const RoleForm = ({
             </TextField>
           )}
         />
-        <Controller
-          name="status"
-          control={control}
-          render={({ field }) => (
-            <Select
-              fullWidth
-              selectedKey={field.value}
-              onSelectionChange={(key) => {
-                if (key == null) return;
-                field.onChange(key as RoleStatus);
-              }}
-              isInvalid={!!errors.status}
-            >
-              <Label>{t('roles.form.status')}</Label>
-              <Select.Trigger>
-                <Select.Value />
-                <Select.Indicator />
-              </Select.Trigger>
-              <Select.Popover>
-                <ListBox>
-                  {statusItems.map((item) => (
-                    <ListBox.Item
-                      key={item.value}
-                      id={item.value}
-                      textValue={item.label}
-                    >
-                      {item.label}
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                  ))}
-                </ListBox>
-              </Select.Popover>
-              <FieldError>{errors.status?.message}</FieldError>
-            </Select>
-          )}
-        />
+        {isEditing && (
+          <Controller
+            name="status"
+            control={control}
+            render={({ field }) => (
+              <Select
+                fullWidth
+                selectedKey={field.value}
+                onSelectionChange={(key) => {
+                  if (key == null) return;
+                  field.onChange(key as EditableStatus);
+                }}
+                isInvalid={!!errors.status}
+              >
+                <Label>{t('roles.form.status')}</Label>
+                <Select.Trigger>
+                  <Select.Value />
+                  <Select.Indicator />
+                </Select.Trigger>
+                <Select.Popover>
+                  <ListBox>
+                    {statusItems.map((item) => (
+                      <ListBox.Item
+                        key={item.value}
+                        id={item.value}
+                        textValue={item.label}
+                      >
+                        {item.label}
+                        <ListBox.ItemIndicator />
+                      </ListBox.Item>
+                    ))}
+                  </ListBox>
+                </Select.Popover>
+                <FieldError>{errors.status?.message}</FieldError>
+              </Select>
+            )}
+          />
+        )}
         <Controller
           name="canAccessCms"
           control={control}

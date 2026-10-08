@@ -1,6 +1,6 @@
 import type { SortingState } from '@tanstack/react-table';
 
-import { Avatar, Button, Dropdown } from '@heroui/react';
+import { Avatar, Button, Chip, Dropdown } from '@heroui/react';
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -16,6 +16,7 @@ import type { User } from '@/types/user';
 
 import BooleanIcon from '@/components/shared/BooleanIcon';
 import MyButton from '@/components/shared/Button';
+import { getStatusLabel, statusColorMap } from '@/components/shared/status';
 import FooterTable from '@/components/shared/table/FooterTable';
 import TanstackTable from '@/components/shared/table/TanstackTable';
 import { useCan } from '@/configs/casl/can.config';
@@ -214,6 +215,20 @@ export default function UsersTable({
         enableSorting: false,
         header: t('cmsUsers.table.role'),
         cell: (info) => info.getValue()?.name ?? '-',
+      }),
+      columnHelper.accessor('status', {
+        enableSorting: false,
+        header: t('common.status'),
+        cell: (info) => {
+          const status = info.getValue();
+          if (!status) return '-';
+
+          return (
+            <Chip color={statusColorMap[status]} size="sm" variant="soft">
+              <Chip.Label>{getStatusLabel(t, status)}</Chip.Label>
+            </Chip>
+          );
+        },
       }),
       columnHelper.accessor('phone', {
         enableSorting: false,

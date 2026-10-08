@@ -8,7 +8,8 @@ import DetailField, { InfoCard } from '@/components/shared/DetailField';
 import { Can } from '@/configs/casl/can.config';
 import { useEditPassage, useGetPassageById } from '@/hooks/apis/passages';
 import { PermissionAction, SubjectName } from '@/types/auth';
-import { MarkedBy, Status } from '@/types/common';
+import { MarkedBy } from '@/types/common';
+import { PassageStatus } from '@/types/passage';
 
 import { statusColorMap } from './constants';
 import MarkedByChip from './MarkedByChip';
@@ -43,7 +44,7 @@ const ViewPassage = ({ id }: ViewPassageProps) => {
   if (!passage) return null;
 
   const audit = passage.auditMetadata;
-  const isPublished = passage.status === Status.PUBLISHED;
+  const isPublished = passage.status === PassageStatus.PUBLISHED;
 
   const statusChip = passage.status ? (
     <Chip color={statusColorMap[passage.status]} size="sm" variant="soft">
@@ -89,7 +90,9 @@ const ViewPassage = ({ id }: ViewPassageProps) => {
               onPress={() =>
                 updateStatus({
                   id,
-                  status: isPublished ? Status.DRAFT : Status.PUBLISHED,
+                  status: isPublished
+                    ? PassageStatus.DRAFT
+                    : PassageStatus.PUBLISHED,
                 })
               }
             >

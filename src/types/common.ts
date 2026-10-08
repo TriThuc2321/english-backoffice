@@ -114,10 +114,12 @@ export enum MarkedBy {
 }
 
 export enum Status {
-  PUBLISHED = 'PUBLISHED',
-  DRAFT = 'DRAFT',
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
   DELETED = 'DELETED',
 }
+
+export type EditableStatus = Status.ACTIVE | Status.INACTIVE;
 
 export enum TestType {
   PRACTICE_TEST = 'PRACTICE_TEST',
