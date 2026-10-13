@@ -683,6 +683,7 @@ const vi = {
       noSections: 'Chưa có kỹ năng nào.',
       moveUp: 'Lên',
       moveDown: 'Xuống',
+      testNotFound: 'Không tìm thấy đề thi.',
       sectionNotFound: 'Không tìm thấy kỹ năng.',
       partNotFound: 'Không tìm thấy phần.',
       edit: 'Sửa',

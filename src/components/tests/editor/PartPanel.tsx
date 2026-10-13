@@ -1,5 +1,5 @@
 import { Button, Card, Chip, Dropdown, Skeleton } from '@heroui/react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { LuPlus, LuTrash2 } from 'react-icons/lu';
@@ -72,7 +72,11 @@ const PartInfoCard = ({
     formState: { errors, isDirty },
   } = useEditTestPartForm({ defaultValues: toFormValues(part) });
 
+  // A background refetch must not wipe unsaved edits
+  const isDirtyRef = useRef(isDirty);
+  isDirtyRef.current = isDirty;
   useEffect(() => {
+    if (isDirtyRef.current) return;
     reset(toFormValues(part));
   }, [part, reset]);
 
@@ -86,6 +90,7 @@ const PartInfoCard = ({
         audioStartMs: data.audioStartMs ?? null,
         audioEndMs: data.audioEndMs ?? null,
       });
+      reset(data);
     } catch (error) {
       console.error(error);
     }

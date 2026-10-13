@@ -3,11 +3,10 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
 
-import type { QuestionType } from '@/types/test';
-
 import { useGetTestParts } from '@/hooks/apis/test-parts';
 import { useGetTestSections } from '@/hooks/apis/test-sections';
 import { useGetTestById } from '@/hooks/apis/tests';
+import { QuestionType } from '@/types/test';
 
 import EditorHeader from './EditorHeader';
 import EditorTree from './EditorTree';
@@ -44,7 +43,7 @@ const NotFound = ({ label }: { label: string }) => (
 );
 
 type TestEditorProps = {
-  id: number;
+  id?: number;
 };
 
 const TestEditor = ({ id }: TestEditorProps) => {
@@ -62,9 +61,10 @@ const TestEditor = ({ id }: TestEditorProps) => {
   const groupParam = searchParams.get('group');
   const groupId =
     groupParam === 'new' ? 'new' : Number(groupParam) || undefined;
-  const newType = (searchParams.get('type') ?? undefined) as
-    | QuestionType
-    | undefined;
+  const typeParam = searchParams.get('type');
+  const newType = Object.values(QuestionType).find(
+    (type) => type === typeParam,
+  );
 
   const { data: partsData, isLoading: isLoadingParts } = useGetTestParts(
     selected && partId ? selected.id : undefined,
@@ -86,7 +86,7 @@ const TestEditor = ({ id }: TestEditorProps) => {
   const onSelect = (sectionId?: number) => onNavigate({ section: sectionId });
 
   if (isLoading || isLoadingSections) return <EditorSkeleton />;
-  if (!test) return null;
+  if (!test) return <NotFound label={t('tests.editor.testNotFound')} />;
 
   const renderPanel = () => {
     if (!selectedId)

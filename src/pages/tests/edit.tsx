@@ -11,6 +11,8 @@ export const meta: MetaFunction = () =>
 export default function EditTestPage() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
+  // Non-numeric ids leave the queries disabled, so the editor shows not-found
+  const testId = Number(id) || undefined;
 
   return (
     <div className="flex flex-col gap-6">
@@ -19,7 +21,7 @@ export default function EditTestPage() {
         <Breadcrumbs.Item>{t('tests.editTitle')}</Breadcrumbs.Item>
       </Breadcrumbs>
 
-      {id && <TestEditor id={Number(id)} />}
+      <TestEditor id={testId} />
     </div>
   );
 }

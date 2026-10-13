@@ -302,14 +302,12 @@ const GroupEditor = ({
     name: 'questions',
   });
 
-  // A background refetch must not wipe unsaved edits. After a save, though,
-  // the form has to pick up the server state (new question ids).
+  // A background refetch must not wipe unsaved edits. A successful save marks
+  // the form clean, so the refetch that follows brings in the new question ids.
   const isDirtyRef = useRef(isDirty);
   isDirtyRef.current = isDirty;
-  const syncAfterSave = useRef(false);
   useEffect(() => {
-    if (isDirtyRef.current && !syncAfterSave.current) return;
-    syncAfterSave.current = false;
+    if (isDirtyRef.current) return;
     reset(initialValues);
     setActiveIndex((index) =>
       Math.max(0, Math.min(index, initialValues.questions.length - 1)),
@@ -384,11 +382,10 @@ const GroupEditor = ({
           });
         return;
       }
-      syncAfterSave.current = true;
       await saveGroup(toSaveGroupPayload(group, data, isLocked));
+      reset(data);
     } catch (error) {
       // Keep the edits; the next save diffs them against the refetched group
-      syncAfterSave.current = false;
       console.error(error);
     }
   };
