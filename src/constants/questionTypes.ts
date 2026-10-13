@@ -221,6 +221,10 @@ export const QUESTION_TYPES: Record<QuestionType, TypeSpec> = {
   },
 };
 
+// Passages a reading group can link to. GroupPanel calls one paragraph hook
+// per slot, so update it too when changing this.
+export const MAX_GROUP_PASSAGES = 3;
+
 export const getTypesForSkill = (skill: SkillType) =>
   Object.values(QuestionType).filter((type) =>
     QUESTION_TYPES[type].skills.includes(skill),

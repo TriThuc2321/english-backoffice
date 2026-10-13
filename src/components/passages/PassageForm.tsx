@@ -172,7 +172,7 @@ const PassageForm = ({
                   onBlur={f.onBlur}
                   isInvalid={!!errors.paragraphs?.[index]?.content}
                 >
-                  <TextArea ref={f.ref} rows={8} />
+                  <TextArea ref={f.ref} rows={10} />
                   <FieldError>
                     {errors.paragraphs?.[index]?.content?.message}
                   </FieldError>

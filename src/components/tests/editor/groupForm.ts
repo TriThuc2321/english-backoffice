@@ -22,6 +22,8 @@ import {
   usesWordLimit,
 } from '@/constants/questionTypes';
 
+import { byOrder } from './utils';
+
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const ROMAN = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
 
@@ -193,9 +195,6 @@ export const questionToForm = (question: Question): QuestionFormData => {
     audioStartMs: question.audioStartMs ?? undefined,
   };
 };
-
-const byOrder = <T extends { order: number }>(items: T[]) =>
-  [...items].sort((a, b) => a.order - b.order);
 
 export const groupToForm = (group: QuestionGroup): QuestionGroupFormData => ({
   questionType: group.questionType,
@@ -389,8 +388,23 @@ export const toCreateGroupPayload = (
   questions: values.questions.map((q) => questionPayload(values, q)),
 });
 
-const same = (a: unknown, b: unknown) =>
-  JSON.stringify(a) === JSON.stringify(b);
+// Structural equality; keys holding `undefined` count as absent, since
+// they're never sent to the API
+const same = (a: unknown, b: unknown): boolean => {
+  if (Object.is(a, b)) return true;
+  if (typeof a !== 'object' || typeof b !== 'object' || !a || !b) return false;
+  if (Array.isArray(a) !== Array.isArray(b)) return false;
+  if (Array.isArray(a) && Array.isArray(b))
+    return a.length === b.length && a.every((item, i) => same(item, b[i]));
+
+  const definedKeys = (obj: object) =>
+    Object.entries(obj).flatMap(([k, v]) => (v === undefined ? [] : [k]));
+  const aKeys = definedKeys(a);
+  if (aKeys.length !== definedKeys(b).length) return false;
+  return aKeys.every((k) =>
+    same((a as Record<string, unknown>)[k], (b as Record<string, unknown>)[k]),
+  );
+};
 
 export const toSaveGroupPayload = (
   group: QuestionGroup,
@@ -434,6 +448,7 @@ export const toSaveGroupPayload = (
 
   return {
     groupId: group.id,
+    typeChanged: !isLocked && values.questionType !== group.questionType,
     group:
       !isLocked && groupChanged
         ? { id: group.id, ...withNulls(nextGroup) }

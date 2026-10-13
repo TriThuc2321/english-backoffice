@@ -137,7 +137,7 @@ const ViewPassage = ({ id }: ViewPassageProps) => {
             {passage.paragraphs.map(({ id, content }, index) => (
               <p
                 key={id}
-                className="text-default-800 text-justify text-sm leading-relaxed"
+                className="text-default-800 text-justify text-sm leading-relaxed whitespace-pre-line"
               >
                 <span className="font-semibold">
                   {getParagraphPrefix(index, passage.markedBy)}{' '}

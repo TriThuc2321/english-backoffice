@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import {
   extractPlaceholders,
   getKeyOptions,
+  MAX_GROUP_PASSAGES,
   QUESTION_TYPES,
   resolveAnswerKind,
 } from '@/constants/questionTypes';
@@ -296,7 +297,7 @@ export const questionGroupSchema = yup
           title: yup.string().defined(),
         }),
       )
-      .max(3)
+      .max(MAX_GROUP_PASSAGES)
       .defined(),
     content: groupContentFormSchema,
     questions: yup.array().of(questionFormSchema).defined(),

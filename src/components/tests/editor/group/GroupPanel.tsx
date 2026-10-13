@@ -8,7 +8,7 @@ import {
   Select,
   Skeleton,
 } from '@heroui/react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Controller,
   useFieldArray,
@@ -302,8 +302,18 @@ const GroupEditor = ({
     name: 'questions',
   });
 
+  // A background refetch must not wipe unsaved edits. After a save, though,
+  // the form has to pick up the server state (new question ids).
+  const isDirtyRef = useRef(isDirty);
+  isDirtyRef.current = isDirty;
+  const syncAfterSave = useRef(false);
   useEffect(() => {
+    if (isDirtyRef.current && !syncAfterSave.current) return;
+    syncAfterSave.current = false;
     reset(initialValues);
+    setActiveIndex((index) =>
+      Math.max(0, Math.min(index, initialValues.questions.length - 1)),
+    );
   }, [initialValues, reset]);
 
   const [questionType, passages] = useWatch({
@@ -312,7 +322,8 @@ const GroupEditor = ({
   });
   const spec = QUESTION_TYPES[questionType];
 
-  // Fixed hook count: up to 3 linked passages
+  // Fixed hook count: one per passage allowed by MAX_GROUP_PASSAGES
+  // (constants/questionTypes). Update both together.
   const p0 = usePassageParagraphs(passages[0]?.id);
   const p1 = usePassageParagraphs(passages[1]?.id);
   const p2 = usePassageParagraphs(passages[2]?.id);
@@ -344,10 +355,22 @@ const GroupEditor = ({
     setActiveIndex(questions.length);
   };
 
-  const onParagraphPress = (paragraphId: number) =>
+  const onParagraphPress = (paragraphId: number) => {
+    if (activeIndex >= getValues('questions').length) return;
     setValue(`questions.${activeIndex}.evidenceParagraphId`, paragraphId, {
       shouldDirty: true,
     });
+  };
+
+  // Keep the same question active, or its neighbour if it was the one removed
+  const removeQuestion = (index: number) => {
+    remove(index);
+    setActiveIndex((active) =>
+      active > index
+        ? active - 1
+        : Math.max(0, Math.min(active, fields.length - 2)),
+    );
+  };
 
   const onSubmit = async (data: QuestionGroupFormData) => {
     try {
@@ -361,8 +384,11 @@ const GroupEditor = ({
           });
         return;
       }
+      syncAfterSave.current = true;
       await saveGroup(toSaveGroupPayload(group, data, isLocked));
     } catch (error) {
+      // Keep the edits; the next save diffs them against the refetched group
+      syncAfterSave.current = false;
       console.error(error);
     }
   };
@@ -418,10 +444,7 @@ const GroupEditor = ({
               move(index, index + offset);
               setActiveIndex(index + offset);
             }}
-            onRemove={() => {
-              remove(index);
-              setActiveIndex(0);
-            }}
+            onRemove={() => removeQuestion(index)}
           />
         ))}
       </Card.Content>
@@ -686,6 +709,7 @@ const GroupPanel = ({
 
   return (
     <GroupEditor
+      key={group?.id ?? 'new'}
       test={test}
       section={section}
       part={part}

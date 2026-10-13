@@ -7,24 +7,35 @@ import type { SaveQuestionGroupPayload } from '@/types/test';
 import { REACT_QUERY_KEYS } from '@/constants/reactQuery';
 import { questionApi, questionGroupApi } from '@/services/apis';
 
-// Group PATCH + per-question diff, run sequentially. Removed questions go first
-// so a questionType change isn't rejected because of stale answers.
+// Group PATCH + per-question diff, run sequentially. Deletes go last so a
+// failure midway never leaves the group emptier than before. The exception is
+// a questionType change: the server validates the existing answers against the
+// new type, so the old questions must be gone before the PATCH.
+// A partial failure is recoverable: the form keeps its edits and the next save
+// diffs them against the refetched group.
 const saveQuestionGroup = async ({
   groupId,
   group,
+  typeChanged,
   deleteIds,
   updates,
   creates,
   order,
   originalIds,
 }: SaveQuestionGroupPayload) => {
-  if (deleteIds.length) await questionApi.delete(deleteIds);
+  const deleteRemoved = async () => {
+    if (deleteIds.length) await questionApi.delete(deleteIds);
+  };
+
+  if (typeChanged) await deleteRemoved();
   if (group) await questionGroupApi.edit(group);
   for (const update of updates) await questionApi.edit(update);
 
   const createdIds: number[] = [];
   for (const create of creates)
     createdIds.push((await questionApi.create(create)).id);
+
+  if (!typeChanged) await deleteRemoved();
 
   let next = 0;
   const ids = order.map((id) => id ?? createdIds[next++]);

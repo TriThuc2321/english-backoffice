@@ -249,6 +249,8 @@ export type SaveQuestionGroupPayload = {
   groupId: number;
   // Omitted when the test is locked (group fields can't change)
   group?: EditQuestionGroupPayload;
+  // Existing answers don't fit the new type, so deletes must run first
+  typeChanged: boolean;
   deleteIds: number[];
   updates: EditQuestionPayload[];
   creates: CreateQuestionPayload[];
