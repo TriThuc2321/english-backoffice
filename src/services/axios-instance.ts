@@ -19,6 +19,10 @@ type RetryableRequestConfig = InternalAxiosRequestConfig & {
 
 type RefreshResponse = { access_token: string };
 
+type AuthChannelMessage =
+  | { type: 'token'; access_token: string }
+  | { type: 'logout' };
+
 const axiosInstance = axios.create({
   baseURL: `${ENV.API_URL}/api`,
   headers: {
@@ -27,31 +31,70 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+const REFRESH_LOCK_NAME = 'myenglish-bo:auth-refresh';
+const authChannel =
+  typeof BroadcastChannel === 'undefined'
+    ? null
+    : new BroadcastChannel('myenglish-bo:auth');
+
+const postAuthMessage = (message: AuthChannelMessage) => {
+  authChannel?.postMessage(message);
+};
+
+// Serialize refresh across tabs: the refresh token cookie is shared and rotated
+// on every refresh, so concurrent refreshes from several tabs would reuse a
+// stale cookie and get the session revoked.
+const withRefreshLock = <T>(callback: () => Promise<T>) =>
+  typeof navigator !== 'undefined' && navigator.locks
+    ? (navigator.locks.request(REFRESH_LOCK_NAME, callback) as Promise<T>)
+    : callback();
+
 let refreshTokenRequest: Promise<string> | null = null;
 
-const refreshAccessToken = () => {
-  refreshTokenRequest ??= axiosInstance
-    .post<unknown, RefreshResponse>(REFRESH_TOKEN_ENDPOINT, {
-      client: AUTH_CLIENT,
-    })
-    .then(({ access_token }) => {
-      setAccessToken(access_token);
-      return access_token;
-    })
-    .finally(() => {
-      refreshTokenRequest = null;
-    });
+const refreshAccessToken = (staleToken: string | null) => {
+  refreshTokenRequest ??= withRefreshLock(async () => {
+    // Another tab refreshed while we were waiting for the lock.
+    const currentToken = getAccessToken();
+    if (currentToken && currentToken !== staleToken) {
+      return currentToken;
+    }
+
+    const { access_token } = await axiosInstance.post<unknown, RefreshResponse>(
+      REFRESH_TOKEN_ENDPOINT,
+      { client: AUTH_CLIENT },
+    );
+
+    setAccessToken(access_token);
+    postAuthMessage({ type: 'token', access_token });
+    return access_token;
+  }).finally(() => {
+    refreshTokenRequest = null;
+  });
 
   return refreshTokenRequest;
 };
 
-const endSession = () => {
+export const endSession = ({ broadcast = false } = {}) => {
   clearAccessToken();
   getQueryClient().clear();
+  if (broadcast) {
+    postAuthMessage({ type: 'logout' });
+  }
   if (window.location.pathname !== LOGIN_PATH) {
     window.location.assign(LOGIN_PATH);
   }
 };
+
+authChannel?.addEventListener(
+  'message',
+  ({ data }: MessageEvent<AuthChannelMessage>) => {
+    if (data.type === 'token') {
+      setAccessToken(data.access_token);
+    } else if (data.type === 'logout') {
+      endSession();
+    }
+  },
+);
 
 axiosInstance.interceptors.request.use((config) => {
   const token = getAccessToken();
@@ -77,9 +120,14 @@ axiosInstance.interceptors.response.use(
     }
 
     originalRequest._retry = true;
+    const authorization = originalRequest.headers.Authorization;
+    const staleToken =
+      typeof authorization === 'string'
+        ? authorization.replace(/^Bearer /, '')
+        : null;
 
     try {
-      await refreshAccessToken();
+      await refreshAccessToken(staleToken);
     } catch (refreshError) {
       endSession();
       return Promise.reject(refreshError);
