@@ -68,7 +68,5 @@ export default [
       route('create', './pages/tests/create.tsx'),
       route(':id/edit', './pages/tests/edit.tsx'),
     ]),
-
-    route('questions', './pages/questions/list.tsx'),
   ]),
 ] satisfies RouteConfig;

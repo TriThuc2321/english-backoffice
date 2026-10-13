@@ -5,9 +5,7 @@ import { LuPlus } from 'react-icons/lu';
 import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
 
 import MyButton from '@/components/shared/Button';
-import { TestsTable } from '@/components/tests';
 import { useDebounce } from '@/hooks';
-import { useGetTests } from '@/hooks/apis/tests';
 import { PermissionAction, SubjectName } from '@/types/auth';
 import { pageMeta } from '@/utils/metadata';
 
@@ -19,20 +17,10 @@ export default function TestsPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const page = Number(searchParams.get('page') ?? 1);
-  const take = Number(searchParams.get('take') ?? 10);
-
   const [search, setSearch] = useState(searchParams.get('search') ?? '');
   const debouncedSearch = useDebounce(search, 500);
 
-  const { data, isLoading } = useGetTests({
-    page,
-    take,
-    search: debouncedSearch || undefined,
-  });
-
-  const tests = data?.data ?? [];
-  const total = data?.meta?.totalCount ?? 0;
+  console.info(debouncedSearch);
 
   return (
     <div className="flex flex-col gap-6">
@@ -62,15 +50,7 @@ export default function TestsPage() {
           </MyButton>
         </Card.Header>
 
-        <Card.Content className="p-0">
-          <TestsTable
-            data={tests}
-            isLoading={isLoading}
-            page={page}
-            take={take}
-            total={total}
-          />
-        </Card.Content>
+        <Card.Content className="p-0">TestsTable</Card.Content>
       </Card>
     </div>
   );

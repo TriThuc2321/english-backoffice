@@ -1,6 +1,6 @@
 import type { IconType } from 'react-icons/lib';
 
-import { IoDocumentTextOutline, IoHelpCircleOutline } from 'react-icons/io5';
+import { IoDocumentTextOutline } from 'react-icons/io5';
 import {
   LuBookMarked,
   LuBookOpen,
@@ -87,13 +87,6 @@ export const MENU_GROUPS: IMenuGroup[] = [
         title: 'passages',
         route: '/passages',
         icon: LuBookOpen,
-        object: SubjectName.Tests,
-      },
-      {
-        id: 2,
-        title: 'questions',
-        route: '/questions',
-        icon: IoHelpCircleOutline,
         object: SubjectName.Tests,
       },
     ],

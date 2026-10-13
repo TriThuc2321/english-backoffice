@@ -1,6 +1,5 @@
 import { useParams, type MetaFunction } from 'react-router';
 
-import { TestBuilder } from '@/components/tests/builder';
 import { pageMeta } from '@/utils/metadata';
 
 export const meta: MetaFunction = () =>
@@ -11,5 +10,5 @@ export default function EditTestPage() {
 
   if (!id) return null;
 
-  return <TestBuilder id={id} />;
+  return <p>EditTestPage</p>;
 }

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { LuChevronLeft } from 'react-icons/lu';
 import { useNavigate, type MetaFunction } from 'react-router';
 
-import { CreateTest } from '@/components/tests';
 import { pageMeta } from '@/utils/metadata';
 
 export const meta: MetaFunction = () =>
@@ -31,9 +30,7 @@ export default function CreateTestPage() {
       </div>
 
       <Card className="mx-auto w-full max-w-2xl">
-        <Card.Content>
-          <CreateTest />
-        </Card.Content>
+        <Card.Content>CreateTest</Card.Content>
       </Card>
     </div>
   );
