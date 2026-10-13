@@ -26,7 +26,12 @@ export const createTestSchema = yup.object().shape({
         durationMinutes: yup.number().integer().min(1).optional(),
       }),
     )
-    .defined(),
+    .defined()
+    .test(
+      'at-least-one-section',
+      VALIDATION_MESSAGE.SECTION_REQUIRED,
+      (sections) => sections.some((section) => section.enabled),
+    ),
 });
 
 export type CreateTestFormInput = InferFormInput<typeof createTestSchema>;

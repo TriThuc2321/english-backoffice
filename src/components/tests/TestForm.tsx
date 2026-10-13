@@ -43,6 +43,9 @@ const TestForm = ({
 
   const { fields, replace } = useFieldArray({ control, name: 'sections' });
 
+  const sectionsError =
+    errors.sections?.root?.message ?? errors.sections?.message;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
       <Section title={t('common.basicInfo')}>
@@ -200,6 +203,9 @@ const TestForm = ({
             />
           </div>
         ))}
+        {sectionsError && (
+          <p className="text-danger text-sm">{sectionsError}</p>
+        )}
       </Section>
 
       <div className="flex justify-end gap-2 pt-1">

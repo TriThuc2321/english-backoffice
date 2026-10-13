@@ -1,7 +1,7 @@
 import type { Key } from '@heroui/react';
 
 import { Card, Input, Label, ListBox, Select, TextField } from '@heroui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuPlus } from 'react-icons/lu';
 import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
@@ -67,19 +67,31 @@ export default function TestsPage() {
 
   const page = Number(searchParams.get('page') ?? 1);
   const take = Number(searchParams.get('take') ?? 10);
+  const searchParam = searchParams.get('search') ?? '';
   const examTypeParam = searchParams.get('examType');
   const statusParam = searchParams.get('status');
 
   const examType = EXAM_TYPES.find((v) => v === examTypeParam);
   const status = STATUSES.find((v) => v === statusParam);
 
-  const [search, setSearch] = useState(searchParams.get('search') ?? '');
+  const [search, setSearch] = useState(searchParam);
   const debouncedSearch = useDebounce(search, 500);
+
+  useEffect(() => {
+    const next = debouncedSearch.trim();
+    if (next === searchParam) return;
+    setSearchParams((prev) => {
+      if (next) prev.set('search', next);
+      else prev.delete('search');
+      prev.set('page', '1');
+      return prev;
+    });
+  }, [debouncedSearch, searchParam, setSearchParams]);
 
   const { data, isLoading } = useGetTests({
     page,
     take,
-    search: debouncedSearch || undefined,
+    search: searchParam || undefined,
     examType,
     status,
   });
