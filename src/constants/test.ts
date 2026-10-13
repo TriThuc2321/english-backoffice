@@ -1,3 +1,5 @@
+import { ExamType, SkillType } from '@/types/test';
+
 export const TEST_TYPE = {
   PRACTICE_TEST: 'practiceTest',
   FULL_TEST: 'fullTest',
@@ -66,3 +68,10 @@ export const QUESTION_TYPE_OPTIONS = [
     value: 'TFN_ANSWER',
   },
 ];
+
+export const EXAM_SKILLS: Record<ExamType, readonly SkillType[]> = {
+  [ExamType.IELTS_ACADEMIC]: Object.values(SkillType),
+  [ExamType.IELTS_GENERAL]: Object.values(SkillType),
+  [ExamType.TOEIC_LR]: [SkillType.LISTENING, SkillType.READING],
+  [ExamType.TOEIC_SW]: [SkillType.SPEAKING, SkillType.WRITING],
+};

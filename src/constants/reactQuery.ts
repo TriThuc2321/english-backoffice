@@ -10,14 +10,18 @@ export const REACT_QUERY_KEYS = {
   TEST_SECTION: {
     LIST: 'testSection.list',
     BY_ID: 'testSection.byId',
-    BY_IDS: 'testSection.byIds',
-    BY_TEST_ID: 'testSection.byTestId',
+  },
+  TEST_PART: {
+    LIST: 'testPart.list',
+    BY_ID: 'testPart.byId',
   },
   QUESTION_GROUP: {
     LIST: 'questionGroup.list',
     BY_ID: 'questionGroup.byId',
-    BY_IDS: 'questionGroup.byIds',
-    BY_TEST_SECTION_ID: 'questionGroup.byTestSectionId',
+  },
+  QUESTION: {
+    LIST: 'question.list',
+    BY_ID: 'question.byId',
   },
   PASSAGE: {
     LIST: 'passage.list',
