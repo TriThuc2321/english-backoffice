@@ -386,6 +386,28 @@ const en = {
     },
   },
   tests: {
+    locked: 'Locked — the test already has attempts',
+    minutesShort: '{{count}}m',
+    filters: {
+      all: 'All',
+    },
+    examType: {
+      IELTS_ACADEMIC: 'IELTS Academic',
+      IELTS_GENERAL: 'IELTS General',
+      TOEIC_LR: 'TOEIC L&R',
+      TOEIC_SW: 'TOEIC S&W',
+    },
+    skill: {
+      LISTENING: 'Listening',
+      READING: 'Reading',
+      WRITING: 'Writing',
+      SPEAKING: 'Speaking',
+    },
+    status: {
+      DRAFT: 'Draft',
+      PUBLISHED: 'Published',
+      DELETED: 'Deleted',
+    },
     createTitle: 'Create Test',
     editTitle: 'Edit Test',
     detailTitle: 'Test Detail',
@@ -439,6 +461,8 @@ const en = {
       sectionCount: 'Sections',
       attempts: 'Attempts',
       avgBand: 'Avg Band',
+      examType: 'Exam type',
+      source: 'Source',
     },
     builder: {
       backToTests: 'Tests',
@@ -594,6 +618,17 @@ const en = {
       durationMin: 'Duration (min)',
       totalQuestions: 'Total Questions',
       publishStatus: 'Publish Status',
+      examType: 'Exam type',
+      durationMinutes: 'Duration (minutes)',
+      titlePlaceholder: 'Cambridge IELTS 18 - Test 1',
+      source: 'Source',
+      sourcePlaceholder: 'Cambridge 18',
+      sections: 'Sections',
+      sectionsHint:
+        'Skills allowed for the selected exam type, each at most once.',
+      sectionDuration: 'Section duration (minutes)',
+      minutes: 'Minutes',
+      submit: 'Create & open editor',
     },
     sections: {
       title: 'Sections',
