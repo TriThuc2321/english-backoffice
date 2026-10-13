@@ -8,3 +8,8 @@ export { default as studentApi } from './student';
 export { default as campusApi } from './campus';
 export { default as programApi } from './program';
 export { default as levelApi } from './level';
+export { default as testApi } from './test';
+export { default as testSectionApi } from './testSection';
+export { default as testPartApi } from './testPart';
+export { default as questionGroupApi } from './questionGroup';
+export { default as questionApi } from './question';
