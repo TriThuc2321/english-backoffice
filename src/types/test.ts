@@ -144,6 +144,9 @@ export type ReorderPayload<K extends string> = Record<K, number> & {
   ids: number[];
 };
 
+// PATCH bodies accept null to clear an optional field
+type Clearable<T> = { [K in keyof T]?: T[K] | null };
+
 // Tests
 export type GetTestsParams = Params &
   Partial<{ status: EditableTestStatus; examType: ExamType }>;
@@ -195,7 +198,7 @@ export type CreateTestPartPayload = {
   audioEndMs?: number;
 };
 
-export type EditTestPartPayload = { id: number } & Partial<
+export type EditTestPartPayload = { id: number } & Clearable<
   Omit<CreateTestPartPayload, 'sectionId'>
 >;
 
@@ -219,7 +222,7 @@ export type QuestionInput = {
 export type CreateQuestionPayload = QuestionInput & { groupId: number };
 
 // Locked test: only answer / explanation / evidence are accepted
-export type EditQuestionPayload = { id: number } & Partial<QuestionInput>;
+export type EditQuestionPayload = { id: number } & Clearable<QuestionInput>;
 
 export type ReorderQuestionsPayload = ReorderPayload<'groupId'>;
 
@@ -238,8 +241,23 @@ export type CreateQuestionGroupPayload = {
 };
 
 // passageIds, when sent, replaces all links ([] removes them)
-export type EditQuestionGroupPayload = { id: number } & Partial<
+export type EditQuestionGroupPayload = { id: number } & Clearable<
   Omit<CreateQuestionGroupPayload, 'partId' | 'questions'>
 >;
+
+export type SaveQuestionGroupPayload = {
+  groupId: number;
+  // Omitted when the test is locked (group fields can't change)
+  group?: EditQuestionGroupPayload;
+  // Existing answers don't fit the new type, so deletes must run first
+  typeChanged: boolean;
+  deleteIds: number[];
+  updates: EditQuestionPayload[];
+  creates: CreateQuestionPayload[];
+  // Final order: existing ids, null = next created question
+  order: Array<number | null>;
+  // Server order of the kept questions before saving
+  originalIds: number[];
+};
 
 export type ReorderQuestionGroupsPayload = ReorderPayload<'partId'>;
