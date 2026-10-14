@@ -13,6 +13,7 @@ export enum SubjectName {
   Teachers = 'teacher',
   Tests = 'test',
   Passages = 'passage',
+  Media = 'media',
   Questions = 'question',
   Users = 'user',
   Roles = 'role',

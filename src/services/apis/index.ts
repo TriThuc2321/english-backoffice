@@ -13,3 +13,4 @@ export { default as testSectionApi } from './testSection';
 export { default as testPartApi } from './testPart';
 export { default as questionGroupApi } from './questionGroup';
 export { default as questionApi } from './question';
+export { default as mediaApi } from './media';
