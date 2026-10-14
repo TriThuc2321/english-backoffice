@@ -28,11 +28,13 @@ import {
 import { useDeleteTestPart, useEditTestPart } from '@/hooks/apis/test-parts';
 import { useEditTestPartForm } from '@/hooks/forms';
 import { PermissionAction, SubjectName } from '@/types/auth';
+import { MediaKind } from '@/types/test';
 
 import type { EditorLocation } from './TestEditor';
 
 import { NumberInput, TextInput } from './fields';
 import { groupRange } from './groupForm';
+import MediaPicker from './MediaPicker';
 import OrderButtons from './OrderButtons';
 import { byOrder, moveId } from './utils';
 
@@ -171,10 +173,10 @@ const PartInfoCard = ({
               name="audioMediaId"
               control={control}
               render={({ field }) => (
-                <NumberInput
+                <MediaPicker
+                  testId={test.id}
+                  kind={MediaKind.AUDIO}
                   label={t('tests.editor.audioMediaId')}
-                  description={t('tests.editor.mediaHint')}
-                  min={1}
                   value={field.value}
                   onChange={field.onChange}
                   error={errors.audioMediaId?.message}

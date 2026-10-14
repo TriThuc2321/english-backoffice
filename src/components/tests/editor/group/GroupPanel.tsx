@@ -49,7 +49,7 @@ import {
 } from '@/hooks/apis/question-groups';
 import { useCreateEditQuestionGroupForm } from '@/hooks/forms';
 import { PermissionAction, SubjectName } from '@/types/auth';
-import { SkillType } from '@/types/test';
+import { MediaKind, SkillType } from '@/types/test';
 
 import type { EditorLocation } from '../TestEditor';
 
@@ -63,6 +63,7 @@ import {
   toCreateGroupPayload,
   toSaveGroupPayload,
 } from '../groupForm';
+import MediaPicker from '../MediaPicker';
 import GridEditor from './GridEditor';
 import OptionsEditor from './OptionsEditor';
 import PassagePicker from './PassagePicker';
@@ -426,6 +427,7 @@ const GroupEditor = ({
           <QuestionCard
             key={field.id}
             control={control}
+            testId={test.id}
             errors={errors}
             index={index}
             count={fields.length}
@@ -559,10 +561,10 @@ const GroupEditor = ({
               name="audioMediaId"
               control={control}
               render={({ field }) => (
-                <NumberInput
+                <MediaPicker
+                  testId={test.id}
+                  kind={MediaKind.AUDIO}
                   label={t('tests.editor.audioMediaId')}
-                  description={t('tests.editor.mediaHint')}
-                  min={1}
                   value={field.value}
                   onChange={field.onChange}
                   isDisabled={isLocked}
@@ -573,10 +575,10 @@ const GroupEditor = ({
               name="imageMediaId"
               control={control}
               render={({ field }) => (
-                <NumberInput
+                <MediaPicker
+                  testId={test.id}
+                  kind={MediaKind.IMAGE}
                   label={t('tests.editor.imageMediaId')}
-                  description={t('tests.editor.mediaHint')}
-                  min={1}
                   value={field.value}
                   onChange={field.onChange}
                   isDisabled={isLocked}
