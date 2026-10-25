@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { LuUpload, LuX } from 'react-icons/lu';
 
 import type { Media } from '@/types/media';
+import type { MediaKind } from '@/types/test';
 
+import { MediaPreview } from '@/components/media';
 import { useCan } from '@/configs/casl/can.config';
 import { MEDIA_CONTENT_TYPES } from '@/constants/media';
 import {
@@ -14,17 +16,12 @@ import {
 } from '@/hooks/apis/media';
 import { PermissionAction, SubjectName } from '@/types/auth';
 import { MediaScope } from '@/types/media';
-import { MediaKind } from '@/types/test';
+import { formatDuration, mediaFileName } from '@/utils/media';
 
 const NO_MEDIA = '__none__';
 
-const formatDuration = (ms: number) => {
-  const total = Math.round(ms / 1000);
-  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`;
-};
-
 const mediaLabel = (media: Media) => {
-  const name = media.storageKey.split('/').pop() ?? media.storageKey;
+  const name = mediaFileName(media.storageKey);
   const duration =
     media.durationMs != null ? ` · ${formatDuration(media.durationMs)}` : '';
   return `#${media.id} · ${name}${duration}`;
@@ -154,19 +151,7 @@ const MediaPicker = ({
 
       {error && <p className="text-danger text-xs">{error}</p>}
 
-      {selected &&
-        selected.id === value &&
-        (kind === MediaKind.AUDIO ? (
-          <audio controls preload="none" src={selected.url} className="w-full">
-            <track kind="captions" />
-          </audio>
-        ) : (
-          <img
-            src={selected.url}
-            alt={mediaLabel(selected)}
-            className="rounded-field max-h-40 w-fit border object-contain"
-          />
-        ))}
+      {selected && selected.id === value && <MediaPreview media={selected} />}
     </div>
   );
 };

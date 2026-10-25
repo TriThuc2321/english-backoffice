@@ -55,13 +55,13 @@ const useUploadMedia = () => {
       });
     },
     onSuccess: () => {
-      toast.success(t('tests.toast.mediaUploadSuccess'));
+      toast.success(t('media.toast.uploadSuccess'));
       queryClient.invalidateQueries({
         queryKey: [REACT_QUERY_KEYS.MEDIA.LIST],
       });
     },
     onError: (err) => {
-      toast.danger(t('tests.toast.mediaUploadError'), {
+      toast.danger(t('media.toast.uploadError'), {
         description: err.message,
       });
     },

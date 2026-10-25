@@ -1,12 +1,11 @@
-import type { Key } from '@heroui/react';
-
-import { Card, Input, Label, ListBox, Select, TextField } from '@heroui/react';
+import { Card, Input, Label, TextField } from '@heroui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuPlus } from 'react-icons/lu';
 import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
 
 import MyButton from '@/components/shared/Button';
+import FilterSelect from '@/components/shared/FilterSelect';
 import { TestsTable } from '@/components/tests';
 import { useDebounce } from '@/hooks';
 import { useGetTests } from '@/hooks/apis/tests';
@@ -21,44 +20,6 @@ const ALL = 'ALL';
 
 const EXAM_TYPES = Object.values(ExamType);
 const STATUSES: EditableTestStatus[] = [TestStatus.DRAFT, TestStatus.PUBLISHED];
-
-type FilterSelectProps = {
-  label: string;
-  value: string;
-  options: { id: string; label: string }[];
-  onChange: (value: string) => void;
-};
-
-const FilterSelect = ({
-  label,
-  value,
-  options,
-  onChange,
-}: FilterSelectProps) => (
-  <Select
-    className="md:w-44"
-    selectedKey={value}
-    onSelectionChange={(key: Key | null) =>
-      key != null && onChange(String(key))
-    }
-  >
-    <Label>{label}</Label>
-    <Select.Trigger>
-      <Select.Value />
-      <Select.Indicator />
-    </Select.Trigger>
-    <Select.Popover>
-      <ListBox>
-        {options.map((option) => (
-          <ListBox.Item key={option.id} id={option.id} textValue={option.label}>
-            {option.label}
-            <ListBox.ItemIndicator />
-          </ListBox.Item>
-        ))}
-      </ListBox>
-    </Select.Popover>
-  </Select>
-);
 
 export default function TestsPage() {
   const { t } = useTranslation();
