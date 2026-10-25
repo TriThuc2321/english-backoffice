@@ -1,5 +1,5 @@
 import { Card, Input, Label, TextField } from '@heroui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuPlus } from 'react-icons/lu';
 import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
@@ -20,18 +20,30 @@ export const meta: MetaFunction = () =>
 export default function PassagesPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const page = Number(searchParams.get('page') ?? 1);
   const take = Number(searchParams.get('take') ?? 10);
+  const searchParam = searchParams.get('search') ?? '';
 
-  const [search, setSearch] = useState(searchParams.get('search') ?? '');
+  const [search, setSearch] = useState(searchParam);
   const debouncedSearch = useDebounce(search, 500);
+
+  useEffect(() => {
+    const next = debouncedSearch.trim();
+    if (next === searchParam) return;
+    setSearchParams((prev) => {
+      if (next) prev.set('search', next);
+      else prev.delete('search');
+      prev.set('page', '1');
+      return prev;
+    });
+  }, [debouncedSearch, searchParam, setSearchParams]);
 
   const { data, isLoading } = useGetPassages({
     page,
     take,
-    search: debouncedSearch || undefined,
+    search: searchParam || undefined,
   });
 
   const passages = data?.data ?? [];
