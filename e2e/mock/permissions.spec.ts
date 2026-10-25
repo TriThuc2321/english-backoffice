@@ -47,6 +47,40 @@ test('manage all shows every menu and the create button', async ({
   await expect(page.getByRole('button', { name: 'Create User' })).toBeVisible();
 });
 
+test('the passages menu follows the passage permission, not test', async ({
+  page,
+  api,
+}) => {
+  api.loginAs(READ_PASSAGES_ONLY);
+  api.on('GET', '/passages', {
+    body: { data: PASSAGES.slice(0, 10), meta: { totalCount: 10 } },
+  });
+
+  await page.goto('/passages');
+
+  await expect(page.getByRole('link', { name: 'Passages' })).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: 'Tests', exact: true }),
+  ).toHaveCount(0);
+});
+
+test('a read-test user does not see the passages menu', async ({
+  page,
+  api,
+}) => {
+  api.loginAs([
+    { action: 'read', subject: 'dashboard' },
+    { action: 'read', subject: 'test' },
+  ]);
+
+  await page.goto('/');
+
+  await expect(
+    page.getByRole('link', { name: 'Tests', exact: true }),
+  ).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Passages' })).toHaveCount(0);
+});
+
 test('a read-only role user cannot create, edit or delete roles', async ({
   page,
   api,
@@ -60,10 +94,8 @@ test('a read-only role user cannot create, edit or delete roles', async ({
 
   const row = page.getByRole('row').filter({ hasText: 'TEACHER' });
   await expect(row).toBeVisible();
-  // Only the view action is shown (ConfirmWrapper keeps an empty, zero-size trigger)
-  await expect(row.getByRole('button').filter({ visible: true })).toHaveCount(
-    1,
-  );
+  // Only the view action is rendered
+  await expect(row.getByRole('button')).toHaveCount(1);
   await expect(page.getByRole('button', { name: 'Create Role' })).toHaveCount(
     0,
   );
@@ -85,9 +117,7 @@ test('a read-only passage user cannot create, edit, publish or delete', async ({
 
   const row = page.getByRole('row', { name: passage.title, exact: true });
   await expect(row).toBeVisible();
-  await expect(row.getByRole('button').filter({ visible: true })).toHaveCount(
-    1,
-  );
+  await expect(row.getByRole('button')).toHaveCount(1);
   await expect(
     page.getByRole('button', { name: 'Create Passage' }),
   ).toHaveCount(0);

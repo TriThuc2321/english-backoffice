@@ -75,6 +75,8 @@ function PassageActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          I={PermissionAction.Delete}
+          a={SubjectName.Passages}
           title={t('passages.deleteTitle')}
           description={t('passages.deleteConfirm', {
             name: row.original.title,

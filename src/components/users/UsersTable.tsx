@@ -78,6 +78,8 @@ function UserActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          I={PermissionAction.Delete}
+          a={SubjectName.Users}
           isDisabled={isDeleting || isSystemUser}
           title={t('cmsUsers.deleteTitle')}
           description={t('cmsUsers.deleteConfirm', {

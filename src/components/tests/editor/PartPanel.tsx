@@ -117,6 +117,8 @@ const PartInfoCard = ({
             </h3>
             {!isLocked && (
               <ConfirmWrapper
+                I={PermissionAction.Delete}
+                a={SubjectName.Tests}
                 isDisabled={isDeleting}
                 title={t('tests.editor.deletePart')}
                 description={t('tests.editor.deletePartConfirm', {
@@ -285,6 +287,8 @@ const GroupRow = ({
       </Button>
       {!isLocked && (
         <ConfirmWrapper
+          I={PermissionAction.Delete}
+          a={SubjectName.Tests}
           isDisabled={isDeleting}
           title={t('tests.editor.group.delete')}
           description={t('tests.editor.group.deleteConfirm')}
