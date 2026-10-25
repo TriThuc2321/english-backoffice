@@ -19,10 +19,13 @@ import { useTranslation } from 'react-i18next';
 
 import type { CreateEditUserFormData } from '@/schemas/user';
 import type { EditableStatus } from '@/types/common';
+import type { User } from '@/types/user';
 
+import AvatarUpload from '@/components/shared/AvatarUpload';
 import Section from '@/components/shared/Section';
 import { getEditableStatusItems } from '@/components/shared/status';
 import { useGetRoles } from '@/hooks/apis/roles';
+import { useSetUserAvatar } from '@/hooks/apis/users';
 import { Gender } from '@/types/common';
 
 type UserFormProps = {
@@ -31,6 +34,8 @@ type UserFormProps = {
   isSubmitting?: boolean;
   onCancel?: () => void;
   isEditing?: boolean;
+  // The avatar is set through media once the user exists, so edit only
+  user?: User;
 };
 
 const getInitials = (firstName?: string, lastName?: string) => {
@@ -46,8 +51,10 @@ const UserForm = ({
   isSubmitting,
   onCancel,
   isEditing,
+  user,
 }: UserFormProps) => {
   const { t } = useTranslation();
+  const { mutate: setAvatar, isPending: isSettingAvatar } = useSetUserAvatar();
   const { data: rolesData } = useGetRoles({ take: 1000 });
   const roles = rolesData?.data ?? [];
 
@@ -72,23 +79,41 @@ const UserForm = ({
     t('cmsUsers.preview.newUser');
   const displayEmail = watched.email || 'email@myenglish.vn';
 
+  const identity = (
+    <div className="flex flex-col">
+      <span className="text-base font-semibold">{displayName}</span>
+      <span className="text-default-500 text-sm">{displayEmail}</span>
+    </div>
+  );
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
       <div className="bg-default/70 flex items-center gap-4 rounded-xl p-4">
-        <Avatar
-          className="size-14 shrink-0 rounded-2xl text-lg"
-          color="accent"
-          variant="soft"
-        >
-          <Avatar.Image alt={displayName} />
-          <Avatar.Fallback className="rounded-2xl text-lg font-semibold">
-            {initials || '?'}
-          </Avatar.Fallback>
-        </Avatar>
-        <div className="flex flex-col">
-          <span className="text-base font-semibold">{displayName}</span>
-          <span className="text-default-500 text-sm">{displayEmail}</span>
-        </div>
+        {user ? (
+          <AvatarUpload
+            src={user.avatar}
+            alt={displayName}
+            fallback={initials}
+            isPending={isSettingAvatar}
+            onChange={(file) => setAvatar({ id: user.id, file })}
+          >
+            {identity}
+          </AvatarUpload>
+        ) : (
+          <>
+            <Avatar
+              className="size-14 shrink-0 rounded-2xl text-lg"
+              color="accent"
+              variant="soft"
+            >
+              <Avatar.Image alt={displayName} />
+              <Avatar.Fallback className="rounded-2xl text-lg font-semibold">
+                {initials}
+              </Avatar.Fallback>
+            </Avatar>
+            {identity}
+          </>
+        )}
       </div>
 
       <Section title={t('cmsUsers.section.identity')}>

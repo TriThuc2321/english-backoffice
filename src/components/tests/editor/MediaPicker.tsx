@@ -13,6 +13,7 @@ import {
   useUploadMedia,
 } from '@/hooks/apis/media';
 import { PermissionAction, SubjectName } from '@/types/auth';
+import { MediaScope } from '@/types/media';
 import { MediaKind } from '@/types/test';
 
 const NO_MEDIA = '__none__';
@@ -53,7 +54,8 @@ const MediaPicker = ({
   const { t } = useTranslation();
   const ability = useCan();
   const inputRef = useRef<HTMLInputElement>(null);
-  const { data } = useGetMediaList({ testId, kind, take: 100 });
+  const owner = { scope: MediaScope.TEST, ownerId: String(testId) };
+  const { data } = useGetMediaList({ ...owner, kind, take: 100 });
   const { data: selected } = useGetMediaById(value ?? undefined);
   const { mutateAsync: upload, isPending: isUploading } = useUploadMedia();
 
@@ -69,7 +71,7 @@ const MediaPicker = ({
   const onFile = async (file: File | undefined) => {
     if (!file) return;
     try {
-      const media = await upload({ testId, kind, file });
+      const media = await upload({ ...owner, kind, file });
       onChange(media.id);
     } catch (err) {
       console.error(err);

@@ -226,6 +226,21 @@ const en = {
       certFileUrl: 'File URL',
     },
   },
+  avatar: {
+    menu: 'Avatar',
+    change: 'Change avatar',
+    remove: 'Remove avatar',
+    toast: {
+      updateSuccess: 'Avatar updated',
+      updateError: 'Failed to update avatar',
+      removeSuccess: 'Avatar removed',
+      removeError: 'Failed to remove avatar',
+    },
+  },
+  media: {
+    invalidType: 'This file type is not allowed',
+    tooLarge: 'File is larger than {{size}} MB',
+  },
   cmsUsers: {
     createTitle: 'Create User',
     editTitle: 'Edit User',
@@ -259,7 +274,6 @@ const en = {
       email: 'Email',
       firstName: 'First Name',
       lastName: 'Last Name',
-      avatar: 'Avatar URL',
       role: 'Role',
       phone: 'Phone',
       dateOfBirth: 'Date of Birth',
@@ -707,8 +721,6 @@ const en = {
         upload: 'Upload',
         uploading: 'Uploading...',
         clear: 'Clear',
-        invalidType: 'This file type is not allowed',
-        tooLarge: 'File is larger than {{size}} MB',
       },
       part: {
         title: 'Title',

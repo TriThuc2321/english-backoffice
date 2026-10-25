@@ -14,6 +14,7 @@ export type User = { id: string } & Partial<{
   role: Role;
   email: string;
   avatar: string;
+  avatarMediaId: number | null;
   phone: string;
   provider: Provider;
   providerId: string;
@@ -46,6 +47,12 @@ export type CreateUserPayload = Partial<{
 export type EditUserPayload = CreateUserPayload & {
   id: string;
   status?: EditableStatus;
+  avatarMediaId?: number | null;
+};
+
+export type SetUserAvatarPayload = {
+  id: string;
+  file: File | null;
 };
 
 export type EditMePayload = Partial<{

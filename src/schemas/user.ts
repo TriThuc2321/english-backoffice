@@ -13,10 +13,6 @@ export const createEditUserSchema = yup.object().shape({
     .required(VALIDATION_MESSAGE.REQUIRED),
   firstName: yup.string().required(VALIDATION_MESSAGE.REQUIRED),
   lastName: yup.string().required(VALIDATION_MESSAGE.REQUIRED),
-  avatar: yup
-    .string()
-    .transform((v) => v || undefined)
-    .optional(),
   roleId: yup.number().required(VALIDATION_MESSAGE.REQUIRED),
   phone: yup
     .string()

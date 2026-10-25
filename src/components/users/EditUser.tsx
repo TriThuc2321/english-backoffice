@@ -24,7 +24,6 @@ const EditUser = ({ id }: EditUserProps) => {
       email: '',
       firstName: '',
       lastName: '',
-      avatar: '',
       phone: '',
       dateOfBirth: '',
       address: '',
@@ -37,7 +36,6 @@ const EditUser = ({ id }: EditUserProps) => {
       email: userData.email ?? '',
       firstName: userData.firstName ?? '',
       lastName: userData.lastName ?? '',
-      avatar: userData.avatar ?? '',
       roleId: userData.role?.id,
       phone: userData.phone ?? '',
       dateOfBirth: userData.dateOfBirth ?? '',
@@ -69,6 +67,7 @@ const EditUser = ({ id }: EditUserProps) => {
       isSubmitting={isEditing}
       onCancel={() => navigate('/users')}
       isEditing
+      user={userData}
     />
   );
 };
