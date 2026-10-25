@@ -1,4 +1,4 @@
-import { Card, cn } from '@heroui/react';
+import { Card, cn, Tooltip } from '@heroui/react';
 import { useTranslation } from 'react-i18next';
 import { LuChevronDown, LuChevronRight, LuFileText } from 'react-icons/lu';
 
@@ -62,28 +62,31 @@ const PartGroups = ({
 
   return groups.map((group, index) => {
     const range = groupRange(details[index]?.data?.questions);
+    const label = t(`tests.questionType.${group.questionType}`);
     return (
-      <TreeNode
-        key={group.id}
-        className="pl-12"
-        isSelected={selectedGroup === String(group.id)}
-        onPress={() =>
-          onNavigate({
-            section: sectionId,
-            part: partId,
-            group: String(group.id),
-          })
-        }
-      >
-        {range && (
-          <span className="text-muted shrink-0 text-xs">
-            {t('tests.editor.group.questionRange', range)}
-          </span>
-        )}
-        <span className="truncate">
-          {t(`tests.questionType.${group.questionType}`)}
-        </span>
-      </TreeNode>
+      <Tooltip delay={0} key={group.id}>
+        <Tooltip.Trigger className="flex w-full">
+          <TreeNode
+            className="pl-12"
+            isSelected={selectedGroup === String(group.id)}
+            onPress={() =>
+              onNavigate({
+                section: sectionId,
+                part: partId,
+                group: String(group.id),
+              })
+            }
+          >
+            {range && (
+              <span className="text-muted shrink-0 text-xs">
+                {t('tests.editor.group.questionRange', range)}
+              </span>
+            )}
+            <span className="truncate">{label}</span>
+          </TreeNode>
+        </Tooltip.Trigger>
+        <Tooltip.Content placement="right">{label}</Tooltip.Content>
+      </Tooltip>
     );
   });
 };
