@@ -18,10 +18,12 @@ import {
   QUESTION_TYPES,
   resolveAnswerKind,
 } from '@/constants/questionTypes';
+import { MediaKind } from '@/types/test';
 
 import type { ParagraphOption } from './PassagePreview';
 
 import { NumberInput, TextInput } from '../fields';
+import MediaPicker from '../MediaPicker';
 import OrderButtons from '../OrderButtons';
 import {
   AcceptedAnswer,
@@ -38,6 +40,7 @@ const message = (error: unknown) =>
 
 type QuestionCardProps = {
   control: Control<QuestionGroupFormInput, unknown, QuestionGroupFormData>;
+  testId: number;
   errors: FieldErrors<QuestionGroupFormInput>;
   index: number;
   count: number;
@@ -52,6 +55,7 @@ type QuestionCardProps = {
 
 const QuestionCard = ({
   control,
+  testId,
   errors,
   index,
   count,
@@ -353,9 +357,10 @@ const QuestionCard = ({
               name={`${path}.audioMediaId`}
               control={control}
               render={({ field }) => (
-                <NumberInput
+                <MediaPicker
+                  testId={testId}
+                  kind={MediaKind.AUDIO}
                   label={t('tests.editor.audioMediaId')}
-                  min={1}
                   value={field.value}
                   onChange={field.onChange}
                   isDisabled={isLocked}
@@ -366,9 +371,10 @@ const QuestionCard = ({
               name={`${path}.imageMediaId`}
               control={control}
               render={({ field }) => (
-                <NumberInput
+                <MediaPicker
+                  testId={testId}
+                  kind={MediaKind.IMAGE}
                   label={t('tests.editor.imageMediaId')}
-                  min={1}
                   value={field.value}
                   onChange={field.onChange}
                   isDisabled={isLocked}

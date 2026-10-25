@@ -23,6 +23,10 @@ export const REACT_QUERY_KEYS = {
     LIST: 'question.list',
     BY_ID: 'question.byId',
   },
+  MEDIA: {
+    LIST: 'media.list',
+    BY_ID: 'media.byId',
+  },
   PASSAGE: {
     LIST: 'passage.list',
     LIST_INFINITE: 'passage.list.infinite',

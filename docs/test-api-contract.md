@@ -1,31 +1,32 @@
 # Test authoring API contract (backoffice)
 
-The contract the backoffice (`client = bo`) uses to build a test end to end: test → sections → parts → question groups → questions, plus the passages that Reading groups link to.
+The contract the backoffice (`client = bo`) uses to build a test end to end: test → sections → parts → question groups → questions, plus the passages that Reading groups link to and the audio/image media that parts, groups and questions reference.
 
 JSON formats for `content` / `answer` / `evidence` are in [`question-formats.md`](./question-formats.md). The DB schema is in [`test-schema.dbml`](./test-schema.dbml). Swagger at `/docs` is generated from the same DTOs.
 
 ## 1. Conventions
 
-| Item          | Rule                                                                                                                                                                      |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Base URL      | `{API}/api`                                                                                                                                                               |
-| Auth          | `Authorization: Bearer <access_token>`. The token must be issued to `client = bo`; tokens for other clients get `403`.                                                    |
-| Permissions   | Test tree endpoints use subject `test` (`read` / `create` / `update` / `delete`). Passages use `passage`; paragraphs use `paragraph`.                                     |
-| IDs           | Integers (`number`). User IDs in audit fields are UUID strings.                                                                                                           |
-| Dates         | ISO 8601 strings.                                                                                                                                                         |
-| Nullable      | Optional fields come back as `null` when unset.                                                                                                                           |
-| `order`       | 0-based. When omitted on create, the item goes **last**. When items are sent in an array, `order` defaults to the array index. Use the `reorder` endpoints to move items. |
-| Bulk delete   | `DELETE /<resource>` with **JSON body** `{ "ids": number[] }` (1–100 ids). With axios: `axios.delete(url, { data: { ids } })`. Response: `{ "deleted": number }`.         |
-| Pagination    | Only `GET /tests` and `GET /passages`: `?page=1&take=10` (`take` ≤ 1000). Response: `{ data: T[], meta: { page, take, totalCount } }`.                                    |
-| Child lists   | `GET /test-sections`, `/test-parts`, `/question-groups`, `/questions` are **not** paginated: they return a plain array sorted by `order`.                                 |
-| Errors        | Nest default: `{ "statusCode": 400, "message": string \| string[], "error": "Bad Request" }`. DTO validation errors give `message` as an array of strings.                |
-| Hard vs. soft | Tests and passages are soft-deleted (`status = DELETED`). Sections, parts, groups and questions are hard-deleted and **cascade** to their children.                       |
+| Item          | Rule                                                                                                                                                                                              |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Base URL      | `{API}/api`                                                                                                                                                                                       |
+| Auth          | `Authorization: Bearer <access_token>`. The token must be issued to `client = bo`; tokens for other clients get `403`.                                                                            |
+| Permissions   | Test tree endpoints use subject `test` (`read` / `create` / `update` / `delete`). Passages use `passage`; paragraphs use `paragraph`; media uses `media`.                                         |
+| IDs           | Integers (`number`). User IDs in audit fields are UUID strings.                                                                                                                                   |
+| Dates         | ISO 8601 strings.                                                                                                                                                                                 |
+| Nullable      | Optional fields come back as `null` when unset.                                                                                                                                                   |
+| `order`       | 0-based. When omitted on create, the item goes **last**. When items are sent in an array, `order` defaults to the array index. Use the `reorder` endpoints to move items.                         |
+| Bulk delete   | `DELETE /<resource>` with **JSON body** `{ "ids": number[] }` (1–100 ids). With axios: `axios.delete(url, { data: { ids } })`. Response: `{ "deleted": number }`.                                 |
+| Pagination    | Only `GET /tests`, `GET /passages` and `GET /media`: `?page=1&take=10` (`take` ≤ 1000). Response: `{ data: T[], meta: { page, take, totalCount } }`.                                              |
+| Child lists   | `GET /test-sections`, `/test-parts`, `/question-groups`, `/questions` are **not** paginated: they return a plain array sorted by `order`.                                                         |
+| Errors        | Nest default: `{ "statusCode": 400, "message": string \| string[], "error": "Bad Request" }`. DTO validation errors give `message` as an array of strings.                                        |
+| Hard vs. soft | Tests and passages are soft-deleted (`status = DELETED`). Sections, parts, groups and questions are hard-deleted and **cascade** to their children. Media is hard-deleted together with its file. |
 
 ### Locked tests
 
 `test.lockedAt` is set when the first student attempt is created. Once it is non-null:
 
 - Any create / update / reorder / delete on sections, parts, groups or questions → `400 "Test with ID {id} is locked; its structure can no longer change"`.
+- `POST /media/upload-url` and `POST /media` for that test → same `400`.
 - `PATCH /tests/:id` still works, but `examType` cannot change.
 - `PATCH /questions/:id` only accepts `answer`, `explanation`, `evidence` (to fix a wrong key). Any other field → `400`.
 
@@ -39,8 +40,17 @@ sequenceDiagram
   participant BO as Backoffice
   participant API as english-service
 
+  participant R2 as R2 (storage)
+
   BO->>API: POST /tests {examType, title, sections:[...]}
   API-->>BO: Test + testSections[]
+  opt audio / image
+    BO->>API: POST /media/upload-url {testId, kind, contentType}
+    API-->>BO: {storageKey, uploadUrl, headers}
+    BO->>R2: PUT uploadUrl (file, headers)
+    BO->>API: POST /media {testId, kind, storageKey, durationMs?}
+    API-->>BO: Media (id, url)
+  end
   loop each section
     BO->>API: POST /test-parts {sectionId, title, audioMediaId?}
     API-->>BO: TestPart
@@ -61,6 +71,7 @@ Recommended BO screens:
 
 1. **Test form** → `POST /tests` with the sections the exam needs (one call).
 2. **Test editor** (tree): sections from `GET /tests/:id`, parts from `GET /test-parts?sectionId=`, groups from `GET /question-groups?partId=`.
+   Media pickers list the test's files with `GET /media?testId=&kind=`; uploading a new file follows §5.7.
 3. **Group editor**: create the group and all its questions in one `POST /question-groups`; afterwards edit questions individually with `/questions`.
 4. **Publish** button → `PATCH /tests/:id { status: "PUBLISHED" }`.
 
@@ -71,6 +82,7 @@ type ExamType = 'IELTS_ACADEMIC' | 'IELTS_GENERAL' | 'TOEIC_LR' | 'TOEIC_SW';
 type SkillType = 'LISTENING' | 'READING' | 'WRITING' | 'SPEAKING';
 type TestStatus = 'DRAFT' | 'PUBLISHED' | 'DELETED'; // DELETED is never accepted as input
 type MarkedBy = 'ALPHABET' | 'NUMBER' | 'NONE';
+type MediaKind = 'AUDIO' | 'IMAGE';
 type QuestionType =
   /* 30 values, see src/types/test.type.ts and question-formats.md */ string;
 ```
@@ -188,7 +200,22 @@ interface Paragraph {
   content: string;
   order: number;
 }
+
+interface Media {
+  id: number;
+  testId: number; // owning test; the file lives under tests/{testId}/
+  kind: MediaKind;
+  storageKey: string; // tests/{testId}/{audio|image}/{uuid}.{ext}
+  url: string; // public CDN URL, built from storageKey
+  mimeType: string | null;
+  sizeBytes: string | null; // bigint as a string
+  durationMs: number | null; // AUDIO, sent by the BO
+  transcript: string | null;
+  auditMetadata: Omit<AuditMetadata, 'createdBy' | 'updatedBy'>;
+}
 ```
+
+Parts, groups and questions only return `audioMediaId` / `imageMediaId`; fetch the file URL with `GET /media/:id` (or from the `GET /media?testId=` list).
 
 ## 5. Endpoints
 
@@ -414,7 +441,77 @@ Passages are a shared library, created before the group that links to them. Crea
 
 `paragraphs` items: `{ content: string; order?: number }` (≤500). Because `PATCH /passages/:id` with `paragraphs` replaces the list, paragraph IDs change — any `evidence.paragraphId` pointing at the old ones goes stale. Prefer `/paragraphs` for editing a passage that is already linked to questions.
 
-### 5.7 Reorder (all child resources)
+### 5.7 Media — `/media`
+
+Files are uploaded straight to R2 with a presigned URL; the API never receives the bytes. Every media belongs to one test and is stored at `tests/{testId}/{audio|image}/{uuid}.{ext}`.
+
+| Method | Path                | Body / query                   | Response           |
+| ------ | ------------------- | ------------------------------ | ------------------ |
+| POST   | `/media/upload-url` | `UploadUrlBody`                | `UploadUrlResult`  |
+| POST   | `/media`            | `CreateMediaBody`              | `Media`            |
+| GET    | `/media`            | `?page&take&testId&kind`       | `Paginated<Media>` |
+| GET    | `/media/:id`        | —                              | `Media`            |
+| PATCH  | `/media/:id`        | `{ durationMs?, transcript? }` | `Media`            |
+| DELETE | `/media/:id`        | —                              | `{ deleted: 1 }`   |
+
+```ts
+interface UploadUrlBody {
+  testId: number;
+  kind: MediaKind;
+  contentType: string; // see allowed types below
+}
+
+interface UploadUrlResult {
+  storageKey: string; // pass back to POST /media
+  uploadUrl: string; // presigned PUT
+  headers: { 'Content-Type': string; 'Cache-Control': string }; // send exactly these on the PUT
+  expiresIn: number; // seconds (default 600)
+}
+
+interface CreateMediaBody {
+  testId: number; // same as in upload-url
+  kind: MediaKind; // same as in upload-url
+  storageKey: string;
+  durationMs?: number; // ≥0, read from the <audio> element before upload
+  transcript?: string;
+}
+```
+
+Upload steps:
+
+1. `POST /media/upload-url` → `{ storageKey, uploadUrl, headers }`.
+2. `PUT uploadUrl` with the file as the body and **exactly** the returned `headers` (a different `Content-Type` is rejected by R2 with `403`). No `Authorization` header.
+3. `POST /media` with the `storageKey` → `Media`. Use `media.id` as `audioMediaId` / `imageMediaId`.
+
+```ts
+const { storageKey, uploadUrl, headers } = await api.post('/media/upload-url', {
+  testId,
+  kind: 'AUDIO',
+  contentType: file.type,
+});
+await fetch(uploadUrl, { method: 'PUT', body: file, headers });
+const media = await api.post('/media', {
+  testId,
+  kind: 'AUDIO',
+  storageKey,
+  durationMs,
+});
+```
+
+| kind    | Allowed `contentType`                                             | Max size |
+| ------- | ----------------------------------------------------------------- | -------- |
+| `AUDIO` | `audio/mpeg`, `audio/mp4`, `audio/ogg`, `audio/webm`, `audio/wav` | 100 MB   |
+| `IMAGE` | `image/jpeg`, `image/png`, `image/webp`, `image/avif`             | 10 MB    |
+
+`GET /media` is sorted by `id DESC`. Files are cached by the CDN as immutable: to replace a file, upload a new media and point the part/group/question at it, then delete the old one.
+
+Errors:
+
+- `POST /media/upload-url`: `400` content type not allowed for the kind; `404` test not found; `400` test locked.
+- `POST /media`: `400` `Invalid storage key` / `Storage key does not belong to {kind} of test {testId}`; `400` `File has not been uploaded` (PUT missing or URL expired); `400` file too large or wrong type — the uploaded object is deleted, request a new upload URL; `409` `Storage key is already registered`; `404` / `400` test not found / locked.
+- `DELETE /media/:id`: `404`; `409` `Media with ID {id} is in use` — detach it from every part/group/question first.
+
+### 5.8 Reorder (all child resources)
 
 `PATCH /<resource>/reorder` with `{ <parentId>, ids }`. `ids` must contain **every** child of that parent exactly once, in the new order; the server rewrites `order` to `0..n-1` and returns the sorted list.
 
@@ -434,7 +531,7 @@ Question numbers must be continuous across the whole test (1..40 IELTS, 1..200 T
 
 ## 7. Known gaps (BE work needed before the BO flow is complete)
 
-1. **No media endpoints.** `audioMediaId` / `imageMediaId` reference the `media` table, but there is no upload/list API, so the BO has no way to obtain a media id. Needed: e.g. `POST /media` (upload or presigned URL) and `GET /media`, and a `url` field built from `storageKey` in responses.
+1. **Media is not checked against the test.** Parts, groups and questions only check that `audioMediaId` / `imageMediaId` exist and have the right kind, not that `media.testId` is the same test. The BO should only offer media from `GET /media?testId={current test}`. Responses also carry only the ids, not the media `url`.
 2. **No full-tree read.** Rendering the editor costs one request per level (`/tests/:id` → `/test-parts` per section → `/question-groups` per part → `/question-groups/:id` per group for questions). A `GET /tests/:id/tree` (or `?include=tree`) would remove the N+1.
 3. **Publish does not validate.** `PATCH /tests/:id { status: "PUBLISHED" }` only flips the status. Planned checks (continuous numbering, `{{n}}` placeholders matching `numberFrom`, every section has at least one question, Listening parts have audio) do not exist yet.
 4. **`lockedAt` is never set** — attempts are not implemented, so the locked rules in §1 do not trigger yet.
