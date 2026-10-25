@@ -354,9 +354,12 @@ const PermissionCheckbox = memo(
       isDisabled={isDisabled}
       onChange={(checked) => onToggle(ids, checked)}
     >
-      <Checkbox.Control>
-        <Checkbox.Indicator />
-      </Checkbox.Control>
+      {/* Checkbox.Content renders the input since HeroUI 3.2 */}
+      <Checkbox.Content>
+        <Checkbox.Control>
+          <Checkbox.Indicator />
+        </Checkbox.Control>
+      </Checkbox.Content>
     </Checkbox>
   ),
 );
