@@ -553,39 +553,42 @@ const GroupEditor = ({
           </div>
 
           <Section>
-            <Select
-              fullWidth
-              selectedKey={questionType}
-              onSelectionChange={(key) =>
-                key != null && onTypeChange(key as QuestionType)
-              }
-              isDisabled={isLocked}
-            >
-              <Label>{t('tests.editor.group.questionType')}</Label>
-              <Select.Trigger>
-                <Select.Value />
-                <Select.Indicator />
-              </Select.Trigger>
-              <Select.Popover>
-                <ListBox>
-                  {typeOptions.map((type) => (
-                    <ListBox.Item
-                      key={type}
-                      id={type}
-                      textValue={t(`tests.questionType.${type}`)}
-                    >
-                      {t(`tests.questionType.${type}`)}
-                      <ListBox.ItemIndicator />
-                    </ListBox.Item>
-                  ))}
-                </ListBox>
-              </Select.Popover>
-              {group && (
-                <Description>
-                  {t('tests.editor.group.typeChangeHint')}
-                </Description>
-              )}
-            </Select>
+            <div className="flex items-start gap-2">
+              <Select
+                className="min-w-0 flex-1"
+                fullWidth
+                selectedKey={questionType}
+                onSelectionChange={(key) =>
+                  key != null && onTypeChange(key as QuestionType)
+                }
+                isDisabled={isLocked}
+              >
+                <Label>{t('tests.editor.group.questionType')}</Label>
+                <Select.Trigger>
+                  <Select.Value />
+                  <Select.Indicator />
+                </Select.Trigger>
+                <Select.Popover>
+                  <ListBox>
+                    {typeOptions.map((type) => (
+                      <ListBox.Item
+                        key={type}
+                        id={type}
+                        textValue={t(`tests.questionType.${type}`)}
+                      >
+                        {t(`tests.questionType.${type}`)}
+                        <ListBox.ItemIndicator />
+                      </ListBox.Item>
+                    ))}
+                  </ListBox>
+                </Select.Popover>
+                {group && (
+                  <Description>
+                    {t('tests.editor.group.typeChangeHint')}
+                  </Description>
+                )}
+              </Select>
+            </div>
 
             {usesWordLimit(spec) ? (
               <Controller
