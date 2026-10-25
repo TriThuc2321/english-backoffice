@@ -7,7 +7,7 @@ import { userApi } from '@/services/apis';
 
 const useGetUsers = (params: GetUsersParams) =>
   useQuery({
-    queryKey: [REACT_QUERY_KEYS.CMS_USER.LIST, params],
+    queryKey: [REACT_QUERY_KEYS.USER.LIST, params],
     queryFn: () => userApi.getAll(params),
     placeholderData: keepPreviousData,
   });

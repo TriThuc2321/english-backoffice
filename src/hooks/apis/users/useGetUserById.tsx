@@ -5,7 +5,7 @@ import { userApi } from '@/services/apis';
 
 const useGetUserById = (id: string) =>
   useQuery({
-    queryKey: [REACT_QUERY_KEYS.CMS_USER.BY_ID, id],
+    queryKey: [REACT_QUERY_KEYS.USER.BY_ID, id],
     queryFn: () => userApi.getById(id),
   });
 

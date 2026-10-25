@@ -15,10 +15,10 @@ const useEditUser = () => {
       toast.success(t('cmsUsers.toast.updateSuccess'));
 
       queryClient.invalidateQueries({
-        queryKey: [REACT_QUERY_KEYS.CMS_USER.LIST],
+        queryKey: [REACT_QUERY_KEYS.USER.LIST],
       });
       queryClient.invalidateQueries({
-        queryKey: [REACT_QUERY_KEYS.CMS_USER.BY_ID],
+        queryKey: [REACT_QUERY_KEYS.USER.BY_ID],
       });
     },
     onError: (err) => {

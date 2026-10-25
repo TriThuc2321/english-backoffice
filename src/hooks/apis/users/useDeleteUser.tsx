@@ -15,7 +15,7 @@ const useDeleteUser = () => {
       toast.success(t('cmsUsers.toast.deleteSuccess'));
 
       queryClient.invalidateQueries({
-        queryKey: [REACT_QUERY_KEYS.CMS_USER.LIST],
+        queryKey: [REACT_QUERY_KEYS.USER.LIST],
       });
     },
     onError: (err) => {

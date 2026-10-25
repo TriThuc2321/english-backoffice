@@ -15,7 +15,7 @@ const useCreateUser = () => {
       toast.success(t('cmsUsers.toast.createSuccess'));
 
       queryClient.invalidateQueries({
-        queryKey: [REACT_QUERY_KEYS.CMS_USER.LIST],
+        queryKey: [REACT_QUERY_KEYS.USER.LIST],
       });
     },
     onError: (err) => {

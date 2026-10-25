@@ -36,7 +36,7 @@ export const REACT_QUERY_KEYS = {
     LIST: 'role.list',
     BY_ID: 'role.byId',
   },
-  CMS_USER: {
+  USER: {
     LIST: 'cmsUser.list',
     BY_ID: 'cmsUser.byId',
   },
