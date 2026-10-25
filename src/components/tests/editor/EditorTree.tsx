@@ -144,7 +144,7 @@ const EditorTree = ({
   const { t } = useTranslation();
 
   return (
-    <Card className="md:sticky md:top-4">
+    <Card className="md:sticky md:top-0 md:max-h-[calc(100vh-8rem)] md:overflow-y-auto">
       <Card.Content className="flex flex-col gap-0.5 p-2">
         <TreeNode isSelected={!location.section} onPress={() => onNavigate({})}>
           <LuFileText className="size-4 shrink-0" />

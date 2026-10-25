@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   Checkbox,
+  cn,
   Description,
   Label,
   ListBox,
@@ -281,6 +282,9 @@ const GroupEditor = ({
   const isLocked = !!test.lockedAt;
   const isReading = section.skill === SkillType.READING;
   const [activeIndex, setActiveIndex] = useState(0);
+  const questionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // Question to bring into view once the field array has re-rendered
+  const pendingScrollRef = useRef<number | null>(null);
 
   const { mutateAsync: createGroup, isPending: isCreating } =
     useCreateQuestionGroup();
@@ -315,9 +319,9 @@ const GroupEditor = ({
     );
   }, [initialValues, reset]);
 
-  const [questionType, passages] = useWatch({
+  const [questionType, passages, questions] = useWatch({
     control,
-    name: ['questionType', 'passages'],
+    name: ['questionType', 'passages', 'questions'],
   });
   const spec = QUESTION_TYPES[questionType];
 
@@ -346,12 +350,30 @@ const GroupEditor = ({
     );
   };
 
+  const scrollToQuestion = (index: number) =>
+    questionRefs.current[index]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+
+  useEffect(() => {
+    if (pendingScrollRef.current == null) return;
+    scrollToQuestion(pendingScrollRef.current);
+    pendingScrollRef.current = null;
+  }, [fields]);
+
+  const focusQuestion = (index: number) => {
+    setActiveIndex(index);
+    scrollToQuestion(index);
+  };
+
   const addQuestion = () => {
     const questions = getValues('questions');
     const last = questions[questions.length - 1];
     const next = last ? (last.numberTo ?? last.numberFrom) + 1 : 1;
     append(defaultQuestion(questionType, next));
     setActiveIndex(questions.length);
+    pendingScrollRef.current = questions.length;
   };
 
   const onParagraphPress = (paragraphId: number) => {
@@ -391,6 +413,13 @@ const GroupEditor = ({
     }
   };
 
+  const onInvalid = (invalid: FieldErrors<QuestionGroupFormInput>) => {
+    const index = Array.isArray(invalid.questions)
+      ? invalid.questions.findIndex(Boolean)
+      : -1;
+    if (index >= 0) focusQuestion(index);
+  };
+
   const onDelete = async () => {
     if (!group) return;
     try {
@@ -406,45 +435,80 @@ const GroupEditor = ({
   const questionsError =
     errors.questions?.root?.message ?? message(errors.questions);
 
+  const addQuestionButton = !isLocked && (
+    <Button size="sm" variant="outline" onPress={addQuestion}>
+      <LuPlus className="size-4" />
+      {t('tests.editor.group.addQuestion')}
+    </Button>
+  );
+
+  // Card clips overflow by default, which would stop the header from sticking
   const questionsCard = (
-    <Card>
+    <Card className="overflow-visible">
       <Card.Content className="flex flex-col gap-3">
-        <div className="flex items-center justify-between gap-3">
-          <h3 className="text-foreground/50 text-sm font-semibold uppercase">
-            {t('tests.editor.group.questions')}
-          </h3>
-          {!isLocked && (
-            <Button size="sm" variant="outline" onPress={addQuestion}>
-              <LuPlus className="size-4" />
-              {t('tests.editor.group.addQuestion')}
-            </Button>
+        <div className="bg-surface sticky top-0 z-10 -mx-4 -mt-4 flex flex-col gap-2 rounded-t-3xl px-4 pt-4 pb-2">
+          <div className="flex items-center justify-between gap-3">
+            <h3 className="text-foreground/50 text-sm font-semibold uppercase">
+              {t('tests.editor.group.questions')}
+            </h3>
+            {addQuestionButton}
+          </div>
+          {questions.length > 1 && (
+            <nav
+              aria-label={t('tests.editor.group.jumpToQuestion')}
+              className="flex flex-wrap gap-1"
+            >
+              {questions.map((question, index) => (
+                <button
+                  key={fields[index]?.id ?? index}
+                  type="button"
+                  onClick={() => focusQuestion(index)}
+                  className={cn(
+                    'rounded-field hover:bg-default min-w-9 cursor-pointer border px-1.5 py-0.5 text-xs',
+                    index === activeIndex
+                      ? 'border-accent bg-accent-soft text-accent font-semibold'
+                      : 'border-transparent',
+                    errors.questions?.[index] && 'border-danger text-danger',
+                  )}
+                >
+                  {question.numberFrom}
+                </button>
+              ))}
+            </nav>
           )}
         </div>
         {questionsError && (
           <p className="text-danger text-sm">{questionsError}</p>
         )}
         {fields.map((field, index) => (
-          <QuestionCard
+          <div
             key={field.id}
-            control={control}
-            testId={test.id}
-            errors={errors}
-            index={index}
-            count={fields.length}
-            isLocked={isLocked}
-            isActive={index === activeIndex}
-            showMedia={
-              section.skill === SkillType.LISTENING ||
-              spec.questionContent === 'timing'
-            }
-            paragraphOptions={paragraphOptions}
-            onActivate={() => setActiveIndex(index)}
-            onMove={(offset) => {
-              move(index, index + offset);
-              setActiveIndex(index + offset);
+            ref={(el) => {
+              questionRefs.current[index] = el;
             }}
-            onRemove={() => removeQuestion(index)}
-          />
+          >
+            <QuestionCard
+              control={control}
+              testId={test.id}
+              errors={errors}
+              index={index}
+              count={fields.length}
+              isLocked={isLocked}
+              isActive={index === activeIndex}
+              showMedia={
+                section.skill === SkillType.LISTENING ||
+                spec.questionContent === 'timing'
+              }
+              paragraphOptions={paragraphOptions}
+              onActivate={() => setActiveIndex(index)}
+              onMove={(offset) => {
+                move(index, index + offset);
+                setActiveIndex(index + offset);
+                pendingScrollRef.current = index + offset;
+              }}
+              onRemove={() => removeQuestion(index)}
+            />
+          </div>
         ))}
       </Card.Content>
     </Card>
@@ -452,7 +516,7 @@ const GroupEditor = ({
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onInvalid)}
       className="flex flex-col gap-4"
       noValidate
     >
@@ -617,7 +681,7 @@ const GroupEditor = ({
 
       {isReading && passages.length > 0 ? (
         <div className="grid items-start gap-4 xl:grid-cols-2">
-          <div className="flex flex-col gap-4 xl:sticky xl:top-4">
+          <div className="flex flex-col gap-4 xl:sticky xl:top-0 xl:max-h-[calc(100vh-8rem)] xl:overflow-y-auto">
             {passages.map((passage) => (
               <PassagePreview
                 key={passage.id}
@@ -632,21 +696,35 @@ const GroupEditor = ({
         questionsCard
       )}
 
-      <Card>
-        <Card.Content className="flex flex-row items-center justify-end gap-2">
-          <Button type="button" variant="outline" onPress={goBack}>
-            {t('common.cancel')}
-          </Button>
-          <MyButton
-            I={group ? PermissionAction.Update : PermissionAction.Create}
-            a={SubjectName.Tests}
-            type="submit"
-            variant="primary"
-            isPending={isCreating || isSaving}
-            isDisabled={!!group && !isDirty}
-          >
-            {t('tests.editor.group.save')}
-          </MyButton>
+      {/* Stays in view so long groups can be saved without scrolling back */}
+      <Card className="sticky bottom-0 z-20 shadow-lg">
+        <Card.Content className="flex flex-row flex-wrap items-center justify-between gap-2">
+          <div className="text-muted flex items-center gap-2 text-sm">
+            <span>
+              {t('tests.editor.group.questionCount', { count: fields.length })}
+            </span>
+            {isDirty && (
+              <span className="text-warning">
+                · {t('tests.editor.group.unsavedChanges')}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            {addQuestionButton}
+            <Button type="button" variant="outline" onPress={goBack}>
+              {t('common.cancel')}
+            </Button>
+            <MyButton
+              I={group ? PermissionAction.Update : PermissionAction.Create}
+              a={SubjectName.Tests}
+              type="submit"
+              variant="primary"
+              isPending={isCreating || isSaving}
+              isDisabled={!!group && !isDirty}
+            >
+              {t('tests.editor.group.save')}
+            </MyButton>
+          </div>
         </Card.Content>
       </Card>
     </form>

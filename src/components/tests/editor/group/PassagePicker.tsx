@@ -43,7 +43,7 @@ const PassagePicker = ({ value, onChange, isDisabled }: PassagePickerProps) => {
         defaultFilter={() => true}
         isDisabled={isDisabled || isFull}
         onSelectionChange={(key) => {
-          const passage = passages.find((p) => p.id === String(key));
+          const passage = passages.find((p) => String(p.id) === String(key));
           if (!passage) return;
           onChange([
             ...value,
