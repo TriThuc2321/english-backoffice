@@ -24,3 +24,8 @@
     @apply ring-accent! border! ring-1!;
   }
 }
+
+/* Button component — match field radius */
+.button {
+  @apply rounded-field;
+}

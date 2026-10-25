@@ -29,7 +29,7 @@ function LevelCard({
   const ability = useCan();
 
   return (
-    <div className="bg-default-50/60 flex items-start justify-between gap-3 rounded-xl border p-4">
+    <div className="bg-default-50/60 flex items-start justify-between gap-3 rounded-3xl border p-4">
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-center gap-2">
           <span className="text-default-900 truncate text-sm font-semibold">
@@ -154,7 +154,7 @@ export default function LevelsCards({
     return (
       <div className="flex flex-col gap-2">
         {Array.from({ length: 3 }).map((_, i) => (
-          <Skeleton key={i} className="h-20 rounded-xl" />
+          <Skeleton key={i} className="h-20 rounded-3xl" />
         ))}
       </div>
     );
@@ -162,7 +162,7 @@ export default function LevelsCards({
 
   if (data.length === 0) {
     return (
-      <div className="text-default-400 rounded-xl border py-8 text-center text-sm">
+      <div className="text-default-400 rounded-3xl border py-8 text-center text-sm">
         {t('common.noData')}
       </div>
     );

@@ -1,7 +1,4 @@
 export const REACT_QUERY_KEYS = {
-  USER: {
-    PROFILE: 'user.profile',
-  },
   TEST: {
     LIST: 'test.list',
     LIST_INFINITE: 'test.list.infinite',
@@ -37,8 +34,9 @@ export const REACT_QUERY_KEYS = {
     BY_ID: 'role.byId',
   },
   USER: {
-    LIST: 'cmsUser.list',
-    BY_ID: 'cmsUser.byId',
+    PROFILE: 'user.profile',
+    LIST: 'user.list',
+    BY_ID: 'user.byId',
   },
   PERMISSION: {
     LIST: 'permission.list',

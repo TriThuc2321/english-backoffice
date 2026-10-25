@@ -697,11 +697,11 @@ const GroupPanel = ({
   }, [group, isNew, type, lastNumber]);
 
   if ((!isNew && isLoading) || isLoadingNumbers)
-    return <Skeleton className="h-96 rounded-xl" />;
+    return <Skeleton className="h-96 rounded-3xl" />;
 
   if (!initialValues || (group && group.partId !== part.id))
     return (
-      <div className="text-muted rounded-xl border py-8 text-center text-sm">
+      <div className="text-muted rounded-3xl border py-8 text-center text-sm">
         {t('tests.editor.group.notFound')}
       </div>
     );

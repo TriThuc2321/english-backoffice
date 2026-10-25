@@ -56,7 +56,7 @@ const ViewPassage = ({ id }: ViewPassageProps) => {
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex min-w-0 items-start gap-4">
-          <div className="bg-accent-soft text-accent-soft-foreground flex size-14 shrink-0 items-center justify-center rounded-2xl">
+          <div className="bg-accent-soft text-accent-soft-foreground rounded-field flex size-14 shrink-0 items-center justify-center">
             <LuFileText className="size-6" />
           </div>
 

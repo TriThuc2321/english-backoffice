@@ -164,7 +164,7 @@ const MediaPicker = ({
           <img
             src={selected.url}
             alt={mediaLabel(selected)}
-            className="max-h-40 w-fit rounded-md border object-contain"
+            className="rounded-field max-h-40 w-fit border object-contain"
           />
         ))}
     </div>

@@ -262,11 +262,11 @@ const PartsCard = ({ test, section, onOpenPart }: PartsCardProps) => {
 
         {isLoading &&
           Array.from({ length: 2 }).map((_, i) => (
-            <Skeleton key={i} className="h-12 rounded-lg" />
+            <Skeleton key={i} className="rounded-field h-12" />
           ))}
 
         {!isLoading && parts.length === 0 && (
-          <div className="text-muted rounded-xl border py-6 text-center text-sm">
+          <div className="text-muted rounded-3xl border py-6 text-center text-sm">
             {t('tests.editor.noParts')}
           </div>
         )}
@@ -274,7 +274,7 @@ const PartsCard = ({ test, section, onOpenPart }: PartsCardProps) => {
         {parts.map((part, index) => (
           <div
             key={part.id}
-            className="flex items-center gap-3 rounded-lg border px-3 py-2"
+            className="rounded-field flex items-center gap-3 border px-3 py-2"
           >
             <OrderButtons
               index={index}

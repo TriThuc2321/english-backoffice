@@ -348,7 +348,7 @@ const TeacherForm = ({
         {skillFields.map((field, index) => (
           <div
             key={field.id}
-            className="relative grid grid-cols-3 gap-3 rounded-lg border p-4"
+            className="relative grid grid-cols-3 gap-3 rounded-3xl border p-4"
           >
             <Button
               type="button"
@@ -495,7 +495,7 @@ const TeacherForm = ({
         {certFields.map((field, index) => (
           <div
             key={field.id}
-            className="relative grid grid-cols-2 gap-3 rounded-lg border p-4"
+            className="relative grid grid-cols-2 gap-3 rounded-3xl border p-4"
           >
             <Button
               type="button"

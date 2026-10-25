@@ -59,12 +59,12 @@ const ViewUser = ({ id }: ViewUserProps) => {
       <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex min-w-0 items-start gap-4">
           <Avatar
-            className="size-14 shrink-0 rounded-2xl text-lg"
+            className="rounded-field size-14 shrink-0 text-lg"
             color="accent"
             variant="soft"
           >
             <Avatar.Image alt={fullName} src={user.avatar} />
-            <Avatar.Fallback className="rounded-2xl text-lg font-semibold">
+            <Avatar.Fallback className="rounded-field text-lg font-semibold">
               {initials || '?'}
             </Avatar.Fallback>
           </Avatar>

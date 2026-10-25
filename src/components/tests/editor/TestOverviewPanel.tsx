@@ -210,7 +210,7 @@ const SectionsCard = ({ test, sections, onOpen }: SectionsCardProps) => {
         </h3>
 
         {sections.length === 0 && (
-          <div className="text-muted rounded-xl border py-6 text-center text-sm">
+          <div className="text-muted rounded-3xl border py-6 text-center text-sm">
             {t('tests.editor.noSections')}
           </div>
         )}
@@ -218,7 +218,7 @@ const SectionsCard = ({ test, sections, onOpen }: SectionsCardProps) => {
         {sections.map((section, index) => (
           <div
             key={section.id}
-            className="flex items-center gap-3 rounded-lg border px-3 py-2"
+            className="rounded-field flex items-center gap-3 border px-3 py-2"
           >
             <OrderButtons
               index={index}

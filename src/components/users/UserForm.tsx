@@ -88,7 +88,7 @@ const UserForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-      <div className="bg-default/70 flex items-center gap-4 rounded-xl p-4">
+      <div className="bg-default/70 flex items-center gap-4 rounded-3xl p-4">
         {user ? (
           <AvatarUpload
             src={user.avatar}
@@ -102,12 +102,12 @@ const UserForm = ({
         ) : (
           <>
             <Avatar
-              className="size-14 shrink-0 rounded-2xl text-lg"
+              className="rounded-field size-14 shrink-0 text-lg"
               color="accent"
               variant="soft"
             >
               <Avatar.Image alt={displayName} />
-              <Avatar.Fallback className="rounded-2xl text-lg font-semibold">
+              <Avatar.Fallback className="rounded-field text-lg font-semibold">
                 {initials}
               </Avatar.Fallback>
             </Avatar>

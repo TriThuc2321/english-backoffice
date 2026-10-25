@@ -159,7 +159,7 @@ const TestForm = ({
         {fields.map((item, index) => (
           <div
             key={item.id}
-            className="border-default flex items-center gap-3 rounded-lg border px-3 py-2"
+            className="border-default rounded-field flex items-center gap-3 border px-3 py-2"
           >
             <Controller
               name={`sections.${index}.enabled`}

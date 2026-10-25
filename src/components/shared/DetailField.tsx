@@ -44,7 +44,7 @@ export const InfoCard = ({
 }: InfoCardProps) => (
   <section
     className={cn(
-      'bg-default/40 flex flex-col gap-4 rounded-2xl p-5',
+      'bg-default/40 flex flex-col gap-4 rounded-3xl p-5',
       className,
     )}
   >

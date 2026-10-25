@@ -34,7 +34,7 @@ const TreeNode = ({
     onClick={onPress}
     disabled={!onPress}
     className={cn(
-      'flex w-full items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-sm',
+      'rounded-field flex w-full items-center gap-1.5 px-2 py-1.5 text-left text-sm',
       onPress && 'hover:bg-default cursor-pointer',
       isSelected && 'bg-accent-soft text-accent font-semibold',
       className,

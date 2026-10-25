@@ -36,9 +36,9 @@ const ViewTeacher = ({ id }: ViewTeacherProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="bg-default-50/60 flex items-center gap-4 rounded-xl border p-5">
+      <div className="bg-default-50/60 flex items-center gap-4 rounded-3xl border p-5">
         <Avatar
-          className="size-16 shrink-0 rounded-2xl"
+          className="rounded-field size-16 shrink-0"
           color="accent"
           variant="soft"
         >
@@ -46,7 +46,7 @@ const ViewTeacher = ({ id }: ViewTeacherProps) => {
             alt={fullName}
             src={teacher.user?.avatar ?? undefined}
           />
-          <Avatar.Fallback className="rounded-2xl text-xl font-semibold">
+          <Avatar.Fallback className="rounded-field text-xl font-semibold">
             {initials || '?'}
           </Avatar.Fallback>
         </Avatar>

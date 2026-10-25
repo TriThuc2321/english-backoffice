@@ -24,13 +24,15 @@ export default function AuditItem({ user, dateTime }: AuditItemProps) {
     <div className="flex min-w-max items-center gap-3">
       <RenderIf condition={!!user}>
         <Avatar
-          className="shrink-0 rounded-2xl"
+          className="rounded-field shrink-0"
           size="sm"
           variant="soft"
           color="accent"
         >
           <Avatar.Image alt={displayName} src={avatar} />
-          <Avatar.Fallback className="rounded-2xl">{initials}</Avatar.Fallback>
+          <Avatar.Fallback className="rounded-field">
+            {initials}
+          </Avatar.Fallback>
         </Avatar>
       </RenderIf>
       <div className="flex flex-col">

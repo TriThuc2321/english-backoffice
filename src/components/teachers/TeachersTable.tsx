@@ -194,12 +194,12 @@ export default function TeachersTable({
           const fallbackName = fullName || user.email || 'MyEnglish Teacher';
           return (
             <div className="flex gap-2">
-              <Avatar className="rounded-2xl" variant="soft" color="accent">
+              <Avatar className="rounded-field" variant="soft" color="accent">
                 <Avatar.Image
                   alt={fallbackName}
                   src={user.avatar ?? undefined}
                 />
-                <Avatar.Fallback className="rounded-2xl">
+                <Avatar.Fallback className="rounded-field">
                   {fallbackInitials}
                 </Avatar.Fallback>
               </Avatar>

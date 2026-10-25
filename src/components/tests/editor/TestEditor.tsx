@@ -28,16 +28,16 @@ const LOCATION_KEYS = ['section', 'part', 'group', 'type'] as const;
 
 const EditorSkeleton = () => (
   <div className="flex flex-col gap-4">
-    <Skeleton className="h-10 w-1/2 rounded-lg" />
+    <Skeleton className="rounded-field h-10 w-1/2" />
     <div className="grid gap-4 md:grid-cols-[280px_1fr]">
-      <Skeleton className="h-64 rounded-xl" />
-      <Skeleton className="h-96 rounded-xl" />
+      <Skeleton className="h-64 rounded-3xl" />
+      <Skeleton className="h-96 rounded-3xl" />
     </div>
   </div>
 );
 
 const NotFound = ({ label }: { label: string }) => (
-  <div className="text-muted rounded-xl border py-8 text-center text-sm">
+  <div className="text-muted rounded-3xl border py-8 text-center text-sm">
     {label}
   </div>
 );
@@ -106,7 +106,7 @@ const TestEditor = ({ id }: TestEditorProps) => {
           onOpenPart={(id) => onNavigate({ section: selected.id, part: id })}
         />
       );
-    if (isLoadingParts) return <Skeleton className="h-96 rounded-xl" />;
+    if (isLoadingParts) return <Skeleton className="h-96 rounded-3xl" />;
     if (!part) return <NotFound label={t('tests.editor.partNotFound')} />;
 
     const partName =

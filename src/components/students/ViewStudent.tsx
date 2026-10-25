@@ -32,7 +32,7 @@ const ViewStudent = ({ id }: ViewStudentProps) => {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="bg-default-50/60 flex items-center gap-4 rounded-xl border p-5">
+      <div className="bg-default-50/60 flex items-center gap-4 rounded-3xl border p-5">
         <div className="min-w-0 flex-1">
           <p className="text-default-900 text-base font-semibold">
             {[student.user.firstName, student.user.lastName]

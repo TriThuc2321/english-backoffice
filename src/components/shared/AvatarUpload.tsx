@@ -30,12 +30,12 @@ const AvatarUpload = ({
   return (
     <div className="flex flex-1 items-center gap-4">
       <Avatar
-        className="size-14 shrink-0 rounded-2xl text-lg"
+        className="rounded-field size-14 shrink-0 text-lg"
         color="accent"
         variant="soft"
       >
         <Avatar.Image alt={alt} src={src ?? undefined} />
-        <Avatar.Fallback className="rounded-2xl text-lg font-semibold">
+        <Avatar.Fallback className="rounded-field text-lg font-semibold">
           {fallback}
         </Avatar.Fallback>
       </Avatar>

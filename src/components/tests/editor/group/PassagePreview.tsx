@@ -53,7 +53,7 @@ const PassagePreview = ({
         <h3 className="text-foreground/50 text-sm font-semibold uppercase">
           {t('tests.editor.group.passagePreview')}
         </h3>
-        {isLoading && <Skeleton className="h-40 rounded-lg" />}
+        {isLoading && <Skeleton className="rounded-field h-40" />}
         {passage && (
           <>
             <div>
@@ -73,7 +73,7 @@ const PassagePreview = ({
                   type="button"
                   onClick={() => onParagraphPress?.(id)}
                   className={cn(
-                    'hover:bg-default flex gap-2 rounded-md p-2 text-left text-sm',
+                    'hover:bg-default rounded-field flex gap-2 p-2 text-left text-sm',
                     selectedParagraphId === id && 'bg-accent-soft',
                   )}
                 >
