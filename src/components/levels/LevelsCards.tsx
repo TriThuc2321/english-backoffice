@@ -67,6 +67,8 @@ function LevelCard({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          I={PermissionAction.Delete}
+          a={SubjectName.Levels}
           isDisabled={isDeleting}
           title={t('levels.deleteTitle')}
           description={t('levels.deleteConfirm', { name: level.code })}

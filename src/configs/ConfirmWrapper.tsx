@@ -4,7 +4,10 @@ import type { ComponentProps, ReactNode } from 'react';
 import { Button, Popover } from '@heroui/react';
 import { useState } from 'react';
 
+import type { PermissionAction, SubjectName } from '@/types/auth';
 import type { Placement } from '@/types/common';
+
+import { useCan } from '@/configs/casl/can.config';
 
 type PopoverContentPlacement = NonNullable<
   ComponentProps<typeof Popover.Content>['placement']
@@ -26,6 +29,8 @@ type ConfirmWrapperProps = {
   confirmText?: string;
   cancelText?: string;
   isDisabled?: boolean;
+  I?: PermissionAction;
+  a?: SubjectName;
 };
 export default function ConfirmWrapper({
   children,
@@ -39,10 +44,15 @@ export default function ConfirmWrapper({
   confirmText = 'Confirm',
   cancelText = 'Cancel',
   isDisabled,
+  I,
+  a,
 }: ConfirmWrapperProps) {
+  const ability = useCan();
   const [isOpen, setIsOpen] = useState(false);
   const placementProp = placement ? toPopoverPlacement(placement) : 'bottom';
 
+  // Popover.Trigger renders its own button, so skip it when the trigger is hidden by permission
+  if (I && a && ability.cannot(I, a)) return null;
   if (isDisabled) return children;
 
   return (

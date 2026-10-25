@@ -71,6 +71,8 @@ function StudentActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          I={PermissionAction.Delete}
+          a={SubjectName.Students}
           title={t('students.deleteTitle')}
           description={t('students.deleteConfirm', {
             name: row.original.user?.firstName ?? row.original.studentCode,

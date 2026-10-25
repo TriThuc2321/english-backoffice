@@ -102,9 +102,9 @@ test('deletes a user after confirming', async ({ page, api }) => {
   await expect.poll(() => api.calls('GET', '/users').length).toBeGreaterThan(1);
 });
 
-test('searches with a debounce', async ({ page, api }) => {
-  await page.goto('/users');
-  await expect(page.getByText('user1@myenglish.vn')).toBeVisible();
+test('searches with a debounce and resets to page 1', async ({ page, api }) => {
+  await page.goto('/users?page=3');
+  await expect(page.getByText('user21@myenglish.vn')).toBeVisible();
 
   await page.getByRole('textbox', { name: 'Search users' }).fill('ada');
 
@@ -116,6 +116,8 @@ test('searches with a debounce', async ({ page, api }) => {
     .map((call) => call.query.get('search'))
     .filter(Boolean);
   expect(searches).toEqual(['ada']);
+  await expect(page).toHaveURL(/[?&]page=1(&|$)/);
+  expect(api.calls('GET', '/users').at(-1)?.query.get('page')).toBe('1');
 });
 
 test('shows the user detail', async ({ page, api }) => {

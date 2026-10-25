@@ -77,6 +77,8 @@ test('lists roles, paginates and searches', async ({ page, api }) => {
     .map((call) => call.query.get('search'))
     .filter(Boolean);
   expect(searches).toEqual(['edit']);
+  await expect(page).toHaveURL(/[?&]page=1(&|$)/);
+  expect(api.calls('GET', '/roles').at(-1)?.query.get('page')).toBe('1');
 });
 
 test('validates and creates a role with permissions', async ({ page, api }) => {

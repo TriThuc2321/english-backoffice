@@ -71,6 +71,8 @@ function TeacherActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          I={PermissionAction.Delete}
+          a={SubjectName.Teachers}
           isDisabled={isDeleting}
           title={t('teachers.deleteTitle')}
           description={t('teachers.deleteConfirm', { name: row.original.code })}

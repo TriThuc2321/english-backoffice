@@ -112,6 +112,8 @@ const SectionInfoCard = ({
             </h3>
             {!isLocked && (
               <ConfirmWrapper
+                I={PermissionAction.Delete}
+                a={SubjectName.Tests}
                 isDisabled={isDeleting}
                 title={t('tests.editor.deleteSection')}
                 description={t('tests.editor.deleteSectionConfirm', {
@@ -310,6 +312,8 @@ const PartsCard = ({ test, section, onOpenPart }: PartsCardProps) => {
             </Button>
             {!isLocked && (
               <ConfirmWrapper
+                I={PermissionAction.Delete}
+                a={SubjectName.Tests}
                 isDisabled={isDeleting}
                 title={t('tests.editor.deletePart')}
                 description={t('tests.editor.deletePartConfirm', {

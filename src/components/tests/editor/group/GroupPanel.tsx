@@ -466,6 +466,8 @@ const GroupEditor = ({
             </h3>
             {group && !isLocked && (
               <ConfirmWrapper
+                I={PermissionAction.Delete}
+                a={SubjectName.Tests}
                 isDisabled={isDeleting}
                 title={t('tests.editor.group.delete')}
                 description={t('tests.editor.group.deleteConfirm')}

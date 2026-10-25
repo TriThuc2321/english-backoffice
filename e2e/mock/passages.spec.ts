@@ -20,11 +20,11 @@ test.beforeEach(({ api }) => {
   });
 });
 
-test('lists passages and searches', async ({ page, api }) => {
-  await page.goto('/passages');
+test('lists passages and searches from page 1', async ({ page, api }) => {
+  await page.goto('/passages?page=2');
 
   await expect(
-    page.getByRole('rowheader', { name: 'Passage 1', exact: true }),
+    page.getByRole('rowheader', { name: 'Passage 11', exact: true }),
   ).toBeVisible();
   await expect(page.getByText('/ 15 items')).toBeVisible();
 
@@ -38,6 +38,8 @@ test('lists passages and searches', async ({ page, api }) => {
     .map((call) => call.query.get('search'))
     .filter(Boolean);
   expect(searches).toEqual(['nile']);
+  await expect(page).toHaveURL(/[?&]page=1(&|$)/);
+  expect(api.calls('GET', '/passages').at(-1)?.query.get('page')).toBe('1');
 });
 
 test('shows the paragraphs with their markers', async ({ page }) => {

@@ -68,6 +68,8 @@ function ProgramActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          I={PermissionAction.Delete}
+          a={SubjectName.Programs}
           isDisabled={isDeleting}
           title={t('programs.deleteTitle')}
           description={t('programs.deleteConfirm', { name: row.original.code })}

@@ -64,6 +64,8 @@ function TestActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          I={PermissionAction.Delete}
+          a={SubjectName.Tests}
           title={t('tests.deleteTitle')}
           description={t('tests.deleteConfirm', {
             name: row.original.title,

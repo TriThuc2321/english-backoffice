@@ -76,6 +76,8 @@ function RoleActionsCell({
           <LuPencil className="size-4" />
         </MyButton>
         <ConfirmWrapper
+          I={PermissionAction.Delete}
+          a={SubjectName.Roles}
           isDisabled={isDeleting || isSystemRole}
           title={t('roles.deleteTitle')}
           description={t('roles.deleteConfirm', { name: row.original.name })}
