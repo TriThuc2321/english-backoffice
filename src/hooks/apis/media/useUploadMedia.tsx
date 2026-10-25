@@ -4,12 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import type { UploadMediaPayload } from '@/types/media';
 
-import { MEDIA_CONTENT_TYPES, MEDIA_MAX_BYTES } from '@/constants/media';
 import { REACT_QUERY_KEYS } from '@/constants/reactQuery';
 import { mediaApi } from '@/services/apis';
 import { MediaKind } from '@/types/test';
+import { assertMediaFile } from '@/utils/media';
 
-// Best effort: the API accepts audio without a duration
 const readAudioDuration = (file: File) =>
   new Promise<number | undefined>((resolve) => {
     const url = URL.createObjectURL(file);
@@ -34,28 +33,26 @@ const useUploadMedia = () => {
   const { t } = useTranslation();
 
   return useMutation({
-    mutationFn: async ({ testId, kind, file }: UploadMediaPayload) => {
-      if (!MEDIA_CONTENT_TYPES[kind].includes(file.type)) {
-        throw { message: t('tests.editor.media.invalidType') };
-      }
-      if (file.size > MEDIA_MAX_BYTES[kind]) {
-        throw {
-          message: t('tests.editor.media.tooLarge', {
-            size: MEDIA_MAX_BYTES[kind] / 1024 / 1024,
-          }),
-        };
-      }
+    mutationFn: async ({ scope, ownerId, kind, file }: UploadMediaPayload) => {
+      assertMediaFile(t, file, scope, kind);
 
       const durationMs =
         kind === MediaKind.AUDIO ? await readAudioDuration(file) : undefined;
       const { storageKey, uploadUrl, headers } = await mediaApi.getUploadUrl({
-        testId,
+        scope,
+        ownerId,
         kind,
         contentType: file.type,
       });
       await mediaApi.putFile(uploadUrl, file, headers);
 
-      return mediaApi.create({ testId, kind, storageKey, durationMs });
+      return mediaApi.create({
+        scope,
+        ownerId,
+        kind,
+        storageKey,
+        durationMs,
+      });
     },
     onSuccess: () => {
       toast.success(t('tests.toast.mediaUploadSuccess'));

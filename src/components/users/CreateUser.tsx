@@ -16,7 +16,6 @@ const CreateUser = () => {
       email: '',
       firstName: '',
       lastName: '',
-      avatar: '',
       phone: '',
       dateOfBirth: '',
       address: '',

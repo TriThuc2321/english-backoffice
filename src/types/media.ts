@@ -1,9 +1,19 @@
 import type { Audit, Nullable, Params, Response } from './common';
 import type { MediaKind } from './test';
 
-export type Media = {
+export enum MediaScope {
+  TEST = 'TEST',
+  AVATAR = 'AVATAR',
+}
+
+// ownerId is the test id (as a string) for TEST, the user uuid for AVATAR
+type MediaOwner = {
+  scope: MediaScope;
+  ownerId: string;
+};
+
+export type Media = MediaOwner & {
   id: number;
-  testId: number;
   kind: MediaKind;
   storageKey: string;
   url: string;
@@ -15,13 +25,11 @@ export type Media = {
   auditMetadata?: Audit;
 };
 
-export type GetMediaParams = Params &
-  Partial<{ testId: number; kind: MediaKind }>;
+export type GetMediaParams = Params & Partial<MediaOwner & { kind: MediaKind }>;
 
 export type GetMediaResponse = Response<Media[]>;
 
-export type UploadUrlPayload = {
-  testId: number;
+export type UploadUrlPayload = MediaOwner & {
   kind: MediaKind;
   contentType: string;
 };
@@ -34,8 +42,7 @@ export type UploadUrlResult = {
   expiresIn: number;
 };
 
-export type CreateMediaPayload = {
-  testId: number;
+export type CreateMediaPayload = MediaOwner & {
   kind: MediaKind;
   storageKey: string;
   durationMs?: number;
@@ -47,8 +54,19 @@ export type EditMediaPayload = { id: number } & Partial<{
   transcript: string | null;
 }>;
 
-export type UploadMediaPayload = {
-  testId: number;
+export type UploadMediaPayload = MediaOwner & {
   kind: MediaKind;
   file: File;
+};
+
+export type MyAvatarUploadUrlPayload = {
+  contentType: string;
+};
+
+export type SetMyAvatarPayload = {
+  storageKey: string;
+};
+
+export type MyAvatarResponse = {
+  avatar: string | null;
 };

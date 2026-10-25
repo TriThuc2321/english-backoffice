@@ -227,6 +227,21 @@ const vi = {
       certFileUrl: 'URL tệp đính kèm',
     },
   },
+  avatar: {
+    menu: 'Ảnh đại diện',
+    change: 'Đổi ảnh đại diện',
+    remove: 'Xoá ảnh đại diện',
+    toast: {
+      updateSuccess: 'Đã cập nhật ảnh đại diện',
+      updateError: 'Cập nhật ảnh đại diện thất bại',
+      removeSuccess: 'Đã xoá ảnh đại diện',
+      removeError: 'Xoá ảnh đại diện thất bại',
+    },
+  },
+  media: {
+    invalidType: 'Định dạng tệp không được hỗ trợ',
+    tooLarge: 'Tệp lớn hơn {{size}} MB',
+  },
   cmsUsers: {
     createTitle: 'Tạo người dùng',
     editTitle: 'Chỉnh sửa người dùng',
@@ -260,7 +275,6 @@ const vi = {
       email: 'Email',
       firstName: 'Tên',
       lastName: 'Họ',
-      avatar: 'URL ảnh đại diện',
       role: 'Vai trò',
       phone: 'Điện thoại',
       dateOfBirth: 'Ngày sinh',
@@ -701,8 +715,6 @@ const vi = {
         upload: 'Tải lên',
         uploading: 'Đang tải lên...',
         clear: 'Bỏ chọn',
-        invalidType: 'Định dạng tệp không được hỗ trợ',
-        tooLarge: 'Tệp lớn hơn {{size}} MB',
       },
       part: {
         title: 'Tiêu đề',

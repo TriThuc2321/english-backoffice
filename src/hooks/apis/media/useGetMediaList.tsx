@@ -9,7 +9,7 @@ const useGetMediaList = (params: GetMediaParams) =>
   useQuery({
     queryKey: [REACT_QUERY_KEYS.MEDIA.LIST, params],
     queryFn: () => mediaApi.getAll(params),
-    enabled: !!params.testId,
+    enabled: !!params.ownerId,
     placeholderData: keepPreviousData,
   });
 
