@@ -1,0 +1,2505 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Question Formats Preview</title>
+    <style>
+      :root {
+        --bg: #f5f5f2;
+        --surface: #ffffff;
+        --surface-2: #f0efea;
+        --text: #1d1d1b;
+        --muted: #6b6a64;
+        --line: #e2e0d8;
+        --accent: #2f5bd3;
+        --accent-soft: #e6ecfb;
+        --ok: #1f8a4c;
+        --ok-soft: #e3f4ea;
+        --bad: #c23b31;
+        --bad-soft: #fbe6e4;
+        --warn: #b7791f;
+        --code-bg: #f7f6f2;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --bg: #141413;
+          --surface: #1d1d1b;
+          --surface-2: #262624;
+          --text: #ecebe6;
+          --muted: #9c9a92;
+          --line: #34332f;
+          --accent: #7b9bff;
+          --accent-soft: #232c45;
+          --ok: #4cc27e;
+          --ok-soft: #173325;
+          --bad: #ff7a6e;
+          --bad-soft: #3b1f1c;
+          --warn: #e0a84a;
+          --code-bg: #181817;
+        }
+      }
+      :root[data-theme='dark'] {
+        --bg: #141413;
+        --surface: #1d1d1b;
+        --surface-2: #262624;
+        --text: #ecebe6;
+        --muted: #9c9a92;
+        --line: #34332f;
+        --accent: #7b9bff;
+        --accent-soft: #232c45;
+        --ok: #4cc27e;
+        --ok-soft: #173325;
+        --bad: #ff7a6e;
+        --bad-soft: #3b1f1c;
+        --warn: #e0a84a;
+        --code-bg: #181817;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          15px/1.55 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        min-height: 100vh;
+      }
+      nav {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 20px 14px;
+        border-right: 1px solid var(--line);
+        background: var(--surface);
+      }
+      nav h1 {
+        font-size: 16px;
+        margin: 0 6px 4px;
+      }
+      nav .sub {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 0 6px 14px;
+      }
+      nav input[type='search'] {
+        width: 100%;
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--bg);
+        margin-bottom: 12px;
+      }
+      nav .sec {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin: 14px 6px 4px;
+      }
+      nav a {
+        display: block;
+        padding: 4px 8px;
+        border-radius: 6px;
+        color: var(--text);
+        text-decoration: none;
+        font-family: var(--mono);
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      nav a:hover {
+        background: var(--surface-2);
+      }
+      main {
+        padding: 28px clamp(16px, 4vw, 48px) 80px;
+        max-width: 1100px;
+      }
+      .intro {
+        margin-bottom: 28px;
+        color: var(--muted);
+        max-width: 760px;
+      }
+      .intro h2 {
+        color: var(--text);
+        margin: 0 0 6px;
+        font-size: 22px;
+      }
+      .intro code {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--text);
+      }
+      .section-title {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin: 40px 0 12px;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        margin-bottom: 22px;
+        overflow: hidden;
+        scroll-margin-top: 16px;
+      }
+      .card-head {
+        padding: 16px 20px 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .card-head .type {
+        font-family: var(--mono);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .card-head .also {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin: 6px 0;
+      }
+      .tag {
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 99px;
+        background: var(--surface-2);
+        color: var(--muted);
+      }
+      .card-head p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      /* Student "exam screen" */
+      .screen {
+        background: var(--bg);
+        padding: 16px;
+      }
+      .exam {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+      .exam-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--line);
+        flex-wrap: wrap;
+      }
+      .exam-top .qs {
+        font-weight: 700;
+      }
+      .exam-top .instr {
+        font-style: italic;
+        color: var(--muted);
+        font-size: 14px;
+        flex-basis: 100%;
+        white-space: pre-line;
+      }
+      .exam-top .instr b {
+        color: var(--text);
+        font-style: normal;
+      }
+      .exam-body {
+        padding: 16px;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .split .passage {
+        border-right: 1px solid var(--line);
+        max-height: 460px;
+        overflow-y: auto;
+        padding: 16px;
+        font-size: 14px;
+      }
+      .passage h4 {
+        margin: 0 0 8px;
+      }
+      .passage p {
+        margin: 0 0 10px;
+      }
+      .passage .pl {
+        font-weight: 700;
+        margin-right: 6px;
+      }
+
+      .q {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px;
+        padding: 8px;
+        border-radius: 8px;
+        margin-bottom: 6px;
+        border: 1px solid transparent;
+      }
+      .qnum {
+        min-width: 28px;
+        height: 26px;
+        padding: 0 6px;
+        border-radius: 6px;
+        background: var(--surface-2);
+        font-weight: 700;
+        font-size: 13px;
+        display: grid;
+        place-items: center;
+      }
+      .prompt {
+        margin: 2px 0 8px;
+      }
+      .hint {
+        margin: -4px 0 8px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .choices {
+        display: grid;
+        gap: 4px;
+      }
+      .choice {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        cursor: pointer;
+      }
+      .choice:hover {
+        background: var(--surface-2);
+      }
+      .choice input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .choice .key {
+        flex: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 1.5px solid var(--muted);
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .choice:has(input:checked) {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+      .choice:has(input:checked) .key {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .choice:has(input[type='checkbox']) .key {
+        border-radius: 5px;
+      }
+      .choice:has(input:focus-visible) {
+        outline: 2px solid var(--accent);
+        outline-offset: 1px;
+      }
+      .bubbles {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .bubbles .choice {
+        border: none;
+        padding: 0;
+      }
+      .bubbles .choice .key {
+        width: 38px;
+        height: 38px;
+        font-size: 15px;
+      }
+
+      .pills {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .pills .choice {
+        padding: 4px 12px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .pills .choice .key {
+        display: none;
+      }
+
+      .box {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 14px;
+        background: var(--surface-2);
+      }
+      .box h5 {
+        margin: 0 0 6px;
+        font-size: 13px;
+      }
+      .box ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 2px;
+        font-size: 14px;
+      }
+      .box ol b {
+        display: inline-block;
+        min-width: 30px;
+      }
+      .bank {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        font-size: 14px;
+      }
+
+      .blank {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        vertical-align: baseline;
+        margin: 2px 2px;
+        border-radius: 6px;
+        padding: 0 2px;
+      }
+      .blank > b {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .blank input,
+      .blank select,
+      .q select {
+        border: none;
+        border-bottom: 1.5px solid var(--muted);
+        background: transparent;
+        padding: 1px 4px;
+        width: 9em;
+        min-width: 0;
+      }
+      .blank select,
+      .q select {
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 3px 6px;
+        width: auto;
+        min-width: 70px;
+        background: var(--surface);
+      }
+      .blank input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 1px;
+        border-radius: 4px;
+      }
+      .line {
+        margin: 6px 0;
+      }
+
+      .form-sheet {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px 18px;
+        max-width: 520px;
+      }
+      .form-sheet .line {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: baseline;
+        padding: 4px 0;
+        border-bottom: 1px dashed var(--line);
+      }
+      .form-sheet h5,
+      .notes h5 {
+        margin: 4px 0 6px;
+        font-size: 15px;
+      }
+      .notes {
+        padding: 4px 4px;
+      }
+      .notes ul {
+        margin: 0 0 10px;
+        padding-left: 22px;
+      }
+      .flow {
+        display: grid;
+        justify-items: center;
+        gap: 0;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      .flow .step {
+        border: 1.5px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 14px;
+        width: 100%;
+        text-align: center;
+        background: var(--surface);
+      }
+      .flow .arrow {
+        color: var(--muted);
+        line-height: 1;
+        padding: 3px 0;
+      }
+      table.grid {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 14px;
+      }
+      table.grid th,
+      table.grid td {
+        border: 1px solid var(--line);
+        padding: 8px 10px;
+        text-align: left;
+      }
+      table.grid th {
+        background: var(--surface-2);
+      }
+      .matrix td,
+      .matrix th {
+        text-align: center !important;
+        padding: 5px 4px !important;
+      }
+      .matrix td:first-child {
+        text-align: left !important;
+        white-space: nowrap;
+        padding: 5px 8px !important;
+      }
+      .matrix label {
+        display: inline-grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 1.5px solid var(--muted);
+        cursor: pointer;
+      }
+      .matrix input {
+        position: absolute;
+        opacity: 0;
+      }
+      .matrix label:has(input:checked) {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .figure-wrap {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+      }
+      figure {
+        margin: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px;
+        background: var(--surface-2);
+      }
+      figure svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        color: var(--text);
+      }
+      figcaption {
+        font-size: 12px;
+        color: var(--muted);
+        text-align: center;
+        margin-top: 4px;
+      }
+
+      .audio {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        margin-bottom: 14px;
+        max-width: 420px;
+      }
+      .audio button {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: none;
+        background: var(--accent);
+        color: #fff;
+        cursor: pointer;
+        flex: none;
+      }
+      .audio .track {
+        flex: 1;
+        height: 4px;
+        border-radius: 4px;
+        background: var(--line);
+        position: relative;
+        overflow: hidden;
+      }
+      .audio .track i {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 0;
+        background: var(--accent);
+      }
+      .audio small {
+        color: var(--muted);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .transcript {
+        display: none;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
+        border-left: 3px solid var(--line);
+        padding-left: 10px;
+        white-space: pre-line;
+      }
+      .checked .transcript {
+        display: block;
+      }
+      .tpassage {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px 18px;
+        margin-bottom: 16px;
+        font-size: 14px;
+        white-space: pre-line;
+      }
+      .tblank {
+        display: inline-block;
+        min-width: 90px;
+        border-bottom: 1.5px solid var(--text);
+        text-align: center;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .rec {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 12px 14px;
+        display: grid;
+        gap: 8px;
+        max-width: 460px;
+      }
+      .rec .phase {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+      }
+      .rec .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--muted);
+      }
+      .rec[data-state='prep'] .dot {
+        background: var(--warn);
+      }
+      .rec[data-state='resp'] .dot {
+        background: var(--bad);
+        animation: pulse 1s infinite;
+      }
+      .rec[data-state='done'] .dot {
+        background: var(--ok);
+      }
+      .rec .clock {
+        margin-left: auto;
+        font-family: var(--mono);
+        font-size: 20px;
+      }
+      .rec .bar {
+        height: 5px;
+        border-radius: 5px;
+        background: var(--line);
+        overflow: hidden;
+      }
+      .rec .bar i {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: var(--accent);
+        transition: width 0.3s linear;
+      }
+      .rec .meta {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      @keyframes pulse {
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .task {
+        margin-bottom: 18px;
+      }
+      .task .prompt {
+        white-space: pre-line;
+      }
+      .readtext {
+        font-size: 16px;
+        line-height: 1.7;
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+      textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        resize: vertical;
+      }
+      .wc {
+        font-size: 12px;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        margin-top: 4px;
+      }
+      .email {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      .email .hd {
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .email .bd {
+        padding: 10px 12px;
+        white-space: pre-line;
+      }
+      .keywords {
+        display: inline-flex;
+        gap: 8px;
+        margin: 6px 0;
+      }
+      .keywords span {
+        font-weight: 700;
+        border: 1.5px solid var(--text);
+        padding: 2px 10px;
+        border-radius: 4px;
+      }
+
+      /* grading */
+      .ok {
+        border-color: var(--ok) !important;
+        background: var(--ok-soft);
+      }
+      .bad {
+        border-color: var(--bad) !important;
+        background: var(--bad-soft);
+      }
+      .blank.ok,
+      .blank.bad {
+        border: 1px solid;
+      }
+      .fb {
+        font-size: 12px;
+        font-weight: 600;
+        margin-left: 4px;
+      }
+      .q .fb {
+        display: block;
+        margin: 6px 0 0;
+      }
+      .ok > .fb,
+      .ok .fb {
+        color: var(--ok);
+      }
+      .bad > .fb,
+      .bad .fb {
+        color: var(--bad);
+      }
+      .sample {
+        display: none;
+        margin-top: 8px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: var(--ok-soft);
+        font-size: 14px;
+        white-space: pre-line;
+      }
+      .checked .sample {
+        display: block;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 12px 16px;
+        border-top: 1px solid var(--line);
+        flex-wrap: wrap;
+      }
+      .btn {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        padding: 6px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .btn.small {
+        padding: 4px 12px;
+        font-size: 13px;
+        justify-self: start;
+      }
+      .score {
+        font-size: 14px;
+        color: var(--muted);
+        margin-left: auto;
+      }
+
+      details.json {
+        border-top: 1px solid var(--line);
+      }
+      details.json summary {
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      details.json pre {
+        margin: 0;
+        padding: 14px 20px;
+        background: var(--code-bg);
+        font: 12.5px/1.5 var(--mono);
+        overflow-x: auto;
+      }
+      .jk {
+        color: var(--accent);
+      }
+      .js {
+        color: var(--ok);
+      }
+      .jn {
+        color: var(--warn);
+      }
+      .theme-toggle {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        z-index: 5;
+      }
+
+      @media (max-width: 860px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        nav {
+          position: static;
+          height: auto;
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+        }
+        nav .links {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 2px;
+        }
+        nav .sec {
+          flex-basis: 100%;
+        }
+        .split,
+        .figure-wrap {
+          grid-template-columns: 1fr;
+        }
+        .split .passage {
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+          max-height: 300px;
+        }
+        .theme-toggle {
+          position: absolute;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button
+      class="btn small theme-toggle"
+      id="theme"
+      type="button"
+      aria-label="Toggle theme"
+    >
+      ◐
+    </button>
+    <div class="layout">
+      <nav>
+        <h1>Question formats</h1>
+        <div class="sub">What each type looks like to the student</div>
+        <input
+          type="search"
+          id="filter"
+          placeholder="Filter types…"
+          aria-label="Filter question types"
+        />
+        <div class="links" id="links"></div>
+      </nav>
+      <main>
+        <div class="intro">
+          <h2>Student view of every question type</h2>
+          Each card shows a sample group rendered the way a student meets it in
+          a test, built from the JSON shapes in
+          <code>question-formats.md</code>. Answer it and press <b>Check</b> to
+          see grading by <code>key</code>, <code>keys</code> or
+          <code>accepted</code>; Speaking/Writing types reveal the
+          <code>sample</code>. Open <b>Data (JSON)</b> to see exactly what is
+          stored in <code>question_groups</code> / <code>questions</code>.
+          Passages, images and audio are placeholders here (they come from
+          <code>group_passages</code> and media ids).
+        </div>
+        <div id="cards"></div>
+      </main>
+    </div>
+
+    <script>
+      // ---------- shared sample passage ----------
+      const URBAN = {
+        title: 'The rise of urban farming',
+        paragraphs: [
+          [
+            'A',
+            'In the last two decades, cities around the world have seen a quiet revival of food growing. Rooftops, abandoned lots and even shipping containers now produce vegetables for local markets.',
+          ],
+          [
+            'B',
+            'Early projects were run by volunteers and depended on donated land. Many closed within a few years when owners sold the plots to developers.',
+          ],
+          [
+            'C',
+            'More recent schemes use hydroponics, growing plants in nutrient-rich water instead of soil. Supporters claim this uses up to 90 percent less water than conventional farming.',
+          ],
+          [
+            'D',
+            'Critics point out that the energy needed for lighting and climate control can be high. A 2019 study in Singapore found that indoor farms used more electricity per kilogram than imported produce required for transport.',
+          ],
+          [
+            'E',
+            'City governments have begun to respond. Paris now requires new commercial buildings to include either green roofs or solar panels, and several cities offer tax reductions for rooftop farms.',
+          ],
+        ],
+      };
+
+      // ---------- samples: group + questions exactly as stored ----------
+      // `n` = numberFrom, `nTo` = numberTo. passage / figure / audio / transcript are preview-only.
+      const SAMPLES = [
+        // ===== Choice =====
+        {
+          section: 'Multiple choice',
+          id: 'mc',
+          type: 'MULTIPLE_CHOICE',
+          view: 'mcq',
+          tags: ['IELTS Listening', 'IELTS Reading', 'TOEIC Part 3, 4, 5, 7'],
+          desc: 'One question, one correct letter. The student clicks a single option.',
+          group: { instruction: 'Choose the correct letter, A, B or C.' },
+          audio: '0:48',
+          questions: [
+            {
+              n: 1,
+              prompt: 'Where will the speakers meet on Friday?',
+              content: {
+                options: [
+                  { key: 'A', text: 'at the station' },
+                  { key: 'B', text: 'in the office' },
+                  { key: 'C', text: 'at the café' },
+                ],
+              },
+              answer: { key: 'B' },
+            },
+            {
+              n: 2,
+              prompt: 'What does the woman need to bring?',
+              content: {
+                options: [
+                  { key: 'A', text: 'a passport photo' },
+                  { key: 'B', text: 'a utility bill' },
+                  { key: 'C', text: 'her student card' },
+                ],
+              },
+              answer: { key: 'C' },
+            },
+          ],
+        },
+        {
+          section: 'Multiple choice',
+          id: 'mcm',
+          type: 'MULTIPLE_CHOICE_MULTI',
+          view: 'multi',
+          tags: ['IELTS Listening', 'IELTS Reading'],
+          desc: 'One question row covers a number range (here 3–4). The student ticks exactly N boxes; each correct key scores one mark, order does not matter.',
+          group: { instruction: 'Choose TWO letters, A–E.' },
+          questions: [
+            {
+              n: 3,
+              nTo: 4,
+              prompt:
+                'Which TWO benefits of the new library does the speaker mention?',
+              content: {
+                options: [
+                  { key: 'A', text: 'longer opening hours' },
+                  { key: 'B', text: 'free parking' },
+                  { key: 'C', text: "a larger children's section" },
+                  { key: 'D', text: 'quiet study rooms' },
+                  { key: 'E', text: 'a rooftop café' },
+                ],
+              },
+              answer: { keys: ['A', 'D'] },
+            },
+          ],
+        },
+
+        // ===== Judgement =====
+        {
+          section: 'Judgement',
+          id: 'tfng',
+          type: 'TRUE_FALSE_NOT_GIVEN',
+          also: ['YES_NO_NOT_GIVEN'],
+          view: 'judge',
+          tags: ['IELTS Reading'],
+          passage: URBAN,
+          desc: "The passage sits next to a list of statements. The student picks TRUE / FALSE / NOT GIVEN for each. YES_NO_NOT_GIVEN looks the same with YES / NO / NOT GIVEN (used for the writer's opinions). No content is stored — the statement is the question prompt.",
+          group: {
+            instruction:
+              'Do the following statements agree with the information given in the reading passage?\nWrite TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, NOT GIVEN if there is no information on this.',
+          },
+          questions: [
+            {
+              n: 5,
+              prompt:
+                'Most early urban farming projects were on land owned by the farmers.',
+              answer: { key: 'FALSE' },
+            },
+            {
+              n: 6,
+              prompt:
+                'Hydroponic systems can use far less water than traditional farms.',
+              answer: { key: 'TRUE' },
+            },
+            {
+              n: 7,
+              prompt:
+                'Indoor farms in Singapore are more profitable than imported produce.',
+              answer: { key: 'NOT_GIVEN' },
+            },
+          ],
+        },
+
+        // ===== Matching =====
+        {
+          section: 'Matching',
+          id: 'mh',
+          type: 'MATCHING_HEADINGS',
+          view: 'matching',
+          boxTitle: 'List of Headings',
+          tags: ['IELTS Reading'],
+          passage: URBAN,
+          desc: 'The list of options is stored once on the group; each question is a paragraph and gets a dropdown of option keys.',
+          group: {
+            instruction:
+              'The reading passage has five paragraphs, A–E. Choose the correct heading for paragraphs B–E from the list of headings below.',
+            content: {
+              options: [
+                { key: 'i', text: 'Weighing the environmental cost' },
+                { key: 'ii', text: 'From empty spaces to productive land' },
+                { key: 'iii', text: 'A short-lived first wave' },
+                { key: 'iv', text: 'Official encouragement' },
+                { key: 'v', text: 'Technology replaces soil' },
+                { key: 'vi', text: 'The rising price of vegetables' },
+              ],
+              allowReuse: false,
+            },
+          },
+          questions: [
+            { n: 8, prompt: 'Paragraph B', answer: { key: 'iii' } },
+            { n: 9, prompt: 'Paragraph C', answer: { key: 'v' } },
+            { n: 10, prompt: 'Paragraph D', answer: { key: 'i' } },
+            { n: 11, prompt: 'Paragraph E', answer: { key: 'iv' } },
+          ],
+        },
+        {
+          section: 'Matching',
+          id: 'mi',
+          type: 'MATCHING_INFORMATION',
+          view: 'matching',
+          tags: ['IELTS Reading'],
+          passage: URBAN,
+          desc: 'Keys are the paragraph letters; option text is optional, so there is no list box — only the letter dropdown.',
+          group: {
+            instruction:
+              'The reading passage has five paragraphs, A–E. Which paragraph contains the following information?\nNB You may use any letter more than once.',
+            content: {
+              options: [
+                { key: 'A' },
+                { key: 'B' },
+                { key: 'C' },
+                { key: 'D' },
+                { key: 'E' },
+              ],
+              allowReuse: true,
+            },
+          },
+          questions: [
+            {
+              n: 12,
+              prompt: 'a reference to a legal requirement',
+              answer: { key: 'E' },
+            },
+            {
+              n: 13,
+              prompt: 'a comparison of energy use',
+              answer: { key: 'D' },
+            },
+            {
+              n: 14,
+              prompt: 'a reason why some projects failed',
+              answer: { key: 'B' },
+            },
+          ],
+        },
+        {
+          section: 'Matching',
+          id: 'mf',
+          type: 'MATCHING_FEATURES',
+          view: 'matching',
+          boxTitle: 'List of People',
+          tags: ['IELTS Reading', 'IELTS Listening'],
+          desc: 'Match each statement to a person / place / feature. With allowReuse the same letter can be picked for several questions.',
+          group: {
+            instruction:
+              'Match each statement with the correct person, A, B or C.\nNB You may use any letter more than once.',
+            content: {
+              options: [
+                { key: 'A', text: 'Dr Lena Ortiz' },
+                { key: 'B', text: 'Prof. Kenji Sato' },
+                { key: 'C', text: 'Maria Bell' },
+              ],
+              allowReuse: true,
+            },
+          },
+          questions: [
+            {
+              n: 15,
+              prompt: 'Rooftop farms improve relations between neighbours.',
+              answer: { key: 'A' },
+            },
+            {
+              n: 16,
+              prompt:
+                'The cost of artificial lighting is often underestimated.',
+              answer: { key: 'B' },
+            },
+            {
+              n: 17,
+              prompt: 'Small farms will never meet the demand of a large city.',
+              answer: { key: 'B' },
+            },
+          ],
+        },
+        {
+          section: 'Matching',
+          id: 'mse',
+          type: 'MATCHING_SENTENCE_ENDINGS',
+          view: 'matching',
+          boxTitle: 'Endings',
+          tags: ['IELTS Reading'],
+          desc: 'Each question prompt is a sentence beginning; the student chooses the ending letter.',
+          group: {
+            instruction: 'Complete each sentence with the correct ending, A–E.',
+            content: {
+              options: [
+                { key: 'A', text: 'were often lost to property development.' },
+                { key: 'B', text: 'must include green roofs or solar panels.' },
+                { key: 'C', text: 'use less water than soil-based farms.' },
+                { key: 'D', text: 'are cheaper than imported vegetables.' },
+                { key: 'E', text: 'may consume a lot of electricity.' },
+              ],
+            },
+          },
+          questions: [
+            { n: 18, prompt: 'Hydroponic farms', answer: { key: 'C' } },
+            { n: 19, prompt: 'Early volunteer projects', answer: { key: 'A' } },
+            {
+              n: 20,
+              prompt: 'New commercial buildings in Paris',
+              answer: { key: 'B' },
+            },
+          ],
+        },
+        {
+          section: 'Matching',
+          id: 'cls',
+          type: 'CLASSIFICATION',
+          view: 'matching',
+          boxTitle: 'Categories',
+          tags: ['IELTS Reading'],
+          desc: 'Same UI as other matching types; the options are categories that can be reused.',
+          group: {
+            instruction:
+              'Classify the following features as belonging to\nA  volunteer farms   B  hydroponic farms   C  both',
+            content: {
+              options: [
+                { key: 'A', text: 'volunteer farms' },
+                { key: 'B', text: 'hydroponic farms' },
+                { key: 'C', text: 'both' },
+              ],
+              allowReuse: true,
+            },
+          },
+          questions: [
+            {
+              n: 21,
+              prompt: 'grow food for local markets',
+              answer: { key: 'C' },
+            },
+            { n: 22, prompt: 'rely on donated land', answer: { key: 'A' } },
+            { n: 23, prompt: 'need climate control', answer: { key: 'B' } },
+          ],
+        },
+
+        // ===== Completion =====
+        {
+          section: 'Completion',
+          id: 'form',
+          type: 'FORM_COMPLETION',
+          view: 'template',
+          variant: 'form',
+          tags: ['IELTS Listening'],
+          audio: '1:12',
+          desc: 'The whole form lives in group.content.template; every {{n}} becomes a text box for question n. Graded against accepted after normalising + word limit.',
+          group: {
+            instruction:
+              'Complete the form below.\nWrite ONE WORD AND/OR A NUMBER for each answer.',
+            wordLimit: 1,
+            content: {
+              template:
+                '# Customer details\nName: Sarah {{1}}\nAddress: 42 {{2}} Street, Bristol\nPostcode: {{3}}\nPreferred day for delivery: {{4}}',
+            },
+          },
+          questions: [
+            { n: 1, answer: { accepted: ['Jenkins'] } },
+            { n: 2, answer: { accepted: ['Hill'] } },
+            { n: 3, answer: { accepted: ['BS84RE', 'BS8 4RE'] } },
+            { n: 4, answer: { accepted: ['Thursday'] } },
+          ],
+        },
+        {
+          section: 'Completion',
+          id: 'note',
+          type: 'NOTE_COMPLETION',
+          view: 'template',
+          variant: 'note',
+          tags: ['IELTS Listening', 'IELTS Reading'],
+          audio: '1:30',
+          desc: 'Same storage as FORM_COMPLETION, rendered as headed bullet notes.',
+          group: {
+            instruction:
+              'Complete the notes below.\nWrite NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.',
+            wordLimit: 2,
+            content: {
+              template:
+                '# Museum tour\n- Meeting point: the {{5}}\n- Tour lasts about {{6}} minutes\n# Facilities\n- Café closes at {{7}}\n- Lockers cost £{{8}}',
+            },
+          },
+          questions: [
+            { n: 5, answer: { accepted: ['main entrance', 'entrance'] } },
+            { n: 6, answer: { accepted: ['90', 'ninety'] } },
+            { n: 7, answer: { accepted: ['5 pm', '5pm', 'five pm', '17:00'] } },
+            { n: 8, answer: { accepted: ['2', 'two'] } },
+          ],
+        },
+        {
+          section: 'Completion',
+          id: 'flow',
+          type: 'FLOW_CHART_COMPLETION',
+          view: 'template',
+          variant: 'flow',
+          tags: ['IELTS Reading', 'IELTS Listening'],
+          desc: 'Same storage; each line of the template is drawn as a step box with arrows between them.',
+          group: {
+            instruction:
+              'Complete the flow-chart below.\nChoose NO MORE THAN TWO WORDS from the passage for each answer.',
+            wordLimit: 2,
+            content: {
+              template:
+                'Seeds are placed in trays of {{9}}\nTrays move to the germination room for {{10}} days\nSeedlings are transferred to floating {{11}}\nPlants are harvested and {{12}}',
+            },
+          },
+          questions: [
+            { n: 9, answer: { accepted: ['rock wool', 'rockwool'] } },
+            { n: 10, answer: { accepted: ['5', 'five'] } },
+            { n: 11, answer: { accepted: ['rafts'] } },
+            { n: 12, answer: { accepted: ['packed', 'packaged'] } },
+          ],
+        },
+        {
+          section: 'Completion',
+          id: 'sent',
+          type: 'SENTENCE_COMPLETION',
+          view: 'sentence',
+          tags: ['IELTS Reading', 'IELTS Listening'],
+          passage: URBAN,
+          desc: "Usually no group template: each question's prompt holds its own sentence with {{n}}.",
+          group: {
+            instruction:
+              'Complete the sentences below.\nChoose NO MORE THAN TWO WORDS AND/OR A NUMBER from the passage for each answer.',
+            wordLimit: 2,
+          },
+          questions: [
+            {
+              n: 13,
+              prompt:
+                'Hydroponics may use up to {{13}} less water than conventional farming.',
+              answer: { accepted: ['90 percent', '90%', 'ninety percent'] },
+            },
+            {
+              n: 14,
+              prompt:
+                'Many early projects closed when land was sold to {{14}}.',
+              answer: { accepted: ['developers'] },
+            },
+            {
+              n: 15,
+              prompt:
+                'A study in {{15}} compared the electricity used by indoor farms with transport.',
+              answer: { accepted: ['Singapore'] },
+            },
+          ],
+        },
+        {
+          section: 'Completion',
+          id: 'sum',
+          type: 'SUMMARY_COMPLETION',
+          view: 'summary',
+          boxTitle: 'Word bank',
+          tags: ['IELTS Reading', 'IELTS Listening'],
+          passage: URBAN,
+          desc: 'Template + optional word bank. With options, each gap is a letter dropdown and the answer is a key. Without options it behaves like note completion with accepted.',
+          group: {
+            instruction:
+              'Complete the summary using the list of words, A–F, below.',
+            content: {
+              template:
+                'Urban farming first grew through {{16}} effort, but many early sites were lost to {{17}}. Newer farms rely on {{18}}, although their {{19}} remains a concern for critics.',
+              options: [
+                { key: 'A', text: 'volunteer' },
+                { key: 'B', text: 'developers' },
+                { key: 'C', text: 'technology' },
+                { key: 'D', text: 'energy use' },
+                { key: 'E', text: 'government' },
+                { key: 'F', text: 'rainfall' },
+              ],
+            },
+          },
+          questions: [
+            { n: 16, answer: { key: 'A' } },
+            { n: 17, answer: { key: 'B' } },
+            { n: 18, answer: { key: 'C' } },
+            { n: 19, answer: { key: 'D' } },
+          ],
+        },
+        {
+          section: 'Completion',
+          id: 'table',
+          type: 'TABLE_COMPLETION',
+          view: 'table',
+          tags: ['IELTS Listening', 'IELTS Reading'],
+          audio: '1:05',
+          desc: 'group.content.table holds headers (optional) and rows; any cell may contain {{n}}.',
+          group: {
+            instruction:
+              'Complete the table below.\nWrite ONE WORD ONLY for each answer.',
+            wordLimit: 1,
+            content: {
+              table: {
+                headers: ['Event', 'Day', 'Location'],
+                rows: [
+                  ['Opening talk', 'Monday', '{{20}} hall'],
+                  ['Cookery class', '{{21}}', 'Kitchen 2'],
+                  ['{{22}} tour', 'Friday', 'Main gate'],
+                ],
+              },
+            },
+          },
+          questions: [
+            { n: 20, answer: { accepted: ['main'] } },
+            { n: 21, answer: { accepted: ['Wednesday'] } },
+            { n: 22, answer: { accepted: ['garden'] } },
+          ],
+        },
+
+        // ===== Labelling =====
+        {
+          section: 'Labelling',
+          id: 'diag',
+          type: 'DIAGRAM_LABELLING',
+          view: 'diagram',
+          figure: 'diagram',
+          tags: ['IELTS Reading', 'IELTS Listening'],
+          desc: 'No content: the image (image_media_id) already shows the numbers. Each question is a text box graded with accepted.',
+          group: {
+            instruction:
+              'Label the diagram below.\nChoose ONE WORD from the passage for each answer.',
+            wordLimit: 1,
+          },
+          questions: [
+            { n: 23, answer: { accepted: ['filter'] } },
+            { n: 24, answer: { accepted: ['tank'] } },
+            { n: 25, answer: { accepted: ['pump'] } },
+          ],
+        },
+        {
+          section: 'Labelling',
+          id: 'map',
+          type: 'MAP_LABELLING',
+          also: ['PLAN_LABELLING'],
+          view: 'map',
+          figure: 'map',
+          tags: ['IELTS Listening'],
+          audio: '1:40',
+          desc: 'group.content.options lists the letters printed on the map. The student fills a grid: one row per place, one column per letter. PLAN_LABELLING is identical with a floor plan.',
+          group: {
+            instruction:
+              'Label the map below.\nWrite the correct letter, A–F, next to Questions 26–29.',
+            content: {
+              options: [
+                { key: 'A' },
+                { key: 'B' },
+                { key: 'C' },
+                { key: 'D' },
+                { key: 'E' },
+                { key: 'F' },
+              ],
+            },
+          },
+          questions: [
+            { n: 26, prompt: 'Café', answer: { key: 'C' } },
+            { n: 27, prompt: 'Gift shop', answer: { key: 'A' } },
+            { n: 28, prompt: 'Toilets', answer: { key: 'F' } },
+            { n: 29, prompt: 'Picnic area', answer: { key: 'D' } },
+          ],
+        },
+        {
+          section: 'Labelling',
+          id: 'short',
+          type: 'SHORT_ANSWER',
+          view: 'short',
+          tags: ['IELTS Reading', 'IELTS Listening'],
+          passage: URBAN,
+          desc: 'A direct question with a free-text box. No content; graded with accepted.',
+          group: {
+            instruction:
+              'Answer the questions below.\nChoose NO MORE THAN THREE WORDS from the passage for each answer.',
+            wordLimit: 3,
+          },
+          questions: [
+            {
+              n: 30,
+              prompt: 'What do hydroponic plants grow in instead of soil?',
+              answer: { accepted: ['nutrient-rich water', 'water'] },
+            },
+            {
+              n: 31,
+              prompt: 'Which city requires green roofs or solar panels?',
+              answer: { accepted: ['Paris'] },
+            },
+          ],
+        },
+
+        // ===== TOEIC L&R =====
+        {
+          section: 'TOEIC Listening & Reading',
+          id: 'photo',
+          type: 'PHOTO_DESCRIPTION',
+          view: 'photo',
+          figure: 'photo',
+          tags: ['TOEIC Part 1'],
+          audio: '0:20',
+          desc: 'A photo plus audio with four statements. The options carry no text (students only hear them), so the student just picks a bubble.',
+          group: {
+            instruction:
+              'Look at the picture. You will hear four statements. Choose the one that best describes the picture.',
+          },
+          transcript:
+            "(A) The man is opening a window.\n(B) The woman is putting on her coat.\n(C) They're looking at a laptop screen.\n(D) Some chairs are being stacked.",
+          questions: [
+            {
+              n: 1,
+              content: {
+                options: [
+                  { key: 'A' },
+                  { key: 'B' },
+                  { key: 'C' },
+                  { key: 'D' },
+                ],
+              },
+              answer: { key: 'C' },
+            },
+          ],
+        },
+        {
+          section: 'TOEIC Listening & Reading',
+          id: 'qr',
+          type: 'QUESTION_RESPONSE',
+          view: 'qresp',
+          tags: ['TOEIC Part 2'],
+          audio: '0:12',
+          desc: 'Only audio: a question and three responses. Options A–C without text.',
+          group: {
+            instruction:
+              'You will hear a question or statement and three responses. Select the best response.',
+          },
+          transcript:
+            'When is the sales report due?\n(A) In the conference room.\n(B) By Thursday afternoon.\n(C) Yes, I reported it.',
+          questions: [
+            {
+              n: 7,
+              prompt: 'Mark your answer.',
+              content: { options: [{ key: 'A' }, { key: 'B' }, { key: 'C' }] },
+              answer: { key: 'B' },
+            },
+          ],
+        },
+        {
+          section: 'TOEIC Listening & Reading',
+          id: 'tc',
+          type: 'TEXT_COMPLETION',
+          view: 'textcomp',
+          tags: ['TOEIC Part 6'],
+          desc: 'The passage comes from group_passages with numbered gaps; each question has four text options. Choosing one fills the gap.',
+          group: {
+            instruction:
+              'Read the text. Choose the best answer to complete each blank.',
+          },
+          passageText:
+            'To: All staff\nFrom: Facilities Team\nSubject: Parking changes\n\nStarting next Monday, the east parking lot will be [[131]] for resurfacing. Employees who normally park there should use the visitor lot on Grove Street. [[132]], a shuttle bus will run every ten minutes between Grove Street and the main entrance.\n\nWe expect the work to be [[133]] by the end of the month. [[134]]',
+          questions: [
+            {
+              n: 131,
+              content: {
+                options: [
+                  { key: 'A', text: 'close' },
+                  { key: 'B', text: 'closed' },
+                  { key: 'C', text: 'closing' },
+                  { key: 'D', text: 'closure' },
+                ],
+              },
+              answer: { key: 'B' },
+            },
+            {
+              n: 132,
+              content: {
+                options: [
+                  { key: 'A', text: 'However' },
+                  { key: 'B', text: 'Instead' },
+                  { key: 'C', text: 'In addition' },
+                  { key: 'D', text: 'Otherwise' },
+                ],
+              },
+              answer: { key: 'C' },
+            },
+            {
+              n: 133,
+              content: {
+                options: [
+                  { key: 'A', text: 'completed' },
+                  { key: 'B', text: 'complete' },
+                  { key: 'C', text: 'completing' },
+                  { key: 'D', text: 'completion' },
+                ],
+              },
+              answer: { key: 'A' },
+            },
+            {
+              n: 134,
+              content: {
+                options: [
+                  { key: 'A', text: 'Thank you for your patience.' },
+                  { key: 'B', text: 'The lot opened in 2015.' },
+                  { key: 'C', text: 'Please submit your report.' },
+                  { key: 'D', text: 'Visitors are welcome.' },
+                ],
+              },
+              answer: { key: 'A' },
+            },
+          ],
+        },
+
+        // ===== Speaking =====
+        {
+          section: 'Speaking',
+          id: 'ra',
+          type: 'READ_ALOUD',
+          view: 'speak',
+          tags: ['TOEIC Speaking Q1–2'],
+          desc: 'The text to read is the prompt. Timing (prepSeconds / responseSeconds) drives the countdown; the student records, then the sample is shown for review.',
+          group: {
+            instruction:
+              'Read the text on the screen aloud. You will have 45 seconds to prepare and 45 seconds to read.',
+          },
+          questions: [
+            {
+              n: 1,
+              prompt:
+                'Welcome to Harbor City Museum. Today, our modern art gallery, sculpture garden, and history wing are open until six p.m. Guided tours begin every hour at the main desk. Please remember that photography is not permitted inside the special exhibition.',
+              content: { prepSeconds: 45, responseSeconds: 45 },
+              answer: {
+                sample: '(Reference reading recorded by a native speaker.)',
+                rubric: {
+                  pronunciation: 'Clear individual sounds',
+                  intonation: 'Natural stress and rhythm',
+                },
+              },
+            },
+          ],
+        },
+        {
+          section: 'Speaking',
+          id: 'dp',
+          type: 'DESCRIBE_PICTURE',
+          view: 'speak',
+          figure: 'photo',
+          tags: ['TOEIC Speaking Q3–4'],
+          desc: 'Picture comes from the question image; student describes it in detail.',
+          group: {
+            instruction:
+              'Describe the picture in as much detail as you can. You will have 45 seconds to prepare and 30 seconds to speak.',
+          },
+          questions: [
+            {
+              n: 3,
+              prompt: null,
+              content: { prepSeconds: 45, responseSeconds: 30 },
+              answer: {
+                sample:
+                  'This picture was taken in an office. Two people are sitting side by side at a desk, looking at a laptop. The woman on the left is pointing at the screen...',
+              },
+            },
+          ],
+        },
+        {
+          section: 'Speaking',
+          id: 'rtq',
+          type: 'RESPOND_TO_QUESTIONS',
+          view: 'speak',
+          tags: ['TOEIC Speaking Q5–7'],
+          desc: 'Three short questions on one topic, each with its own timing.',
+          group: {
+            instruction:
+              'Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about coffee shops.',
+          },
+          questions: [
+            {
+              n: 5,
+              prompt:
+                'How often do you go to a coffee shop, and who do you usually go with?',
+              content: { prepSeconds: 3, responseSeconds: 15 },
+              answer: {
+                sample:
+                  'I go about twice a week, usually with colleagues after lunch.',
+              },
+            },
+            {
+              n: 6,
+              prompt: 'What do you usually order?',
+              content: { prepSeconds: 3, responseSeconds: 15 },
+              answer: {
+                sample: 'I normally get a latte and sometimes a pastry.',
+              },
+            },
+            {
+              n: 7,
+              prompt:
+                'What would make you visit a new coffee shop in your neighbourhood? Why?',
+              content: { prepSeconds: 3, responseSeconds: 30 },
+              answer: {
+                sample:
+                  'A quiet place to work would attract me, because I often study on weekends...',
+              },
+            },
+          ],
+        },
+        {
+          section: 'Speaking',
+          id: 'rui',
+          type: 'RESPOND_USING_INFO',
+          view: 'speak',
+          tags: ['TOEIC Speaking Q8–10'],
+          desc: 'group.content.info is a small table (optional title) the student reads before answering questions about it.',
+          group: {
+            instruction:
+              'Answer three questions based on the information provided. You will have 45 seconds to read the information.',
+            content: {
+              info: {
+                title: 'Regional Sales Conference — Grand Hotel, May 12',
+                rows: [
+                  ['9:00 a.m.', 'Welcome speech — Linda Park'],
+                  ['10:00 a.m.', 'Workshop: Online marketing'],
+                  ['12:00 p.m.', 'Lunch (Garden Room)'],
+                  ['1:30 p.m.', 'Workshop: Customer retention (cancelled)'],
+                  ['3:00 p.m.', 'Panel discussion'],
+                ],
+              },
+            },
+          },
+          questions: [
+            {
+              n: 8,
+              prompt:
+                'What time does the conference start, and who gives the first talk?',
+              content: { prepSeconds: 3, responseSeconds: 15 },
+              answer: {
+                sample:
+                  'It starts at 9 a.m. with a welcome speech by Linda Park.',
+              },
+            },
+            {
+              n: 9,
+              prompt:
+                'I heard there is a workshop on customer retention in the afternoon. Is that right?',
+              content: { prepSeconds: 3, responseSeconds: 15 },
+              answer: { sample: 'Actually, that workshop has been cancelled.' },
+            },
+            {
+              n: 10,
+              prompt:
+                'Could you tell me about everything scheduled before lunch?',
+              content: { prepSeconds: 3, responseSeconds: 30 },
+              answer: {
+                sample:
+                  'Sure. At 9 there is a welcome speech, then at 10 a workshop on online marketing...',
+              },
+            },
+          ],
+        },
+        {
+          section: 'Speaking',
+          id: 'eo',
+          type: 'EXPRESS_OPINION',
+          view: 'speak',
+          tags: ['TOEIC Speaking Q11'],
+          desc: 'One opinion question with a long response window.',
+          group: {
+            instruction:
+              'Give your opinion about a specific topic. Say as much as you can in the time allowed.',
+          },
+          questions: [
+            {
+              n: 11,
+              prompt:
+                'Some people think employees should be allowed to work from home every day. Do you agree or disagree? Give reasons and examples.',
+              content: { prepSeconds: 45, responseSeconds: 60 },
+              answer: {
+                sample:
+                  'I partly agree. Working from home saves commuting time, but teams also need face-to-face contact...',
+                rubric: {
+                  organisation: 'Clear opinion + 2 supported reasons',
+                  language: 'Range of vocabulary and grammar',
+                },
+              },
+            },
+          ],
+        },
+
+        // ===== Writing =====
+        {
+          section: 'Writing',
+          id: 'wsp',
+          type: 'WRITE_SENTENCE_PICTURE',
+          view: 'write',
+          figure: 'photo',
+          rows: 2,
+          tags: ['TOEIC Writing Q1–5'],
+          desc: 'Picture + two words or phrases (in the prompt). The student writes ONE sentence that uses both.',
+          group: {
+            instruction:
+              'Write ONE sentence based on the picture, using the TWO words or phrases given. You can change the forms of the words and use them in any order.',
+          },
+          questions: [
+            {
+              n: 1,
+              prompt: 'woman / laptop',
+              content: { responseSeconds: 480 },
+              answer: {
+                sample: 'The woman is pointing at something on the laptop.',
+              },
+            },
+          ],
+        },
+        {
+          section: 'Writing',
+          id: 'rwr',
+          type: 'RESPOND_WRITTEN_REQUEST',
+          view: 'write',
+          email: true,
+          rows: 8,
+          tags: ['TOEIC Writing Q6–7'],
+          desc: 'An email is shown (prompt); the student writes a reply that completes the stated tasks.',
+          group: {
+            instruction:
+              'Read the e-mail. Respond as if you are the store manager. In your e-mail, give TWO pieces of information and make ONE request.',
+          },
+          questions: [
+            {
+              n: 6,
+              prompt:
+                'From: Daniel Moore\nTo: Store manager\nSubject: Order #4471\n\nHello, I ordered a desk lamp from your website two weeks ago, but it has not arrived yet. Could you tell me what is happening with my order?',
+              content: { responseSeconds: 600 },
+              answer: {
+                sample:
+                  'Dear Mr Moore,\nThank you for contacting us. Your lamp was delayed because... It will be shipped tomorrow and should arrive by Friday. Could you please confirm your delivery address?',
+              },
+            },
+          ],
+        },
+        {
+          section: 'Writing',
+          id: 'oe',
+          type: 'OPINION_ESSAY',
+          view: 'write',
+          rows: 12,
+          minWords: 300,
+          tags: ['TOEIC Writing Q8', 'IELTS Writing Task 2'],
+          desc: 'A single essay question; long timer and a live word counter.',
+          group: {
+            instruction:
+              'Write an essay in response to the question. Typically, an effective response will contain a minimum of 300 words.',
+          },
+          questions: [
+            {
+              n: 8,
+              prompt:
+                'Some people believe that university education should be free for everyone. Do you agree or disagree? Use specific reasons and examples to support your opinion.',
+              content: { responseSeconds: 1800 },
+              answer: {
+                sample:
+                  'In many countries the cost of higher education has risen sharply...',
+                rubric: {
+                  TA: 'Task achievement',
+                  CC: 'Coherence & cohesion',
+                  LR: 'Lexical resource',
+                  GRA: 'Grammar range & accuracy',
+                },
+              },
+            },
+          ],
+        },
+      ];
+
+      // ---------- helpers ----------
+      const esc = (s) =>
+        String(s ?? '').replace(
+          /[&<>"]/g,
+          (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c],
+        );
+      const fill = (text, blank) =>
+        esc(text).replace(/\{\{(\d+)\}\}/g, (_, n) => blank(+n));
+      const mmss = (s) =>
+        `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+      const NUM_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five'];
+      const range = (q) =>
+        q.nTo && q.nTo !== q.n ? `${q.n}–${q.nTo}` : `${q.n}`;
+      const groupRange = (s) => {
+        const first = s.questions[0].n;
+        const last = s.questions.at(-1);
+        const end = last.nTo ?? last.n;
+        return first === end
+          ? `Question ${first}`
+          : `Questions ${first}–${end}`;
+      };
+
+      const textBlank = (n) =>
+        `<span class="blank" data-qwrap="${n}"><b>${n}</b><input data-q="${n}" autocomplete="off" spellcheck="false" aria-label="Answer ${n}"></span>`;
+      const selectBlank = (n, opts) =>
+        `<span class="blank" data-qwrap="${n}"><b>${n}</b><select data-q="${n}" aria-label="Answer ${n}"><option value=""></option>${opts.map((o) => `<option value="${esc(o.key)}">${esc(o.key)}</option>`).join('')}</select></span>`;
+      const choices = (s, q, { multi = false, textless = false } = {}) =>
+        q.content.options
+          .map(
+            (o) =>
+              `<label class="choice"><input type="${multi ? 'checkbox' : 'radio'}" name="${s.id}-${q.n}" data-q="${q.n}" value="${esc(o.key)}"><span class="key">${esc(o.key)}</span>${textless ? '' : `<span>${esc(o.text)}</span>`}</label>`,
+          )
+          .join('');
+      const qrow = (q, inner, label) =>
+        `<div class="q" data-qwrap="${q.n}"><div class="qnum">${label ?? q.n}</div><div class="qbody">${inner}</div></div>`;
+      const optionBox = (title, options) =>
+        `<div class="box"><h5>${esc(title)}</h5><ol>${options.map((o) => `<li><b>${esc(o.key)}</b>${esc(o.text)}</li>`).join('')}</ol></div>`;
+      const audioBar = (len) =>
+        `<div class="audio"><button type="button" data-act="play" aria-label="Play audio">▶</button><div class="track"><i></i></div><small>0:00 / ${len}</small></div>`;
+
+      const FIGURES = {
+        photo: `<svg viewBox="0 0 320 200" role="img" aria-label="Two people looking at a laptop in an office">
+    <rect width="320" height="200" fill="currentColor" opacity=".06"/>
+    <rect x="20" y="20" width="90" height="70" fill="none" stroke="currentColor" opacity=".3" stroke-width="2"/>
+    <line x1="65" y1="20" x2="65" y2="90" stroke="currentColor" opacity=".3" stroke-width="2"/>
+    <rect x="40" y="130" width="240" height="10" rx="3" fill="currentColor" opacity=".55"/>
+    <rect x="60" y="140" width="6" height="50" fill="currentColor" opacity=".45"/><rect x="254" y="140" width="6" height="50" fill="currentColor" opacity=".45"/>
+    <rect x="140" y="98" width="56" height="34" rx="3" fill="currentColor" opacity=".7"/><rect x="132" y="128" width="72" height="5" rx="2" fill="currentColor" opacity=".8"/>
+    <circle cx="100" cy="72" r="15" fill="currentColor" opacity=".7"/><path d="M76 130 q24 -50 48 0z" fill="currentColor" opacity=".55"/>
+    <circle cx="232" cy="70" r="15" fill="currentColor" opacity=".7"/><path d="M208 130 q24 -52 48 0z" fill="currentColor" opacity=".55"/>
+    <line x1="118" y1="104" x2="150" y2="112" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".6"/>
+  </svg>`,
+        diagram: `<svg viewBox="0 0 340 200" role="img" aria-label="Rainwater collection system with three numbered parts">
+    <path d="M30 70 L90 30 L150 70 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+    <rect x="40" y="70" width="100" height="70" fill="none" stroke="currentColor" stroke-width="2"/>
+    <path d="M150 70 h30 v40" fill="none" stroke="currentColor" stroke-width="3"/>
+    <rect x="166" y="110" width="28" height="22" rx="3" fill="currentColor" opacity=".2" stroke="currentColor"/>
+    <path d="M180 132 v18 h30" fill="none" stroke="currentColor" stroke-width="3"/>
+    <rect x="210" y="120" width="60" height="60" rx="6" fill="currentColor" opacity=".12" stroke="currentColor" stroke-width="2"/>
+    <rect x="212" y="150" width="56" height="28" fill="currentColor" opacity=".25"/>
+    <circle cx="300" cy="170" r="12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M270 170 h18 M312 170 h18 v-40" stroke="currentColor" stroke-width="3" fill="none"/>
+    <g font-size="13" font-weight="700" fill="currentColor">
+      <circle cx="180" cy="92" r="11" style="fill:var(--accent)"/><text x="180" y="96" text-anchor="middle" fill="#fff">23</text>
+      <circle cx="240" cy="104" r="11" style="fill:var(--accent)"/><text x="240" y="108" text-anchor="middle" fill="#fff">24</text>
+      <circle cx="300" cy="146" r="11" style="fill:var(--accent)"/><text x="300" y="150" text-anchor="middle" fill="#fff">25</text>
+    </g>
+    <text x="90" y="110" font-size="11" text-anchor="middle" fill="currentColor" opacity=".7">roof</text>
+  </svg>`,
+        map: `<svg viewBox="0 0 340 220" role="img" aria-label="Park map with locations labelled A to F">
+    <rect x="6" y="6" width="328" height="208" rx="10" fill="currentColor" opacity=".05" stroke="currentColor" stroke-opacity=".3"/>
+    <path d="M6 110 H334 M170 6 V214" stroke="currentColor" stroke-opacity=".35" stroke-width="14"/>
+    <ellipse cx="255" cy="165" rx="50" ry="26" style="fill:var(--accent)" opacity=".25"/>
+    <text x="255" y="169" text-anchor="middle" font-size="10" fill="currentColor" opacity=".7">lake</text>
+    <rect x="150" y="196" width="40" height="18" fill="currentColor" opacity=".5"/><text x="170" y="209" text-anchor="middle" font-size="9" style="fill:var(--surface)">GATE</text>
+    <g font-size="13" font-weight="700" text-anchor="middle">
+      ${[
+        ['A', 60, 50],
+        ['B', 120, 160],
+        ['C', 230, 60],
+        ['D', 290, 50],
+        ['E', 60, 170],
+        ['F', 205, 150],
+      ]
+        .map(
+          ([k, x, y]) =>
+            `<rect x="${x - 22}" y="${y - 16}" width="44" height="30" rx="4" style="fill:var(--surface)" stroke="currentColor"/><text x="${x}" y="${y + 4}" fill="currentColor">${k}</text>`,
+        )
+        .join('')}
+    </g>
+    <text x="178" y="104" font-size="9" fill="currentColor" opacity=".6">Main path</text>
+  </svg>`,
+      };
+
+      // ---------- views ----------
+      const VIEWS = {
+        mcq: (s) =>
+          (s.audio ? audioBar(s.audio) : '') +
+          s.questions
+            .map((q) =>
+              qrow(
+                q,
+                `<p class="prompt">${esc(q.prompt)}</p><div class="choices">${choices(s, q)}</div>`,
+              ),
+            )
+            .join(''),
+        multi: (s) =>
+          s.questions
+            .map((q) => {
+              const count = q.nTo - q.n + 1;
+              return qrow(
+                q,
+                `<p class="prompt">${esc(q.prompt)}</p><p class="hint">Choose ${NUM_WORDS[count].toUpperCase()} letters.</p><div class="choices" data-limit="${count}">${choices(s, q, { multi: true })}</div>`,
+                range(q),
+              );
+            })
+            .join(''),
+        judge: (s) => {
+          const labels =
+            s.type === 'YES_NO_NOT_GIVEN'
+              ? ['YES', 'NO', 'NOT GIVEN']
+              : ['TRUE', 'FALSE', 'NOT GIVEN'];
+          const opts = labels.map((l) => ({
+            key: l.replace(' ', '_'),
+            text: l,
+          }));
+          return s.questions
+            .map((q) =>
+              qrow(
+                q,
+                `<p class="prompt">${esc(q.prompt)}</p><div class="pills">${choices(s, { ...q, content: { options: opts } })}</div>`,
+              ),
+            )
+            .join('');
+        },
+        matching: (s) => {
+          const { options, allowReuse } = s.group.content;
+          const hasText = options.some((o) => o.text);
+          return (
+            (hasText ? optionBox(s.boxTitle, options) : '') +
+            (allowReuse
+              ? '<p class="hint">You may use any letter more than once.</p>'
+              : '') +
+            s.questions
+              .map((q) =>
+                qrow(
+                  q,
+                  `<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span>${esc(q.prompt)}</span><select data-q="${q.n}" aria-label="Answer ${q.n}"><option value=""></option>${options.map((o) => `<option value="${esc(o.key)}">${esc(o.key)}</option>`).join('')}</select></div>`,
+                ),
+              )
+              .join('')
+          );
+        },
+        template: (s) => {
+          const lines = s.group.content.template.split('\n');
+          const audio = s.audio ? audioBar(s.audio) : '';
+          if (s.variant === 'flow') {
+            return (
+              audio +
+              `<div class="flow">${lines.map((l) => `<div class="step">${fill(l, textBlank)}</div>`).join('<div class="arrow">↓</div>')}</div>`
+            );
+          }
+          let html = '';
+          let list = [];
+          const flush = () => {
+            if (list.length) html += `<ul>${list.join('')}</ul>`;
+            list = [];
+          };
+          for (const l of lines) {
+            if (l.startsWith('# ')) {
+              flush();
+              html += `<h5>${fill(l.slice(2), textBlank)}</h5>`;
+            } else if (l.startsWith('- '))
+              list.push(`<li class="line">${fill(l.slice(2), textBlank)}</li>`);
+            else {
+              flush();
+              html += `<div class="line">${fill(l, textBlank)}</div>`;
+            }
+          }
+          flush();
+          return (
+            audio +
+            `<div class="${s.variant === 'form' ? 'form-sheet' : 'notes'}">${html}</div>`
+          );
+        },
+        sentence: (s) =>
+          s.questions
+            .map((q) => `<p class="line">${fill(q.prompt, textBlank)}</p>`)
+            .join(''),
+        summary: (s) => {
+          const { template, options } = s.group.content;
+          const blank = options ? (n) => selectBlank(n, options) : textBlank;
+          return (
+            `<p class="line" style="line-height:2.2">${fill(template, blank)}</p>` +
+            (options
+              ? `<div class="box"><h5>${esc(s.boxTitle)}</h5><div class="bank">${options.map((o) => `<span><b>${esc(o.key)}</b> ${esc(o.text)}</span>`).join('')}</div></div>`
+              : '')
+          );
+        },
+        table: (s) => {
+          const { headers, rows } = s.group.content.table;
+          return (
+            (s.audio ? audioBar(s.audio) : '') +
+            `<table class="grid">${headers ? `<thead><tr>${headers.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead>` : ''}<tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${fill(c, textBlank)}</td>`).join('')}</tr>`).join('')}</tbody></table>`
+          );
+        },
+        diagram: (s) =>
+          `<div class="figure-wrap"><figure>${FIGURES[s.figure]}<figcaption>image_media_id</figcaption></figure><div>${s.questions.map((q) => `<p class="line">${textBlank(q.n)}</p>`).join('')}</div></div>`,
+        map: (s) => {
+          const opts = s.group.content.options;
+          return (
+            audioBar(s.audio) +
+            `<div class="figure-wrap" style="grid-template-columns:minmax(0,1fr)"><style>#MAP_LABELLING figure{max-width:440px}</style><figure>${FIGURES[s.figure]}<figcaption>image_media_id</figcaption></figure><div style="overflow-x:auto"><table class="grid matrix"><thead><tr><th></th>${opts.map((o) => `<th>${esc(o.key)}</th>`).join('')}</tr></thead><tbody>${s.questions.map((q) => `<tr data-qwrap="${q.n}"><td><b>${q.n}</b> ${esc(q.prompt)}</td>${opts.map((o) => `<td><label><input type="radio" name="${s.id}-${q.n}" data-q="${q.n}" value="${esc(o.key)}" aria-label="${q.n} ${esc(o.key)}"></label></td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`
+          );
+        },
+        short: (s) =>
+          s.questions
+            .map((q) =>
+              qrow(
+                q,
+                `<p class="prompt">${esc(q.prompt)}</p><input data-q="${q.n}" class="blank" style="border:none;border-bottom:1.5px solid var(--muted);background:transparent;width:min(100%,280px);padding:2px 4px" autocomplete="off" aria-label="Answer ${q.n}">`,
+              ),
+            )
+            .join(''),
+        photo: (s) =>
+          `<div class="figure-wrap"><figure>${FIGURES[s.figure]}<figcaption>image_media_id</figcaption></figure><div>${audioBar(s.audio)}${s.questions.map((q) => qrow(q, `<p class="hint">Choose the statement that best describes the picture.</p><div class="bubbles">${choices(s, q, { textless: true })}</div>`)).join('')}<div class="transcript"><b>Transcript</b>\n${esc(s.transcript)}</div></div></div>`,
+        qresp: (s) =>
+          audioBar(s.audio) +
+          s.questions
+            .map((q) =>
+              qrow(
+                q,
+                `<p class="prompt">${esc(q.prompt)}</p><div class="bubbles">${choices(s, q, { textless: true })}</div>`,
+              ),
+            )
+            .join('') +
+          `<div class="transcript"><b>Transcript</b>\n${esc(s.transcript)}</div>`,
+        textcomp: (s) =>
+          `<div class="tpassage">${esc(s.passageText).replace(/\[\[(\d+)\]\]/g, (_, n) => `<span class="tblank" data-tb="${n}">${n}</span>`)}</div>` +
+          s.questions
+            .map((q) => qrow(q, `<div class="choices">${choices(s, q)}</div>`))
+            .join(''),
+        speak: (s) => {
+          const info = s.group.content?.info;
+          const infoHtml = info
+            ? `${info.title ? `<h5 style="margin:0 0 6px">${esc(info.title)}</h5>` : ''}<table class="grid" style="margin-bottom:16px">${info.rows.map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`
+            : '';
+          const fig = s.figure
+            ? `<figure style="max-width:420px;margin-bottom:10px">${FIGURES[s.figure]}<figcaption>image_media_id</figcaption></figure>`
+            : '';
+          return (
+            infoHtml +
+            s.questions
+              .map((q) => {
+                const body =
+                  s.type === 'READ_ALOUD'
+                    ? `<div class="readtext">${esc(q.prompt)}</div>`
+                    : q.prompt
+                      ? `<p class="prompt"><b>${esc(q.prompt)}</b></p>`
+                      : '';
+                return `<div class="task"><div class="hint">Question ${q.n}</div>${fig}${body}${recorder(q.content)}<div class="sample"><b>Sample answer</b>\n${esc(q.answer.sample)}${rubric(q.answer.rubric)}</div></div>`;
+              })
+              .join('')
+          );
+        },
+        write: (s) =>
+          s.questions
+            .map((q) => {
+              const fig = s.figure
+                ? `<figure style="max-width:380px;margin-bottom:8px">${FIGURES[s.figure]}<figcaption>image_media_id</figcaption></figure>`
+                : '';
+              let body;
+              if (s.type === 'WRITE_SENTENCE_PICTURE')
+                body = `<div class="keywords">${q.prompt
+                  .split('/')
+                  .map((w) => `<span>${esc(w.trim())}</span>`)
+                  .join('')}</div>`;
+              else if (s.email) {
+                const [head, ...rest] = q.prompt.split('\n\n');
+                body = `<div class="email"><div class="hd">${esc(head).replace(/\n/g, '<br>')}</div><div class="bd">${esc(rest.join('\n\n'))}</div></div>`;
+              } else body = `<p class="prompt"><b>${esc(q.prompt)}</b></p>`;
+              const secs = q.content?.responseSeconds;
+              return `<div class="task"><div class="hint">Question ${q.n}${secs ? ` · time allowed ${mmss(secs)}` : ''}</div>${fig}${body}<textarea rows="${s.rows}" data-writer data-secs="${secs ?? 0}" placeholder="Type your answer…" aria-label="Answer ${q.n}"></textarea><div class="wc"><span data-wc>0 words${s.minWords ? ` · minimum ${s.minWords}` : ''}</span><span data-clock>${secs ? mmss(secs) : ''}</span></div><div class="sample"><b>Sample answer</b>\n${esc(q.answer.sample)}${rubric(q.answer.rubric)}</div></div>`;
+            })
+            .join(''),
+      };
+
+      function recorder(t = {}) {
+        const prep = t.prepSeconds ?? 0;
+        const resp = t.responseSeconds ?? 0;
+        return `<div class="rec" data-prep="${prep}" data-resp="${resp}" data-state="idle"><div class="phase"><span class="dot"></span><span data-label>Ready</span><span class="clock" data-clock>${mmss(prep || resp)}</span></div><div class="bar"><i></i></div><div class="meta">Preparation ${mmss(prep)} · Response ${mmss(resp)}</div><button type="button" class="btn small" data-act="rec">Start</button></div>`;
+      }
+      function rubric(r) {
+        if (!r) return '';
+        return `\n\n<b>Rubric</b>\n${Object.entries(r)
+          .map(([k, v]) => `• ${esc(k)}: ${esc(v)}`)
+          .join('\n')}`;
+      }
+
+      // ---------- JSON panel ----------
+      function storedShape(s) {
+        const group = {
+          questionType: s.type,
+          instruction: s.group.instruction,
+        };
+        if (s.group.wordLimit != null) group.wordLimit = s.group.wordLimit;
+        group.content = s.group.content ?? null;
+        group.questions = s.questions.map((q) => ({
+          numberFrom: q.n,
+          numberTo: q.nTo ?? q.n,
+          prompt: q.prompt ?? null,
+          content: q.content ?? null,
+          answer: q.answer,
+        }));
+        return group;
+      }
+      function highlight(json) {
+        return esc(json).replace(
+          /(&quot;(?:[^&]|&(?!quot;))*?&quot;)(\s*:)?|\b(-?\d+(?:\.\d+)?|true|false|null)\b/g,
+          (m, str, colon, lit) => {
+            if (str)
+              return colon
+                ? `<span class="jk">${str}</span>${colon}`
+                : `<span class="js">${str}</span>`;
+            return `<span class="jn">${lit}</span>`;
+          },
+        );
+      }
+
+      // ---------- render ----------
+      function instructionHtml(s) {
+        return esc(s.group.instruction).replace(
+          /\b(ONE|TWO|THREE|NO MORE THAN|AND\/OR A NUMBER|ONLY|TRUE|FALSE|NOT GIVEN|YES|NO)\b/g,
+          '<b>$1</b>',
+        );
+      }
+      function passageHtml(p) {
+        return `<div class="passage"><h4>${esc(p.title)}</h4>${p.paragraphs.map(([k, t]) => `<p><span class="pl">${k}</span>${esc(t)}</p>`).join('')}</div>`;
+      }
+      function renderCard(s) {
+        const isOpen = s.view === 'speak' || s.view === 'write';
+        const body = `<div class="exam-body">${VIEWS[s.view](s)}</div>`;
+        return `<article class="card" id="${s.type}" data-id="${s.id}">
+    <div class="card-head">
+      <div class="type">${s.type}</div>
+      ${s.also ? `<div class="also">also: ${s.also.join(', ')}</div>` : ''}
+      <div class="tags">${s.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <p>${esc(s.desc)}</p>
+    </div>
+    <div class="screen"><div class="exam">
+      <div class="exam-top"><span class="qs">${groupRange(s)}</span><span class="instr">${instructionHtml(s)}</span></div>
+      ${s.passage ? `<div class="split">${passageHtml(s.passage)}${body}</div>` : body}
+      <div class="actions">
+        <button type="button" class="btn primary" data-act="check">${isOpen ? 'Show sample answer' : 'Check'}</button>
+        <button type="button" class="btn" data-act="reset">Reset</button>
+        <span class="score" data-score></span>
+      </div>
+    </div></div>
+    <details class="json"><summary>Data (JSON) — question_groups + questions</summary><pre>${highlight(JSON.stringify(storedShape(s), null, 2))}</pre></details>
+  </article>`;
+      }
+
+      const cardsEl = document.getElementById('cards');
+      const linksEl = document.getElementById('links');
+      let lastSection = '';
+      let cardsHtml = '';
+      let linksHtml = '';
+      for (const s of SAMPLES) {
+        if (s.section !== lastSection) {
+          cardsHtml += `<h3 class="section-title" data-section="${esc(s.section)}">${esc(s.section)}</h3>`;
+          linksHtml += `<div class="sec" data-section="${esc(s.section)}">${esc(s.section)}</div>`;
+          lastSection = s.section;
+        }
+        cardsHtml += renderCard(s);
+        linksHtml += `<a href="#${s.type}" data-section="${esc(s.section)}" data-search="${[s.type, ...(s.also ?? []), ...s.tags].join(' ').toLowerCase()}">${s.type}</a>`;
+      }
+      cardsEl.innerHTML = cardsHtml;
+      linksEl.innerHTML = linksHtml;
+
+      // ---------- grading ----------
+      const normalize = (v) =>
+        String(v ?? '')
+          .toLowerCase()
+          .replace(/[.,!?;:"']/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+      const wordCount = (v) => normalize(v).split(' ').filter(Boolean).length;
+
+      function readValue(card, n) {
+        const els = [...card.querySelectorAll(`[data-q="${n}"]`)];
+        if (!els.length) return '';
+        if (els[0].type === 'radio')
+          return els.find((e) => e.checked)?.value ?? '';
+        if (els[0].type === 'checkbox')
+          return els.filter((e) => e.checked).map((e) => e.value);
+        return els[0].value;
+      }
+      function mark(card, n, ok, text) {
+        const wrap =
+          card.querySelector(`[data-qwrap="${n}"]`) ??
+          card.querySelector(`[data-q="${n}"]`);
+        if (!wrap) return;
+        wrap.classList.remove('ok', 'bad');
+        wrap.classList.add(ok ? 'ok' : 'bad');
+        const host =
+          wrap.querySelector('.qbody') ??
+          (wrap.tagName === 'TR' ? wrap.cells[0] : wrap);
+        let fb = host.querySelector('.fb');
+        if (!fb) {
+          fb = document.createElement('span');
+          fb.className = 'fb';
+          host.append(fb);
+        }
+        fb.textContent = text;
+      }
+      function check(card, s) {
+        card.classList.add('checked');
+        if (s.view === 'speak' || s.view === 'write') return;
+        let got = 0;
+        let total = 0;
+        for (const q of s.questions) {
+          const val = readValue(card, q.n);
+          const a = q.answer;
+          if (a.keys) {
+            const picked = new Set(val);
+            const hits = a.keys.filter((k) => picked.has(k)).length;
+            got += hits;
+            total += a.keys.length;
+            mark(
+              card,
+              q.n,
+              hits === a.keys.length,
+              `${hits}/${a.keys.length} correct · answer: ${a.keys.join(', ')}`,
+            );
+          } else if (a.key) {
+            const ok = val === a.key;
+            got += ok;
+            total += 1;
+            mark(card, q.n, ok, ok ? '✓' : `✗ ${a.key.replace('_', ' ')}`);
+          } else if (a.accepted) {
+            const limit = s.group.wordLimit;
+            const overLimit = limit && wordCount(val) > limit;
+            const ok =
+              !overLimit &&
+              a.accepted.some((x) => normalize(x) === normalize(val));
+            got += ok;
+            total += 1;
+            mark(
+              card,
+              q.n,
+              ok,
+              ok
+                ? '✓'
+                : `✗ ${overLimit ? `over ${limit}-word limit · ` : ''}${a.accepted.join(' / ')}`,
+            );
+          }
+        }
+        card.querySelector('[data-score]').textContent =
+          `Score: ${got} / ${total}`;
+      }
+      function reset(card) {
+        card.classList.remove('checked');
+        card
+          .querySelectorAll('.ok, .bad')
+          .forEach((el) => el.classList.remove('ok', 'bad'));
+        card.querySelectorAll('.fb').forEach((el) => el.remove());
+        card
+          .querySelectorAll('input[type=radio], input[type=checkbox]')
+          .forEach((el) => {
+            el.checked = false;
+            el.disabled = false;
+          });
+        card
+          .querySelectorAll('input:not([type]), select, textarea')
+          .forEach((el) => {
+            el.value = '';
+          });
+        card.querySelectorAll('[data-tb]').forEach((el) => {
+          el.textContent = el.dataset.tb;
+        });
+        card.querySelectorAll('[data-wc]').forEach((el) => {
+          el.textContent = el.textContent.replace(/^\d+/, '0');
+        });
+        card.querySelectorAll('.rec').forEach(stopRec);
+        card.querySelectorAll('[data-act="play"]').forEach((b) => {
+          b.disabled = false;
+          b.textContent = '▶';
+          b.parentElement.querySelector('.track i').style.width = '0';
+          const label = b.parentElement.querySelector('small');
+          label.textContent = `0:00 / ${label.textContent.split(/[/·] /).at(-1)}`;
+        });
+        card.querySelectorAll('[data-writer]').forEach((ta) => {
+          clearInterval(ta._timer);
+          ta._timer = null;
+          ta.nextElementSibling.querySelector('[data-clock]').textContent = +ta
+            .dataset.secs
+            ? mmss(+ta.dataset.secs)
+            : '';
+        });
+        card.querySelector('[data-score]').textContent = '';
+      }
+
+      // ---------- simulated audio / recorder / writing timer ----------
+      function playAudio(btn) {
+        const bar = btn.parentElement.querySelector('.track i');
+        const label = btn.parentElement.querySelector('small');
+        const total = label.textContent.split('/ ')[1];
+        let pct = 0;
+        btn.disabled = true;
+        btn.textContent = '❚❚';
+        const t = setInterval(() => {
+          pct += 2;
+          bar.style.width = `${pct}%`;
+          if (pct >= 100) {
+            clearInterval(t);
+            btn.textContent = '✓';
+            label.textContent = `played · ${total}`;
+          }
+        }, 60);
+      }
+      function stopRec(rec) {
+        clearInterval(rec._timer);
+        rec.dataset.state = 'idle';
+        rec.querySelector('[data-label]').textContent = 'Ready';
+        rec.querySelector('[data-clock]').textContent = mmss(
+          +rec.dataset.prep || +rec.dataset.resp,
+        );
+        rec.querySelector('.bar i').style.width = '0';
+        rec.querySelector('[data-act]').textContent = 'Start';
+      }
+      function runRec(rec) {
+        const btn = rec.querySelector('[data-act]');
+        if (rec.dataset.state === 'prep' || rec.dataset.state === 'resp') {
+          tick(rec, true);
+          return;
+        }
+        if (rec.dataset.state === 'done') {
+          stopRec(rec);
+          return;
+        }
+        const phases = [
+          ['prep', 'Preparation', +rec.dataset.prep],
+          ['resp', 'Recording…', +rec.dataset.resp],
+        ].filter((p) => p[2] > 0);
+        rec._phases = phases;
+        btn.textContent = 'Skip';
+        nextPhase(rec);
+      }
+      function nextPhase(rec) {
+        clearInterval(rec._timer);
+        const phase = rec._phases.shift();
+        if (!phase) {
+          rec.dataset.state = 'done';
+          rec.querySelector('[data-label]').textContent = 'Response recorded';
+          rec.querySelector('[data-clock]').textContent = '00:00';
+          rec.querySelector('[data-act]').textContent = 'Again';
+          return;
+        }
+        const [state, label, secs] = phase;
+        rec.dataset.state = state;
+        rec.querySelector('[data-label]').textContent = label;
+        rec._left = secs;
+        rec._secs = secs;
+        render(rec);
+        rec._timer = setInterval(() => tick(rec), 1000);
+      }
+      function tick(rec, skip = false) {
+        rec._left = skip ? 0 : rec._left - 1;
+        render(rec);
+        if (rec._left <= 0) nextPhase(rec);
+      }
+      function render(rec) {
+        rec.querySelector('[data-clock]').textContent = mmss(
+          Math.max(rec._left, 0),
+        );
+        rec.querySelector('.bar i').style.width =
+          `${100 - (rec._left / rec._secs) * 100}%`;
+      }
+
+      // ---------- events ----------
+      cardsEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-act]');
+        if (!btn) return;
+        const card = btn.closest('.card');
+        const s = SAMPLES.find((x) => x.id === card.dataset.id);
+        if (btn.dataset.act === 'check') check(card, s);
+        if (btn.dataset.act === 'reset') reset(card);
+        if (btn.dataset.act === 'play') playAudio(btn);
+        if (btn.dataset.act === 'rec') runRec(btn.closest('.rec'));
+      });
+      cardsEl.addEventListener('change', (e) => {
+        const el = e.target;
+        // Choose-N: lock the remaining boxes once the limit is reached
+        const limitBox = el.closest('[data-limit]');
+        if (limitBox) {
+          const boxes = [...limitBox.querySelectorAll('input')];
+          const full =
+            boxes.filter((b) => b.checked).length >= +limitBox.dataset.limit;
+          boxes.forEach((b) => {
+            b.disabled = full && !b.checked;
+          });
+        }
+        // TOEIC Part 6: show the chosen option inside the passage gap
+        const card = el.closest('.card');
+        const gap = card.querySelector(`[data-tb="${el.dataset.q}"]`);
+        if (gap && el.checked)
+          gap.textContent = el
+            .closest('label')
+            .querySelector('.key + span').textContent;
+      });
+      cardsEl.addEventListener('input', (e) => {
+        const ta = e.target.closest('[data-writer]');
+        if (!ta) return;
+        const wc = ta.nextElementSibling.querySelector('[data-wc]');
+        wc.textContent = wc.textContent.replace(
+          /^\d+/,
+          String(ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0),
+        );
+        const secs = +ta.dataset.secs;
+        if (secs && !ta._timer) {
+          let left = secs;
+          const clock = ta.nextElementSibling.querySelector('[data-clock]');
+          ta._timer = setInterval(() => {
+            left = Math.max(left - 1, 0);
+            clock.textContent = mmss(left);
+            if (!left) clearInterval(ta._timer);
+          }, 1000);
+        }
+      });
+
+      // ---------- nav filter + theme ----------
+      document.getElementById('filter').addEventListener('input', (e) => {
+        const q = e.target.value.trim().toLowerCase();
+        const visibleSections = new Set();
+        linksEl.querySelectorAll('a').forEach((a) => {
+          const show =
+            !q ||
+            a.dataset.search.includes(q.replace(/\s+/g, '_')) ||
+            a.dataset.search.includes(q);
+          a.style.display = show ? '' : 'none';
+          document.getElementById(
+            a.getAttribute('href').slice(1),
+          ).style.display = show ? '' : 'none';
+          if (show) visibleSections.add(a.dataset.section);
+        });
+        document.querySelectorAll('[data-section]:not(a)').forEach((el) => {
+          el.style.display = visibleSections.has(el.dataset.section)
+            ? ''
+            : 'none';
+        });
+      });
+      document.getElementById('theme').addEventListener('click', () => {
+        const root = document.documentElement;
+        const dark = root.dataset.theme
+          ? root.dataset.theme === 'dark'
+          : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = dark ? 'light' : 'dark';
+      });
+    </script>
+  </body>
+</html>
