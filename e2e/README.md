@@ -42,12 +42,20 @@ Needs the real stack running and a CMS user with a password:
 | `E2E_API_URL`  | `https://api.myenglish.com:8080`        |
 | `E2E_BASE_URL` | `https://backoffice.myenglish.com:5173` |
 
-The user's role must have `canAccessCms` and permission to manage users.
+The user's role must have `canAccessCms` and permission to manage users, roles and passages.
 
 Each test logs in with its own session (`fixtures/real.ts`). The backend rotates refresh tokens
 and revokes every session of a user that replays a stale one, so tests must not share a saved
 `storageState`. The login endpoint is throttled to 10 calls per minute, so keep the real suite
 small and navigate in-app instead of reloading.
 
-`smoke.spec.ts` only reads. `users-crud.spec.ts` creates `e2e+<timestamp>@example.com`, edits it,
-and deletes it through the API in `afterEach`, even when the test fails.
+`smoke.spec.ts` only reads. The CRUD specs create a uniquely named record, edit it, and delete it
+through the API in `afterEach` (`deleteBySearch` in `fixtures/real.ts`), even when the test fails:
+
+| Spec                    | Record                                                  |
+| ----------------------- | ------------------------------------------------------- |
+| `users-crud.spec.ts`    | user `e2e+<timestamp>@example.com`                      |
+| `roles-crud.spec.ts`    | role with code `E2E_<timestamp>`                        |
+| `passages-crud.spec.ts` | passage titled `E2E passage <timestamp>` (soft-deleted) |
+
+Each CRUD test logs in twice (page + cleanup), so the whole real suite stays under the login limit.

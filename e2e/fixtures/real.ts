@@ -1,6 +1,10 @@
 import type { APIRequestContext } from '@playwright/test';
 
-import { test as base, expect } from '@playwright/test';
+import {
+  test as base,
+  expect,
+  request as playwrightRequest,
+} from '@playwright/test';
 
 export const E2E_API_URL =
   process.env.E2E_API_URL ?? 'https://api.myenglish.com:8080';
@@ -38,3 +42,35 @@ export const test = base.extend({
 });
 
 export { expect };
+
+/**
+ * Delete through the API with its own session, so cleanup runs even when the
+ * UI steps failed. Deletes the items of `GET /api/<resource>?search=` that `match`.
+ */
+export const deleteBySearch = async <T extends { id: string | number }>(
+  resource: string,
+  search: string,
+  match: (item: T) => boolean,
+) => {
+  if (!hasCredentials) return;
+  const api = await playwrightRequest.newContext({ ignoreHTTPSErrors: true });
+  try {
+    const token = await login(api);
+    const headers = { Authorization: `Bearer ${token}` };
+    const response = await api.get(`${E2E_API_URL}/api/${resource}`, {
+      headers,
+      params: { search, take: 10 },
+    });
+    const { data = [] } = (await response.json()) as { data?: T[] };
+    const ids = data.filter(match).map(({ id }) => id);
+    if (ids.length) {
+      const deleted = await api.delete(`${E2E_API_URL}/api/${resource}`, {
+        headers,
+        data: { ids },
+      });
+      expect(deleted.ok(), await deleted.text()).toBe(true);
+    }
+  } finally {
+    await api.dispose();
+  }
+};
