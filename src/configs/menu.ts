@@ -87,7 +87,7 @@ export const MENU_GROUPS: IMenuGroup[] = [
         title: 'passages',
         route: '/passages',
         icon: LuBookOpen,
-        object: SubjectName.Tests,
+        object: SubjectName.Passages,
       },
     ],
   },
