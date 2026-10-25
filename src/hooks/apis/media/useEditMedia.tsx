@@ -12,7 +12,7 @@ const useEditMedia = () => {
   return useMutation({
     mutationFn: mediaApi.edit,
     onSuccess: (_, { id }) => {
-      toast.success(t('tests.toast.mediaUpdateSuccess'));
+      toast.success(t('media.toast.updateSuccess'));
       queryClient.invalidateQueries({
         queryKey: [REACT_QUERY_KEYS.MEDIA.BY_ID, id],
       });
@@ -21,7 +21,7 @@ const useEditMedia = () => {
       });
     },
     onError: (err) => {
-      toast.danger(t('tests.toast.mediaUpdateError'), {
+      toast.danger(t('media.toast.updateError'), {
         description: err.message,
       });
     },

@@ -40,6 +40,11 @@ export default [
       route(':id/edit', './pages/passages/edit.tsx'),
     ]),
 
+    ...prefix('media', [
+      index('./pages/media/list.tsx'),
+      route(':id', './pages/media/detail.tsx'),
+    ]),
+
     ...prefix('programs', [
       index('./pages/programs/list.tsx'),
       route('create', './pages/programs/create.tsx'),

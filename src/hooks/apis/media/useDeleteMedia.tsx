@@ -12,7 +12,7 @@ const useDeleteMedia = () => {
   return useMutation({
     mutationFn: mediaApi.delete,
     onSuccess: (_, id) => {
-      toast.success(t('tests.toast.mediaDeleteSuccess'));
+      toast.success(t('media.toast.deleteSuccess'));
       queryClient.removeQueries({
         queryKey: [REACT_QUERY_KEYS.MEDIA.BY_ID, id],
       });
@@ -22,7 +22,7 @@ const useDeleteMedia = () => {
     },
     // 409 when the media is still attached to a part/group/question
     onError: (err) => {
-      toast.danger(t('tests.toast.mediaDeleteError'), {
+      toast.danger(t('media.toast.deleteError'), {
         description: err.message,
       });
     },
