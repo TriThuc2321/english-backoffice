@@ -27,7 +27,9 @@ function stubWellKnownPlugin(): Plugin {
 
 const sslKeyPath = resolve(__dirname, 'backoffice.myenglish.com-key.pem');
 const sslCertPath = resolve(__dirname, 'backoffice.myenglish.com.pem');
-const hasSslFiles = existsSync(sslKeyPath) && existsSync(sslCertPath);
+const isE2E = !!process.env.E2E;
+// E2E=1 forces plain HTTP so the mocked Playwright run is the same locally and in CI
+const hasSslFiles = !isE2E && existsSync(sslKeyPath) && existsSync(sslCertPath);
 const devServerPort = 5173;
 
 const serverConfig = hasSslFiles
@@ -50,6 +52,17 @@ const serverConfig = hasSslFiles
 export default defineConfig({
   plugins: [stubWellKnownPlugin(), reactRouter(), tailwindcss(), svgr()],
   server: serverConfig,
+  // Pre-bundle every dependency at startup: on a cold cache Vite otherwise finds
+  // new deps per route and reloads the page in the middle of an E2E test.
+  optimizeDeps: isE2E
+    ? {
+        entries: [
+          'src/**/*.{ts,tsx}',
+          '!src/**/*.test.{ts,tsx}',
+          '!src/test/**',
+        ],
+      }
+    : undefined,
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

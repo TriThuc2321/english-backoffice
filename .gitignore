@@ -27,3 +27,8 @@ build
 
 .env
 *.pem
+# Test coverage
+coverage
+# Playwright
+playwright-report/
+test-results/
