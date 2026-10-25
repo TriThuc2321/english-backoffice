@@ -101,3 +101,107 @@ test('deletes a user after confirming', async ({ page, api }) => {
   // The list is refetched after the delete
   await expect.poll(() => api.calls('GET', '/users').length).toBeGreaterThan(1);
 });
+
+test('searches with a debounce', async ({ page, api }) => {
+  await page.goto('/users');
+  await expect(page.getByText('user1@myenglish.vn')).toBeVisible();
+
+  await page.getByRole('textbox', { name: 'Search users' }).fill('ada');
+
+  await expect
+    .poll(() => api.calls('GET', '/users').at(-1)?.query.get('search'))
+    .toBe('ada');
+  const searches = api
+    .calls('GET', '/users')
+    .map((call) => call.query.get('search'))
+    .filter(Boolean);
+  expect(searches).toEqual(['ada']);
+});
+
+test('shows the user detail', async ({ page, api }) => {
+  const user = makeUser(7, {
+    phone: '0901234567',
+    address: '1 Le Loi, District 1',
+  });
+  api.on('GET', '/users/:id', { body: user });
+
+  await page.goto(`/users/${user.id}`);
+
+  await expect(page.getByText('user7@myenglish.vn')).toBeVisible();
+  await expect(page.getByText('0901234567')).toBeVisible();
+  await expect(page.getByText('1 Le Loi, District 1')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Edit' })).toBeVisible();
+});
+
+test('edits a user with the form pre-filled', async ({ page, api }) => {
+  const user = makeUser(7, { phone: '0901234567' });
+  api.on('GET', '/users/:id', { body: user });
+  api.on('PATCH', '/users/:id', ({ body }) => ({
+    body: { ...user, ...(body as object) },
+  }));
+
+  await page.goto(`/users/${user.id}/edit`);
+
+  const lastName = page.getByRole('textbox', { name: 'Last Name' });
+  await expect(lastName).toHaveValue('7');
+  await expect(page.getByRole('textbox', { name: 'Email' })).toHaveValue(
+    'user7@myenglish.vn',
+  );
+  await lastName.fill('Seven');
+  await page.getByRole('button', { name: 'Save' }).click();
+
+  await expect(page.getByText('User updated successfully')).toBeVisible();
+  await expect(page).toHaveURL(`/users/${user.id}`);
+  const [patch] = api.calls('PATCH', '/users/:id');
+  expect(patch.path).toBe(`/users/${user.id}`);
+  expect(patch.body).toMatchObject({
+    email: 'user7@myenglish.vn',
+    firstName: 'User',
+    lastName: 'Seven',
+    phone: '0901234567',
+    roleId: ROLES[1].id,
+    status: 'ACTIVE',
+  });
+});
+
+test('a system user cannot be deleted', async ({ page, api }) => {
+  api.on('GET', '/users', {
+    body: {
+      data: [makeUser(1, { systemUser: true }), makeUser(2)],
+      meta: { page: 1, take: 10, totalCount: 2 },
+    },
+  });
+
+  await page.goto('/users');
+
+  const system = page
+    .getByRole('row')
+    .filter({ hasText: 'user1@myenglish.vn' });
+  const regular = page
+    .getByRole('row')
+    .filter({ hasText: 'user2@myenglish.vn' });
+  await expect(system.getByRole('button').nth(2)).toBeDisabled();
+  await expect(regular.getByRole('button').nth(2)).toBeEnabled();
+});
+
+test('keeps the form and shows the API error when creating fails', async ({
+  page,
+  api,
+}) => {
+  api.on('POST', '/users', {
+    status: 409,
+    body: { statusCode: 409, message: 'Email already exists' },
+  });
+
+  await page.goto('/users/create');
+  await page.getByRole('textbox', { name: 'First Name' }).fill('Dup');
+  await page.getByRole('textbox', { name: 'Last Name' }).fill('User');
+  await page.getByRole('textbox', { name: 'Email' }).fill('user1@myenglish.vn');
+  await page.getByRole('button', { name: /Role/ }).click();
+  await page.getByRole('option', { name: 'Teacher' }).click();
+  await page.getByRole('button', { name: 'Save' }).click();
+
+  await expect(page.getByText('Failed to create user')).toBeVisible();
+  await expect(page.getByText('Email already exists')).toBeVisible();
+  await expect(page).toHaveURL('/users/create');
+});
