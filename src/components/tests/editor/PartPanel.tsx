@@ -21,7 +21,6 @@ import ConfirmWrapper from '@/configs/ConfirmWrapper';
 import { getTypesForSkill } from '@/constants/questionTypes';
 import {
   useDeleteQuestionGroup,
-  useGetQuestionGroupById,
   useGetQuestionGroups,
   useReorderQuestionGroups,
 } from '@/hooks/apis/question-groups';
@@ -256,10 +255,9 @@ const GroupRow = ({
   onOpen,
 }: GroupRowProps) => {
   const { t } = useTranslation();
-  const { data: detail } = useGetQuestionGroupById(group.id);
   const { mutate: deleteGroup, isPending: isDeleting } =
     useDeleteQuestionGroup();
-  const range = groupRange(detail?.questions);
+  const range = groupRange(group);
 
   return (
     <div className="rounded-field flex items-center gap-3 border px-3 py-2">

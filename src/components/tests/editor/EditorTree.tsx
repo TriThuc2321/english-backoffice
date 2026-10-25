@@ -6,10 +6,7 @@ import { MdOutlineQuestionMark } from 'react-icons/md';
 
 import type { Test, TestSection } from '@/types/test';
 
-import {
-  useGetQuestionGroups,
-  useGetQuestionGroupsDetail,
-} from '@/hooks/apis/question-groups';
+import { useGetQuestionGroups } from '@/hooks/apis/question-groups';
 import { useGetTestParts } from '@/hooks/apis/test-parts';
 
 import type { EditorLocation } from './TestEditor';
@@ -61,10 +58,9 @@ const PartGroups = ({
   const { t } = useTranslation();
   const { data } = useGetQuestionGroups(partId);
   const groups = byOrder(data ?? []);
-  const details = useGetQuestionGroupsDetail(groups.map((g) => g.id));
 
-  return groups.map((group, index) => {
-    const range = groupRange(details[index]?.data?.questions);
+  return groups.map((group) => {
+    const range = groupRange(group);
     const label = t(`tests.questionType.${group.questionType}`);
     return (
       <Tooltip delay={0} key={group.id}>

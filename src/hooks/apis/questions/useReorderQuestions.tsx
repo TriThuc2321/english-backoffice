@@ -17,6 +17,9 @@ const useReorderQuestions = () => {
       queryClient.invalidateQueries({
         queryKey: [REACT_QUERY_KEYS.QUESTION_GROUP.BY_ID],
       });
+      queryClient.invalidateQueries({
+        queryKey: [REACT_QUERY_KEYS.QUESTION_GROUP.LIST],
+      });
     },
     onError: (err) => {
       toast.danger(t('tests.toast.reorderError'), {
