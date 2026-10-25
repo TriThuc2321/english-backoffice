@@ -252,7 +252,6 @@ const en = {
     deleteConfirm: 'Are you sure you want to delete "{{name}}"?',
     maxSize: 'Max {{size}} MB · {{types}}',
     ownerIdPlaceholder: 'Test ID or user ID',
-    searchOwner: 'Search...',
     metadata: 'Metadata',
     metadataDescription: 'Duration and transcript shown to students',
     filters: {
@@ -261,6 +260,7 @@ const en = {
     scope: {
       TEST: 'Test',
       AVATAR: 'Avatar',
+      LIBRARY: 'Library',
     },
     kind: {
       AUDIO: 'Audio',

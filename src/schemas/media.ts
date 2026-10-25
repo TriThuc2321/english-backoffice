@@ -1,6 +1,5 @@
 import * as yup from 'yup';
 
-import { MediaScope } from '@/types/media';
 import { MediaKind } from '@/types/test';
 
 import type { InferFormInput } from './types';
@@ -8,11 +7,6 @@ import type { InferFormInput } from './types';
 import { VALIDATION_MESSAGE } from './message';
 
 export const uploadMediaSchema = yup.object().shape({
-  scope: yup
-    .mixed<MediaScope>()
-    .oneOf(Object.values(MediaScope))
-    .required(VALIDATION_MESSAGE.REQUIRED),
-  ownerId: yup.string().required(VALIDATION_MESSAGE.REQUIRED),
   kind: yup
     .mixed<MediaKind>()
     .oneOf(Object.values(MediaKind))

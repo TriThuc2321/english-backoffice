@@ -6,9 +6,13 @@ export const kindColorMap: Record<MediaKind, 'accent' | 'success'> = {
   [MediaKind.IMAGE]: 'success',
 };
 
-export const scopeColorMap: Record<MediaScope, 'warning' | 'default'> = {
+export const scopeColorMap: Record<
+  MediaScope,
+  'warning' | 'default' | 'accent'
+> = {
   [MediaScope.TEST]: 'warning',
   [MediaScope.AVATAR]: 'default',
+  [MediaScope.LIBRARY]: 'accent',
 };
 
 // Where the owner of each scope can be opened

@@ -184,14 +184,19 @@ export default function MediaTable({
       columnHelper.accessor('ownerId', {
         enableSorting: false,
         header: t('media.field.owner'),
-        cell: ({ row }) => (
-          <Link
-            to={ownerHref(row.original.scope, row.original.ownerId)}
-            className="text-accent block max-w-32 truncate text-sm hover:underline"
-          >
-            {row.original.ownerId}
-          </Link>
-        ),
+        cell: ({ row }) => {
+          const { scope, ownerId } = row.original;
+          // Library media has no owner
+          if (!ownerId) return '-';
+          return (
+            <Link
+              to={ownerHref(scope, ownerId)}
+              className="text-accent block max-w-32 truncate text-sm hover:underline"
+            >
+              {ownerId}
+            </Link>
+          );
+        },
       }),
       columnHelper.accessor('sizeBytes', {
         enableSorting: false,

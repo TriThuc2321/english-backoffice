@@ -161,12 +161,16 @@ const ViewMedia = ({ id }: ViewMediaProps) => {
       <InfoCard title={t('common.basicInfo')}>
         <DetailField label={t('media.field.id')}>#{media.id}</DetailField>
         <DetailField label={t('media.field.owner')}>
-          <Link
-            to={ownerHref(media.scope, media.ownerId)}
-            className="text-accent break-all hover:underline"
-          >
-            {media.ownerId}
-          </Link>
+          {media.ownerId ? (
+            <Link
+              to={ownerHref(media.scope, media.ownerId)}
+              className="text-accent break-all hover:underline"
+            >
+              {media.ownerId}
+            </Link>
+          ) : (
+            '-'
+          )}
         </DetailField>
         <DetailField label={t('media.field.mimeType')}>
           {media.mimeType ?? '-'}
