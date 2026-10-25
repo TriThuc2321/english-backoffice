@@ -218,21 +218,22 @@ export default function MediaTable({
       columnHelper.display({
         id: 'actions',
         header: t('common.actions'),
-        cell: ({ row }) => (
+        cell: ({ row, table }) => (
           <MediaActionsCell
             row={row}
             navigate={navigate}
             deleteMedia={deleteMedia}
-            isDeleting={isDeleting}
+            isDeleting={!!table.options.meta?.isDeleting}
             t={t}
           />
         ),
       }),
     ],
-    [t, navigate, deleteMedia, isDeleting],
+    [t, navigate, deleteMedia],
   );
 
   const table = useReactTable({
+    meta: { isDeleting },
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),

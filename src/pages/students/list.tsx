@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
 
 import MyButton from '@/components/shared/Button';
 import { StudentsTable } from '@/components/students';
+import { EMPTY_LIST } from '@/constants/common';
 import { useDebounce } from '@/hooks';
 import { useGetStudents } from '@/hooks/apis/students';
 import { PermissionAction, SubjectName } from '@/types/auth';
@@ -31,7 +32,7 @@ export default function StudentsPage() {
     search: debouncedSearch || undefined,
   });
 
-  const students = data?.data ?? [];
+  const students = data?.data ?? EMPTY_LIST;
   const total = data?.meta?.totalCount ?? 0;
 
   return (

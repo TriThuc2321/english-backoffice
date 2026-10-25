@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
 
 import { ProgramsTable } from '@/components/programs';
 import MyButton from '@/components/shared/Button';
+import { EMPTY_LIST } from '@/constants/common';
 import { useDebounce } from '@/hooks';
 import { useGetPrograms } from '@/hooks/apis/programs';
 import { PermissionAction, SubjectName } from '@/types/auth';
@@ -31,7 +32,7 @@ export default function ProgramsPage() {
     search: debouncedSearch || undefined,
   });
 
-  const programs = data?.data ?? [];
+  const programs = data?.data ?? EMPTY_LIST;
   const total = data?.meta?.totalCount ?? 0;
 
   return (

@@ -233,21 +233,22 @@ export default function TestsTable({
       columnHelper.display({
         id: 'actions',
         header: t('common.actions'),
-        cell: ({ row }) => (
+        cell: ({ row, table }) => (
           <TestActionsCell
             row={row}
             navigate={navigate}
             deleteTest={deleteTest}
-            isDeleting={isDeleting}
+            isDeleting={!!table.options.meta?.isDeleting}
             t={t}
           />
         ),
       }),
     ],
-    [t, navigate, deleteTest, isDeleting],
+    [t, navigate, deleteTest],
   );
 
   const table = useReactTable({
+    meta: { isDeleting },
     data,
     columns,
     state: { sorting },

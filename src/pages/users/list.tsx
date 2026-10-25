@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
 
 import MyButton from '@/components/shared/Button';
 import { UsersTable } from '@/components/users';
+import { EMPTY_LIST } from '@/constants/common';
 import { useDebounce } from '@/hooks';
 import { useGetUsers } from '@/hooks/apis/users';
 import { PermissionAction, SubjectName } from '@/types/auth';
@@ -42,7 +43,7 @@ export default function UsersPage() {
     search: searchParam || undefined,
   });
 
-  const users = data?.data ?? [];
+  const users = data?.data ?? EMPTY_LIST;
   const total = data?.meta?.totalCount ?? 0;
 
   return (

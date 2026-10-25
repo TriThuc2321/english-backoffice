@@ -7,6 +7,7 @@ import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
 import MyButton from '@/components/shared/Button';
 import FilterSelect from '@/components/shared/FilterSelect';
 import { TestsTable } from '@/components/tests';
+import { EMPTY_LIST } from '@/constants/common';
 import { useDebounce } from '@/hooks';
 import { useGetTests } from '@/hooks/apis/tests';
 import { PermissionAction, SubjectName } from '@/types/auth';
@@ -57,7 +58,7 @@ export default function TestsPage() {
     status,
   });
 
-  const tests = data?.data ?? [];
+  const tests = data?.data ?? EMPTY_LIST;
   const total = data?.meta?.totalCount ?? 0;
 
   const setFilter = (name: 'examType' | 'status', value: string) =>

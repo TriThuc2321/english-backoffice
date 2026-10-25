@@ -7,6 +7,7 @@ import { useSearchParams, type MetaFunction } from 'react-router';
 import { MediaTable, UploadMediaModal } from '@/components/media';
 import MyButton from '@/components/shared/Button';
 import FilterSelect from '@/components/shared/FilterSelect';
+import { EMPTY_LIST } from '@/constants/common';
 import { useDebounce } from '@/hooks';
 import { useGetMediaList } from '@/hooks/apis/media';
 import { PermissionAction, SubjectName } from '@/types/auth';
@@ -55,7 +56,7 @@ export default function MediaPage() {
     { enabled: true },
   );
 
-  const media = data?.data ?? [];
+  const media = data?.data ?? EMPTY_LIST;
   const total = data?.meta?.totalCount ?? 0;
 
   const setFilter = (name: 'scope' | 'kind', value: string) =>

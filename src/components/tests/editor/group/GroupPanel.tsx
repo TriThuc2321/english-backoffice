@@ -9,10 +9,11 @@ import {
   Select,
   Skeleton,
 } from '@heroui/react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Controller,
   useFieldArray,
+  useFormState,
   useWatch,
   type Control,
   type FieldErrors,
@@ -261,6 +262,53 @@ const GroupContentEditor = ({
   );
 };
 
+type QuestionNavProps = {
+  control: FormControl;
+  fieldIds: string[];
+  activeIndex: number;
+  onSelect: (index: number) => void;
+};
+
+const QuestionNav = ({
+  control,
+  fieldIds,
+  activeIndex,
+  onSelect,
+}: QuestionNavProps) => {
+  const { t } = useTranslation();
+  const numbers = useWatch({
+    control,
+    name: fieldIds.map((_, index) => `questions.${index}.numberFrom` as const),
+  });
+  const { errors } = useFormState({ control, name: 'questions' });
+
+  if (fieldIds.length < 2) return null;
+
+  return (
+    <nav
+      aria-label={t('tests.editor.group.jumpToQuestion')}
+      className="flex flex-wrap gap-1"
+    >
+      {fieldIds.map((id, index) => (
+        <button
+          key={id}
+          type="button"
+          onClick={() => onSelect(index)}
+          className={cn(
+            'rounded-field hover:bg-default min-w-9 cursor-pointer border px-1.5 py-0.5 text-xs',
+            index === activeIndex
+              ? 'border-accent bg-accent-soft text-accent font-semibold'
+              : 'border-transparent',
+            errors.questions?.[index] && 'border-danger text-danger',
+          )}
+        >
+          {numbers[index]}
+        </button>
+      ))}
+    </nav>
+  );
+};
+
 type GroupEditorProps = {
   test: Test;
   section: TestSection;
@@ -319,9 +367,10 @@ const GroupEditor = ({
     );
   }, [initialValues, reset]);
 
-  const [questionType, passages, questions] = useWatch({
+  // Not `questions`: watching it re-renders every QuestionCard on each keystroke
+  const [questionType, passages] = useWatch({
     control,
-    name: ['questionType', 'passages', 'questions'],
+    name: ['questionType', 'passages'],
   });
   const spec = QUESTION_TYPES[questionType];
 
@@ -330,9 +379,10 @@ const GroupEditor = ({
   const p0 = usePassageParagraphs(passages[0]?.id);
   const p1 = usePassageParagraphs(passages[1]?.id);
   const p2 = usePassageParagraphs(passages[2]?.id);
-  const paragraphOptions = [p0, p1, p2]
-    .slice(0, passages.length)
-    .flatMap((p) => p.options);
+  const paragraphOptions = useMemo(
+    () => [p0.options, p1.options, p2.options].slice(0, passages.length).flat(),
+    [p0.options, p1.options, p2.options, passages.length],
+  );
 
   const typeOptions = getTypesForSkill(section.skill);
 
@@ -383,15 +433,31 @@ const GroupEditor = ({
     });
   };
 
+  const activateQuestion = useCallback(
+    (index: number) => setActiveIndex(index),
+    [],
+  );
+
+  const moveQuestion = useCallback(
+    (index: number, offset: -1 | 1) => {
+      move(index, index + offset);
+      setActiveIndex(index + offset);
+      pendingScrollRef.current = index + offset;
+    },
+    [move],
+  );
+
   // Keep the same question active, or its neighbour if it was the one removed
-  const removeQuestion = (index: number) => {
-    remove(index);
-    setActiveIndex((active) =>
-      active > index
-        ? active - 1
-        : Math.max(0, Math.min(active, fields.length - 2)),
-    );
-  };
+  const removeQuestion = useCallback(
+    (index: number) => {
+      const count = getValues('questions').length;
+      remove(index);
+      setActiveIndex((active) =>
+        active > index ? active - 1 : Math.max(0, Math.min(active, count - 2)),
+      );
+    },
+    [getValues, remove],
+  );
 
   const onSubmit = async (data: QuestionGroupFormData) => {
     try {
@@ -453,29 +519,12 @@ const GroupEditor = ({
             </h3>
             {addQuestionButton}
           </div>
-          {questions.length > 1 && (
-            <nav
-              aria-label={t('tests.editor.group.jumpToQuestion')}
-              className="flex flex-wrap gap-1"
-            >
-              {questions.map((question, index) => (
-                <button
-                  key={fields[index]?.id ?? index}
-                  type="button"
-                  onClick={() => focusQuestion(index)}
-                  className={cn(
-                    'rounded-field hover:bg-default min-w-9 cursor-pointer border px-1.5 py-0.5 text-xs',
-                    index === activeIndex
-                      ? 'border-accent bg-accent-soft text-accent font-semibold'
-                      : 'border-transparent',
-                    errors.questions?.[index] && 'border-danger text-danger',
-                  )}
-                >
-                  {question.numberFrom}
-                </button>
-              ))}
-            </nav>
-          )}
+          <QuestionNav
+            control={control}
+            fieldIds={fields.map((field) => field.id)}
+            activeIndex={activeIndex}
+            onSelect={focusQuestion}
+          />
         </div>
         {questionsError && (
           <p className="text-danger text-sm">{questionsError}</p>
@@ -490,7 +539,6 @@ const GroupEditor = ({
             <QuestionCard
               control={control}
               testId={test.id}
-              errors={errors}
               index={index}
               count={fields.length}
               isLocked={isLocked}
@@ -500,13 +548,9 @@ const GroupEditor = ({
                 spec.questionContent === 'timing'
               }
               paragraphOptions={paragraphOptions}
-              onActivate={() => setActiveIndex(index)}
-              onMove={(offset) => {
-                move(index, index + offset);
-                setActiveIndex(index + offset);
-                pendingScrollRef.current = index + offset;
-              }}
-              onRemove={() => removeQuestion(index)}
+              onActivate={activateQuestion}
+              onMove={moveQuestion}
+              onRemove={removeQuestion}
             />
           </div>
         ))}

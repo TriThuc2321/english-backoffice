@@ -215,21 +215,22 @@ export default function ProgramsTable({
       columnHelper.display({
         id: 'actions',
         header: t('common.actions'),
-        cell: ({ row }) => (
+        cell: ({ row, table }) => (
           <ProgramActionsCell
             row={row}
             navigate={navigate}
             deleteProgram={deleteProgram}
-            isDeleting={isDeleting}
+            isDeleting={!!table.options.meta?.isDeleting}
             t={t}
           />
         ),
       }),
     ],
-    [t, navigate, deleteProgram, isDeleting],
+    [t, navigate, deleteProgram],
   );
 
   const table = useReactTable({
+    meta: { isDeleting },
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),

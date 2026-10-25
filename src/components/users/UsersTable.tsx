@@ -289,21 +289,22 @@ export default function UsersTable({
       columnHelper.display({
         id: 'actions',
         header: t('common.actions'),
-        cell: ({ row }) => (
+        cell: ({ row, table }) => (
           <UserActionsCell
             row={row}
             navigate={navigate}
             deleteUser={deleteUser}
-            isDeleting={isDeleting}
+            isDeleting={!!table.options.meta?.isDeleting}
             t={t}
           />
         ),
       }),
     ],
-    [t, navigate, deleteUser, isDeleting],
+    [t, navigate, deleteUser],
   );
 
   const table = useReactTable({
+    meta: { isDeleting },
     data,
     columns,
     state: { sorting },
