@@ -119,6 +119,8 @@ export type QuestionGroup = {
   audioMediaId: Nullable<number>;
   imageMediaId: Nullable<number>;
   groupPassages: GroupPassage[];
+  numberFrom: Nullable<number>;
+  numberTo: Nullable<number>;
   questions?: Question[];
 };
 

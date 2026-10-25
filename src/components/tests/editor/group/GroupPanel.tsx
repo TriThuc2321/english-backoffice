@@ -46,7 +46,6 @@ import {
   useDeleteQuestionGroup,
   useGetQuestionGroupById,
   useGetQuestionGroups,
-  useGetQuestionGroupsDetail,
   useSaveQuestionGroup,
 } from '@/hooks/apis/question-groups';
 import { useCreateEditQuestionGroupForm } from '@/hooks/forms';
@@ -804,13 +803,8 @@ const GroupPanel = ({
   // Default first number: right after the last question of this part
   const { data: partGroups = [], isLoading: isLoadingGroups } =
     useGetQuestionGroups(isNew ? part.id : undefined);
-  const details = useGetQuestionGroupsDetail(partGroups.map((g) => g.id));
-  const isLoadingNumbers =
-    isNew && (isLoadingGroups || details.some((d) => d.isLoading));
-  const lastNumber = Math.max(
-    0,
-    ...details.flatMap((d) => d.data?.questions?.map((q) => q.numberTo) ?? []),
-  );
+  const isLoadingNumbers = isNew && isLoadingGroups;
+  const lastNumber = Math.max(0, ...partGroups.map((g) => g.numberTo ?? 0));
 
   const type =
     newType && QUESTION_TYPES[newType]?.skills.includes(section.skill)

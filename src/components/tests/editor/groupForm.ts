@@ -461,10 +461,10 @@ export const toSaveGroupPayload = (
   };
 };
 
-export const groupRange = (questions: Question[] | undefined) => {
-  if (!questions?.length) return undefined;
-  return {
-    from: Math.min(...questions.map((q) => q.numberFrom)),
-    to: Math.max(...questions.map((q) => q.numberTo)),
-  };
-};
+export const groupRange = ({
+  numberFrom,
+  numberTo,
+}: Pick<QuestionGroup, 'numberFrom' | 'numberTo'>) =>
+  numberFrom === null || numberTo === null
+    ? undefined
+    : { from: numberFrom, to: numberTo };
