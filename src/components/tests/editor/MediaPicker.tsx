@@ -53,10 +53,15 @@ const MediaPicker = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const owner = { scope: MediaScope.TEST, ownerId: String(testId) };
   const { data } = useGetMediaList({ ...owner, kind, take: 100 });
+  // Shared library media can be used by any test
+  const { data: library } = useGetMediaList(
+    { scope: MediaScope.LIBRARY, kind, take: 100 },
+    { enabled: true },
+  );
   const { data: selected } = useGetMediaById(value ?? undefined);
   const { mutateAsync: upload, isPending: isUploading } = useUploadMedia();
 
-  const list = data?.data ?? [];
+  const list = [...(data?.data ?? []), ...(library?.data ?? [])];
   // The selected file may sit beyond the first page of the list
   const options =
     selected && !list.some((m) => m.id === selected.id)

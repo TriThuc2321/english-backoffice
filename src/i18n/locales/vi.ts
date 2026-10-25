@@ -253,7 +253,6 @@ const vi = {
     deleteConfirm: 'Bạn có chắc chắn muốn xóa "{{name}}" không?',
     maxSize: 'Tối đa {{size}} MB · {{types}}',
     ownerIdPlaceholder: 'ID bài kiểm tra hoặc người dùng',
-    searchOwner: 'Tìm kiếm...',
     metadata: 'Thông tin',
     metadataDescription: 'Thời lượng và bản ghi hiển thị cho học viên',
     filters: {
@@ -262,6 +261,7 @@ const vi = {
     scope: {
       TEST: 'Bài kiểm tra',
       AVATAR: 'Ảnh đại diện',
+      LIBRARY: 'Thư viện',
     },
     kind: {
       AUDIO: 'Âm thanh',

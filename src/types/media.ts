@@ -4,15 +4,18 @@ import type { MediaKind } from './test';
 export enum MediaScope {
   TEST = 'TEST',
   AVATAR = 'AVATAR',
+  LIBRARY = 'LIBRARY',
 }
 
-// ownerId is the test id (as a string) for TEST, the user uuid for AVATAR
+// ownerId is the test id (as a string) for TEST, the user uuid for AVATAR;
+// LIBRARY media has no owner
 type MediaOwner = {
   scope: MediaScope;
-  ownerId: string;
+  ownerId?: string;
 };
 
-export type Media = MediaOwner & {
+export type Media = Omit<MediaOwner, 'ownerId'> & {
+  ownerId: Nullable<string>;
   id: number;
   kind: MediaKind;
   storageKey: string;

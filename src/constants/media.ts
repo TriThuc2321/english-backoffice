@@ -32,6 +32,10 @@ export const MEDIA_MAX_BYTES: Record<
   [MediaScope.AVATAR]: {
     [MediaKind.IMAGE]: 2 * MB,
   },
+  [MediaScope.LIBRARY]: {
+    [MediaKind.AUDIO]: 100 * MB,
+    [MediaKind.IMAGE]: 10 * MB,
+  },
 };
 
 export const AVATAR_CONTENT_TYPES = IMAGE_CONTENT_TYPES;

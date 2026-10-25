@@ -13,11 +13,10 @@ import { useUploadMediaForm } from '@/hooks/forms';
 import { MediaScope } from '@/types/media';
 import { MediaKind } from '@/types/test';
 
-import OwnerPicker from './OwnerPicker';
+// Uploads from the media page are shared library media, without an owner
+const SCOPE = MediaScope.LIBRARY;
 
 const DEFAULT_VALUES = {
-  scope: MediaScope.TEST,
-  ownerId: '',
   kind: MediaKind.AUDIO,
   file: undefined,
 };
@@ -41,14 +40,9 @@ const UploadMediaModal = ({ isOpen, onOpenChange }: UploadMediaModalProps) => {
     formState: { errors },
   } = useUploadMediaForm({ defaultValues: DEFAULT_VALUES });
 
-  const scope = watch('scope');
   const kind = watch('kind');
   const file = watch('file');
-  // Avatars are images only
-  const kinds = Object.values(MediaKind).filter(
-    (k) => MEDIA_MAX_BYTES[scope][k] != null,
-  );
-  const maxBytes = MEDIA_MAX_BYTES[scope][kind];
+  const maxBytes = MEDIA_MAX_BYTES[SCOPE][kind];
 
   const close = (open: boolean) => {
     if (open) return onOpenChange(true);
@@ -58,7 +52,7 @@ const UploadMediaModal = ({ isOpen, onOpenChange }: UploadMediaModalProps) => {
 
   const onSubmit = async (data: UploadMediaFormData) => {
     try {
-      await upload(data);
+      await upload({ ...data, scope: SCOPE });
       close(false);
     } catch (error) {
       console.error(error);
@@ -79,46 +73,6 @@ const UploadMediaModal = ({ isOpen, onOpenChange }: UploadMediaModalProps) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Modal.Body className="flex flex-col gap-4">
               <Controller
-                name="scope"
-                control={control}
-                render={({ field }) => (
-                  <FilterSelect
-                    className="w-full"
-                    label={t('media.field.scope')}
-                    value={field.value}
-                    onChange={(value) => {
-                      const next = value as MediaScope;
-                      field.onChange(next);
-                      setValue('ownerId', '');
-                      if (MEDIA_MAX_BYTES[next][kind] == null) {
-                        setValue('kind', MediaKind.IMAGE);
-                        resetField('file');
-                      }
-                    }}
-                    options={Object.values(MediaScope).map((v) => ({
-                      id: v,
-                      label: t(`media.scope.${v}`),
-                    }))}
-                  />
-                )}
-              />
-
-              <Controller
-                name="ownerId"
-                control={control}
-                render={({ field }) => (
-                  // Remount per scope so the search text resets
-                  <OwnerPicker
-                    key={scope}
-                    scope={scope}
-                    value={field.value}
-                    onChange={field.onChange}
-                    error={errors.ownerId?.message}
-                  />
-                )}
-              />
-
-              <Controller
                 name="kind"
                 control={control}
                 render={({ field }) => (
@@ -126,12 +80,11 @@ const UploadMediaModal = ({ isOpen, onOpenChange }: UploadMediaModalProps) => {
                     className="w-full"
                     label={t('media.field.kind')}
                     value={field.value}
-                    isDisabled={kinds.length < 2}
                     onChange={(value) => {
                       field.onChange(value as MediaKind);
                       resetField('file');
                     }}
-                    options={kinds.map((v) => ({
+                    options={Object.values(MediaKind).map((v) => ({
                       id: v,
                       label: t(`media.kind.${v}`),
                     }))}
