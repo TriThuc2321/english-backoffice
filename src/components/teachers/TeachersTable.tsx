@@ -305,21 +305,22 @@ export default function TeachersTable({
       columnHelper.display({
         id: 'actions',
         header: t('common.actions'),
-        cell: ({ row }) => (
+        cell: ({ row, table }) => (
           <TeacherActionsCell
             row={row}
             navigate={navigate}
             deleteTeacher={deleteTeacher}
-            isDeleting={isDeleting}
+            isDeleting={!!table.options.meta?.isDeleting}
             t={t}
           />
         ),
       }),
     ],
-    [t, navigate, deleteTeacher, isDeleting],
+    [t, navigate, deleteTeacher],
   );
 
   const table = useReactTable({
+    meta: { isDeleting },
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),

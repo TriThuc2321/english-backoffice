@@ -239,21 +239,22 @@ export default function RolesTable({
       columnHelper.display({
         id: 'actions',
         header: t('common.actions'),
-        cell: ({ row }) => (
+        cell: ({ row, table }) => (
           <RoleActionsCell
             row={row}
             navigate={navigate}
             deleteRole={deleteRole}
-            isDeleting={isDeleting}
+            isDeleting={!!table.options.meta?.isDeleting}
             t={t}
           />
         ),
       }),
     ],
-    [t, navigate, deleteRole, isDeleting],
+    [t, navigate, deleteRole],
   );
 
   const table = useReactTable({
+    meta: { isDeleting },
     data,
     columns,
     state: { sorting },

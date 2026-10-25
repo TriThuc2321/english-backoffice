@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
 
 import { PassagesTable } from '@/components/passages';
 import MyButton from '@/components/shared/Button';
+import { EMPTY_LIST } from '@/constants/common';
 import { useDebounce } from '@/hooks';
 import { useGetPassages } from '@/hooks/apis/passages';
 import { PermissionAction, SubjectName } from '@/types/auth';
@@ -46,7 +47,7 @@ export default function PassagesPage() {
     search: searchParam || undefined,
   });
 
-  const passages = data?.data ?? [];
+  const passages = data?.data ?? EMPTY_LIST;
   const total = data?.meta?.totalCount ?? 0;
 
   return (

@@ -6,3 +6,5 @@ export const ROW_PER_PAGE_OPTIONS = ROW_PER_PAGES.map((page) => ({
 }));
 
 export const DEFAULT_PARAM = { page: 1, take: 10 };
+
+export const EMPTY_LIST: never[] = [];

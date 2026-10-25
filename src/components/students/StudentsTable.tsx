@@ -257,21 +257,22 @@ export default function StudentsTable({
       columnHelper.display({
         id: 'actions',
         header: t('common.actions'),
-        cell: ({ row }) => (
+        cell: ({ row, table }) => (
           <StudentActionsCell
             row={row}
             navigate={navigate}
             deleteStudent={deleteStudent}
-            isDeleting={isDeleting}
+            isDeleting={!!table.options.meta?.isDeleting}
             t={t}
           />
         ),
       }),
     ],
-    [t, navigate, deleteStudent, isDeleting],
+    [t, navigate, deleteStudent],
   );
 
   const table = useReactTable({
+    meta: { isDeleting },
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),

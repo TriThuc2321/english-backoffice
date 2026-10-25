@@ -1,9 +1,10 @@
 import { Button, Card, cn, Label, ListBox, Select } from '@heroui/react';
+import { memo } from 'react';
 import {
   Controller,
+  useFormState,
   useWatch,
   type Control,
-  type FieldErrors,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { LuX } from 'react-icons/lu';
@@ -41,22 +42,20 @@ const message = (error: unknown) =>
 type QuestionCardProps = {
   control: Control<QuestionGroupFormInput, unknown, QuestionGroupFormData>;
   testId: number;
-  errors: FieldErrors<QuestionGroupFormInput>;
   index: number;
   count: number;
   isLocked: boolean;
   isActive: boolean;
   showMedia: boolean;
   paragraphOptions: ParagraphOption[];
-  onActivate: () => void;
-  onMove: (offset: -1 | 1) => void;
-  onRemove: () => void;
+  onActivate: (index: number) => void;
+  onMove: (index: number, offset: -1 | 1) => void;
+  onRemove: (index: number) => void;
 };
 
 const QuestionCard = ({
   control,
   testId,
-  errors,
   index,
   count,
   isLocked,
@@ -72,6 +71,7 @@ const QuestionCard = ({
     control,
     name: ['questionType', 'content', `questions.${index}`],
   });
+  const { errors } = useFormState({ control, name: `questions.${index}` });
   const spec = QUESTION_TYPES[questionType];
   const answerKind = resolveAnswerKind(spec, content);
   const keyOptions = getKeyOptions(spec, content, question);
@@ -82,8 +82,8 @@ const QuestionCard = ({
 
   return (
     <Card
-      onClick={onActivate}
-      onFocus={onActivate}
+      onClick={() => onActivate(index)}
+      onFocus={() => onActivate(index)}
       className={cn(
         'border',
         isActive ? 'border-accent' : 'border-transparent',
@@ -103,13 +103,17 @@ const QuestionCard = ({
           </b>
           {!isLocked && (
             <div className="flex items-center gap-1">
-              <OrderButtons index={index} count={count} onMove={onMove} />
+              <OrderButtons
+                index={index}
+                count={count}
+                onMove={(offset) => onMove(index, offset)}
+              />
               <Button
                 isIconOnly
                 size="sm"
                 variant="ghost"
                 aria-label={t('tests.editor.group.removeQuestion')}
-                onPress={onRemove}
+                onPress={() => onRemove(index)}
               >
                 <LuX className="text-danger size-4" />
               </Button>
@@ -400,4 +404,4 @@ const QuestionCard = ({
   );
 };
 
-export default QuestionCard;
+export default memo(QuestionCard);

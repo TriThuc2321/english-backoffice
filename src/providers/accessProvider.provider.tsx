@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import type { User } from '@/types/user';
 
 import { AbilityContext } from '@/configs/casl/can.config';
@@ -9,10 +11,12 @@ type AccessProviderProps = {
 };
 
 export function AccessProvider({ children, profile }: AccessProviderProps) {
+  const permissions = profile?.role?.permissions;
+
+  const ability = useMemo(() => defineAbilityFor(permissions), [permissions]);
+
   return (
-    <AbilityContext.Provider
-      value={defineAbilityFor(profile?.role?.permissions)}
-    >
+    <AbilityContext.Provider value={ability}>
       {children}
     </AbilityContext.Provider>
   );

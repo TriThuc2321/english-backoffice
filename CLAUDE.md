@@ -53,3 +53,7 @@ Whenever route files change, regenerate types with `pnpm typegen` (or just `pnpm
 ### Dev server quirks
 
 `vite.config.ts` includes a `stub-well-known` middleware that 204s any `/.well-known/*` request to silence Chrome DevTools probes. HTTPS is enabled automatically when the two `backoffice.myenglish.com*.pem` files exist at the repo root.
+
+## Code style
+
+- Keep comments to a minimum. Only comment a non-obvious constraint or something that would invite a regression, in one short line. Don't explain memoization, refactors, or what the code already says.

@@ -216,21 +216,22 @@ export default function CampusesTable({
       columnHelper.display({
         id: 'actions',
         header: t('common.actions'),
-        cell: ({ row }) => (
+        cell: ({ row, table }) => (
           <CampusActionsCell
             row={row}
             navigate={navigate}
             deleteCampus={deleteCampus}
-            isDeleting={isDeleting}
+            isDeleting={!!table.options.meta?.isDeleting}
             t={t}
           />
         ),
       }),
     ],
-    [t, navigate, deleteCampus, isDeleting],
+    [t, navigate, deleteCampus],
   );
 
   const table = useReactTable({
+    meta: { isDeleting },
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),

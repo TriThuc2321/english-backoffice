@@ -232,21 +232,22 @@ export default function PassagesTable({
       columnHelper.display({
         id: 'actions',
         header: t('common.actions'),
-        cell: ({ row }) => (
+        cell: ({ row, table }) => (
           <PassageActionsCell
             row={row}
             navigate={navigate}
             deletePassage={deletePassage}
-            isDeleting={isDeleting}
+            isDeleting={!!table.options.meta?.isDeleting}
             t={t}
           />
         ),
       }),
     ],
-    [t, navigate, deletePassage, isDeleting],
+    [t, navigate, deletePassage],
   );
 
   const table = useReactTable({
+    meta: { isDeleting },
     data,
     columns,
     state: { sorting },

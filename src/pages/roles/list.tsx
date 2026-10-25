@@ -13,6 +13,7 @@ import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
 
 import { RolesTable } from '@/components/roles';
 import MyButton from '@/components/shared/Button';
+import { EMPTY_LIST } from '@/constants/common';
 import { useDebounce } from '@/hooks';
 import { useGetRoles } from '@/hooks/apis/roles';
 import { PermissionAction, SubjectName } from '@/types/auth';
@@ -50,7 +51,7 @@ export default function RolesPage() {
     search: searchParam || undefined,
   });
 
-  const roles = data?.data ?? [];
+  const roles = data?.data ?? EMPTY_LIST;
   const total = data?.meta?.totalCount ?? 0;
 
   return (
