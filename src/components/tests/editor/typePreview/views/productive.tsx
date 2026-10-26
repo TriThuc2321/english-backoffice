@@ -10,7 +10,7 @@ import { wordCount } from '../grading';
 import { Hint, mmss, Prompt, SampleAnswerBox, usePreview } from '../parts';
 
 const Task = ({ children }: { children: React.ReactNode }) => (
-  <div className="border-border mb-3 rounded-lg border p-4">{children}</div>
+  <div className="border-border rounded-field mb-3 border p-4">{children}</div>
 );
 
 // Static recorder: shows the prep / response timing stored on the question
@@ -19,7 +19,7 @@ const Recorder = ({ q }: { q: SampleQuestion }) => {
   const prep = q.content?.prepSeconds ?? 0;
   const response = q.content?.responseSeconds ?? 0;
   return (
-    <div className="bg-default mt-3 flex flex-wrap items-center gap-3 rounded-lg px-3 py-2 text-sm">
+    <div className="bg-default rounded-field mt-3 flex flex-wrap items-center gap-3 px-3 py-2 text-sm">
       <span className="bg-danger text-danger-foreground grid size-8 place-items-center rounded-full">
         <LuMic className="size-4" />
       </span>
@@ -61,11 +61,13 @@ export const SpeakView = () => {
       {sample.questions.map((q) => (
         <Task key={q.n}>
           <Hint>{t('tests.editor.typePreview.questionN', { n: q.n })}</Hint>
-          {sample.figure && (
-            <FigureImage figure={sample.figure} className="mb-2 max-w-md" />
-          )}
+          <FigureImage
+            figure={sample.figure}
+            mediaId={sample.imageMediaId}
+            className="mb-2 max-w-md"
+          />
           {sample.type === QuestionType.READ_ALOUD ? (
-            <div className="bg-default/50 rounded-lg p-3 leading-7">
+            <div className="bg-default/50 rounded-field p-3 leading-7">
               {q.prompt}
             </div>
           ) : (
@@ -93,7 +95,7 @@ const WritePrompt = ({ q }: { q: SampleQuestion }) => {
         {prompt.split('/').map((word) => (
           <span
             key={word}
-            className="bg-accent-soft text-accent-soft-foreground rounded-md px-3 py-1 font-semibold"
+            className="bg-accent-soft text-accent-soft-foreground rounded-field px-3 py-1 font-semibold"
           >
             {word.trim()}
           </span>
@@ -104,7 +106,7 @@ const WritePrompt = ({ q }: { q: SampleQuestion }) => {
   if (sample.email) {
     const [head, ...rest] = prompt.split('\n\n');
     return (
-      <div className="border-border mb-2 rounded-lg border text-sm">
+      <div className="border-border rounded-field mb-2 border text-sm">
         <div className="border-border bg-default/50 border-b px-3 py-2 whitespace-pre-line">
           {head}
         </div>
@@ -133,15 +135,17 @@ export const WriteView = () => {
           {seconds != null &&
             ` · ${t('tests.editor.typePreview.timeAllowed', { time: mmss(seconds) })}`}
         </Hint>
-        {sample.figure && (
-          <FigureImage figure={sample.figure} className="mb-2 max-w-sm" />
-        )}
+        <FigureImage
+          figure={sample.figure}
+          mediaId={sample.imageMediaId}
+          className="mb-2 max-w-sm"
+        />
         <WritePrompt q={q} />
         <textarea
           rows={sample.rows ?? 4}
           aria-label={t('tests.editor.typePreview.answerLabel', { n: q.n })}
           placeholder={t('tests.editor.typePreview.typeAnswer')}
-          className="border-border bg-surface focus:border-accent w-full rounded-lg border p-2 text-sm outline-none"
+          className="border-border bg-surface focus:border-accent rounded-field w-full border p-2 text-sm outline-none"
           value={value}
           onChange={(e) => setAnswer(q.n, e.target.value)}
         />

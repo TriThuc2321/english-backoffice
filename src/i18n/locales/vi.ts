@@ -764,6 +764,7 @@ const vi = {
         instruction: 'Hướng dẫn',
         audioStartMs: 'Bắt đầu audio (ms)',
         audioEndMs: 'Kết thúc audio (ms)',
+        passage: 'Bài đọc',
       },
       group: {
         title: 'Nhóm câu hỏi',
@@ -785,6 +786,9 @@ const vi = {
           'Questions 1–6: Do the following statements agree with…',
         passages: 'Bài đọc (tối đa 3, theo thứ tự)',
         passageSearch: 'Tìm bài đọc…',
+        inheritedPassage: 'Bài đọc của part: {{title}}',
+        partPassageMissing:
+          'Chưa có bài đọc. Hãy chọn bài đọc ở part; mọi nhóm trong part dùng chung bài đọc đó.',
         passagePreview: 'Xem bài đọc',
         evidenceHint:
           'Bấm vào một đoạn để gắn làm bằng chứng cho câu hỏi đang chọn.',
@@ -875,6 +879,17 @@ const vi = {
         livePreview: 'Xem thử',
         howItWorks: 'Cách hoạt động',
       },
+    },
+    preview: {
+      title: 'Xem như học viên',
+      open: 'Xem như học viên',
+      back: 'Quay lại trình soạn',
+      badge: 'Giao diện học viên',
+      duration_one: '{{count}} phút',
+      duration_other: '{{count}} phút',
+      noGroups: 'Phần này chưa có nhóm câu hỏi.',
+      loadError: 'Không tải được một số nhóm câu hỏi. Hãy tải lại trang.',
+      passageMissing: 'Không tải được bài đọc của phần này.',
     },
     sections: {
       title: 'Các Phần',

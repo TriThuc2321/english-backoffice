@@ -20,7 +20,7 @@ export const McqView = () => {
   const { sample } = usePreview();
   return (
     <>
-      <AudioBar length={sample.audio} />
+      <AudioBar length={sample.audio} mediaId={sample.audioMediaId} />
       {sample.questions.map((q) => (
         <QRow key={q.n} n={q.n}>
           <Prompt>{q.prompt}</Prompt>
@@ -74,11 +74,13 @@ export const PhotoView = () => {
   const { sample } = usePreview();
   return (
     <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      {sample.figure && <FigureImage figure={sample.figure} />}
+      <FigureImage figure={sample.figure} mediaId={sample.imageMediaId} />
       <div>
-        <AudioBar length={sample.audio} />
+        <AudioBar length={sample.audio} mediaId={sample.audioMediaId} />
         {sample.questions.map((q) => (
           <QRow key={q.n} n={q.n}>
+            <FigureImage mediaId={q.imageMediaId} className="mb-2 max-w-sm" />
+            <AudioBar mediaId={q.audioMediaId} />
             <Hint>{t('tests.editor.typePreview.photoHint')}</Hint>
             <Choices
               n={q.n}
@@ -97,9 +99,10 @@ export const QuestionResponseView = () => {
   const { sample } = usePreview();
   return (
     <>
-      <AudioBar length={sample.audio} />
+      <AudioBar length={sample.audio} mediaId={sample.audioMediaId} />
       {sample.questions.map((q) => (
         <QRow key={q.n} n={q.n}>
+          <AudioBar mediaId={q.audioMediaId} />
           <Prompt>{q.prompt}</Prompt>
           <Choices
             n={q.n}
@@ -130,7 +133,7 @@ export const TextCompletionView = () => {
 
   return (
     <>
-      <div className="border-border mb-4 rounded-lg border p-4 text-sm leading-7 whitespace-pre-line">
+      <div className="border-border rounded-field mb-4 border p-4 text-sm leading-7 whitespace-pre-line">
         {parts.map((part, i) =>
           i % 2 ? <span key={i}>{gap(Number(part))}</span> : part,
         )}

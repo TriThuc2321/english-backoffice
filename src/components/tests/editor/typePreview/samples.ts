@@ -52,6 +52,8 @@ export type SampleQuestion = {
   prompt?: string | null;
   content?: SampleQuestionContent;
   answer: SampleAnswer;
+  audioMediaId?: number;
+  imageMediaId?: number;
 };
 
 export type Passage = { title: string; paragraphs: [string, string][] };
@@ -82,6 +84,9 @@ export type TypeSample = {
   email?: boolean;
   rows?: number;
   minWords?: number;
+  // Real groups only: media rendered instead of the static audio / figure
+  audioMediaId?: number;
+  imageMediaId?: number;
 };
 
 const URBAN: Passage = {

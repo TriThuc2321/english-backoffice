@@ -7,7 +7,7 @@ import {
   Chip,
 } from '@heroui/react';
 import { useTranslation } from 'react-i18next';
-import { LuArrowLeft, LuLock } from 'react-icons/lu';
+import { LuArrowLeft, LuEye, LuLock } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
 
 import type { Test } from '@/types/test';
@@ -53,22 +53,31 @@ const EditorHeader = ({ test }: EditorHeaderProps) => {
           </Chip>
         </div>
 
-        <MyButton
-          I={PermissionAction.Update}
-          a={SubjectName.Tests}
-          variant={isPublished ? 'outline' : 'primary'}
-          isPending={isPending}
-          onPress={() =>
-            editTest({
-              id: test.id,
-              status: isPublished ? TestStatus.DRAFT : TestStatus.PUBLISHED,
-            })
-          }
-        >
-          {isPublished
-            ? t('tests.editor.unpublish')
-            : t('tests.editor.publish')}
-        </MyButton>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onPress={() => navigate(`/tests/${test.id}/preview`)}
+          >
+            <LuEye className="size-4" />
+            {t('tests.preview.open')}
+          </Button>
+          <MyButton
+            I={PermissionAction.Update}
+            a={SubjectName.Tests}
+            variant={isPublished ? 'outline' : 'primary'}
+            isPending={isPending}
+            onPress={() =>
+              editTest({
+                id: test.id,
+                status: isPublished ? TestStatus.DRAFT : TestStatus.PUBLISHED,
+              })
+            }
+          >
+            {isPublished
+              ? t('tests.editor.unpublish')
+              : t('tests.editor.publish')}
+          </MyButton>
+        </div>
       </div>
 
       {test.lockedAt && (

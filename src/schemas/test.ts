@@ -83,6 +83,10 @@ export const testPartSchema = yup.object().shape({
       return end == null || start == null || end > start;
     },
   ),
+  passage: yup
+    .object({ id: yup.number().required(), title: yup.string().defined() })
+    .optional()
+    .default(undefined),
 });
 
 export type TestPartFormInput = InferFormInput<typeof testPartSchema>;

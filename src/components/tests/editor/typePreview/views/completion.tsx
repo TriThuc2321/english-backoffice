@@ -27,12 +27,12 @@ export const TemplateView = () => {
   if (sample.variant === 'flow') {
     return (
       <>
-        <AudioBar length={sample.audio} />
+        <AudioBar length={sample.audio} mediaId={sample.audioMediaId} />
         <div className="mx-auto flex max-w-xl flex-col items-center">
           {lines.map((line, i) => (
             <Fragment key={i}>
               {i > 0 && <LuArrowDown className="text-muted my-1 size-4" />}
-              <div className="border-border w-full rounded-lg border px-4 py-2 text-center leading-9">
+              <div className="border-border rounded-field w-full border px-4 py-2 text-center leading-9">
                 {fillTemplate(line, textBlank)}
               </div>
             </Fragment>
@@ -79,11 +79,11 @@ export const TemplateView = () => {
 
   return (
     <>
-      <AudioBar length={sample.audio} />
+      <AudioBar length={sample.audio} mediaId={sample.audioMediaId} />
       <div
         className={
           sample.variant === 'form'
-            ? 'border-border mx-auto max-w-xl rounded-lg border p-4'
+            ? 'border-border rounded-field mx-auto max-w-xl border p-4'
             : ''
         }
       >
@@ -120,7 +120,7 @@ export const TableView = () => {
   const { headers, rows = [] } = sample.group.content?.table ?? {};
   return (
     <>
-      <AudioBar length={sample.audio} />
+      <AudioBar length={sample.audio} mediaId={sample.audioMediaId} />
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-sm">
           {headers && (
@@ -158,7 +158,7 @@ export const DiagramView = () => {
   const { sample } = usePreview();
   return (
     <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      {sample.figure && <FigureImage figure={sample.figure} />}
+      <FigureImage figure={sample.figure} mediaId={sample.imageMediaId} />
       <div>
         {sample.questions.map((q) => (
           <Line key={q.n}>{textBlank(q.n)}</Line>

@@ -1,7 +1,9 @@
-import { cn } from '@heroui/react';
+import { cn, Skeleton } from '@heroui/react';
 import { createContext, Fragment, useContext, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuPlay } from 'react-icons/lu';
+
+import { useGetMediaById } from '@/hooks/apis/media';
 
 import type { PreviewAnswers, QuestionResult } from './grading';
 import type {
@@ -85,7 +87,7 @@ export const QRow = ({ n, label, children }: QRowProps) => {
   return (
     <div
       className={cn(
-        'mb-1.5 grid grid-cols-[auto_1fr] gap-2.5 rounded-lg border border-transparent p-2',
+        'rounded-field mb-1.5 grid grid-cols-[auto_1fr] gap-2.5 border border-transparent p-2',
         resultTone(result),
       )}
     >
@@ -99,7 +101,7 @@ export const QRow = ({ n, label, children }: QRowProps) => {
 };
 
 export const QNum = ({ children }: { children: ReactNode }) => (
-  <span className="bg-accent-soft text-accent-soft-foreground grid h-6.5 min-w-7 place-items-center rounded-md px-1.5 text-[13px] font-bold">
+  <span className="bg-accent-soft text-accent-soft-foreground rounded-field grid h-6.5 min-w-7 place-items-center px-1.5 text-[13px] font-bold">
     {children}
   </span>
 );
@@ -113,7 +115,7 @@ export const Hint = ({ children }: { children: ReactNode }) => (
 );
 
 const fieldClass =
-  'border-border bg-surface rounded-md border px-2 py-0.5 text-sm outline-none focus:border-accent';
+  'border-border bg-surface rounded-field border px-2 py-0.5 text-sm outline-none focus:border-accent';
 
 // Inline gap: number badge + text box (or key dropdown when options are given)
 export const Blank = ({
@@ -245,7 +247,7 @@ export const Choices = ({
           <label
             key={o.key}
             className={cn(
-              'flex cursor-pointer items-center gap-2 rounded-md',
+              'rounded-field flex cursor-pointer items-center gap-2',
               variant === 'list' && 'hover:bg-default px-2 py-1',
               variant === 'pills' &&
                 'border-border border px-3 py-1 text-sm font-semibold',
@@ -290,7 +292,7 @@ export const OptionsBox = ({
   title?: string;
   options: SampleOption[];
 }) => (
-  <div className="border-border bg-default/40 mb-3 rounded-lg border p-3">
+  <div className="border-border bg-default/40 rounded-field mb-3 border p-3">
     {title && <h5 className="mb-1.5 text-sm font-bold">{title}</h5>}
     <ol className="flex flex-col gap-0.5 text-sm">
       {options.map((o) => (
@@ -303,9 +305,38 @@ export const OptionsBox = ({
   </div>
 );
 
-// Static stand-in for the audio player (group / part audio_media_id)
-export const AudioBar = ({ length }: { length?: string }) => {
+type MediaAudioProps = {
+  mediaId: number;
+  startMs?: number | null;
+  endMs?: number | null;
+};
+
+export const MediaAudio = ({ mediaId, startMs, endMs }: MediaAudioProps) => {
   const { t } = useTranslation();
+  const { data: media } = useGetMediaById(mediaId);
+  if (!media) return <Skeleton className="mb-3 h-10 rounded-full" />;
+
+  const range =
+    startMs != null || endMs != null
+      ? `#t=${(startMs ?? 0) / 1000}${endMs != null ? `,${endMs / 1000}` : ''}`
+      : '';
+  return (
+    <audio
+      controls
+      preload="metadata"
+      aria-label={t('tests.editor.typePreview.audio')}
+      src={`${media.url}${range}`}
+      className="mb-3 w-full"
+    />
+  );
+};
+
+type AudioBarProps = { length?: string; mediaId?: number };
+
+// Static stand-in for the audio player unless a real media id is given
+export const AudioBar = ({ length, mediaId }: AudioBarProps) => {
+  const { t } = useTranslation();
+  if (mediaId) return <MediaAudio mediaId={mediaId} />;
   if (!length) return null;
   return (
     <div className="bg-default mb-3 flex items-center gap-3 rounded-full px-3 py-1.5">
@@ -321,8 +352,19 @@ export const AudioBar = ({ length }: { length?: string }) => {
   );
 };
 
-export const PassagePane = ({ passage }: { passage: Passage }) => (
-  <div className="border-border max-h-[460px] overflow-y-auto border-b p-4 text-sm leading-relaxed md:border-r md:border-b-0">
+export const PassagePane = ({
+  passage,
+  className,
+}: {
+  passage: Passage;
+  className?: string;
+}) => (
+  <div
+    className={cn(
+      'border-border max-h-[460px] overflow-y-auto border-b p-4 text-sm leading-relaxed md:border-r md:border-b-0',
+      className,
+    )}
+  >
     <h4 className="mb-2 font-bold">{passage.title}</h4>
     {passage.paragraphs.map(([letter, text]) => (
       <p key={letter} className="mb-2.5">
@@ -339,7 +381,7 @@ export const Transcript = ({ text }: { text?: string }) => {
   const { t } = useTranslation();
   if (!text) return null;
   return (
-    <details className="border-border mt-3 rounded-lg border border-dashed p-3 text-sm">
+    <details className="border-border rounded-field mt-3 border border-dashed p-3 text-sm">
       <summary className="text-muted cursor-pointer">
         {t('tests.editor.typePreview.transcript')}
       </summary>
@@ -354,7 +396,7 @@ export const SampleAnswerBox = ({ q }: { q: SampleQuestion }) => {
   if (!checked) return null;
   const { sample, rubric } = q.answer;
   return (
-    <div className="bg-success/10 border-success mt-3 rounded-lg border-l-4 p-3 text-sm whitespace-pre-line">
+    <div className="bg-success/10 border-success rounded-field mt-3 border-l-4 p-3 text-sm whitespace-pre-line">
       <b>{t('tests.editor.typePreview.sampleAnswer')}</b>
       {'\n'}
       {sample}

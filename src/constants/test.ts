@@ -75,3 +75,6 @@ export const EXAM_SKILLS: Record<ExamType, readonly SkillType[]> = {
   [ExamType.TOEIC_LR]: [SkillType.LISTENING, SkillType.READING],
   [ExamType.TOEIC_SW]: [SkillType.SPEAKING, SkillType.WRITING],
 };
+
+export const isIeltsExam = (examType: ExamType) =>
+  examType === ExamType.IELTS_ACADEMIC || examType === ExamType.IELTS_GENERAL;

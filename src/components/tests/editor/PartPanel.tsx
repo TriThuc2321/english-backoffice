@@ -8,7 +8,6 @@ import type { TestPartFormData } from '@/schemas/test';
 import type {
   QuestionGroup,
   QuestionType,
-  SkillType,
   Test,
   TestPart,
   TestSection,
@@ -19,6 +18,7 @@ import Section from '@/components/shared/Section';
 import { useCan } from '@/configs/casl/can.config';
 import ConfirmWrapper from '@/configs/ConfirmWrapper';
 import { getTypesForSkill } from '@/constants/questionTypes';
+import { isIeltsExam } from '@/constants/test';
 import {
   useDeleteQuestionGroup,
   useGetQuestionGroups,
@@ -27,11 +27,12 @@ import {
 import { useDeleteTestPart, useEditTestPart } from '@/hooks/apis/test-parts';
 import { useEditTestPartForm } from '@/hooks/forms';
 import { PermissionAction, SubjectName } from '@/types/auth';
-import { MediaKind } from '@/types/test';
+import { MediaKind, SkillType } from '@/types/test';
 
 import type { EditorLocation } from './TestEditor';
 
 import { NumberInput, TextInput } from './fields';
+import PassagePicker from './group/PassagePicker';
 import { groupRange } from './groupForm';
 import MediaPicker from './MediaPicker';
 import OrderButtons from './OrderButtons';
@@ -43,6 +44,9 @@ const toFormValues = (part: TestPart): TestPartFormData => ({
   audioMediaId: part.audioMediaId ?? undefined,
   audioStartMs: part.audioStartMs ?? undefined,
   audioEndMs: part.audioEndMs ?? undefined,
+  passage: part.passage
+    ? { id: part.passage.id, title: part.passage.title }
+    : undefined,
 });
 
 type PartPanelProps = {
@@ -62,6 +66,8 @@ const PartInfoCard = ({
 }: PartPanelProps) => {
   const { t } = useTranslation();
   const isLocked = !!test.lockedAt;
+  const hasPartPassage =
+    isIeltsExam(test.examType) && section.skill === SkillType.READING;
   const { mutateAsync: editPart, isPending: isEditing } = useEditTestPart();
   const { mutateAsync: deletePart, isPending: isDeleting } =
     useDeleteTestPart();
@@ -90,6 +96,7 @@ const PartInfoCard = ({
         audioMediaId: data.audioMediaId ?? null,
         audioStartMs: data.audioStartMs ?? null,
         audioEndMs: data.audioEndMs ?? null,
+        ...(hasPartPassage && { passageId: data.passage?.id ?? null }),
       });
       reset(data);
     } catch (error) {
@@ -170,6 +177,23 @@ const PartInfoCard = ({
                 />
               )}
             />
+            {hasPartPassage && (
+              <Controller
+                name="passage"
+                control={control}
+                render={({ field }) => (
+                  <div className="sm:col-span-2">
+                    <PassagePicker
+                      max={1}
+                      label={t('tests.editor.part.passage')}
+                      value={field.value ? [field.value] : []}
+                      onChange={(value) => field.onChange(value[0])}
+                      isDisabled={isLocked}
+                    />
+                  </div>
+                )}
+              />
+            )}
             <Controller
               name="audioMediaId"
               control={control}

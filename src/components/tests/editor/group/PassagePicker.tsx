@@ -5,21 +5,29 @@ import { LuX } from 'react-icons/lu';
 
 import type { Passage } from '@/types/passage';
 
+import { MAX_GROUP_PASSAGES } from '@/constants/questionTypes';
 import { useDebounce } from '@/hooks';
 import { useGetPassagesInfinity } from '@/hooks/apis/passages';
 
-const MAX_PASSAGES = 3;
-
-type PassageRef = { id: number; title: string };
+export type PassageRef = { id: number; title: string };
 
 type PassagePickerProps = {
   value: PassageRef[];
   onChange: (value: PassageRef[]) => void;
+  max?: number;
+  label?: string;
   isDisabled?: boolean;
 };
 
-const PassagePicker = ({ value, onChange, isDisabled }: PassagePickerProps) => {
+const PassagePicker = ({
+  value,
+  onChange,
+  max = MAX_GROUP_PASSAGES,
+  label,
+  isDisabled,
+}: PassagePickerProps) => {
   const { t } = useTranslation();
+  const labelText = label ?? t('tests.editor.group.passages');
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 300);
   const { data } = useGetPassagesInfinity({
@@ -27,32 +35,31 @@ const PassagePicker = ({ value, onChange, isDisabled }: PassagePickerProps) => {
   });
   const passages = (data ?? []).filter((p): p is Passage => !!p?.id);
 
-  const options = passages.filter(
-    (p) => !value.some((v) => v.id === Number(p.id)),
-  );
-  const isFull = value.length >= MAX_PASSAGES;
+  // Don't disable when full: disabling mid-selection leaves the popover stuck open
+  const isFull = max > 1 && value.length >= max;
+  const options = isFull
+    ? []
+    : passages.filter((p) => !value.some((v) => v.id === Number(p.id)));
 
   return (
     <div className="flex flex-col gap-2">
       <ComboBox
         fullWidth
-        aria-label={t('tests.editor.group.passages')}
+        aria-label={labelText}
         inputValue={search}
         onInputChange={setSearch}
         selectedKey={null}
         defaultFilter={() => true}
-        isDisabled={isDisabled || isFull}
+        isDisabled={isDisabled}
         onSelectionChange={(key) => {
           const passage = passages.find((p) => String(p.id) === String(key));
           if (!passage) return;
-          onChange([
-            ...value,
-            { id: Number(passage.id), title: passage.title ?? '' },
-          ]);
+          const picked = { id: Number(passage.id), title: passage.title ?? '' };
+          onChange(max === 1 ? [picked] : [...value, picked]);
           setSearch('');
         }}
       >
-        <Label>{t('tests.editor.group.passages')}</Label>
+        <Label>{labelText}</Label>
         <ComboBox.InputGroup>
           <Input placeholder={t('tests.editor.group.passageSearch')} />
           <ComboBox.Trigger />
