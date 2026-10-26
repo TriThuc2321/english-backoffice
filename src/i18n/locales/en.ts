@@ -894,6 +894,8 @@ const en = {
       duration_one: '{{count}} minute',
       duration_other: '{{count}} minutes',
       noGroups: 'No question groups in this part yet.',
+      loadError: 'Some question groups failed to load. Reload to try again.',
+      passageMissing: "This part's passage couldn't be loaded.",
     },
     sections: {
       title: 'Sections',

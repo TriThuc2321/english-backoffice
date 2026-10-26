@@ -11,6 +11,7 @@ import { questionGroupApi } from '@/services/apis';
 const combine = (results: UseQueryResult<QuestionGroup>[]) => ({
   data: results.map((r) => r.data).filter((g): g is QuestionGroup => !!g),
   isLoading: results.some((r) => r.isLoading),
+  isError: results.some((r) => r.isError),
 });
 
 // GET /question-groups has no questions, so load each group (shares the by-id cache)

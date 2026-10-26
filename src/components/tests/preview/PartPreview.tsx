@@ -32,6 +32,23 @@ type PreviewGroupProps = {
   results: GradeResult['results'];
 };
 
+const GroupPassage = ({ passageId }: { passageId: number }) => {
+  const { passage, isLoading } = usePassageParagraphs(passageId);
+  const samplePassage = useMemo(
+    () => (passage ? toSamplePassage(passage) : undefined),
+    [passage],
+  );
+
+  if (isLoading) return <Skeleton className="rounded-field h-40" />;
+  if (!samplePassage) return null;
+  return (
+    <PassagePane
+      passage={samplePassage}
+      className="bg-default/40 rounded-field border-0 md:border-r-0"
+    />
+  );
+};
+
 const PreviewGroup = ({
   group,
   partPassage,
@@ -40,16 +57,28 @@ const PreviewGroup = ({
   checked,
   results,
 }: PreviewGroupProps) => {
-  const ownPassageId = byOrder(group.groupPassages ?? [])[0]?.passageId;
-  const { passage, isLoading } = usePassageParagraphs(ownPassageId);
-  // The part's passage is shown once beside all groups, so only text completion keeps it inline
-  const sample = useMemo(() => {
-    if (passage) return toSample(group, passage);
-    return { ...toSample(group, partPassage), passage: undefined };
-  }, [group, passage, partPassage]);
+  const ownPassageIds = useMemo(
+    () => byOrder(group.groupPassages ?? []).map((gp) => gp.passageId),
+    [group.groupPassages],
+  );
+  const { passage, isLoading } = usePassageParagraphs(ownPassageIds[0]);
+  // Own passages replace the part's; the part's is shown once beside all groups, so only text completion keeps it inline
+  const sample = useMemo(
+    () => ({ ...toSample(group, passage ?? partPassage), passage: undefined }),
+    [group, passage, partPassage],
+  );
 
-  if (ownPassageId && isLoading)
+  if (ownPassageIds.length && isLoading)
     return <Skeleton className="h-64 rounded-3xl" />;
+
+  const passages =
+    sample.view !== 'textcomp' && ownPassageIds.length ? (
+      <>
+        {ownPassageIds.map((passageId) => (
+          <GroupPassage key={passageId} passageId={passageId} />
+        ))}
+      </>
+    ) : undefined;
 
   return (
     <PreviewContext.Provider
@@ -57,7 +86,7 @@ const PreviewGroup = ({
     >
       <Card>
         <Card.Content>
-          <GroupPreview sample={sample} bare />
+          <GroupPreview sample={sample} bare passages={passages} />
         </Card.Content>
       </Card>
     </PreviewContext.Provider>
@@ -86,8 +115,11 @@ const PartPreview = ({
   const { t } = useTranslation();
   const { data, isLoading: isLoadingList } = useGetQuestionGroups(part.id);
   const ids = useMemo(() => byOrder(data ?? []).map((g) => g.id), [data]);
-  const { data: groups, isLoading: isLoadingDetails } =
-    useGetQuestionGroupsDetail(ids);
+  const {
+    data: groups,
+    isLoading: isLoadingDetails,
+    isError,
+  } = useGetQuestionGroupsDetail(ids);
   const isLoading = isLoadingList || isLoadingDetails;
   const { passage: partPassage, isLoading: isLoadingPassage } =
     usePassageParagraphs(part.passageId ?? undefined);
@@ -95,6 +127,12 @@ const PartPreview = ({
     () => (partPassage ? toSamplePassage(partPassage) : undefined),
     [partPassage],
   );
+  const inheritsPartPassage =
+    !!part.passageId &&
+    (isLoading || groups.some((group) => !group.groupPassages?.length));
+  const partPassageMissing =
+    inheritsPartPassage && !isLoadingPassage && !partSamplePassage;
+  const showPartPassage = inheritsPartPassage && !partPassageMissing;
 
   // Grading only needs questions, so passages are not required here
   const grades = useMemo(
@@ -110,7 +148,12 @@ const PartPreview = ({
   const groupList = (
     <>
       {isLoading && <Skeleton className="h-96 rounded-3xl" />}
-      {!isLoading && !groups.length && (
+      {!isLoading && isError && (
+        <div className="text-danger rounded-3xl border py-8 text-center text-sm">
+          {t('tests.preview.loadError')}
+        </div>
+      )}
+      {!isLoading && !isError && !groups.length && (
         <div className="text-muted rounded-3xl border py-8 text-center text-sm">
           {t('tests.preview.noGroups')}
         </div>
@@ -141,6 +184,11 @@ const PartPreview = ({
               {part.instruction}
             </p>
           )}
+          {partPassageMissing && (
+            <p className="text-warning text-sm">
+              {t('tests.preview.passageMissing')}
+            </p>
+          )}
           {part.audioMediaId && (
             <MediaAudio
               mediaId={part.audioMediaId}
@@ -151,7 +199,7 @@ const PartPreview = ({
         </Card.Content>
       </Card>
 
-      {part.passageId ? (
+      {showPartPassage ? (
         <div className="grid items-start gap-4 lg:grid-cols-2">
           <Card className="lg:sticky lg:top-0">
             <Card.Content>

@@ -38,10 +38,17 @@ type GroupPreviewProps = {
   footer?: ReactNode;
   // Drops the outer box, for when the parent already renders a Card
   bare?: boolean;
+  // Bare only: replaces `sample.passage`, e.g. for groups with several passages
+  passages?: ReactNode;
 };
 
 // Must render inside a PreviewContext.Provider for `sample`
-const GroupPreview = ({ sample, footer, bare }: GroupPreviewProps) => {
+const GroupPreview = ({
+  sample,
+  footer,
+  bare,
+  passages,
+}: GroupPreviewProps) => {
   const { t } = useTranslation();
   const View = VIEWS[sample.view];
   const range = groupRange(sample);
@@ -70,7 +77,8 @@ const GroupPreview = ({ sample, footer, bare }: GroupPreviewProps) => {
     return (
       <div className="flex min-w-0 flex-col gap-3">
         {header}
-        {sample.passage && (
+        {passages}
+        {!passages && sample.passage && (
           <PassagePane
             passage={sample.passage}
             className="bg-default/40 rounded-field border-0 md:border-r-0"

@@ -888,6 +888,8 @@ const vi = {
       duration_one: '{{count}} phút',
       duration_other: '{{count}} phút',
       noGroups: 'Phần này chưa có nhóm câu hỏi.',
+      loadError: 'Không tải được một số nhóm câu hỏi. Hãy tải lại trang.',
+      passageMissing: 'Không tải được bài đọc của phần này.',
     },
     sections: {
       title: 'Các Phần',
