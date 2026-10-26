@@ -1,3 +1,7 @@
+import { Skeleton } from '@heroui/react';
+
+import { useGetMediaById } from '@/hooks/apis/media';
+
 import type { Figure } from './samples';
 
 // Placeholder artwork standing in for the group / question image_media_id
@@ -290,13 +294,41 @@ const FIGURES: Record<Figure, () => React.JSX.Element> = {
   map: MapFigure,
 };
 
-type FigureImageProps = { figure: Figure; className?: string };
+type FigureImageProps = {
+  figure?: Figure;
+  mediaId?: number;
+  className?: string;
+};
 
-export const FigureImage = ({ figure, className }: FigureImageProps) => {
+const MediaImage = ({ mediaId }: { mediaId: number }) => {
+  const { data: media } = useGetMediaById(mediaId);
+  if (!media) return <Skeleton className="rounded-field aspect-video" />;
+  return (
+    <img
+      src={media.url}
+      alt=""
+      className="border-border rounded-field w-full border object-contain"
+    />
+  );
+};
+
+// A real media id wins over the placeholder artwork
+export const FigureImage = ({
+  figure,
+  mediaId,
+  className,
+}: FigureImageProps) => {
+  if (mediaId)
+    return (
+      <figure className={className}>
+        <MediaImage mediaId={mediaId} />
+      </figure>
+    );
+  if (!figure) return null;
   const Svg = FIGURES[figure];
   return (
     <figure className={className}>
-      <div className="border-border rounded-lg border p-2">
+      <div className="border-border rounded-field border p-2">
         <Svg />
       </div>
       <figcaption className="text-muted mt-1 font-mono text-xs">

@@ -5,3 +5,4 @@ export { default as useEditQuestionGroup } from './useEditQuestionGroup';
 export { default as useReorderQuestionGroups } from './useReorderQuestionGroups';
 export { default as useDeleteQuestionGroup } from './useDeleteQuestionGroup';
 export { default as useSaveQuestionGroup } from './useSaveQuestionGroup';
+export { default as useGetQuestionGroupsDetail } from './useGetQuestionGroupsDetail';

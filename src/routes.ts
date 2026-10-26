@@ -72,6 +72,7 @@ export default [
       index('./pages/tests/list.tsx'),
       route('create', './pages/tests/create.tsx'),
       route(':id/edit', './pages/tests/edit.tsx'),
+      route(':id/preview', './pages/tests/preview.tsx'),
     ]),
   ]),
 ] satisfies RouteConfig;

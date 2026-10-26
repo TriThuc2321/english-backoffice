@@ -42,10 +42,12 @@ export const MapView = () => {
 
   return (
     <>
-      <AudioBar length={sample.audio} />
-      {sample.figure && (
-        <FigureImage figure={sample.figure} className="mb-4 max-w-md" />
-      )}
+      <AudioBar length={sample.audio} mediaId={sample.audioMediaId} />
+      <FigureImage
+        figure={sample.figure}
+        mediaId={sample.imageMediaId}
+        className="mb-4 max-w-md"
+      />
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-sm">
           <thead>

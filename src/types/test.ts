@@ -99,13 +99,21 @@ export type TestPart = {
   audioMediaId: Nullable<number>;
   audioStartMs: Nullable<number>;
   audioEndMs: Nullable<number>;
+  passageId: Nullable<number>;
+  passage: Nullable<PassageSummary>;
+};
+
+export type PassageSummary = {
+  id: number;
+  title: string;
+  subtitle: Nullable<string>;
 };
 
 export type GroupPassage = {
   groupId: number;
   passageId: number;
   order: number;
-  passage: { id: number; title: string; subtitle: Nullable<string> };
+  passage: PassageSummary;
 };
 
 export type QuestionGroup = {
@@ -198,6 +206,7 @@ export type CreateTestPartPayload = {
   audioMediaId?: number;
   audioStartMs?: number;
   audioEndMs?: number;
+  passageId?: number;
 };
 
 export type EditTestPartPayload = { id: number } & Clearable<

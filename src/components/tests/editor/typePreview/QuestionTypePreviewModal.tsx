@@ -7,9 +7,9 @@ import type { QuestionType } from '@/types/test';
 
 import { TextInput } from '../fields';
 import { gradeSample, type PreviewAnswers } from './grading';
-import { PassagePane, PreviewContext } from './parts';
-import { findSample, SAMPLES, storedShape, type TypeSample } from './samples';
-import { VIEWS } from './views';
+import GroupPreview from './GroupPreview';
+import { PreviewContext } from './parts';
+import { findSample, SAMPLES, storedShape } from './samples';
 
 // Every type in sidebar order; types sharing a sample (`also`) follow it
 const TYPE_LIST = SAMPLES.flatMap((s) =>
@@ -19,30 +19,6 @@ const TYPE_LIST = SAMPLES.flatMap((s) =>
     search: [type, ...s.tags].join(' ').toLowerCase(),
   })),
 );
-
-const KEYWORDS =
-  /\b(ONE|TWO|THREE|NO MORE THAN|AND\/OR A NUMBER|ONLY|TRUE|FALSE|NOT GIVEN|YES|NO)\b/;
-
-const Instruction = ({ text }: { text: string }) => (
-  <span className="text-foreground/80 basis-full text-sm leading-relaxed whitespace-pre-line">
-    {text.split(KEYWORDS).map((part, i) =>
-      i % 2 ? (
-        <b key={i} className="text-accent font-semibold">
-          {part}
-        </b>
-      ) : (
-        part
-      ),
-    )}
-  </span>
-);
-
-const groupRange = (sample: TypeSample) => {
-  const first = sample.questions[0].n;
-  const last = sample.questions.at(-1)!;
-  const end = last.nTo ?? last.n;
-  return first === end ? `${first}` : `${first}–${end}`;
-};
 
 const SampleCard = ({ type }: { type: QuestionType }) => {
   const { t } = useTranslation();
@@ -55,7 +31,6 @@ const SampleCard = ({ type }: { type: QuestionType }) => {
     [sample, answers],
   );
   const isOpenEnded = sample.view === 'speak' || sample.view === 'write';
-  const View = VIEWS[sample.view];
 
   const setAnswer = (n: number, value: string | string[]) =>
     setAnswers((prev) => ({ ...prev, [n]: value }));
@@ -64,12 +39,6 @@ const SampleCard = ({ type }: { type: QuestionType }) => {
     setAnswers({});
     setChecked(false);
   };
-
-  const body = (
-    <div className="min-w-0 p-4">
-      <View />
-    </div>
-  );
 
   return (
     <PreviewContext.Provider
@@ -119,50 +88,37 @@ const SampleCard = ({ type }: { type: QuestionType }) => {
           <div className="text-foreground/60 text-xs font-semibold tracking-wider uppercase">
             {t('tests.editor.typePreview.livePreview')}
           </div>
-          <div className="border-border bg-surface overflow-hidden rounded-xl border">
-            <div className="border-border bg-default/50 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b px-4 py-3">
-              <span className="bg-accent text-accent-foreground rounded-md px-2 py-0.5 text-sm font-bold">
-                {t('tests.editor.typePreview.questions', {
-                  range: groupRange(sample),
-                })}
-              </span>
-              <Instruction text={sample.group.instruction} />
-            </div>
-            {sample.passage ? (
-              <div className="grid md:grid-cols-2">
-                <PassagePane passage={sample.passage} />
-                {body}
-              </div>
-            ) : (
-              body
-            )}
-            <div className="border-border flex flex-wrap items-center gap-2 border-t px-4 py-3">
-              <Button
-                size="sm"
-                variant="primary"
-                onPress={() => setChecked(true)}
-              >
-                {isOpenEnded
-                  ? t('tests.editor.typePreview.showSample')
-                  : t('tests.editor.typePreview.check')}
-              </Button>
-              <Button size="sm" variant="ghost" onPress={reset}>
-                {t('tests.editor.typePreview.reset')}
-              </Button>
-              {checked && !isOpenEnded && (
-                <span
-                  className={cn(
-                    'ml-auto rounded-full px-2.5 py-0.5 text-sm font-semibold',
-                    score === total
-                      ? 'bg-success/15 text-success'
-                      : 'bg-warning/15 text-warning',
-                  )}
+          <GroupPreview
+            sample={sample}
+            footer={
+              <div className="border-border flex flex-wrap items-center gap-2 border-t px-4 py-3">
+                <Button
+                  size="sm"
+                  variant="primary"
+                  onPress={() => setChecked(true)}
                 >
-                  {t('tests.editor.typePreview.score', { score, total })}
-                </span>
-              )}
-            </div>
-          </div>
+                  {isOpenEnded
+                    ? t('tests.editor.typePreview.showSample')
+                    : t('tests.editor.typePreview.check')}
+                </Button>
+                <Button size="sm" variant="ghost" onPress={reset}>
+                  {t('tests.editor.typePreview.reset')}
+                </Button>
+                {checked && !isOpenEnded && (
+                  <span
+                    className={cn(
+                      'ml-auto rounded-full px-2.5 py-0.5 text-sm font-semibold',
+                      score === total
+                        ? 'bg-success/15 text-success'
+                        : 'bg-warning/15 text-warning',
+                    )}
+                  >
+                    {t('tests.editor.typePreview.score', { score, total })}
+                  </span>
+                )}
+              </div>
+            }
+          />
         </div>
 
         <details className="border-border rounded-lg border">

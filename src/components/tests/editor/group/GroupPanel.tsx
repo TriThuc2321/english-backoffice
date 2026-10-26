@@ -41,6 +41,7 @@ import {
   QUESTION_TYPES,
   usesWordLimit,
 } from '@/constants/questionTypes';
+import { isIeltsExam } from '@/constants/test';
 import {
   useCreateQuestionGroup,
   useDeleteQuestionGroup,
@@ -65,6 +66,7 @@ import {
   toSaveGroupPayload,
 } from '../groupForm';
 import MediaPicker from '../MediaPicker';
+import { resolveGroupPassages } from '../utils';
 import GridEditor from './GridEditor';
 import OptionsEditor from './OptionsEditor';
 import PassagePicker from './PassagePicker';
@@ -328,6 +330,7 @@ const GroupEditor = ({
   const { t } = useTranslation();
   const isLocked = !!test.lockedAt;
   const isReading = section.skill === SkillType.READING;
+  const isIeltsReading = isReading && isIeltsExam(test.examType);
   const [activeIndex, setActiveIndex] = useState(0);
   const questionRefs = useRef<(HTMLDivElement | null)[]>([]);
   // Question to bring into view once the field array has re-rendered
@@ -372,15 +375,25 @@ const GroupEditor = ({
     name: ['questionType', 'passages'],
   });
   const spec = QUESTION_TYPES[questionType];
+  const effectivePassages = useMemo(
+    () => resolveGroupPassages(passages, part),
+    [passages, part],
+  );
+  // Legacy IELTS groups with their own passages keep the picker so they can be cleared
+  const showPassagePicker =
+    isReading && (!isIeltsReading || passages.length > 0);
 
   // Fixed hook count: one per passage allowed by MAX_GROUP_PASSAGES
   // (constants/questionTypes). Update both together.
-  const p0 = usePassageParagraphs(passages[0]?.id);
-  const p1 = usePassageParagraphs(passages[1]?.id);
-  const p2 = usePassageParagraphs(passages[2]?.id);
+  const p0 = usePassageParagraphs(effectivePassages[0]?.id);
+  const p1 = usePassageParagraphs(effectivePassages[1]?.id);
+  const p2 = usePassageParagraphs(effectivePassages[2]?.id);
   const paragraphOptions = useMemo(
-    () => [p0.options, p1.options, p2.options].slice(0, passages.length).flat(),
-    [p0.options, p1.options, p2.options, passages.length],
+    () =>
+      [p0.options, p1.options, p2.options]
+        .slice(0, effectivePassages.length)
+        .flat(),
+    [p0.options, p1.options, p2.options, effectivePassages.length],
   );
 
   const typeOptions = getTypesForSkill(section.skill);
@@ -698,7 +711,7 @@ const GroupEditor = ({
               )}
             />
 
-            {isReading && (
+            {showPassagePicker && (
               <Controller
                 name="passages"
                 control={control}
@@ -713,6 +726,20 @@ const GroupEditor = ({
                 )}
               />
             )}
+            {isIeltsReading && !passages.length && (
+              <p
+                className={cn(
+                  'text-sm sm:col-span-2',
+                  part.passage ? 'text-muted' : 'text-warning',
+                )}
+              >
+                {part.passage
+                  ? t('tests.editor.group.inheritedPassage', {
+                      title: part.passage.title,
+                    })
+                  : t('tests.editor.group.partPassageMissing')}
+              </p>
+            )}
           </Section>
 
           <GroupContentEditor
@@ -725,10 +752,10 @@ const GroupEditor = ({
         </Card.Content>
       </Card>
 
-      {isReading && passages.length > 0 ? (
+      {isReading && effectivePassages.length > 0 ? (
         <div className="grid items-start gap-4 xl:grid-cols-2">
           <div className="flex flex-col gap-4 xl:sticky xl:top-0 xl:max-h-[calc(100vh-8rem)] xl:overflow-y-auto">
-            {passages.map((passage) => (
+            {effectivePassages.map((passage) => (
               <PassagePreview
                 key={passage.id}
                 passageId={passage.id}

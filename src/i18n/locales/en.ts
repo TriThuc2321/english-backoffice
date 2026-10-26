@@ -770,6 +770,7 @@ const en = {
         instruction: 'Instruction',
         audioStartMs: 'Audio start (ms)',
         audioEndMs: 'Audio end (ms)',
+        passage: 'Passage',
       },
       group: {
         title: 'Question groups',
@@ -791,6 +792,9 @@ const en = {
           'Questions 1–6: Do the following statements agree with…',
         passages: 'Passages (max 3, in order)',
         passageSearch: 'Search passages…',
+        inheritedPassage: 'Passage from part: {{title}}',
+        partPassageMissing:
+          'No passage yet. Set the passage on the part; every group in it shares that passage.',
         passagePreview: 'Passage preview',
         evidenceHint:
           'Click a paragraph to set it as evidence for the selected question.',
@@ -881,6 +885,15 @@ const en = {
         livePreview: 'Live preview',
         howItWorks: 'How it works',
       },
+    },
+    preview: {
+      title: 'Student preview',
+      open: 'Preview as student',
+      back: 'Back to editor',
+      badge: 'Student view',
+      duration_one: '{{count}} minute',
+      duration_other: '{{count}} minutes',
+      noGroups: 'No question groups in this part yet.',
     },
     sections: {
       title: 'Sections',
