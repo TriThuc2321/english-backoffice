@@ -28,8 +28,10 @@ describe('createTestSchema', () => {
   const base = {
     examType: ExamType.IELTS_ACADEMIC,
     title: 'Mock 1',
+    slug: '',
     source: '',
   };
+  const enabled = [{ skill: SkillType.READING, enabled: true }];
 
   it('requires at least one enabled section', async () => {
     const errors = await validationErrors(createTestSchema, {
@@ -57,6 +59,32 @@ describe('createTestSchema', () => {
       createTestSchema.isValid({ ...base, title: '   ', sections: [] }),
     ).resolves.toBe(false);
   });
+
+  it('accepts a valid slug', async () => {
+    await expect(
+      createTestSchema.isValid({
+        ...base,
+        slug: 'cambridge-18-test-1',
+        sections: enabled,
+      }),
+    ).resolves.toBe(true);
+  });
+
+  it.each(['Bad Slug', 'trailing-', 'double--dash'])(
+    'rejects the slug %j',
+    async (slug) => {
+      const errors = await validationErrors(createTestSchema, {
+        ...base,
+        slug,
+        sections: enabled,
+      });
+
+      expect(errors).toContainEqual({
+        path: 'slug',
+        message: VALIDATION_MESSAGE.INVALID_SLUG,
+      });
+    },
+  );
 });
 
 describe('testPartSchema', () => {
