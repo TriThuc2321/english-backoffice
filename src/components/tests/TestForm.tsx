@@ -130,6 +130,28 @@ const TestForm = ({
         />
 
         <Controller
+          name="slug"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              fullWidth
+              name={field.name}
+              value={field.value ?? ''}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              isInvalid={!!errors.slug}
+            >
+              <Label>{t('tests.form.slug')}</Label>
+              <Input
+                ref={field.ref}
+                placeholder={t('tests.form.slugPlaceholder')}
+              />
+              <FieldError>{errors.slug?.message}</FieldError>
+            </TextField>
+          )}
+        />
+
+        <Controller
           name="source"
           control={control}
           render={({ field }) => (

@@ -160,15 +160,18 @@ export default function TestsTable({
         enableSorting: false,
         header: t('tests.table.title'),
         cell: (info) => (
-          <span className="flex items-center gap-1.5">
-            {info.getValue()}
-            {info.row.original.lockedAt && (
-              <LuLock
-                className="text-muted size-3.5"
-                aria-label={t('tests.locked')}
-              />
-            )}
-          </span>
+          <div className="flex flex-col">
+            <span className="flex items-center gap-1.5">
+              {info.getValue()}
+              {info.row.original.lockedAt && (
+                <LuLock
+                  className="text-muted size-3.5"
+                  aria-label={t('tests.locked')}
+                />
+              )}
+            </span>
+            <span className="text-muted text-xs">{info.row.original.slug}</span>
+          </div>
         ),
       }),
       columnHelper.accessor('examType', {

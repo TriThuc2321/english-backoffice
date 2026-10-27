@@ -20,4 +20,5 @@ export const VALIDATION_MESSAGE = {
   ANSWER_NOT_IN_OPTIONS: 'The answer must be one of the options',
   KEYS_COUNT: 'Pick exactly as many keys as the question range covers',
   QUESTIONS_REQUIRED: 'Add at least one question',
+  INVALID_SLUG: 'Use lowercase letters, digits and single dashes',
 };
