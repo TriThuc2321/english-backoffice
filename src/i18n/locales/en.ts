@@ -508,9 +508,27 @@ const en = {
     detailTitle: 'Test Detail',
     searchPlaceholder: 'Search by title, code...',
     createButton: 'Create Test',
+    importButton: 'Import',
+    import: {
+      title: 'Import Test',
+      description:
+        'Paste or upload a JSON document. The test is created as a draft together with its sections, parts, new passages, groups and questions.',
+      jsonLabel: 'Test JSON',
+      placeholder:
+        '{ "examType": "IELTS_ACADEMIC", "title": "...", "sections": [] }',
+      chooseFile: 'Choose .json file',
+      submit: 'Import',
+      invalidJson: 'Invalid JSON: {{message}}',
+      errorsTitle: 'The import was rejected',
+      warningsTitle_one: 'Imported with {{count}} warning',
+      warningsTitle_other: 'Imported with {{count}} warnings',
+      openTest: 'Open test',
+    },
     deleteTitle: 'Delete test',
     deleteConfirm: 'Are you sure you want to delete "{{name}}"?',
     toast: {
+      importSuccess: 'Test imported successfully',
+      importError: 'Failed to import test',
       createSuccess: 'Test created successfully',
       createError: 'Failed to create test',
       updateSuccess: 'Test updated successfully',

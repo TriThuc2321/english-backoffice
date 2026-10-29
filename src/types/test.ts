@@ -1,4 +1,4 @@
-import type { Audit, Nullable, Params, Response } from './common';
+import type { Audit, MarkedBy, Nullable, Params, Response } from './common';
 
 export enum ExamType {
   IELTS_ACADEMIC = 'IELTS_ACADEMIC',
@@ -173,6 +173,64 @@ export type CreateTestPayload = {
     order?: number;
     durationMinutes?: number;
   }>;
+};
+
+export type ImportPassage = {
+  title: string;
+  subtitle?: Nullable<string>;
+  markedBy: MarkedBy;
+  paragraphs: string[];
+};
+
+export type ImportQuestion = {
+  numberFrom: number;
+  numberTo?: number;
+  prompt?: Nullable<string>;
+  content?: Nullable<QuestionContent>;
+  answer: QuestionAnswer;
+  explanation?: Nullable<string>;
+  evidence?: Nullable<{ paragraph?: number; quote?: string }>;
+};
+
+export type ImportGroup = {
+  questionType: QuestionType;
+  instruction?: Nullable<string>;
+  wordLimit?: Nullable<number>;
+  content?: Nullable<QuestionContent>;
+  questions: ImportQuestion[];
+};
+
+export type ImportPart = {
+  title?: Nullable<string>;
+  instruction?: Nullable<string>;
+  passage?: Nullable<ImportPassage>;
+  groups: ImportGroup[];
+};
+
+export type ImportSection = {
+  skill: SkillType;
+  durationMinutes?: Nullable<number>;
+  parts: ImportPart[];
+};
+
+export type ImportTestPayload = {
+  examType: ExamType;
+  title: string;
+  slug?: string;
+  source?: string;
+  durationMinutes?: number;
+  sections: ImportSection[];
+};
+
+export type ImportWarning = {
+  severity: 'warning';
+  path: string;
+  message: string;
+};
+
+export type ImportTestResult = {
+  test: Test;
+  warnings: ImportWarning[];
 };
 
 export type EditTestPayload = { id: number } & Partial<{

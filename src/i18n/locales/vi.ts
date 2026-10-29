@@ -508,9 +508,27 @@ const vi = {
     detailTitle: 'Chi tiết Bài Kiểm Tra',
     searchPlaceholder: 'Tìm theo tiêu đề, mã...',
     createButton: 'Tạo Bài Kiểm Tra',
+    importButton: 'Nhập',
+    import: {
+      title: 'Nhập Bài Kiểm Tra',
+      description:
+        'Dán hoặc tải lên tệp JSON. Bài kiểm tra được tạo ở trạng thái nháp cùng các phần, part, bài đọc mới, nhóm và câu hỏi.',
+      jsonLabel: 'JSON bài kiểm tra',
+      placeholder:
+        '{ "examType": "IELTS_ACADEMIC", "title": "...", "sections": [] }',
+      chooseFile: 'Chọn tệp .json',
+      submit: 'Nhập',
+      invalidJson: 'JSON không hợp lệ: {{message}}',
+      errorsTitle: 'Nhập thất bại',
+      warningsTitle_one: 'Đã nhập, có {{count}} cảnh báo',
+      warningsTitle_other: 'Đã nhập, có {{count}} cảnh báo',
+      openTest: 'Mở bài kiểm tra',
+    },
     deleteTitle: 'Xóa bài kiểm tra',
     deleteConfirm: 'Bạn có chắc chắn muốn xóa "{{name}}" không?',
     toast: {
+      importSuccess: 'Nhập bài kiểm tra thành công',
+      importError: 'Nhập bài kiểm tra thất bại',
       createSuccess: 'Tạo bài kiểm tra thành công',
       createError: 'Tạo bài kiểm tra thất bại',
       updateSuccess: 'Cập nhật bài kiểm tra thành công',
