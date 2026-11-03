@@ -1,12 +1,13 @@
 import { Card, Input, Label, TextField } from '@heroui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LuPlus } from 'react-icons/lu';
+import { LuPlus, LuUpload } from 'react-icons/lu';
 import { useNavigate, useSearchParams, type MetaFunction } from 'react-router';
 
 import MyButton from '@/components/shared/Button';
 import FilterSelect from '@/components/shared/FilterSelect';
 import { TestsTable } from '@/components/tests';
+import { useCan } from '@/configs/casl/can.config';
 import { EMPTY_LIST } from '@/constants/common';
 import { useDebounce } from '@/hooks';
 import { useGetTests } from '@/hooks/apis/tests';
@@ -25,6 +26,7 @@ const STATUSES: EditableTestStatus[] = [TestStatus.DRAFT, TestStatus.PUBLISHED];
 export default function TestsPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const ability = useCan();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = Number(searchParams.get('page') ?? 1);
@@ -113,16 +115,28 @@ export default function TestsPage() {
             />
           </div>
 
-          <MyButton
-            className="self-end"
-            I={PermissionAction.Create}
-            a={SubjectName.Tests}
-            variant="primary"
-            onPress={() => navigate('/tests/create')}
-          >
-            <LuPlus className="size-4" />
-            {t('tests.createButton')}
-          </MyButton>
+          <div className="flex gap-2 self-end">
+            {ability.can(PermissionAction.Create, SubjectName.Passages) && (
+              <MyButton
+                I={PermissionAction.Create}
+                a={SubjectName.Tests}
+                variant="secondary"
+                onPress={() => navigate('/tests/import')}
+              >
+                <LuUpload className="size-4" />
+                {t('tests.importButton')}
+              </MyButton>
+            )}
+            <MyButton
+              I={PermissionAction.Create}
+              a={SubjectName.Tests}
+              variant="primary"
+              onPress={() => navigate('/tests/create')}
+            >
+              <LuPlus className="size-4" />
+              {t('tests.createButton')}
+            </MyButton>
+          </div>
         </Card.Header>
 
         <Card.Content className="p-0">

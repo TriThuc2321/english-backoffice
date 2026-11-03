@@ -71,6 +71,7 @@ export default [
     ...prefix('tests', [
       index('./pages/tests/list.tsx'),
       route('create', './pages/tests/create.tsx'),
+      route('import', './pages/tests/import.tsx'),
       route(':id/edit', './pages/tests/edit.tsx'),
       route(':id/preview', './pages/tests/preview.tsx'),
     ]),
