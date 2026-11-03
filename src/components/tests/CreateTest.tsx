@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 
 import type { CreateTestFormData } from '@/schemas/test';
+import type { Message } from '@/types/common';
 import type { CreateTestPayload } from '@/types/test';
 
 import { useCreateTest } from '@/hooks/apis/tests';
@@ -13,6 +14,7 @@ import TestForm from './TestForm';
 const toPayload = (data: CreateTestFormData): CreateTestPayload => ({
   examType: data.examType,
   title: data.title,
+  slug: data.slug || undefined,
   source: data.source.trim() || undefined,
   durationMinutes: data.durationMinutes,
   sections: data.sections
@@ -28,6 +30,7 @@ const CreateTest = () => {
     defaultValues: {
       examType: ExamType.IELTS_ACADEMIC,
       title: '',
+      slug: '',
       source: '',
       sections: getSectionDefaults(ExamType.IELTS_ACADEMIC),
     },
@@ -38,6 +41,8 @@ const CreateTest = () => {
       const test = await createTest(toPayload(data));
       navigate(test?.id ? `/tests/${test.id}/edit` : '/tests');
     } catch (error) {
+      const { statusCode, message } = error as Message;
+      if (statusCode === 409) form.setError('slug', { message });
       console.error(error);
     }
   };

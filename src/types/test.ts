@@ -73,6 +73,7 @@ export type Test = {
   id: number;
   examType: ExamType;
   title: string;
+  slug: string;
   source: Nullable<string>;
   durationMinutes: Nullable<number>;
   status: TestStatus;
@@ -166,6 +167,7 @@ export type GetTestsResponse = Response<Test[]>;
 export type CreateTestPayload = {
   examType: ExamType;
   title: string;
+  slug?: string;
   source?: string;
   durationMinutes?: number;
   sections?: Array<{
@@ -178,6 +180,7 @@ export type CreateTestPayload = {
 export type EditTestPayload = { id: number } & Partial<{
   examType: ExamType;
   title: string;
+  slug: string;
   source: string;
   durationMinutes: number;
   status: EditableTestStatus;

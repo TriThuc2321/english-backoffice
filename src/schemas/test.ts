@@ -13,12 +13,27 @@ import type { InferFormInput } from './types';
 
 import { VALIDATION_MESSAGE } from './message';
 
+// Mirrors the API's slug rules
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const SLUG_MAX_LENGTH = 200;
+
+const slugSchema = yup
+  .string()
+  .trim()
+  .max(SLUG_MAX_LENGTH)
+  .matches(SLUG_PATTERN, {
+    message: VALIDATION_MESSAGE.INVALID_SLUG,
+    excludeEmptyString: true,
+  })
+  .defined();
+
 export const createTestSchema = yup.object().shape({
   examType: yup
     .mixed<ExamType>()
     .oneOf(Object.values(ExamType))
     .required(VALIDATION_MESSAGE.REQUIRED),
   title: yup.string().trim().required(VALIDATION_MESSAGE.REQUIRED).max(255),
+  slug: slugSchema,
   source: yup.string().max(255).defined(),
   durationMinutes: yup.number().integer().min(1).optional(),
   sections: yup
@@ -50,6 +65,7 @@ export const editTestSchema = yup.object().shape({
     .oneOf(Object.values(ExamType))
     .required(VALIDATION_MESSAGE.REQUIRED),
   title: yup.string().trim().required(VALIDATION_MESSAGE.REQUIRED).max(255),
+  slug: slugSchema,
   source: yup.string().max(255).defined(),
   durationMinutes: yup.number().integer().min(1).optional(),
 });

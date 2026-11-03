@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  Description,
   FieldError,
   Input,
   Label,
@@ -13,6 +14,7 @@ import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import type { EditTestFormData } from '@/schemas/test';
+import type { Message } from '@/types/common';
 import type { EditTestPayload, Test, TestSection } from '@/types/test';
 
 import MyButton from '@/components/shared/Button';
@@ -29,6 +31,7 @@ import { moveId, toNumber } from './utils';
 const toFormValues = (test: Test): EditTestFormData => ({
   examType: test.examType,
   title: test.title,
+  slug: test.slug,
   source: test.source ?? '',
   durationMinutes: test.durationMinutes ?? undefined,
 });
@@ -37,12 +40,14 @@ const TestInfoCard = ({ test }: { test: Test }) => {
   const { t } = useTranslation();
   const { mutateAsync: editTest, isPending } = useEditTest();
   const isLocked = !!test.lockedAt;
+  const isSlugLocked = !!test.publishedAt;
 
   const form = useEditTestForm({ defaultValues: toFormValues(test) });
   const {
     control,
     handleSubmit,
     reset,
+    setError,
     formState: { errors, isDirty },
   } = form;
 
@@ -60,10 +65,15 @@ const TestInfoCard = ({ test }: { test: Test }) => {
     };
     if (!isLocked && data.examType !== test.examType)
       payload.examType = data.examType;
+    // The API rejects slug changes once the test has been published
+    if (!isSlugLocked && data.slug && data.slug !== test.slug)
+      payload.slug = data.slug;
 
     try {
       await editTest(payload);
     } catch (error) {
+      const { statusCode, message } = error as Message;
+      if (statusCode === 409) setError('slug', { message });
       console.error(error);
     }
   };
@@ -91,6 +101,29 @@ const TestInfoCard = ({ test }: { test: Test }) => {
                     placeholder={t('tests.form.titlePlaceholder')}
                   />
                   <FieldError>{errors.title?.message}</FieldError>
+                </TextField>
+              )}
+            />
+
+            <Controller
+              name="slug"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  fullWidth
+                  name={field.name}
+                  value={field.value ?? ''}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  isDisabled={isSlugLocked}
+                  isInvalid={!!errors.slug}
+                >
+                  <Label>{t('tests.form.slug')}</Label>
+                  <Input ref={field.ref} />
+                  {isSlugLocked && (
+                    <Description>{t('tests.form.slugLocked')}</Description>
+                  )}
+                  <FieldError>{errors.slug?.message}</FieldError>
                 </TextField>
               )}
             />
