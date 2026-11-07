@@ -262,6 +262,7 @@ const vi = {
       TEST: 'Bài kiểm tra',
       AVATAR: 'Ảnh đại diện',
       LIBRARY: 'Thư viện',
+      ATTEMPT: 'Bản ghi bài làm',
     },
     kind: {
       AUDIO: 'Âm thanh',

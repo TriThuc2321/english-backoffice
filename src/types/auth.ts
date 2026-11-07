@@ -20,6 +20,7 @@ export enum SubjectName {
   Campuses = 'campus',
   Programs = 'program',
   Levels = 'level',
+  Assessments = 'assessment',
 }
 
 export interface IRequestLogin {

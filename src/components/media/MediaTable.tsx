@@ -7,7 +7,7 @@ import {
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuEllipsisVertical, LuEye, LuTrash2 } from 'react-icons/lu';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import type { Media } from '@/types/media';
 
@@ -21,8 +21,9 @@ import { useDeleteMedia } from '@/hooks/apis/media';
 import { PermissionAction, SubjectName } from '@/types/auth';
 import { formatBytes, mediaFileName } from '@/utils/media';
 
-import { kindColorMap, ownerHref, scopeColorMap } from './constants';
+import { kindColorMap, scopeColorMap } from './constants';
 import MediaPreview from './MediaPreview';
+import OwnerLink from './OwnerLink';
 
 const columnHelper = createColumnHelper<Media>();
 
@@ -186,15 +187,12 @@ export default function MediaTable({
         header: t('media.field.owner'),
         cell: ({ row }) => {
           const { scope, ownerId } = row.original;
-          // Library media has no owner
-          if (!ownerId) return '-';
           return (
-            <Link
-              to={ownerHref(scope, ownerId)}
+            <OwnerLink
+              scope={scope}
+              ownerId={ownerId}
               className="text-accent block max-w-32 truncate text-sm hover:underline"
-            >
-              {ownerId}
-            </Link>
+            />
           );
         },
       }),

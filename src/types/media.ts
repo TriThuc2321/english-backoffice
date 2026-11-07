@@ -5,6 +5,7 @@ export enum MediaScope {
   TEST = 'TEST',
   AVATAR = 'AVATAR',
   LIBRARY = 'LIBRARY',
+  ATTEMPT = 'ATTEMPT',
 }
 
 // ownerId is the test id (as a string) for TEST, the user uuid for AVATAR;

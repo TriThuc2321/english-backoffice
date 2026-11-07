@@ -261,6 +261,7 @@ const en = {
       TEST: 'Test',
       AVATAR: 'Avatar',
       LIBRARY: 'Library',
+      ATTEMPT: 'Attempt recording',
     },
     kind: {
       AUDIO: 'Audio',
