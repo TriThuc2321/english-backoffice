@@ -1,9 +1,16 @@
+import type {
+  GradingQueueItem,
+  GradingSection,
+  GradingUser,
+} from '../../src/types/grading';
 import type { Passage } from '../../src/types/passage';
 import type { Role, RolePermission } from '../../src/types/role';
 import type { User } from '../../src/types/user';
 
 import { MarkedBy, Status } from '../../src/types/common';
+import { GradingStatus } from '../../src/types/grading';
 import { PassageStatus } from '../../src/types/passage';
+import { ExamType, QuestionType, SkillType } from '../../src/types/test';
 
 export const FULL_ACCESS: RolePermission[] = [
   { action: 'manage', subject: 'all' },
@@ -122,3 +129,146 @@ export const paginate =
       },
     };
   };
+
+export const STUDENT: GradingUser = {
+  id: 'student-1',
+  email: 'an.nguyen@myenglish.vn',
+  firstName: 'An',
+  lastName: 'Nguyen',
+};
+
+export const GRADER: GradingUser = {
+  id: 'teacher-1',
+  email: 'lan.pham@myenglish.vn',
+  firstName: 'Lan',
+  lastName: 'Pham',
+};
+
+const IELTS_TEST = {
+  id: 7,
+  title: 'IELTS Academic Mock 1',
+  examType: ExamType.IELTS_ACADEMIC,
+};
+
+export const makeQueueItem = (
+  index: number,
+  overrides: Partial<GradingQueueItem> = {},
+): GradingQueueItem => ({
+  attemptSectionId: `section-${index}`,
+  attemptId: `attempt-${index}`,
+  student: STUDENT,
+  test: IELTS_TEST,
+  skill: SkillType.WRITING,
+  submittedAt: '2026-11-05T10:00:00.000Z',
+  gradingStatus: GradingStatus.PENDING,
+  band: null,
+  grader: null,
+  ...overrides,
+});
+
+const T1 = ['TA', 'CC', 'LR', 'GRA'];
+const T2 = ['TR', 'CC', 'LR', 'GRA'];
+
+const writingQuestion = (
+  partId: number,
+  questionType: QuestionType,
+  text: string | null,
+) => ({
+  questionId: partId * 10,
+  numberFrom: partId === 12 ? 1 : 2,
+  questionType,
+  instruction: null,
+  prompt: `Prompt of part ${partId}`,
+  content: null,
+  imageUrl: null,
+  audioUrl: null,
+  sample: `Sample of part ${partId}`,
+  rubric: null,
+  response: text === null ? null : { text, wordCount: 3, audioUrl: null },
+});
+
+export const makeWritingSection = (
+  overrides: Partial<GradingSection> = {},
+): GradingSection => ({
+  attemptSectionId: 'section-1',
+  attemptId: 'attempt-1',
+  student: STUDENT,
+  test: IELTS_TEST,
+  skill: SkillType.WRITING,
+  submittedAt: '2026-11-05T10:00:00.000Z',
+  gradingStatus: GradingStatus.PENDING,
+  revision: 0,
+  assessment: null,
+  expectedEntries: [
+    { partId: 12, task: 1, criteria: T1 },
+    { partId: 13, task: 2, criteria: T2 },
+  ],
+  parts: [
+    {
+      partId: 12,
+      order: 1,
+      title: 'Task 1',
+      instruction: null,
+      questions: [
+        writingQuestion(
+          12,
+          QuestionType.IELTS_WRITING_TASK_1,
+          'Chart essay here',
+        ),
+      ],
+    },
+    {
+      partId: 13,
+      order: 2,
+      title: 'Task 2',
+      instruction: null,
+      questions: [
+        writingQuestion(
+          13,
+          QuestionType.IELTS_WRITING_TASK_2,
+          'Opinion essay here',
+        ),
+      ],
+    },
+  ],
+  ...overrides,
+});
+
+export const makeSpeakingSection = (
+  overrides: Partial<GradingSection> = {},
+): GradingSection => ({
+  ...makeWritingSection(),
+  attemptSectionId: 'section-2',
+  skill: SkillType.SPEAKING,
+  expectedEntries: [
+    { partId: null, task: null, criteria: ['FC', 'LR', 'GRA', 'P'] },
+  ],
+  parts: [
+    {
+      partId: 21,
+      order: 1,
+      title: 'Part 2',
+      instruction: null,
+      questions: [
+        {
+          questionId: 210,
+          numberFrom: 1,
+          questionType: QuestionType.IELTS_SPEAKING_PART_2,
+          instruction: null,
+          prompt: 'Describe a place you visited',
+          content: { prepSeconds: 60, responseSeconds: 120 },
+          imageUrl: null,
+          audioUrl: null,
+          sample: null,
+          rubric: null,
+          response: {
+            text: null,
+            wordCount: null,
+            audioUrl: '/e2e-audio/answer.webm',
+          },
+        },
+      ],
+    },
+  ],
+  ...overrides,
+});

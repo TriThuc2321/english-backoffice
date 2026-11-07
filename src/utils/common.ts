@@ -1,4 +1,5 @@
 import type { IGetDisplayRange } from '@/types/common';
+import type { GradingUser } from '@/types/grading';
 
 export const getImageSize = (
   url: string,
@@ -71,3 +72,11 @@ export const getDisplayRange = (
 
   return `Displaying ${start} - ${end} out of ${total}`;
 };
+
+export const formatPersonName = ({
+  id,
+  email,
+  firstName,
+  lastName,
+}: GradingUser) =>
+  [firstName, lastName].filter(Boolean).join(' ').trim() || email || id;

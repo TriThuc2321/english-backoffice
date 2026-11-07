@@ -43,6 +43,7 @@ const vi = {
     logout: 'Đăng xuất',
   },
   sidebar: {
+    grading: 'Chấm bài',
     dashboard: 'Tổng quan',
     students: 'Học viên',
     teachers: 'Giáo viên',
@@ -92,6 +93,29 @@ const vi = {
     toggle: 'Chuyển ngôn ngữ',
   },
   grading: {
+    status: {
+      PENDING: 'Chờ chấm',
+      GRADED: 'Đã chấm',
+      AUTO_GRADED: 'Chấm tự động',
+    },
+    field: {
+      student: 'Học sinh',
+      test: 'Bài kiểm tra',
+      skill: 'Kỹ năng',
+      submittedAt: 'Nộp lúc',
+      status: 'Trạng thái',
+      band: 'Band',
+      grader: 'Người chấm',
+    },
+    action: {
+      grade: 'Chấm',
+      view: 'Xem',
+    },
+    filters: {
+      all: 'Tất cả',
+    },
+    searchPlaceholder: 'Tìm theo tên hoặc email học sinh',
+    empty: 'Không có bài nào đang chờ chấm',
     toast: {
       saveSuccess: 'Đã lưu điểm',
       conflict:

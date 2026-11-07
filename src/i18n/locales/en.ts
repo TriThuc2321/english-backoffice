@@ -43,6 +43,7 @@ const en = {
     logout: 'Logout',
   },
   sidebar: {
+    grading: 'Grading',
     dashboard: 'Dashboard',
     students: 'Students',
     teachers: 'Teachers',
@@ -91,6 +92,29 @@ const en = {
     toggle: 'Switch language',
   },
   grading: {
+    status: {
+      PENDING: 'Pending',
+      GRADED: 'Graded',
+      AUTO_GRADED: 'Auto-graded',
+    },
+    field: {
+      student: 'Student',
+      test: 'Test',
+      skill: 'Skill',
+      submittedAt: 'Submitted',
+      status: 'Status',
+      band: 'Band',
+      grader: 'Grader',
+    },
+    action: {
+      grade: 'Grade',
+      view: 'View',
+    },
+    filters: {
+      all: 'All',
+    },
+    searchPlaceholder: 'Search by student name or email',
+    empty: 'No sections waiting for grading',
     toast: {
       saveSuccess: 'Grade saved',
       conflict:

@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import {
   base64ToFile,
+  formatPersonName,
   getDisplayRange,
   getUnitFileName,
   isImageUrl,
@@ -72,5 +73,25 @@ describe('base64ToFile', () => {
     expect(file.name).toBe('hello.txt');
     expect(file.type).toBe('text/plain');
     expect(await file.text()).toBe('hello');
+  });
+});
+
+describe('formatPersonName', () => {
+  const base = {
+    id: 'u1',
+    email: 'lan@x.com',
+    firstName: null,
+    lastName: null,
+  };
+
+  it('joins first and last name', () => {
+    expect(
+      formatPersonName({ ...base, firstName: 'Lan', lastName: 'Pham' }),
+    ).toBe('Lan Pham');
+  });
+
+  it('falls back to the email, then the id', () => {
+    expect(formatPersonName({ ...base, firstName: ' ' })).toBe('lan@x.com');
+    expect(formatPersonName({ ...base, email: null })).toBe('u1');
   });
 });

@@ -5,6 +5,7 @@ import {
   LuBookMarked,
   LuBookOpen,
   LuBuilding2,
+  LuClipboardCheck,
   LuImage,
   LuLayoutDashboard,
   LuRadius,
@@ -82,6 +83,13 @@ export const MENU_GROUPS: IMenuGroup[] = [
         icon: IoDocumentTextOutline,
         object: SubjectName.Tests,
         route: '/tests',
+      },
+      {
+        id: 9,
+        title: 'grading',
+        route: '/grading',
+        icon: LuClipboardCheck,
+        object: SubjectName.Assessments,
       },
       {
         id: 1,
