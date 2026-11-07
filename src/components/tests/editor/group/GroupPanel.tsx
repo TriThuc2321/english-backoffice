@@ -396,7 +396,7 @@ const GroupEditor = ({
     [p0.options, p1.options, p2.options, effectivePassages.length],
   );
 
-  const typeOptions = getTypesForSkill(section.skill);
+  const typeOptions = getTypesForSkill(section.skill, test.examType);
 
   const onTypeChange = (type: QuestionType) => {
     if (type === questionType) return;
@@ -833,10 +833,9 @@ const GroupPanel = ({
   const isLoadingNumbers = isNew && isLoadingGroups;
   const lastNumber = Math.max(0, ...partGroups.map((g) => g.numberTo ?? 0));
 
+  const allowedTypes = getTypesForSkill(section.skill, test.examType);
   const type =
-    newType && QUESTION_TYPES[newType]?.skills.includes(section.skill)
-      ? newType
-      : getTypesForSkill(section.skill)[0];
+    newType && allowedTypes.includes(newType) ? newType : allowedTypes[0];
 
   const initialValues = useMemo(() => {
     if (group) return groupToForm(group);
