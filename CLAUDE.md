@@ -40,6 +40,10 @@ Whenever route files change, regenerate types with `pnpm typegen` (or just `pnpm
 - `AccessProvider` (`src/providers/accessProvider.provider.tsx`) takes the current `profile` and feeds the ability into `AbilityContext`.
 - Use the `<Can I="..." a="...">` component or the `useCan()` hook from `src/configs/casl/can.config.tsx` for permission gating. Permissions are typed in `src/types/role.ts`.
 
+### Grading
+
+`/grading` (queue) and `/grading/:id` (screen) let teachers grade IELTS Writing/Speaking sections, gated by the `assessment` subject (`read` to view, `create` to grade). The server computes every band; `src/utils/ieltsBand.ts` only mirrors its rounding for the live "Estimated band". Saves send `expectedRevision`, and a 409 `ASSESSMENT_REVISION_CONFLICT` keeps the teacher's input while the section refetches.
+
 ### UI / styling
 
 - **HeroUI v3** (`@heroui/react`, `@heroui/styles`) is the component library, paired with **Tailwind CSS v4** via `@tailwindcss/vite`.
