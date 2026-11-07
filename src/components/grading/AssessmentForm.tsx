@@ -39,7 +39,7 @@ const BandStatus = ({
 
 const AssessmentForm = ({ section, readOnly }: AssessmentFormProps) => {
   const { t } = useTranslation();
-  const { form, onSubmit, isPending, bands, hasConflict } =
+  const { form, onSubmit, isPending, bands, hasConflict, baseRevision } =
     useGradeSection(section);
   const { control, formState } = form;
   const latest = section.assessment;
@@ -133,7 +133,7 @@ const AssessmentForm = ({ section, readOnly }: AssessmentFormProps) => {
           variant="primary"
           isPending={isPending}
         >
-          {section.revision > 0
+          {baseRevision > 0
             ? t('grading.screen.saveCorrection')
             : t('grading.screen.saveGrade')}
         </MyButton>

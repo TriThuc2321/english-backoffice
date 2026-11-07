@@ -308,7 +308,7 @@ Layout: two columns on `lg` (work on the left, sticky form on the right), stacke
 
 Behaviour that fixes Review Focus 1 and 3:
 
-- The form resets from `toAssessmentFormValues(section)` only when `section.attemptSectionId` changes or after a successful save — not on every refetch, so a conflict refetch keeps the input. `expectedRevision` is read from the latest `section.revision` at submit time.
+- The form resets from `toAssessmentFormValues(section)` only when `section.attemptSectionId` changes or after a successful save — not on every refetch, so a conflict refetch keeps the input. `expectedRevision` is the revision the form was loaded from (`baseRevision`); it moves only on a section change, a successful save, or a 409 — never on a background refetch.
 - After a 409 conflict, show an inline warning above the submit naming the new grader and band from the refetched `section.assessment`.
 - `GradingWorkspace` passes `onAudioError` that calls `refetch()` at most once per mount.
 

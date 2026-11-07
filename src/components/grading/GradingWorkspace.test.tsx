@@ -6,9 +6,10 @@ import { describe, expect, it } from 'vitest';
 
 import type { RolePermission } from '@/types/role';
 
+import { REACT_QUERY_KEYS } from '@/constants/reactQuery';
 import { API_URL } from '@/test/msw/handlers';
 import { server } from '@/test/msw/server';
-import { renderWithProviders } from '@/test/utils';
+import { createTestQueryClient, renderWithProviders } from '@/test/utils';
 import {
   ASSESSMENT_ERROR,
   GradingStatus,
@@ -114,6 +115,7 @@ type Setup = {
   sections?: GradingSection[];
   post?: (body: unknown) => Response;
   permissions?: RolePermission[];
+  queryClient?: ReturnType<typeof createTestQueryClient>;
 };
 
 // Serves `sections` in order on each GET (the last one repeats) and records POST bodies
@@ -121,6 +123,7 @@ const renderWorkspace = ({
   sections = [SECTION],
   post = () => HttpResponse.json({ id: 'new', revision: 1 }, { status: 201 }),
   permissions = FULL,
+  queryClient = createTestQueryClient(),
 }: Setup = {}) => {
   const posts: unknown[] = [];
   let gets = 0;
@@ -146,7 +149,10 @@ const renderWorkspace = ({
     [{ path: '/grading/:id', element: <GradingWorkspace id="s1" /> }],
     { initialEntries: ['/grading/s1'] },
   );
-  renderWithProviders(<RouterProvider router={router} />, { permissions });
+  renderWithProviders(<RouterProvider router={router} />, {
+    permissions,
+    queryClient,
+  });
   return { posts, getCount: () => gets };
 };
 
@@ -313,5 +319,38 @@ describe('<GradingWorkspace>', () => {
 
     expect(await screen.findAllByText('Choose a band')).toHaveLength(4);
     expect(posts).toHaveLength(0);
+  });
+
+  it('keeps the revision the form was loaded with across a background refetch', async () => {
+    const queryClient = createTestQueryClient();
+    const { posts } = renderWorkspace({
+      queryClient,
+      sections: [SECTION, GRADED_BY_LAN],
+      post: (body) =>
+        (body as { expectedRevision: number }).expectedRevision === 1
+          ? HttpResponse.json({ id: 'as2', revision: 2 }, { status: 201 })
+          : HttpResponse.json(
+              {
+                statusCode: 409,
+                code: ASSESSMENT_ERROR.REVISION_CONFLICT,
+                message: 'Stale',
+              },
+              { status: 409 },
+            ),
+    });
+    await screen.findByRole('group', { name: 'Task 1' });
+
+    await queryClient.refetchQueries({
+      queryKey: [REACT_QUERY_KEYS.GRADING.SECTION, 's1'],
+    });
+    await fillTask('Task 1', 6);
+    await fillTask('Task 2', 6);
+    await user.click(screen.getByRole('button', { name: 'Save grade' }));
+
+    expect(
+      await screen.findByText(/Lan Pham saved band 7/),
+    ).toBeInTheDocument();
+    expect(posts).toHaveLength(1);
+    expect(posts[0]).toMatchObject({ expectedRevision: 0 });
   });
 });
