@@ -6,6 +6,7 @@ import { LuPlus, LuTrash2 } from 'react-icons/lu';
 
 import type { TestPartFormData } from '@/schemas/test';
 import type {
+  ExamType,
   QuestionGroup,
   QuestionType,
   Test,
@@ -334,9 +335,11 @@ const GroupRow = ({
 
 const AddGroupMenu = ({
   skill,
+  examType,
   onSelect,
 }: {
   skill: SkillType;
+  examType: ExamType;
   onSelect: (type: QuestionType) => void;
 }) => {
   const { t } = useTranslation();
@@ -351,7 +354,7 @@ const AddGroupMenu = ({
       </Button>
       <Dropdown.Popover placement="bottom end">
         <Dropdown.Menu aria-label={t('tests.editor.group.add')}>
-          {getTypesForSkill(skill).map((type) => (
+          {getTypesForSkill(skill, examType).map((type) => (
             <Dropdown.Item
               key={type}
               id={type}
@@ -385,6 +388,7 @@ const GroupsCard = ({ test, section, part, onNavigate }: PartPanelProps) => {
           {!isLocked && (
             <AddGroupMenu
               skill={section.skill}
+              examType={test.examType}
               onSelect={(type) =>
                 onNavigate({
                   section: section.id,

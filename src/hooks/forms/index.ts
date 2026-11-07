@@ -6,3 +6,4 @@ export { default as useEditTestPartForm } from './useEditTestPart';
 export { default as useCreateEditQuestionGroupForm } from './useCreateEditQuestionGroup';
 export { default as useUploadMediaForm } from './useUploadMedia';
 export { default as useEditMediaForm } from './useEditMedia';
+export { default as useGradeSection } from './useGradeSection';

@@ -75,5 +75,15 @@ export default [
       route(':id/edit', './pages/tests/edit.tsx'),
       route(':id/preview', './pages/tests/preview.tsx'),
     ]),
+
+    ...prefix('grading', [
+      index('./pages/grading/list.tsx'),
+      route(':id', './pages/grading/detail.tsx'),
+    ]),
+
+    ...prefix('attempts', [
+      index('./pages/attempts/list.tsx'),
+      route(':id', './pages/attempts/detail.tsx'),
+    ]),
   ]),
 ] satisfies RouteConfig;

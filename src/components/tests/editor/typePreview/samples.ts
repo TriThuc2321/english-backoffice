@@ -895,6 +895,45 @@ export const SAMPLES: TypeSample[] = [
     ],
   },
 
+  {
+    section: 'Speaking',
+    id: 'ielts-sp',
+    type: QuestionType.IELTS_SPEAKING_PART_2,
+    also: [
+      QuestionType.IELTS_SPEAKING_PART_1,
+      QuestionType.IELTS_SPEAKING_PART_3,
+    ],
+    view: 'speak',
+    tags: [
+      'IELTS Speaking Part 1',
+      'IELTS Speaking Part 2',
+      'IELTS Speaking Part 3',
+    ],
+    desc: 'One recording per question; the teacher grades the whole section on FC, LR, GRA and P.',
+    group: {
+      instruction:
+        'Describe a place you visited that you found interesting. You will have one minute to prepare and should speak for up to two minutes.',
+    },
+    questions: [
+      {
+        n: 1,
+        prompt:
+          'Describe a place you visited that you found interesting. You should say: where it is, when you went there, what you did there, and explain why you found it interesting.',
+        content: { prepSeconds: 60, responseSeconds: 120 },
+        answer: {
+          sample:
+            'I would like to talk about Hoi An, an old town in central Vietnam that I visited last summer...',
+          rubric: {
+            FC: 'Fluency & coherence',
+            LR: 'Lexical resource',
+            GRA: 'Grammatical range & accuracy',
+            P: 'Pronunciation',
+          },
+        },
+      },
+    ],
+  },
+
   // ===== Writing =====
   {
     section: 'Writing',
@@ -973,6 +1012,71 @@ export const SAMPLES: TypeSample[] = [
             CC: 'Coherence & cohesion',
             LR: 'Lexical resource',
             GRA: 'Grammar range & accuracy',
+          },
+        },
+      },
+    ],
+  },
+  {
+    section: 'Writing',
+    id: 'ielts-w1',
+    type: QuestionType.IELTS_WRITING_TASK_1,
+    view: 'write',
+    figure: 'diagram',
+    rows: 10,
+    minWords: 150,
+    tags: ['IELTS Writing Task 1'],
+    desc: 'The chart comes from the question image; graded on TA, CC, LR and GRA.',
+    group: {
+      instruction:
+        'You should spend about 20 minutes on this task. Write at least 150 words.',
+    },
+    questions: [
+      {
+        n: 1,
+        prompt:
+          'The chart below shows the number of visitors to three museums in London between 2010 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.',
+        content: { responseSeconds: 1200 },
+        answer: {
+          sample:
+            'The bar chart compares the number of people who visited three London museums over a ten-year period...',
+          rubric: {
+            TA: 'Task achievement',
+            CC: 'Coherence & cohesion',
+            LR: 'Lexical resource',
+            GRA: 'Grammatical range & accuracy',
+          },
+        },
+      },
+    ],
+  },
+  {
+    section: 'Writing',
+    id: 'ielts-w2',
+    type: QuestionType.IELTS_WRITING_TASK_2,
+    view: 'write',
+    rows: 14,
+    minWords: 250,
+    tags: ['IELTS Writing Task 2'],
+    desc: 'An argumentative essay; counts double in the Writing band. Graded on TR, CC, LR and GRA.',
+    group: {
+      instruction:
+        'You should spend about 40 minutes on this task. Write at least 250 words.',
+    },
+    questions: [
+      {
+        n: 2,
+        prompt:
+          'Some people think that governments should spend more money on public transport than on building new roads. To what extent do you agree or disagree?',
+        content: { responseSeconds: 2400 },
+        answer: {
+          sample:
+            'Traffic congestion has become a serious problem in many cities, and governments must decide how to invest...',
+          rubric: {
+            TR: 'Task response',
+            CC: 'Coherence & cohesion',
+            LR: 'Lexical resource',
+            GRA: 'Grammatical range & accuracy',
           },
         },
       },

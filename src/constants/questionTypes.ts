@@ -1,4 +1,4 @@
-import { QuestionType, SkillType } from '@/types/test';
+import { ExamType, QuestionType, SkillType } from '@/types/test';
 
 // Shapes follow english-service/docs/question-formats.md
 export type GroupContentKind =
@@ -31,10 +31,21 @@ export type TypeSpec = {
   questionContent: QuestionContentKind;
   answer: AnswerKind;
   fixedKeys?: string[];
+  // Listed only for these exams; unrestricted when omitted
+  exams?: ExamType[];
 };
 
 const { LISTENING, READING, WRITING, SPEAKING } = SkillType;
 const LR = [LISTENING, READING];
+const IELTS = [ExamType.IELTS_ACADEMIC, ExamType.IELTS_GENERAL];
+
+const ielts = (skill: SkillType): TypeSpec => ({
+  skills: [skill],
+  groupContent: 'none',
+  questionContent: 'timing',
+  answer: 'sample',
+  exams: IELTS,
+});
 
 export const QUESTION_TYPES: Record<QuestionType, TypeSpec> = {
   [QuestionType.MULTIPLE_CHOICE]: {
@@ -219,16 +230,23 @@ export const QUESTION_TYPES: Record<QuestionType, TypeSpec> = {
     questionContent: 'timing',
     answer: 'sample',
   },
+  [QuestionType.IELTS_WRITING_TASK_1]: ielts(WRITING),
+  [QuestionType.IELTS_WRITING_TASK_2]: ielts(WRITING),
+  [QuestionType.IELTS_SPEAKING_PART_1]: ielts(SPEAKING),
+  [QuestionType.IELTS_SPEAKING_PART_2]: ielts(SPEAKING),
+  [QuestionType.IELTS_SPEAKING_PART_3]: ielts(SPEAKING),
 };
 
 // Passages a reading group can link to. GroupPanel calls one paragraph hook
 // per slot, so update it too when changing this.
 export const MAX_GROUP_PASSAGES = 3;
 
-export const getTypesForSkill = (skill: SkillType) =>
-  Object.values(QuestionType).filter((type) =>
-    QUESTION_TYPES[type].skills.includes(skill),
-  );
+export const getTypesForSkill = (skill: SkillType, examType?: ExamType) =>
+  Object.values(QuestionType).filter((type) => {
+    const { skills, exams } = QUESTION_TYPES[type];
+    if (!skills.includes(skill)) return false;
+    return !exams || (!!examType && exams.includes(examType));
+  });
 
 // Families whose answers are matched as free text (word limit applies)
 export const usesWordLimit = (spec: TypeSpec) =>

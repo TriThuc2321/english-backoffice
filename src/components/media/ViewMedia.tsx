@@ -9,7 +9,7 @@ import {
   LuImage,
   LuTrash2,
 } from 'react-icons/lu';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import type { EditMediaFormData } from '@/schemas/media';
 
@@ -29,8 +29,9 @@ import { PermissionAction, SubjectName } from '@/types/auth';
 import { MediaKind } from '@/types/test';
 import { formatBytes, formatDuration, mediaFileName } from '@/utils/media';
 
-import { kindColorMap, ownerHref, scopeColorMap } from './constants';
+import { kindColorMap, scopeColorMap } from './constants';
 import MediaPreview from './MediaPreview';
+import OwnerLink from './OwnerLink';
 import MediaSkeleton from './Skeleton';
 
 type ViewMediaProps = {
@@ -161,16 +162,7 @@ const ViewMedia = ({ id }: ViewMediaProps) => {
       <InfoCard title={t('common.basicInfo')}>
         <DetailField label={t('media.field.id')}>#{media.id}</DetailField>
         <DetailField label={t('media.field.owner')}>
-          {media.ownerId ? (
-            <Link
-              to={ownerHref(media.scope, media.ownerId)}
-              className="text-accent break-all hover:underline"
-            >
-              {media.ownerId}
-            </Link>
-          ) : (
-            '-'
-          )}
+          <OwnerLink scope={media.scope} ownerId={media.ownerId} />
         </DetailField>
         <DetailField label={t('media.field.mimeType')}>
           {media.mimeType ?? '-'}

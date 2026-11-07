@@ -21,4 +21,7 @@ export const VALIDATION_MESSAGE = {
   KEYS_COUNT: 'Pick exactly as many keys as the question range covers',
   QUESTIONS_REQUIRED: 'Add at least one question',
   INVALID_SLUG: 'Use lowercase letters, digits and single dashes',
+  CRITERION_REQUIRED: 'Choose a band',
+  BAND_INVALID: 'Bands go from 0 to 9 in steps of 0.5',
+  FEEDBACK_TOO_LONG: 'Feedback can be at most 5000 characters',
 };

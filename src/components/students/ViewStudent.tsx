@@ -1,6 +1,6 @@
 import { Button, Chip } from '@heroui/react';
 import { useTranslation } from 'react-i18next';
-import { LuPencil } from 'react-icons/lu';
+import { LuChartColumn, LuPencil } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
 
 import MyButton from '@/components/shared/Button';
@@ -127,6 +127,15 @@ const ViewStudent = ({ id }: ViewStudentProps) => {
         <Button variant="outline" onPress={() => navigate('/students')}>
           {t('common.back')}
         </Button>
+        <MyButton
+          I={PermissionAction.Read}
+          a={SubjectName.Assessments}
+          variant="outline"
+          onPress={() => navigate(`/attempts?userId=${student.user.id}`)}
+        >
+          <LuChartColumn className="size-4" />
+          {t('students.viewResults')}
+        </MyButton>
         <MyButton
           I={PermissionAction.Update}
           a={SubjectName.Students}

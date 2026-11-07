@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { QuestionType, SkillType } from '@/types/test';
+import { ExamType, QuestionType, SkillType } from '@/types/test';
 
 import {
   extractPlaceholders,
@@ -92,5 +92,33 @@ describe('getTypesForSkill', () => {
 
     expect(speaking).toContain(QuestionType.READ_ALOUD);
     expect(speaking).not.toContain(QuestionType.MULTIPLE_CHOICE);
+  });
+});
+
+describe('getTypesForSkill with an exam type', () => {
+  it('offers IELTS writing tasks only to IELTS tests', () => {
+    expect(
+      getTypesForSkill(SkillType.WRITING, ExamType.IELTS_ACADEMIC),
+    ).toEqual(
+      expect.arrayContaining([
+        QuestionType.IELTS_WRITING_TASK_1,
+        QuestionType.IELTS_WRITING_TASK_2,
+      ]),
+    );
+    expect(
+      getTypesForSkill(SkillType.WRITING, ExamType.TOEIC_SW),
+    ).not.toContain(QuestionType.IELTS_WRITING_TASK_1);
+  });
+
+  it('offers the three IELTS speaking parts to IELTS General', () => {
+    expect(
+      getTypesForSkill(SkillType.SPEAKING, ExamType.IELTS_GENERAL),
+    ).toEqual(
+      expect.arrayContaining([
+        QuestionType.IELTS_SPEAKING_PART_1,
+        QuestionType.IELTS_SPEAKING_PART_2,
+        QuestionType.IELTS_SPEAKING_PART_3,
+      ]),
+    );
   });
 });
