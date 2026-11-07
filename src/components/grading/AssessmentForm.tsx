@@ -5,7 +5,7 @@ import {
   AlertIndicator,
   Card,
 } from '@heroui/react';
-import { Controller } from 'react-hook-form';
+import { Controller, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import type { GradingSection } from '@/types/grading';
@@ -43,6 +43,17 @@ const AssessmentForm = ({ section, readOnly }: AssessmentFormProps) => {
     useGradeSection(section);
   const { control, formState } = form;
   const latest = section.assessment;
+  const values = useWatch({ control });
+  const criteriaTotal = section.expectedEntries.reduce(
+    (n, e) => n + e.criteria.length,
+    0,
+  );
+  const criteriaSet = (values.entries ?? []).reduce(
+    (n, e) =>
+      n + Object.values(e?.criteria ?? {}).filter((v) => v != null).length,
+    0,
+  );
+  const singleEntry = section.expectedEntries.length === 1;
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4" noValidate>
@@ -57,12 +68,14 @@ const AssessmentForm = ({ section, readOnly }: AssessmentFormProps) => {
           >
             <Card.Header className="flex-row items-center justify-between">
               <Card.Title>{title}</Card.Title>
-              <BandStatus
-                label={t('grading.screen.entryBand', { name: title })}
-                band={bands.entries[i]}
-              />
+              {!singleEntry && (
+                <BandStatus
+                  label={t('grading.screen.entryBand', { name: title })}
+                  band={bands.entries[i]}
+                />
+              )}
             </Card.Header>
-            <Card.Content className="grid gap-3 sm:grid-cols-2">
+            <Card.Content className="flex flex-col gap-4">
               {entry.criteria.map((code) => (
                 <Controller
                   key={code}
@@ -86,11 +99,10 @@ const AssessmentForm = ({ section, readOnly }: AssessmentFormProps) => {
                 name={`entries.${i}.feedback`}
                 render={({ field }) => (
                   <TextInput
-                    className="sm:col-span-2"
                     label={t('grading.screen.feedback')}
                     description={`${field.value.length} / ${FEEDBACK_MAX}`}
                     multiline
-                    rows={4}
+                    rows={6}
                     value={field.value}
                     onChange={field.onChange}
                     isDisabled={readOnly}
@@ -103,41 +115,56 @@ const AssessmentForm = ({ section, readOnly }: AssessmentFormProps) => {
         );
       })}
 
-      <BandStatus
-        label={t('grading.screen.estimatedBand')}
-        band={bands.section}
-      />
+      <Card>
+        <Card.Content className="flex flex-col gap-3">
+          <div className="flex items-center justify-between gap-2">
+            <BandStatus
+              label={t('grading.screen.estimatedBand')}
+              band={bands.section}
+            />
+            {!readOnly && (
+              <span className="text-muted text-sm tabular-nums">
+                {t('grading.screen.criteriaProgress', {
+                  done: criteriaSet,
+                  total: criteriaTotal,
+                })}
+              </span>
+            )}
+          </div>
 
-      {hasConflict && latest && (
-        <Alert status="warning">
-          <AlertIndicator />
-          <AlertContent>
-            <AlertDescription>
-              {t('grading.screen.conflictBanner', {
-                name: formatPersonName(latest.grader),
-                band: latest.band,
-                revision: latest.revision,
-              })}
-            </AlertDescription>
-          </AlertContent>
-        </Alert>
-      )}
+          {hasConflict && latest && (
+            <Alert status="warning">
+              <AlertIndicator />
+              <AlertContent>
+                <AlertDescription>
+                  {t('grading.screen.conflictBanner', {
+                    name: formatPersonName(latest.grader),
+                    band: latest.band,
+                    revision: latest.revision,
+                  })}
+                </AlertDescription>
+              </AlertContent>
+            </Alert>
+          )}
 
-      {readOnly ? (
-        <p className="text-muted text-sm">{t('grading.screen.readOnly')}</p>
-      ) : (
-        <MyButton
-          I={PermissionAction.Create}
-          a={SubjectName.Assessments}
-          type="submit"
-          variant="primary"
-          isPending={isPending}
-        >
-          {baseRevision > 0
-            ? t('grading.screen.saveCorrection')
-            : t('grading.screen.saveGrade')}
-        </MyButton>
-      )}
+          {readOnly ? (
+            <p className="text-muted text-sm">{t('grading.screen.readOnly')}</p>
+          ) : (
+            <MyButton
+              I={PermissionAction.Create}
+              a={SubjectName.Assessments}
+              type="submit"
+              variant="primary"
+              isPending={isPending}
+              fullWidth
+            >
+              {baseRevision > 0
+                ? t('grading.screen.saveCorrection')
+                : t('grading.screen.saveGrade')}
+            </MyButton>
+          )}
+        </Card.Content>
+      </Card>
     </form>
   );
 };

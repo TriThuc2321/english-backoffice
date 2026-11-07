@@ -1,5 +1,5 @@
-import { Card } from '@heroui/react';
-import { useCallback, useRef } from 'react';
+import { Card, Label, Switch } from '@heroui/react';
+import { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
@@ -14,14 +14,21 @@ import { formatDateTime } from '@/utils/datetime';
 
 import AssessmentForm from './AssessmentForm';
 import GradingStatusChip from './GradingStatusChip';
-import PartReview from './PartReview';
+import PartReview, { isAnswered } from './PartReview';
 import RevisionHistory from './RevisionHistory';
+
+const Meta = ({ label, value }: { label: string; value: string }) => (
+  <span>
+    <span className="text-muted">{label}:</span> {value}
+  </span>
+);
 
 const GradingWorkspace = ({ id }: { id: string }) => {
   const { t } = useTranslation();
   const ability = useCan();
   const { data: section, isLoading, error, refetch } = useGetGradingSection(id);
   const retried = useRef(false);
+  const [answeredOnly, setAnsweredOnly] = useState(false);
 
   // Recording URLs are presigned and expire; fetch fresh ones once
   const onAudioError = useCallback(() => {
@@ -52,25 +59,30 @@ const GradingWorkspace = ({ id }: { id: string }) => {
     SubjectName.Assessments,
   );
   const current = section.assessment;
+  const questions = section.parts.flatMap((p) => p.questions);
+  const answered = questions.filter(isAnswered).length;
 
   return (
     <div className="flex flex-col gap-6">
       <Card>
-        <Card.Content className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-          <span className="font-semibold">
+        <Card.Content className="flex flex-row flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+          <span className="text-base font-semibold">
             {formatPersonName(section.student)}
           </span>
-          <span>{section.test.title}</span>
-          <span>{t(`tests.skill.${section.skill}`)}</span>
-          <span>
-            {t('grading.field.submittedAt')}:{' '}
-            {formatDateTime(
+          <Meta label={t('grading.field.test')} value={section.test.title} />
+          <Meta
+            label={t('grading.field.skill')}
+            value={t(`tests.skill.${section.skill}`)}
+          />
+          <Meta
+            label={t('grading.field.submittedAt')}
+            value={formatDateTime(
               section.submittedAt ?? undefined,
               'DD/MM/YYYY HH:mm',
             )}
-          </span>
+          />
           <GradingStatusChip status={section.gradingStatus} />
-          <span>
+          <span className="text-muted">
             {section.revision > 0
               ? t('grading.screen.revision', { n: section.revision })
               : t('grading.screen.notGraded')}
@@ -85,12 +97,38 @@ const GradingWorkspace = ({ id }: { id: string }) => {
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)]">
         <Card>
-          <Card.Content className="flex flex-col gap-8">
+          <Card.Header className="flex-row flex-wrap items-center justify-between gap-2">
+            <span className="text-sm" role="status">
+              {t('grading.screen.answeredSummary', {
+                answered,
+                total: questions.length,
+              })}
+            </span>
+            {answered < questions.length && answered > 0 && (
+              <Switch
+                size="sm"
+                className="flex-row items-center gap-2"
+                isSelected={answeredOnly}
+                onChange={setAnsweredOnly}
+              >
+                <Switch.Control>
+                  <Switch.Thumb />
+                </Switch.Control>
+                <Switch.Content>
+                  <Label className="text-sm">
+                    {t('grading.screen.answeredOnly')}
+                  </Label>
+                </Switch.Content>
+              </Switch>
+            )}
+          </Card.Header>
+          <Card.Content className="flex flex-col gap-6">
             {section.parts.map((part) => (
               <PartReview
                 key={part.partId}
                 part={part}
                 onAudioError={onAudioError}
+                answeredOnly={answeredOnly}
               />
             ))}
           </Card.Content>

@@ -159,10 +159,10 @@ const renderWorkspace = ({
 const user = userEvent.setup();
 
 const pick = async (group: HTMLElement, label: string, value: number) => {
-  await user.click(
-    within(group).getByRole('button', { name: new RegExp(label) }),
-  );
-  await user.click(await screen.findByRole('option', { name: String(value) }));
+  const picker = within(group).getByRole('radiogroup', {
+    name: new RegExp(label),
+  });
+  await user.click(within(picker).getByRole('radio', { name: String(value) }));
 };
 
 const fillTask = async (task: 'Task 1' | 'Task 2', score: number) => {
@@ -180,14 +180,16 @@ describe('<GradingWorkspace>', () => {
     const task2 = screen.getByRole('group', { name: 'Task 2' });
     for (const code of T1) {
       expect(
-        within(task1).getByRole('button', { name: new RegExp(LABEL[code]) }),
+        within(task1).getByRole('radiogroup', {
+          name: new RegExp(LABEL[code]),
+        }),
       ).toBeInTheDocument();
     }
     expect(
-      within(task2).getByRole('button', { name: /Task Response/ }),
+      within(task2).getByRole('radiogroup', { name: /Task Response/ }),
     ).toBeInTheDocument();
     expect(
-      within(task2).queryByRole('button', { name: /Task Achievement/ }),
+      within(task2).queryByRole('radiogroup', { name: /Task Achievement/ }),
     ).toBeNull();
     expect(screen.getByText('My essay')).toBeInTheDocument();
   });
@@ -352,5 +354,31 @@ describe('<GradingWorkspace>', () => {
     ).toBeInTheDocument();
     expect(posts).toHaveLength(1);
     expect(posts[0]).toMatchObject({ expectedRevision: 0 });
+  });
+
+  it('counts answered questions and can hide the unanswered ones', async () => {
+    const blankTask1: GradingSection = {
+      ...SECTION,
+      parts: [
+        {
+          ...SECTION.parts[0],
+          questions: [question(12, QuestionType.IELTS_WRITING_TASK_1, null)],
+        },
+        SECTION.parts[1],
+      ],
+    };
+    renderWorkspace({ sections: [blankTask1] });
+    await screen.findByRole('group', { name: 'Task 1' });
+
+    expect(screen.getByText('1 of 2 questions answered')).toBeInTheDocument();
+    expect(screen.getByText('0 / 8 criteria set')).toBeInTheDocument();
+    expect(screen.getByText('1. Prompt 12')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('switch', { name: 'Answered only' }));
+
+    expect(screen.queryByText('1. Prompt 12')).toBeNull();
+    expect(screen.getByText('My essay')).toBeInTheDocument();
+    await fillTask('Task 2', 7);
+    expect(screen.getByText('4 / 8 criteria set')).toBeInTheDocument();
   });
 });

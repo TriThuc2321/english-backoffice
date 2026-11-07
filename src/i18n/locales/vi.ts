@@ -225,6 +225,9 @@ const vi = {
       words_other: '{{count}} từ',
       studentWork: 'Bài làm của học sinh',
       sampleAnswer: 'Bài mẫu',
+      answeredSummary: 'Đã trả lời {{answered}}/{{total}} câu',
+      answeredOnly: 'Chỉ câu đã trả lời',
+      criteriaProgress: 'Đã chấm {{done}}/{{total}} tiêu chí',
       promptImage: 'Hình của đề',
     },
     status: {

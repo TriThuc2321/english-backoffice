@@ -225,6 +225,9 @@ const en = {
       words_other: '{{count}} words',
       studentWork: "Student's work",
       sampleAnswer: 'Sample answer',
+      answeredSummary: '{{answered}} of {{total}} questions answered',
+      answeredOnly: 'Answered only',
+      criteriaProgress: '{{done}} / {{total}} criteria set',
       promptImage: 'Task image',
     },
     status: {
