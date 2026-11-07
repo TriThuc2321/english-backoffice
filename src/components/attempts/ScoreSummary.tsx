@@ -5,13 +5,22 @@ import type { ResultView } from '@/utils/attemptResult';
 
 import { isIelts } from '@/utils/attemptResult';
 
-const ScoreSummary = ({ view }: { view: ResultView }) => {
+const ScoreSummary = ({
+  view,
+  activeSectionId,
+  onSelectSection,
+}: {
+  view: ResultView;
+  activeSectionId: number | null;
+  onSelectSection: (sectionId: number) => void;
+}) => {
   const { t } = useTranslation();
   const { total, skills } = view;
+  const selectable = skills.length > 1;
 
   return (
     <Card>
-      <Card.Content className="flex flex-wrap gap-4">
+      <Card.Content className="flex flex-row flex-wrap items-stretch gap-4">
         {total && (
           <div className="flex flex-[1_1_220px] flex-col justify-center gap-1 py-2 pr-6 pl-2">
             <p className="text-accent text-xs font-semibold tracking-[0.08em] uppercase">
@@ -36,32 +45,39 @@ const ScoreSummary = ({ view }: { view: ResultView }) => {
             )}
           </div>
         )}
-        <ul className="grid flex-[999_1_520px] grid-cols-[repeat(auto-fit,minmax(min(100%,150px),1fr))] gap-3">
+        <ul className="grid flex-[999_1_520px] grid-cols-[repeat(auto-fit,minmax(min(100%,150px),1fr))] content-start gap-3">
           {skills.map((s) => (
-            <li
-              key={s.sectionId}
-              className="bg-surface-secondary flex flex-col gap-1 rounded-xl p-4"
-            >
-              <span className="text-sm font-semibold">
-                {t(`tests.skill.${s.skill}`)}
-              </span>
-              <span className="text-3xl font-bold tabular-nums">
-                {s.scaledScore === null
-                  ? '—'
-                  : isIelts(view.examType)
-                    ? s.scaledScore.toFixed(1)
-                    : s.scaledScore}
-              </span>
-              <span className="text-muted text-xs">
-                {s.pending || s.scaledScore === null
-                  ? t('attempts.result.gradingPending')
-                  : s.rawScore === null || s.maxScore === null
-                    ? t('attempts.result.gradedByTeacher')
-                    : t('attempts.result.rawCorrect', {
-                        correct: s.rawScore,
-                        total: s.maxScore,
-                      })}
-              </span>
+            <li key={s.sectionId}>
+              <button
+                type="button"
+                disabled={!selectable}
+                aria-pressed={
+                  selectable ? s.sectionId === activeSectionId : undefined
+                }
+                onClick={() => onSelectSection(s.sectionId)}
+                className={`bg-surface-secondary flex w-full flex-col items-start gap-1 rounded-xl border-2 p-4 text-left ${selectable ? 'hover:border-accent/50 cursor-pointer' : ''} ${selectable && s.sectionId === activeSectionId ? 'border-accent' : 'border-transparent'}`}
+              >
+                <span className="text-sm font-semibold">
+                  {t(`tests.skill.${s.skill}`)}
+                </span>
+                <span className="text-3xl font-bold tabular-nums">
+                  {s.scaledScore === null
+                    ? '—'
+                    : isIelts(view.examType)
+                      ? s.scaledScore.toFixed(1)
+                      : s.scaledScore}
+                </span>
+                <span className="text-muted text-xs">
+                  {s.pending || s.scaledScore === null
+                    ? t('attempts.result.gradingPending')
+                    : s.rawScore === null || s.maxScore === null
+                      ? t('attempts.result.gradedByTeacher')
+                      : t('attempts.result.rawCorrect', {
+                          correct: s.rawScore,
+                          total: s.maxScore,
+                        })}
+                </span>
+              </button>
             </li>
           ))}
         </ul>

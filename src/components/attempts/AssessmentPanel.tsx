@@ -68,20 +68,29 @@ const AssessmentPanel = ({ section }: { section: SectionResult }) => {
                 })}
               </h3>
             )}
-            <dl className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-2">
-              {entry.criteria.map((c) => (
-                <div
-                  key={c.code}
-                  className="bg-surface-secondary flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm"
-                >
-                  <dt>
-                    {CRITERIA_ORDER.includes(c.code)
-                      ? t(`grading.criteria.${c.code}`)
-                      : c.code}
-                  </dt>
-                  <dd className="font-semibold tabular-nums">{band(c.band)}</dd>
-                </div>
-              ))}
+            <dl className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,120px),1fr))] gap-2">
+              {entry.criteria.map((c) => {
+                const name = CRITERIA_ORDER.includes(c.code)
+                  ? t(`grading.criteria.${c.code}`)
+                  : c.code;
+                return (
+                  <div
+                    key={c.code}
+                    title={name}
+                    className="bg-surface-secondary flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm"
+                  >
+                    <dt>
+                      <abbr title={name} className="font-medium no-underline">
+                        {c.code}
+                      </abbr>
+                      <span className="sr-only"> {name}</span>
+                    </dt>
+                    <dd className="font-semibold tabular-nums">
+                      {band(c.band)}
+                    </dd>
+                  </div>
+                );
+              })}
             </dl>
             {entry.feedback && (
               <div className="rounded-lg border border-dashed px-3.5 py-3">

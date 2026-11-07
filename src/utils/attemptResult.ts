@@ -36,6 +36,9 @@ export type ReviewItem = {
   n: number;
   from: number;
   to: number;
+  partId: Nullable<number>;
+  partOrder: Nullable<number>;
+  partTitle: Nullable<string>;
   questionType: Nullable<QuestionType>;
   prompt: Nullable<string>;
   status: NumberStatus;
@@ -87,6 +90,9 @@ export type SectionResult = {
   sectionId: number;
   skill: SkillType;
   items: ReviewItem[];
+  // Each Writing task / Speaking part restarts at 1, so numbers alone are ambiguous
+  numbersRepeat: boolean;
+  teacherGraded: boolean;
   counts: StatusCounts;
   byPart: Breakdown[];
   byType: Breakdown[];
@@ -146,6 +152,32 @@ function indexQuestions(content: Nullable<AttemptContent>) {
 }
 
 const isSample = (q: AttemptResultQuestion) => 'sample' in q.answer;
+
+const gapPattern = (n: number) => new RegExp(`\\{\\{\\s*${n}\\s*\\}\\}`);
+const ANY_GAP = /\{\{\s*(\d+)\s*\}\}/g;
+
+// Completion groups keep the question text in a template, table or passage with {{n}} gaps
+function gapPrompt(ctx: QuestionContext, n: number): Nullable<string> {
+  const { content, passages } = ctx.group;
+  const lines = [
+    ...(content?.template?.split('\n') ?? []),
+    ...(content?.table?.rows.map((row) => row.join(' | ')) ?? []),
+    ...(content?.info?.rows.map((row) => row.join(' | ')) ?? []),
+    ...passages.flatMap((p) => byOrder(p.paragraphs).map((x) => x.content)),
+  ];
+  const line = lines.find((l) => gapPattern(n).test(l));
+  if (!line) return null;
+  return line
+    .replace(ANY_GAP, (_, m: string) =>
+      Number(m) === n ? `(${n}) ______` : '______',
+    )
+    .trim();
+}
+
+const promptOf = (ctx: QuestionContext | undefined, n: number) =>
+  ctx
+    ? (ctx.question.prompt ?? gapPrompt(ctx, n) ?? ctx.group.instruction)
+    : null;
 
 const optionsOf = (ctx: QuestionContext | undefined): ContentOption[] =>
   ctx?.question.content?.options ?? ctx?.group.content?.options ?? [];
@@ -359,8 +391,11 @@ function sectionResult(
         n,
         from: q.numberFrom,
         to: q.numberTo,
+        partId: ctx?.part.id ?? null,
+        partOrder: ctx?.part.order ?? null,
+        partTitle: ctx?.part.title ?? null,
         questionType: ctx?.group.questionType ?? null,
-        prompt: ctx?.question.prompt ?? null,
+        prompt: promptOf(ctx, n),
         status,
         studentAnswer,
         correctAnswer,
@@ -391,11 +426,19 @@ function sectionResult(
     types.set(typeKey, type);
   }
 
+  items.sort(
+    (a, b) =>
+      (a.partOrder ?? 0) - (b.partOrder ?? 0) || a.n - b.n || a.to - b.to,
+  );
+
   return {
     attemptSectionId: section.id,
     sectionId,
     skill,
     items,
+    numbersRepeat: new Set(items.map((i) => i.n)).size < items.length,
+    teacherGraded:
+      gradingStatus !== null && gradingStatus !== GradingStatus.AUTO_GRADED,
     counts,
     byPart: [...parts]
       .sort(([, a], [, b]) => a.order - b.order)

@@ -1,5 +1,6 @@
 import { Card } from '@heroui/react';
-import { useCallback, useMemo, useRef } from 'react';
+import dayjs from 'dayjs';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
@@ -27,6 +28,7 @@ const AttemptResultView = ({ id }: { id: string }) => {
     !!result,
   );
   const retried = useRef(false);
+  const [sectionId, setSectionId] = useState<number | null>(null);
 
   // Recording URLs are presigned and expire; fetch fresh ones once
   const onAudioError = useCallback(() => {
@@ -60,47 +62,74 @@ const AttemptResultView = ({ id }: { id: string }) => {
   }
 
   const { attempt, student } = result;
+  const activeSectionId = sectionId ?? view.sections[0]?.sectionId ?? null;
+  const minutes = attempt.submittedAt
+    ? dayjs(attempt.submittedAt).diff(attempt.startedAt, 'minute')
+    : null;
+  const sameDay =
+    attempt.submittedAt &&
+    dayjs(attempt.submittedAt).isSame(attempt.startedAt, 'day');
 
   return (
     <div className="flex flex-col gap-6">
       <Card>
-        <Card.Content className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-          <span className="flex flex-col">
+        <Card.Content className="flex flex-row flex-wrap items-center justify-between gap-x-8 gap-y-3">
+          <div className="flex min-w-0 flex-col gap-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-lg font-semibold">
+                {attempt.test.title.trim() || t('attempts.result.untitledTest')}
+              </h2>
+              <AttemptStatusChip status={attempt.status} />
+            </div>
+            <p className="text-muted text-sm">
+              {t(`tests.examType.${attempt.test.examType}`)} ·{' '}
+              {t(`attempts.mode.${attempt.mode}`)}
+            </p>
+            <p className="text-sm tabular-nums">
+              {formatDateTime(attempt.startedAt, 'DD/MM/YYYY HH:mm')}
+              {attempt.submittedAt && (
+                <>
+                  {' → '}
+                  {formatDateTime(
+                    attempt.submittedAt,
+                    sameDay ? 'HH:mm' : 'DD/MM/YYYY HH:mm',
+                  )}
+                  <span className="text-muted">
+                    {' · '}
+                    {minutes === 0
+                      ? t('attempts.result.durationUnderMinute')
+                      : t('attempts.result.duration', { count: minutes ?? 0 })}
+                  </span>
+                </>
+              )}
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-1 text-sm sm:items-end">
             <span className="font-semibold">{formatPersonName(student)}</span>
             {student.email && (
               <span className="text-muted text-xs">{student.email}</span>
             )}
-          </span>
-          <span className="flex flex-col">
-            <span>{attempt.test.title}</span>
-            <span className="text-muted text-xs">
-              {t(`tests.examType.${attempt.test.examType}`)} ·{' '}
-              {t(`attempts.mode.${attempt.mode}`)}
-            </span>
-          </span>
-          <span>
-            {t('attempts.field.startedAt')}:{' '}
-            {formatDateTime(attempt.startedAt, 'DD/MM/YYYY HH:mm')}
-          </span>
-          <span>
-            {t('attempts.field.submittedAt')}:{' '}
-            {formatDateTime(
-              attempt.submittedAt ?? undefined,
-              'DD/MM/YYYY HH:mm',
-            )}
-          </span>
-          <AttemptStatusChip status={attempt.status} />
-          <Link
-            to={`/attempts?userId=${student.id}`}
-            className="text-accent ml-auto hover:underline"
-          >
-            {t('attempts.result.otherAttempts')}
-          </Link>
+            <Link
+              to={`/attempts?userId=${student.id}`}
+              className="text-accent text-sm hover:underline"
+            >
+              {t('attempts.result.otherAttempts')}
+            </Link>
+          </div>
         </Card.Content>
       </Card>
 
-      <ScoreSummary view={view} />
-      <ResultReview sections={view.sections} onAudioError={onAudioError} />
+      <ScoreSummary
+        view={view}
+        activeSectionId={activeSectionId}
+        onSelectSection={setSectionId}
+      />
+      <ResultReview
+        sections={view.sections}
+        sectionId={activeSectionId}
+        onSectionChange={setSectionId}
+        onAudioError={onAudioError}
+      />
     </div>
   );
 };
