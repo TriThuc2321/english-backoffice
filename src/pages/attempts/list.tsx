@@ -34,9 +34,17 @@ export default function AttemptsPage() {
   const testId = Number(searchParams.get('testId')) || undefined;
 
   const [search, setSearch] = useState(searchParam);
+  const [syncedParam, setSyncedParam] = useState(searchParam);
   const debouncedSearch = useDebounce(search, 500);
 
+  if (searchParam !== syncedParam) {
+    setSyncedParam(searchParam);
+    if (searchParam !== search.trim()) setSearch(searchParam);
+  }
+
   useEffect(() => {
+    // A lagging debounced value is stale input; pushing it would undo Back/Forward.
+    if (debouncedSearch !== search) return;
     const next = debouncedSearch.trim();
     if (next === searchParam) return;
     setSearchParams((prev) => {
@@ -45,7 +53,7 @@ export default function AttemptsPage() {
       prev.set('page', '1');
       return prev;
     });
-  }, [debouncedSearch, searchParam, setSearchParams]);
+  }, [debouncedSearch, search, searchParam, setSearchParams]);
 
   const { data, isLoading } = useGetAttempts({
     page,
