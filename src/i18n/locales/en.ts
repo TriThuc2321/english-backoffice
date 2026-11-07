@@ -92,6 +92,10 @@ const en = {
     toggle: 'Switch language',
   },
   grading: {
+    history: {
+      title: 'History',
+      current: 'Current',
+    },
     criteria: {
       TA: 'Task Achievement',
       TR: 'Task Response',

@@ -15,6 +15,7 @@ import { formatDateTime } from '@/utils/datetime';
 import AssessmentForm from './AssessmentForm';
 import GradingStatusChip from './GradingStatusChip';
 import PartReview from './PartReview';
+import RevisionHistory from './RevisionHistory';
 
 const GradingWorkspace = ({ id }: { id: string }) => {
   const { t } = useTranslation();
@@ -97,6 +98,12 @@ const GradingWorkspace = ({ id }: { id: string }) => {
 
         <div className="flex flex-col gap-6 lg:sticky lg:top-4 lg:self-start">
           <AssessmentForm section={section} readOnly={!canGrade} />
+          {section.revision > 0 && (
+            <RevisionHistory
+              attemptSectionId={section.attemptSectionId}
+              expectedEntries={section.expectedEntries}
+            />
+          )}
         </div>
       </div>
     </div>

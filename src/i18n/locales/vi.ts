@@ -93,6 +93,10 @@ const vi = {
     toggle: 'Chuyển ngôn ngữ',
   },
   grading: {
+    history: {
+      title: 'Lịch sử chấm',
+      current: 'Hiện tại',
+    },
     criteria: {
       TA: 'Task Achievement',
       TR: 'Task Response',

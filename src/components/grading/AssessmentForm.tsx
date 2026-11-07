@@ -8,7 +8,7 @@ import {
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import type { GradingExpectedEntry, GradingSection } from '@/types/grading';
+import type { GradingSection } from '@/types/grading';
 
 import MyButton from '@/components/shared/Button';
 import { TextInput } from '@/components/tests/editor/fields';
@@ -17,19 +17,13 @@ import { useGradeSection } from '@/hooks/forms';
 import { PermissionAction, SubjectName } from '@/types/auth';
 import { formatPersonName } from '@/utils/common';
 
+import { entryTitleKey } from './constants';
 import CriterionSelect from './CriterionSelect';
 
 type AssessmentFormProps = {
   section: GradingSection;
   readOnly?: boolean;
 };
-
-const entryTitle = (entry: GradingExpectedEntry) =>
-  entry.task === 1
-    ? 'grading.screen.task1'
-    : entry.task === 2
-      ? 'grading.screen.task2'
-      : 'grading.screen.speaking';
 
 const BandStatus = ({
   label,
@@ -53,7 +47,7 @@ const AssessmentForm = ({ section, readOnly }: AssessmentFormProps) => {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4" noValidate>
       {section.expectedEntries.map((entry, i) => {
-        const title = t(entryTitle(entry));
+        const title = t(entryTitleKey(entry.task));
         const errors = formState.errors.entries?.[i];
         return (
           <Card
