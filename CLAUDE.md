@@ -44,6 +44,8 @@ Whenever route files change, regenerate types with `pnpm typegen` (or just `pnpm
 
 `/grading` (queue) and `/grading/:id` (screen) let teachers grade IELTS Writing/Speaking sections, gated by the `assessment` subject (`read` to view, `create` to grade). The server computes every band; `src/utils/ieltsBand.ts` only mirrors its rounding for the live "Estimated band". Saves send `expectedRevision`, and a 409 `ASSESSMENT_REVISION_CONFLICT` keeps the teacher's input while the section refetches.
 
+`/attempts` (list, filterable by `userId`/`status`/`examType`/search) and `/attempts/:id` show every student's results, also gated by `read` on `assessment`. `src/utils/attemptResult.ts` joins `/attempts/:id/result` with `/attempts/:id/content` (for prompts and option text) and is ported from english-student's `lib/results/view.ts`, so keep the two in sync.
+
 ### UI / styling
 
 - **HeroUI v3** (`@heroui/react`, `@heroui/styles`) is the component library, paired with **Tailwind CSS v4** via `@tailwindcss/vite`.

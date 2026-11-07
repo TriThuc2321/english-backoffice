@@ -16,3 +16,4 @@ export { default as questionApi } from './question';
 export { default as mediaApi } from './media';
 export { default as meApi } from './me';
 export { default as gradingApi } from './grading';
+export { default as attemptApi } from './attempt';

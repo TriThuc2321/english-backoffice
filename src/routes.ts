@@ -80,5 +80,10 @@ export default [
       index('./pages/grading/list.tsx'),
       route(':id', './pages/grading/detail.tsx'),
     ]),
+
+    ...prefix('attempts', [
+      index('./pages/attempts/list.tsx'),
+      route(':id', './pages/attempts/detail.tsx'),
+    ]),
   ]),
 ] satisfies RouteConfig;
