@@ -140,7 +140,12 @@ export type ContentQuestionGroup = {
   order: number;
   questionType: QuestionType;
   instruction: Nullable<string>;
-  content: Nullable<{ options?: ContentOption[] }>;
+  content: Nullable<{
+    options?: ContentOption[];
+    template?: string;
+    table?: { headers?: string[]; rows: string[][] };
+    info?: { title?: string; rows: string[][] };
+  }>;
   audio: Nullable<ContentMedia>;
   image: Nullable<ContentMedia>;
   passages: ContentPassage[];

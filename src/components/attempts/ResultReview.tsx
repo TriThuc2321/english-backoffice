@@ -1,3 +1,5 @@
+import type { TFunction } from 'i18next';
+
 import { Button, Card, Disclosure, Tabs } from '@heroui/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +17,7 @@ import AssessmentPanel from './AssessmentPanel';
 
 const CELL_CLASSES: Record<NumberStatus, string> = {
   correct: 'bg-success text-success-foreground border border-success',
-  incorrect: 'bg-danger-soft text-foreground border-2 border-danger',
+  incorrect: 'text-danger border border-danger',
   blank: 'text-muted border border-dashed',
   pending: 'bg-surface-secondary text-muted border',
   graded: 'bg-accent-soft text-accent-soft-foreground border border-accent',
@@ -31,7 +33,7 @@ const BADGE_CLASSES: Record<NumberStatus, string> = {
 
 const SWATCHES: Record<NumberStatus, string> = {
   correct: 'bg-success',
-  incorrect: 'border-2 border-danger bg-danger-soft',
+  incorrect: 'border border-danger',
   blank: 'border border-dashed',
   pending: 'border bg-surface-secondary',
   graded: 'border border-accent bg-accent-soft',
@@ -48,15 +50,30 @@ const GLYPHS: Record<NumberStatus, string> = {
 const formatPart = ({ key, text }: AnswerPart) =>
   key && text ? `${key} · ${text}` : (key ?? text ?? '');
 
+const TEACHER_LEGEND: NumberStatus[] = ['graded', 'pending', 'blank'];
+const AUTO_LEGEND: NumberStatus[] = ['correct', 'incorrect', 'blank'];
+
+const partLabel = (
+  t: TFunction,
+  item: Pick<ReviewItem, 'partTitle' | 'partOrder'>,
+) =>
+  item.partTitle ??
+  t('attempts.result.partFallback', { order: item.partOrder ?? 1 });
+
+const BILINGUAL = /^\s*EN:\s*([\s\S]*?)\s*VI:\s*([\s\S]*)$/;
+
 const ResultReview = ({
   sections,
+  sectionId,
+  onSectionChange,
   onAudioError,
 }: {
   sections: SectionResult[];
+  sectionId: number | null;
+  onSectionChange: (sectionId: number) => void;
   onAudioError: () => void;
 }) => {
   const { t } = useTranslation();
-  const [sectionId, setSectionId] = useState(sections[0]?.sectionId);
   const [selected, setSelected] = useState<Record<number, string>>({});
 
   const section =
@@ -117,7 +134,7 @@ const ResultReview = ({
         {sections.length > 1 ? (
           <Tabs
             selectedKey={String(section.sectionId)}
-            onSelectionChange={(key) => setSectionId(Number(key))}
+            onSelectionChange={(key) => onSectionChange(Number(key))}
           >
             <Tabs.ListContainer>
               <Tabs.List aria-label={t('attempts.result.sections')}>
@@ -146,6 +163,7 @@ const ResultReview = ({
       {current && (
         <ReviewPanel
           item={current}
+          showPart={section.numbersRepeat}
           onAudioError={onAudioError}
           onPrev={index > 0 ? () => select(items[index - 1].key) : null}
           onNext={
@@ -167,11 +185,26 @@ const AnswerGrid = ({
   onSelect: (key: string) => void;
 }) => {
   const { t } = useTranslation();
-  const legend = (Object.keys(section.counts) as NumberStatus[]).filter(
-    (status) =>
-      (status !== 'pending' && status !== 'graded') ||
-      section.counts[status] > 0,
+  const legend = (section.teacherGraded ? TEACHER_LEGEND : AUTO_LEGEND).filter(
+    (status) => status === 'blank' || section.counts[status] > 0,
   );
+  const groups: {
+    partId: number | null;
+    label: string | null;
+    items: ReviewItem[];
+  }[] = [];
+  for (const item of section.items) {
+    const partId = section.numbersRepeat ? item.partId : null;
+    const last = groups.at(-1);
+    if (last && last.partId === partId) last.items.push(item);
+    else {
+      groups.push({
+        partId,
+        label: section.numbersRepeat ? partLabel(t, item) : null,
+        items: [item],
+      });
+    }
+  }
 
   return (
     <Card>
@@ -201,36 +234,55 @@ const AnswerGrid = ({
             {t('attempts.result.emptySection')}
           </p>
         ) : (
-          <ul className="grid grid-cols-[repeat(auto-fill,minmax(48px,1fr))] gap-1.5">
-            {section.items.map((item) => {
-              const on = item.key === selectedKey;
-              return (
-                <li key={item.key}>
-                  <button
-                    type="button"
-                    aria-pressed={on}
-                    aria-label={t('attempts.result.questionAria', {
-                      n: item.n,
-                      status: t(`attempts.result.status.${item.status}`),
-                    })}
-                    onClick={() => onSelect(item.key)}
-                    className={`relative flex h-11 w-full cursor-pointer flex-col items-center justify-center gap-px rounded-lg text-sm font-semibold tabular-nums ${CELL_CLASSES[item.status]} ${on ? 'ring-foreground ring-2 ring-offset-2' : ''}`}
-                  >
-                    {item.n}
-                    <span aria-hidden className="text-[11px] leading-none">
-                      {GLYPHS[item.status]}
-                    </span>
-                    {item.flagged && (
-                      <LuFlag
-                        aria-hidden
-                        className="text-warning absolute top-0.5 right-0.5 size-2.5"
-                      />
-                    )}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="flex flex-col gap-4">
+            {groups.map((group, i) => (
+              <div
+                key={`${group.partId ?? 'all'}-${i}`}
+                className="flex flex-col gap-2"
+              >
+                {group.label && (
+                  <p className="text-muted text-xs font-semibold">
+                    {group.label}
+                  </p>
+                )}
+                <ul className="grid grid-cols-[repeat(auto-fill,minmax(48px,1fr))] gap-1.5">
+                  {group.items.map((item) => {
+                    const on = item.key === selectedKey;
+                    return (
+                      <li key={item.key}>
+                        <button
+                          type="button"
+                          aria-pressed={on}
+                          aria-label={t('attempts.result.questionAria', {
+                            n: group.label
+                              ? `${group.label} · ${item.n}`
+                              : item.n,
+                            status: t(`attempts.result.status.${item.status}`),
+                          })}
+                          onClick={() => onSelect(item.key)}
+                          className={`relative flex h-11 w-full cursor-pointer flex-col items-center justify-center gap-px rounded-lg text-sm font-semibold tabular-nums ${CELL_CLASSES[item.status]} ${on ? 'ring-accent ring-offset-background ring-[3px] ring-offset-2' : ''}`}
+                        >
+                          {item.n}
+                          <span
+                            aria-hidden
+                            className="text-[11px] leading-none"
+                          >
+                            {GLYPHS[item.status]}
+                          </span>
+                          {item.flagged && (
+                            <LuFlag
+                              aria-hidden
+                              className="text-warning absolute top-0.5 right-0.5 size-2.5"
+                            />
+                          )}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
         )}
       </Card.Content>
     </Card>
@@ -248,6 +300,9 @@ const FocusBreakdown = ({ section }: { section: SectionResult }) => {
       : (b.label.partTitle ??
         t('attempts.result.partFallback', { order: b.label.partOrder }));
 
+  const barClass = (pct: number) =>
+    pct >= 70 ? 'bg-success' : pct >= 40 ? 'bg-warning' : 'bg-danger';
+
   const column = (heading: string, rows: Breakdown[], showWeak: boolean) => (
     <div className="flex flex-col gap-3">
       <h3 className="text-muted text-sm font-semibold">{heading}</h3>
@@ -256,7 +311,7 @@ const FocusBreakdown = ({ section }: { section: SectionResult }) => {
           <div className="flex justify-between gap-2 text-sm">
             <span>
               {label(b)}
-              {showWeak && b.weak && (
+              {showWeak && b.weak && rows.some((r) => !r.weak) && (
                 <span className="bg-warning-soft text-warning ml-2 rounded px-1.5 py-px text-[11px] font-semibold whitespace-nowrap">
                   {t('attempts.result.needsWork')}
                 </span>
@@ -274,7 +329,7 @@ const FocusBreakdown = ({ section }: { section: SectionResult }) => {
             className="bg-surface-secondary h-2 overflow-hidden rounded-full"
           >
             <div
-              className="bg-accent h-full rounded-full"
+              className={`h-full rounded-full ${barClass(b.pct)}`}
               style={{ width: `${b.pct}%` }}
             />
           </div>
@@ -298,11 +353,13 @@ const FocusBreakdown = ({ section }: { section: SectionResult }) => {
 
 const ReviewPanel = ({
   item,
+  showPart,
   onPrev,
   onNext,
   onAudioError,
 }: {
   item: ReviewItem;
+  showPart: boolean;
   onPrev: (() => void) | null;
   onNext: (() => void) | null;
   onAudioError: () => void;
@@ -320,12 +377,17 @@ const ReviewPanel = ({
             </p>
           )}
           <Card.Title className="mt-0.5">
-            {item.from === item.to
-              ? t('attempts.result.questionN', { n: item.n })
-              : t('attempts.result.questionsRange', {
+            {item.from !== item.to
+              ? t('attempts.result.questionsRange', {
                   from: item.from,
                   to: item.to,
-                })}
+                })
+              : showPart
+                ? t('attempts.result.partQuestion', {
+                    part: partLabel(t, item),
+                    n: item.n,
+                  })
+                : t('attempts.result.questionN', { n: item.n })}
           </Card.Title>
         </div>
         <span
@@ -341,7 +403,11 @@ const ReviewPanel = ({
             {t('attempts.result.flagged')}
           </p>
         )}
-        <p className={item.prompt ? 'text-sm' : 'text-muted text-sm'}>
+        <p
+          className={
+            item.prompt ? 'text-sm whitespace-pre-line' : 'text-muted text-sm'
+          }
+        >
           {item.prompt ?? t('attempts.result.promptFallback')}
         </p>
         <div className="bg-surface-secondary rounded-lg px-3.5 py-3">
@@ -373,43 +439,56 @@ const ReviewPanel = ({
             </>
           )}
         </div>
-        <div className="rounded-lg border border-dashed px-3.5 py-3">
-          <p className="text-muted text-xs">
-            {isEssay
-              ? t('grading.screen.sampleAnswer')
-              : t('attempts.result.correctAnswer')}
-          </p>
-          {isEssay ? (
-            <p className="mt-0.5 max-h-96 overflow-y-auto text-sm leading-6 whitespace-pre-line">
-              {item.sample}
+        {isEssay ? (
+          <Disclosure key={item.key}>
+            <Disclosure.Heading>
+              <Button
+                slot="trigger"
+                variant="secondary"
+                size="sm"
+                className="w-full justify-between"
+              >
+                {t('attempts.result.sampleShow')}
+                <Disclosure.Indicator />
+              </Button>
+            </Disclosure.Heading>
+            <Disclosure.Content>
+              <Disclosure.Body className="mt-2 max-h-96 overflow-y-auto rounded-lg border border-dashed px-3.5 py-3 text-sm leading-6 whitespace-pre-line">
+                {item.sample}
+              </Disclosure.Body>
+            </Disclosure.Content>
+          </Disclosure>
+        ) : (
+          <div className="rounded-lg border border-dashed px-3.5 py-3">
+            <p className="text-muted text-xs">
+              {t('attempts.result.correctAnswer')}
             </p>
-          ) : item.correctAnswer ? (
-            <>
-              <p className="mt-0.5 font-semibold">
-                {item.correctAnswer.map(formatPart).join(', ')}
-              </p>
-              {item.alsoAccepted.length > 0 && (
-                <p className="text-muted mt-0.5 text-sm">
-                  {t('attempts.result.alsoAccepted', {
-                    list: item.alsoAccepted.join(', '),
-                  })}
+            {item.correctAnswer ? (
+              <>
+                <p className="mt-0.5 font-semibold">
+                  {item.correctAnswer.map(formatPart).join(', ')}
                 </p>
-              )}
-            </>
-          ) : (
-            <p className="text-muted mt-0.5 text-sm">
-              {t('attempts.result.gradedByTeacher')}
-            </p>
-          )}
-        </div>
+                {item.alsoAccepted.length > 0 && (
+                  <p className="text-muted mt-0.5 text-sm">
+                    {t('attempts.result.alsoAccepted', {
+                      list: item.alsoAccepted.join(', '),
+                    })}
+                  </p>
+                )}
+              </>
+            ) : (
+              <p className="text-muted mt-0.5 text-sm">
+                {t('attempts.result.gradedByTeacher')}
+              </p>
+            )}
+          </div>
+        )}
         {(item.explanation || item.evidence) && (
           <div className="rounded-lg border border-dashed px-3.5 py-3">
             <p className="text-muted text-xs">
               {t('attempts.result.explanation')}
             </p>
-            {item.explanation && (
-              <p className="mt-0.5 text-sm">{item.explanation}</p>
-            )}
+            {item.explanation && <Explanation text={item.explanation} />}
             {item.evidence && (
               <blockquote className="border-accent mt-3 border-l-2 pl-3 text-sm">
                 <p className="text-muted text-xs">
@@ -444,6 +523,26 @@ const ReviewPanel = ({
         </div>
       </Card.Content>
     </Card>
+  );
+};
+
+const Explanation = ({ text }: { text: string }) => {
+  const match = BILINGUAL.exec(text);
+  if (!match) return <p className="mt-0.5 text-sm">{text}</p>;
+  return (
+    <div className="mt-1 flex flex-col gap-2 text-sm">
+      {[
+        ['EN', match[1]],
+        ['VI', match[2]],
+      ].map(([lang, body]) => (
+        <p key={lang}>
+          <span className="text-muted mr-1.5 text-[11px] font-semibold">
+            {lang}
+          </span>
+          {body}
+        </p>
+      ))}
+    </div>
   );
 };
 

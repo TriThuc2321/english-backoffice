@@ -298,4 +298,124 @@ describe('buildResultView', () => {
     );
     expect(practice.total).toBeNull();
   });
+
+  it('reads a completion prompt from the template gap', () => {
+    const notes: AttemptContent = {
+      ...CONTENT,
+      testSections: [
+        {
+          ...CONTENT.testSections[0],
+          testParts: [
+            {
+              ...CONTENT.testSections[0].testParts[0],
+              questionGroups: [
+                {
+                  id: 201,
+                  order: 1,
+                  questionType: QuestionType.NOTE_COMPLETION,
+                  instruction: 'Complete the notes',
+                  content: { template: 'Title\nThey threw a {{5}} and {{6}}' },
+                  audio: null,
+                  image: null,
+                  passages: [],
+                  questions: [5, 6, 7].map((n) => ({
+                    id: 2000 + n,
+                    numberFrom: n,
+                    numberTo: n,
+                    order: n,
+                    prompt: null,
+                    content: null,
+                    audio: null,
+                    image: null,
+                  })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    const result = buildResultView(
+      {
+        ...RESULT,
+        questions: [5, 6, 7].map((n) =>
+          question({ questionId: 2000 + n, sectionId: 2, numberFrom: n }),
+        ),
+      },
+      notes,
+    );
+    expect(result.sections[1].items.map((i) => i.prompt)).toEqual([
+      'They threw a (5) ______ and ______',
+      'They threw a ______ and (6) ______',
+      'Complete the notes',
+    ]);
+  });
+
+  it('flags sections whose numbers restart in each part', () => {
+    expect(view.sections[1].numbersRepeat).toBe(false);
+    const twoTasks = buildResultView(
+      {
+        ...RESULT,
+        questions: [
+          ...RESULT.questions,
+          question({ questionId: 3002, sectionId: 3, numberFrom: 1 }),
+        ],
+      },
+      CONTENT,
+    );
+    const speaking = buildResultView(
+      {
+        ...RESULT,
+        questions: [
+          question({ questionId: 3002, sectionId: 3, numberFrom: 1 }),
+          ...RESULT.questions,
+        ],
+      },
+      {
+        ...CONTENT,
+        testSections: [
+          CONTENT.testSections[0],
+          {
+            ...CONTENT.testSections[1],
+            testParts: [2, 1].map((order) => ({
+              ...CONTENT.testSections[1].testParts[0],
+              id: 30 + order,
+              order,
+              questionGroups: [
+                {
+                  id: 300 + order,
+                  order: 1,
+                  questionType: QuestionType.IELTS_WRITING_TASK_1,
+                  instruction: null,
+                  content: null,
+                  audio: null,
+                  image: null,
+                  passages: [],
+                  questions: [
+                    {
+                      id: order === 1 ? 3001 : 3002,
+                      numberFrom: 1,
+                      numberTo: 1,
+                      order: 1,
+                      prompt: null,
+                      content: null,
+                      audio: null,
+                      image: null,
+                    },
+                  ],
+                },
+              ],
+            })),
+          },
+        ],
+      },
+    );
+    expect(speaking.sections[2].items.map((i) => i.questionId)).toEqual([
+      3001, 3002,
+    ]);
+    expect(twoTasks.sections[2]).toMatchObject({
+      numbersRepeat: true,
+      teacherGraded: true,
+    });
+  });
 });
