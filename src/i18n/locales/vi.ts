@@ -91,6 +91,15 @@ const vi = {
     vi: 'Tiếng Việt',
     toggle: 'Chuyển ngôn ngữ',
   },
+  grading: {
+    toast: {
+      saveSuccess: 'Đã lưu điểm',
+      conflict:
+        'Người khác đã chấm phần này trước bạn. Điểm của họ hiển thị bên dưới; hãy xem lại rồi lưu lại.',
+      notGradable: 'Phần này không còn chấm được nữa.',
+      saveError: 'Không lưu được điểm',
+    },
+  },
   passages: {
     createTitle: 'Tạo Đoạn Văn',
     editTitle: 'Chỉnh sửa Đoạn Văn',

@@ -125,3 +125,11 @@ export enum TestType {
   PRACTICE_TEST = 'PRACTICE_TEST',
   FULL_TEST = 'FULL_TEST',
 }
+
+// Rejection body of the axios interceptor (ErrorResponseDto)
+export type ApiError = Partial<{
+  message: string | string[];
+  statusCode: number;
+  error: string;
+  code: string;
+}>;

@@ -61,4 +61,9 @@ export const REACT_QUERY_KEYS = {
     LIST: 'level.list',
     BY_ID: 'level.byId',
   },
+  GRADING: {
+    QUEUE: 'grading.queue',
+    SECTION: 'grading.section',
+    ASSESSMENTS: 'grading.assessments',
+  },
 };

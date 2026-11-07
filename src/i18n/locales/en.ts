@@ -90,6 +90,15 @@ const en = {
     vi: 'Vietnamese',
     toggle: 'Switch language',
   },
+  grading: {
+    toast: {
+      saveSuccess: 'Grade saved',
+      conflict:
+        'Someone else graded this section first. Their grade is shown below; review it and save again.',
+      notGradable: 'This section can no longer be graded.',
+      saveError: 'Could not save the grade',
+    },
+  },
   passages: {
     createTitle: 'Create Passage',
     editTitle: 'Edit Passage',
