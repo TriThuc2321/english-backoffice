@@ -115,11 +115,10 @@ test.describe('grading screen', () => {
     ).toHaveCount(1);
     const speaking = page.getByRole('group', { name: 'Speaking' });
     for (const label of SPEAKING_CRITERIA) {
-      await speaking.getByRole('button', { name: new RegExp(label) }).click();
-      await page
-        .getByRole('listbox', { name: label })
-        .getByRole('option', { name: '7', exact: true })
-        .click();
+      await speaking
+        .getByRole('radiogroup', { name: label })
+        .getByRole('radio', { name: '7', exact: true })
+        .check();
     }
     await expect(
       page.getByRole('status', { name: 'Estimated band' }),
@@ -157,11 +156,10 @@ test.describe('grading screen', () => {
 
     const speaking = page.getByRole('group', { name: 'Speaking' });
     for (const label of SPEAKING_CRITERIA) {
-      await speaking.getByRole('button', { name: new RegExp(label) }).click();
-      await page
-        .getByRole('listbox', { name: label })
-        .getByRole('option', { name: '6', exact: true })
-        .click();
+      await speaking
+        .getByRole('radiogroup', { name: label })
+        .getByRole('radio', { name: '6', exact: true })
+        .check();
     }
     await page.getByRole('button', { name: 'Save grade' }).click();
 
