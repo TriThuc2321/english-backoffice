@@ -12,6 +12,13 @@ import {
 } from '@/services/auth-token';
 
 const REFRESH_TOKEN_ENDPOINT = '/auth/refresh';
+// A 401 here is a wrong password or code, not an expired session.
+const NO_REFRESH_ENDPOINTS = new Set([
+  REFRESH_TOKEN_ENDPOINT,
+  '/auth/login',
+  '/auth/forgot-password',
+  '/auth/reset-password',
+]);
 
 type RetryableRequestConfig = InternalAxiosRequestConfig & {
   _retry?: boolean;
@@ -113,7 +120,7 @@ axiosInstance.interceptors.response.use(
       error.response?.status === 401 &&
       originalRequest &&
       !originalRequest._retry &&
-      originalRequest.url !== REFRESH_TOKEN_ENDPOINT;
+      !NO_REFRESH_ENDPOINTS.has(originalRequest.url ?? '');
 
     if (!shouldRefresh) {
       return Promise.reject(error.response?.data);

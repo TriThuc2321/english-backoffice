@@ -5,6 +5,8 @@ export const VALIDATION_MESSAGE = {
     'Password must contain at least 8 characters, including uppercase, lowercase, special letters and numbers',
   REQUIRED: 'This field is required',
   INVALID_EMAIL: 'Invalid email',
+  CODE_INVALID: 'Enter the 6-digit code',
+  PASSWORD_LENGTH: 'Password must be 8 to 72 characters',
   INVALID_PHONE: 'Invalid phone number',
   INVALID_URL: 'Invalid URL',
   MUST_BE_PAST_DATE: 'Date must be in the past',

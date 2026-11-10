@@ -7,3 +7,6 @@ export { default as useCreateEditQuestionGroupForm } from './useCreateEditQuesti
 export { default as useUploadMediaForm } from './useUploadMedia';
 export { default as useEditMediaForm } from './useEditMedia';
 export { default as useGradeSection } from './useGradeSection';
+export { default as useLoginForm } from './useLogin';
+export { default as useForgotPasswordForm } from './useForgotPassword';
+export { default as useResetPasswordForm } from './useResetPassword';

@@ -7,7 +7,10 @@ import {
 } from '@react-router/dev/routes';
 
 export default [
-  layout('./pages/auth/layout.tsx', [route('login', './pages/auth/login.tsx')]),
+  layout('./pages/auth/layout.tsx', [
+    route('login', './pages/auth/login.tsx'),
+    route('forgot-password', './pages/auth/forgot-password.tsx'),
+  ]),
 
   layout('./pages/main/layout.tsx', [
     index('./pages/main/home.tsx'),

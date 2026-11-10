@@ -70,16 +70,60 @@ const en = {
     email: 'Email',
     password: 'Password',
     forgotPassword: 'Forgot password?',
-    loginTitle: 'Sign in to your account',
     loginButton: 'Sign in',
-    welcomeBack: 'Welcome back',
-    welcomeSubtitle:
-      'Streamline your English classes with our comprehensive management platform',
     continueWithGoogle: 'Continue with Google',
-    loginFooter: 'Sign in to access My English management dashboard and tools',
+    tagline: 'Back office',
+    signInTitle: 'Sign in',
+    signInSubtitle: 'Manage tests, students and grading for MyEnglish.',
+    orWithEmail: 'or with email',
+    forgotTitle: 'Reset your password',
+    forgotSubtitle: "Enter your email and we'll send you a 6-digit code.",
+    resetTitle: 'Enter your code',
+    resetSubtitle:
+      'If an account exists for {{email}}, we sent a code to it. Use it to set a new password.',
+    sendCode: 'Send code',
+    resendCode: 'Resend code',
+    codeResent: 'A new code is on its way.',
+    code: 'Code',
+    newPassword: 'New password',
+    confirmPassword: 'Confirm new password',
+    resetButton: 'Set new password',
+    backToSignIn: 'Back to sign in',
+    useAnotherEmail: 'Use another email',
+    resetSuccess: {
+      title: 'Password updated',
+      description: 'Sign in with your new password.',
+    },
     errors: {
-      cms_access_denied: 'Your account does not have access to the dashboard.',
-      google_login_failed: 'Google sign-in failed. Please try again.',
+      cms_access_denied: {
+        title: 'No access',
+        description: 'Your account does not have access to the dashboard.',
+      },
+      google_login_failed: {
+        title: 'Google sign-in failed',
+        description: 'Try again, or sign in with your email.',
+      },
+      invalid_credentials: {
+        title: 'Sign-in failed',
+        description: 'The email or password is incorrect.',
+      },
+      email_not_verified: {
+        title: 'Email not verified',
+        description:
+          'Use "Forgot password?" to verify your email and set a password.',
+      },
+      invalid_code: {
+        title: 'Invalid code',
+        description: 'The code is wrong or has expired. Request a new one.',
+      },
+      too_many_requests: {
+        title: 'Too many attempts',
+        description: 'Wait a minute, then try again.',
+      },
+      unknown: {
+        title: 'Something went wrong',
+        description: 'Please try again.',
+      },
     },
   },
   theme: {
