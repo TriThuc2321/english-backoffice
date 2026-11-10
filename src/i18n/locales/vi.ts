@@ -70,17 +70,60 @@ const vi = {
     email: 'Email',
     password: 'Mật khẩu',
     forgotPassword: 'Quên mật khẩu?',
-    loginTitle: 'Đăng nhập vào tài khoản',
     loginButton: 'Đăng nhập',
-    welcomeBack: 'Chào mừng trở lại',
-    welcomeSubtitle:
-      'Quản lý lớp học tiếng Anh dễ dàng với nền tảng quản trị toàn diện của chúng tôi',
     continueWithGoogle: 'Tiếp tục với Google',
-    loginFooter: 'Đăng nhập để truy cập bảng điều khiển quản trị My English',
+    tagline: 'Trang quản trị',
+    signInTitle: 'Đăng nhập',
+    signInSubtitle: 'Quản lý đề thi, học viên và chấm bài cho MyEnglish.',
+    orWithEmail: 'hoặc dùng email',
+    forgotTitle: 'Đặt lại mật khẩu',
+    forgotSubtitle: 'Nhập email, chúng tôi sẽ gửi cho bạn mã gồm 6 chữ số.',
+    resetTitle: 'Nhập mã xác nhận',
+    resetSubtitle:
+      'Nếu {{email}} có tài khoản, chúng tôi đã gửi mã đến email đó. Dùng mã để đặt mật khẩu mới.',
+    sendCode: 'Gửi mã',
+    resendCode: 'Gửi lại mã',
+    codeResent: 'Mã mới đang được gửi đến bạn.',
+    code: 'Mã xác nhận',
+    newPassword: 'Mật khẩu mới',
+    confirmPassword: 'Xác nhận mật khẩu mới',
+    resetButton: 'Đặt mật khẩu mới',
+    backToSignIn: 'Quay lại đăng nhập',
+    useAnotherEmail: 'Dùng email khác',
+    resetSuccess: {
+      title: 'Đã cập nhật mật khẩu',
+      description: 'Hãy đăng nhập bằng mật khẩu mới.',
+    },
     errors: {
-      cms_access_denied:
-        'Tài khoản của bạn không có quyền truy cập trang quản trị.',
-      google_login_failed: 'Đăng nhập Google thất bại. Vui lòng thử lại.',
+      cms_access_denied: {
+        title: 'Không có quyền truy cập',
+        description:
+          'Tài khoản của bạn không có quyền truy cập trang quản trị.',
+      },
+      google_login_failed: {
+        title: 'Đăng nhập Google thất bại',
+        description: 'Vui lòng thử lại, hoặc đăng nhập bằng email.',
+      },
+      invalid_credentials: {
+        title: 'Đăng nhập thất bại',
+        description: 'Email hoặc mật khẩu không đúng.',
+      },
+      email_not_verified: {
+        title: 'Email chưa được xác minh',
+        description: 'Dùng "Quên mật khẩu?" để xác minh email và đặt mật khẩu.',
+      },
+      invalid_code: {
+        title: 'Mã không hợp lệ',
+        description: 'Mã sai hoặc đã hết hạn. Hãy yêu cầu mã mới.',
+      },
+      too_many_requests: {
+        title: 'Thử quá nhiều lần',
+        description: 'Vui lòng đợi một phút rồi thử lại.',
+      },
+      unknown: {
+        title: 'Đã xảy ra lỗi',
+        description: 'Vui lòng thử lại.',
+      },
     },
   },
   theme: {

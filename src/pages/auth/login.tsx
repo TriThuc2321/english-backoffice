@@ -1,73 +1,50 @@
-import {
-  Alert,
-  AlertContent,
-  AlertDescription,
-  AlertIndicator,
-  Button,
-} from '@heroui/react';
+import { Button, Separator } from '@heroui/react';
 import { useTranslation } from 'react-i18next';
 import { FaGoogle } from 'react-icons/fa';
 import { type MetaFunction, useSearchParams } from 'react-router';
 
-import { LogoIcon } from '@/assets/icons';
-import SwitchLocale from '@/components/layouts/switchLocale';
-import ThemeSwitch from '@/components/layouts/switchTheme';
+import { AuthAlert, AuthCard, EmailLoginForm } from '@/components/auth';
 import ENV from '@/configs/env.config';
-import { AUTH_CLIENT, isLoginError } from '@/constants/auth';
+import {
+  AUTH_CLIENT,
+  isLoginError,
+  RESET_SUCCESS_PARAM,
+} from '@/constants/auth';
 import { pageMeta } from '@/utils/metadata';
 
 export const meta: MetaFunction = () =>
   pageMeta(
     'Login',
-    'Sign in with Google to access the MyEnglish management dashboard and tools.',
+    'Sign in to access the MyEnglish management dashboard and tools.',
   );
 
 export default function LoginPage() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const error = searchParams.get('error');
+  const resetDone = searchParams.get(RESET_SUCCESS_PARAM) === 'success';
 
   const handleGoogleLogin = () => {
     window.location.href = `${ENV.API_URL}/api/auth/google?client=${AUTH_CLIENT}`;
   };
 
   return (
-    <div className="flex min-h-full flex-col items-center justify-center">
-      <div className="absolute top-4 right-4 flex items-center gap-1">
-        <SwitchLocale />
-        <ThemeSwitch />
-      </div>
+    <AuthCard title={t('auth.signInTitle')} subtitle={t('auth.signInSubtitle')}>
+      {isLoginError(error) && <AuthAlert i18nKey={`auth.errors.${error}`} />}
+      {resetDone && <AuthAlert status="success" i18nKey="auth.resetSuccess" />}
 
-      <div className="mb-8">
-        <LogoIcon className="h-8" />
-      </div>
-
-      <div className="mb-12 text-center">
-        <h1 className="text-foreground mb-2 text-3xl font-bold">
-          {t('auth.welcomeBack')}
-        </h1>
-        <p className="text-default-700 max-w-md text-lg">
-          {t('auth.welcomeSubtitle')}
-        </p>
-      </div>
-
-      {isLoginError(error) && (
-        <Alert status="danger" className="mb-6 w-full">
-          <AlertIndicator />
-          <AlertContent>
-            <AlertDescription>{t(`auth.errors.${error}`)}</AlertDescription>
-          </AlertContent>
-        </Alert>
-      )}
-
-      <Button size="lg" onClick={handleGoogleLogin} className="w-full">
-        <FaGoogle className="h-5 w-5 text-white" />
+      <Button variant="outline" size="lg" fullWidth onPress={handleGoogleLogin}>
+        <FaGoogle className="size-4" />
         {t('auth.continueWithGoogle')}
       </Button>
 
-      <p className="text-default-600 mt-4 text-center text-sm">
-        {t('auth.loginFooter')}
-      </p>
-    </div>
+      <div className="text-muted flex items-center gap-3 text-xs">
+        <Separator className="flex-1" />
+        {t('auth.orWithEmail')}
+        <Separator className="flex-1" />
+      </div>
+
+      <EmailLoginForm />
+    </AuthCard>
   );
 }
