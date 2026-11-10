@@ -11,6 +11,7 @@ import { getAuthErrorKey } from '@/utils/authError';
 import AuthAlert from './AuthAlert';
 import AuthCard from './AuthCard';
 import AuthField from './AuthField';
+import AuthOtpField from './AuthOtpField';
 
 export default function ForgotPasswordFlow() {
   const { t } = useTranslation();
@@ -112,11 +113,9 @@ export default function ForgotPasswordFlow() {
             {t('auth.codeResent')}
           </p>
         )}
-        <AuthField
+        <AuthOtpField
           control={resetForm.control}
           name="code"
-          autoComplete="one-time-code"
-          inputMode="numeric"
           label={t('auth.code')}
           labelAside={
             <Link

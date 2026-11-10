@@ -10,3 +10,6 @@ afterEach(() => {
   cleanup();
 });
 afterAll(() => server.close());
+
+// jsdom lacks elementFromPoint, which input-otp calls on a timer.
+document.elementFromPoint ??= () => null;
